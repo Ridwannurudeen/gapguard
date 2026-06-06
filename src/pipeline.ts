@@ -6,6 +6,7 @@ import {
   type RiskConfig,
 } from "./riskGovernor";
 import { GlassBox, type DecisionRecord } from "./glassbox";
+import { estimateProxyReturn, type ProxySignal } from "./proxyReturn";
 
 /** One observation of a tokenized stock at a point in time. */
 export interface MarketTick {
@@ -16,8 +17,10 @@ export interface MarketTick {
   tokenPrice: number;
   /** Fair-value anchor — the last underlying close. */
   referencePrice: number;
-  /** Optional off-hours proxy return (futures/sector ETFs). */
+  /** Optional off-hours proxy return (futures/sector ETFs). Used when `proxySignals` is absent. */
   proxyReturn?: number;
+  /** Optional 24/7 signals; when present, their blend overrides `proxyReturn`. */
+  proxySignals?: ProxySignal[];
   /** Recent return volatility (decimal). */
   volatility: number;
 }
@@ -41,10 +44,13 @@ export function decide(
   cfg: RiskConfig = DEFAULT_RISK_CONFIG,
 ): DecisionRecord {
   const session = classifySession(new Date(tick.ts));
+  const proxyReturn = tick.proxySignals
+    ? estimateProxyReturn(tick.proxySignals).proxyReturn
+    : tick.proxyReturn;
   const dislocation = estimateDislocation({
     tokenPrice: tick.tokenPrice,
     referencePrice: tick.referencePrice,
-    proxyReturn: tick.proxyReturn,
+    proxyReturn,
     volatility: tick.volatility,
   });
   const risk = governRisk(
