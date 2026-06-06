@@ -36,4 +36,20 @@ describe("decide (full pipeline)", () => {
     expect(rec.risk.action).toBe("flatten");
     expect(rec.risk.targetNotional).toBe(0);
   });
+
+  it("uses proxy signals to lift fair value, so a 'rich' raw gap reads as fair", () => {
+    const gb = new GlassBox();
+    const tick: MarketTick = {
+      ts: "2026-06-07T18:00:00Z", // Sunday — market closed
+      symbol: "TSLAx",
+      tokenPrice: 103,
+      referencePrice: 100, // raw gap = +3% (would look rich)
+      proxySignals: [{ name: "NQ", return: 0.03, beta: 1, weight: 1 }], // underlying implied +3%
+      volatility: 0.015,
+    };
+    const rec = decide(tick, flat, gb);
+    expect(rec.dislocation.fairValue).toBeCloseTo(103, 6);
+    expect(rec.dislocation.direction).toBe("fair");
+    expect(rec.risk.action).toBe("hold");
+  });
 });
