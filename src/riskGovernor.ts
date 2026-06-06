@@ -30,6 +30,8 @@ export interface RiskConfig {
   drawdownHaltPct: number;
   /** Realize convergence by flattening once the underlying reopens. */
   forceFlatBeforeOpen: boolean;
+  /** Ignore rebalances smaller than this fraction of equity (avoids churn on noise). */
+  rebalanceBandPct: number;
 }
 
 export interface RiskDecision {
@@ -46,14 +48,24 @@ export const DEFAULT_RISK_CONFIG: RiskConfig = {
   riskPerTradePct: 0.01,
   drawdownHaltPct: 0.1,
   forceFlatBeforeOpen: true,
+  rebalanceBandPct: 0.02,
 };
 
-function decideAction(current: number, target: number): RiskDecision["action"] {
+function decideAction(
+  current: number,
+  target: number,
+  minDelta: number,
+): RiskDecision["action"] {
   if (target === 0) return current === 0 ? "hold" : "flatten";
   if (current === 0) return target > 0 ? "enter_long" : "enter_short";
   if (Math.sign(target) !== Math.sign(current))
     return target > 0 ? "enter_long" : "enter_short";
-  return Math.abs(target) < Math.abs(current) ? "reduce" : "hold";
+  if (Math.abs(target - current) < minDelta) return "hold";
+  return Math.abs(target) > Math.abs(current)
+    ? target > 0
+      ? "enter_long"
+      : "enter_short"
+    : "reduce";
 }
 
 const pct = (x: number): string => `${(x * 100).toFixed(1)}%`;
@@ -114,12 +126,19 @@ export function governRisk(
     (inp.equity * cfg.riskPerTradePct * inp.confidence) / vol,
     cap,
   );
-  const target = (inp.direction === "rich" ? -1 : 1) * size;
+  const desired = (inp.direction === "rich" ? -1 : 1) * size;
+  const action = decideAction(
+    inp.currentExposure,
+    desired,
+    cfg.rebalanceBandPct * inp.equity,
+  );
+  // A banded "hold" keeps the existing position rather than nudging to the desired size.
+  const target = action === "hold" ? inp.currentExposure : desired;
   const window = inp.underlyingOpen ? "regular" : "off-hours";
   const side = inp.direction === "rich" ? "Short" : "Long";
 
   return {
-    action: decideAction(inp.currentExposure, target),
+    action,
     targetNotional: target,
     reason: `${side} convergence — conf ${pct(inp.confidence)}, size ${size.toFixed(2)} (cap ${cap.toFixed(2)}, ${window})`,
   };

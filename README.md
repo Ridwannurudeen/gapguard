@@ -35,9 +35,15 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 
 ```bash
 npm install
-npm test        # vitest — 16 tests
+npm test         # vitest — 20 tests
 npm run typecheck
+npm run demo     # replay a synthetic weekend-gap scenario end-to-end
 ```
+
+`npm run demo` runs the full loop (clock → dislocation → risk governor → glass-box) over a
+synthetic TSLAx weekend: the token drifts rich while the market is closed, GapGuard shorts the
+convergence under the off-hours cap, then flattens at the Monday reopen as price snaps back.
+It prints a decision table and writes the audit trail to `glassbox-demo.jsonl`.
 
 ## Open step 1 (the gate)
 
