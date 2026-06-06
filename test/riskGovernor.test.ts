@@ -47,6 +47,18 @@ describe("governRisk", () => {
     expect(d.targetNotional).toBe(0);
   });
 
+  it("adds to a same-side short when the target grows beyond the rebalance band", () => {
+    const d = governRisk({ ...base, currentExposure: -1111 });
+    expect(d.action).toBe("enter_short");
+    expect(d.targetNotional).toBe(-2000);
+  });
+
+  it("holds within the rebalance band and keeps the current position", () => {
+    const d = governRisk({ ...base, currentExposure: -1999 });
+    expect(d.action).toBe("hold");
+    expect(d.targetNotional).toBe(-1999);
+  });
+
   it("holds flat when the gap is within the deadband", () => {
     const d = governRisk({ ...base, direction: "fair" });
     expect(d.action).toBe("hold");
