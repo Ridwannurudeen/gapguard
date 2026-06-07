@@ -24,7 +24,8 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 | `src/proxyReturn.ts` | Blends 24/7 signals (futures/sector-ETF tokens) into an implied underlying return that lifts fair value during off-hours. | ✅ built + tested |
 | `src/riskGovernor.ts` | The differentiator: sizes by confidence/vol under a tighter off-hours cap, realizes into the reopen, halts on drawdown. | ✅ built + tested |
 | `src/glassbox.ts` | Append-only JSONL audit trail = the rubric's "verifiable usage record". | ✅ built |
-| Perception layer | Agent Hub Skills (`macro-analyst`, `sentiment-analyst`, `news-briefing`, `technical-analysis`) feeding the dislocation proxy. | ⏳ needs Bitget API key |
+| `src/convergenceGate.ts` + `src/qwen.ts` | LLM gate (Qwen): classifies an off-hours gap as fadeable noise vs justified repricing, so the agent never fades real overnight news. | ✅ built + tested |
+| Perception layer | Agent Hub Skills (`macro-analyst`, `sentiment-analyst`, `news-briefing`, `technical-analysis`) feeding the dislocation proxy + gate news context. | ⏳ needs Bitget API key |
 | Backtest/execute | Bitget Playbook via `@bitget-ai/getagent-skill` → PnL / drawdown / Sharpe. | ⏳ needs Playbook API key (Telegram admin) |
 
 ## Tooling (verified)
@@ -36,9 +37,12 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 
 ```bash
 npm install
-npm test         # vitest — 20 tests
+npm test         # vitest — 31 tests
 npm run typecheck
 npm run demo     # replay a synthetic weekend-gap scenario end-to-end
+
+# LLM convergence gate (Qwen). Needs the Bitget hackathon Qwen subsidy key:
+BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
 ```
 
 `npm run demo` runs the full loop (clock → dislocation → risk governor → glass-box) over a
