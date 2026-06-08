@@ -5,7 +5,7 @@ import {
   DEFAULT_RISK_CONFIG,
   type RiskConfig,
 } from "./riskGovernor";
-import { GlassBox, type DecisionRecord } from "./glassbox";
+import { GlassBox, type DecisionRecord, type GateApplied } from "./glassbox";
 import { estimateProxyReturn, type ProxySignal } from "./proxyReturn";
 
 /** One observation of a tokenized stock at a point in time. */
@@ -42,6 +42,7 @@ export function decide(
   portfolio: Portfolio,
   glassbox: GlassBox,
   cfg: RiskConfig = DEFAULT_RISK_CONFIG,
+  gate?: GateApplied,
 ): DecisionRecord {
   const session = classifySession(new Date(tick.ts));
   const proxyReturn = tick.proxySignals
@@ -53,10 +54,12 @@ export function decide(
     proxyReturn,
     volatility: tick.volatility,
   });
+  // The LLM gate scales conviction; a non-fadeable verdict (multiplier 0) vetoes the trade.
+  const gatedConfidence = dislocation.confidence * (gate?.multiplier ?? 1);
   const risk = governRisk(
     {
       direction: dislocation.direction,
-      confidence: dislocation.confidence,
+      confidence: gatedConfidence,
       volatility: tick.volatility,
       session: session.session,
       underlyingOpen: session.underlyingOpen,
@@ -72,5 +75,6 @@ export function decide(
     session,
     dislocation,
     risk,
+    ...(gate ? { gate } : {}),
   });
 }
