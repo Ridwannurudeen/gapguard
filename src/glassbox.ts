@@ -3,6 +3,12 @@ import type { SessionState } from "./types";
 import type { DislocationResult } from "./dislocation";
 import type { RiskDecision } from "./riskGovernor";
 
+/** Optional LLM convergence-gate input applied to this decision. */
+export interface GateApplied {
+  multiplier: number;
+  rationale?: string;
+}
+
 /** One auditable decision: market state in, thesis and risk call out. */
 export interface DecisionRecord {
   /** Decision timestamp as a UTC ISO string (supplied by the caller / market data). */
@@ -11,6 +17,8 @@ export interface DecisionRecord {
   session: SessionState;
   dislocation: DislocationResult;
   risk: RiskDecision;
+  /** Present when an LLM gate scaled the dislocation confidence. */
+  gate?: GateApplied;
 }
 
 export function formatRecord(r: DecisionRecord): string {
