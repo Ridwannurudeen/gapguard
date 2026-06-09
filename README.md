@@ -26,7 +26,7 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 | `src/glassbox.ts` | Append-only JSONL audit trail = the rubric's "verifiable usage record". | ✅ built |
 | `src/convergenceGate.ts` + `src/qwen.ts` | LLM gate (Qwen): classifies an off-hours gap as fadeable noise vs justified repricing, so the agent never fades real overnight news. | ✅ built + tested |
 | Perception layer | Agent Hub Skills (`macro-analyst`, `sentiment-analyst`, `news-briefing`, `technical-analysis`) feeding the dislocation proxy + gate news context. | ⏳ needs Bitget API key |
-| Backtest/execute | Bitget Playbook via `@bitget-ai/getagent-skill` → PnL / drawdown / Sharpe. | ⏳ needs Playbook API key (Telegram admin) |
+| `playbook/` | Bitget Playbook package (Python/Nautilus): overnight-gap reversion on US-equity daily bars → PnL / drawdown / Sharpe. | ✅ authored + validation PASSED · ⏳ cloud run blocked on key↔UID binding |
 
 ## Tooling (verified)
 
