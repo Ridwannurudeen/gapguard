@@ -1,0 +1,87 @@
+name: gapguard-overnight-gap-reversion
+display_name: "GapGuard Overnight Gap Reversion"
+description: "Fades outsized overnight gaps in a US equity, expecting partial reversion"
+version: "0.1.0"
+long_description: |
+  GapGuard Overnight Gap Reversion is a mean-reversion strategy on a single US
+  equity. Its thesis is that when a stock opens sharply away from the prior
+  session close, a meaningful part of that opening dislocation tends to be noise
+  rather than durable repricing, and price often drifts back toward the prior
+  level once regular trading resumes and liquidity returns. The strategy aims to
+  capture that partial snap-back rather than predict direction over long
+  horizons. It treats the overnight gap, the move between one session close and
+  the next session open, as the core signal and fades it.
+
+  The strategy enters against the gap. When the equity opens sharply higher than
+  the previous close, it reads the move as stretched and opens a short; when the
+  equity opens sharply lower, it opens a long. It only acts when the opening
+  dislocation is large enough to stand out from ordinary movement, and otherwise
+  stays flat and waits, accepting that most sessions produce no trade at all.
+
+  The strategy exits by time. Once a position is open, it closes after a short,
+  fixed holding window, taking whatever reversion has occurred rather than
+  waiting for a perfect round trip. There is no separate take profit or stop
+  loss in this version; the holding window is both the exit and the risk-control
+  mechanism, which keeps exposure brief and predictable.
+
+  Subscribers can tune several parameters. Raising the gap sensitivity makes the
+  strategy more selective, trading less often but only on the most extreme
+  opens; lowering it trades more frequently on smaller dislocations. Extending
+  the holding window gives reversion more room to play out but increases
+  exposure to fresh news; shortening it locks in faster. Margin budget sets the
+  capital the platform sizes against and uses as the denominator for return, so
+  treat it as the most you are willing to risk here.
+
+  The main risk is that a gap reflects real, justified repricing, an earnings
+  surprise or major news, in which case price keeps moving and the faded
+  position loses. The strategy underperforms in strong trends and around
+  scheduled catalysts, and can string together losses when gaps persist. Past
+  backtest performance does not guarantee live results.
+market_type: spot
+trading_symbols: ["TSLA"]
+tags: ["mean-reversion", "equity", "gap", "us-stock"]
+
+decision_mode: deterministic
+backtest_support: full
+runtime_profile: deterministic
+execution_mode: signal_only
+follow_trade_supported: false
+
+strategy_config:
+  trading_symbols: ["TSLA"]
+  gap_threshold_pct: 0.02
+  hold_bars: 1
+  trade_size: "10"
+  margin_budget: "1000"
+
+user_config_schema:
+  trading_symbols:
+    type: array
+    item_type: string
+    default: ["TSLA"]
+    options: ["TSLA", "AAPL", "NVDA", "MSFT", "AMZN"]
+    min_items: 1
+    max_items: 1
+    label: "Trading symbol"
+  gap_threshold_pct:
+    type: number
+    default: 0.02
+    min: 0.005
+    max: 0.1
+    label: "Gap threshold (fraction)"
+  hold_bars:
+    type: integer
+    default: 1
+    min: 1
+    max: 10
+    label: "Holding days"
+  trade_size:
+    type: string
+    default: "10"
+    pattern: "^[0-9]+(\\.[0-9]+)?$"
+    label: "Shares per trade"
+  margin_budget:
+    type: string
+    default: "1000"
+    pattern: "^[0-9]+(\\.[0-9]+)?$"
+    label: "Margin budget USD"
