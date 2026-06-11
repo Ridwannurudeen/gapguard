@@ -45,9 +45,13 @@ export function decide(
   gate?: GateApplied,
 ): DecisionRecord {
   const session = classifySession(new Date(tick.ts));
-  const proxyReturn = tick.proxySignals
-    ? estimateProxyReturn(tick.proxySignals).proxyReturn
-    : tick.proxyReturn;
+  let proxyReturn = tick.proxyReturn;
+  if (tick.proxySignals) {
+    const est = estimateProxyReturn(tick.proxySignals);
+    // Dampen the blend by its confidence: an untrusted or scattered proxy shrinks fair value
+    // back toward the anchor (the last real close) instead of swinging it at full strength.
+    proxyReturn = est.proxyReturn * est.confidence;
+  }
   const dislocation = estimateDislocation({
     tokenPrice: tick.tokenPrice,
     referencePrice: tick.referencePrice,

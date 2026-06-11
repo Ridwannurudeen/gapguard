@@ -1,14 +1,17 @@
 # GapGuard
 
-A tokenization gap-risk trading agent for the **Bitget AI Base Camp Hackathon S1 — Track 3 (US Stock AI Trading)**.
+A **gap-risk control tower for tokenized U.S. stocks** — built for the **Bitget AI Base Camp
+Hackathon S1 — Track 3 (US Stock AI Trading)**. It watches session mismatch, estimates fair
+value, asks an LLM whether a move is real news or noise, and produces a risk-governed
+**hedge / reduce / trade / stand-down** decision with an auditable record.
 
 ## The problem (unique to tokenization)
 
 Tokenized US stocks (xStocks) trade **24/7**, but the underlying US market is open only
 ~6.5h per weekday. Overnight, on weekends, and on holidays the token has **no underlying
 price discovery** — it drifts on crypto-market liquidity and sentiment, then **snaps toward
-fair value at the next US open**. GapGuard perceives that dislocation, trades the convergence
-(and/or hedges gap risk on held positions) under a hard risk governor, and logs every
+fair value at the next US open**. GapGuard perceives that dislocation, decides whether to
+fade it, reduce exposure, hedge, or stand down — under a hard risk governor — and logs every
 decision as a glass-box audit trail.
 
 This maps directly to the three Track-3 scoring criteria: a real problem in the tokenization
@@ -25,8 +28,8 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 | `src/riskGovernor.ts` | The differentiator: sizes by confidence/vol under a tighter off-hours cap, realizes into the reopen, halts on drawdown. | ✅ built + tested |
 | `src/glassbox.ts` | Append-only JSONL audit trail = the rubric's "verifiable usage record". | ✅ built |
 | `src/convergenceGate.ts` + `src/qwen.ts` | LLM gate (Qwen): classifies an off-hours gap as fadeable noise vs justified repricing, so the agent never fades real overnight news. | ✅ built + tested |
-| Perception layer | Agent Hub Skills (`macro-analyst`, `sentiment-analyst`, `news-briefing`, `technical-analysis`) feeding the dislocation proxy + gate news context. | ⏳ needs Bitget API key |
-| `playbook/` | Bitget Playbook package (Python/Nautilus): overnight-gap reversion on US-equity daily bars → PnL / drawdown / Sharpe. | ✅ authored + validation PASSED · ⏳ cloud run blocked on key↔UID binding |
+| Perception layer | Current perception = the `proxyReturn` blend + Qwen convergence gate. Designed to also consume Agent Hub macro/news Skills (`macro-analyst`, `news-briefing`, …) as gate context. | ✅ proxy + gate live · ⏳ Agent Hub context not yet wired |
+| `playbook/` | Bitget Playbook package (Python/Nautilus): overnight-gap reversion on US-equity daily bars → PnL / drawdown / Sharpe. | ✅ uploaded + run; real TSLA metrics logged (Sharpe 1.96 / 75% win / 40 trades / PF 3.48) |
 
 ## Tooling (verified)
 
@@ -37,7 +40,7 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 
 ```bash
 npm install
-npm test         # vitest — 31 tests
+npm test         # vitest — 34 tests
 npm run typecheck
 npm run demo     # replay a synthetic weekend-gap scenario end-to-end
 
@@ -46,13 +49,7 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
 ```
 
 `npm run demo` runs the full loop (clock → dislocation → risk governor → glass-box) over a
-synthetic TSLAx weekend: the token drifts rich while the market is closed, GapGuard shorts the
-convergence under the off-hours cap, then flattens at the Monday reopen as price snaps back.
-It prints a decision table and writes the audit trail to `glassbox-demo.jsonl`.
-
-## Open step 1 (the gate)
-
-Get the **Playbook API key** from the hackathon Telegram admin, then probe whether historical
-tokenized-stock data covers off-hours at usable resolution.
-- **Green** → wire the perception layer + Playbook backtest into the modules above.
-- **Red** → re-point the same engine to the macro-regime panel fallback (no rework).
+synthetic TSLAx weekend: the token drifts rich while the market is closed, GapGuard fades the
+convergence (here, a short under the off-hours cap), then flattens at the Monday reopen as price
+snaps back. It charges a per-rebalance fee + slippage cost, prints a decision table, and writes
+the audit trail to `glassbox-demo.jsonl`.
