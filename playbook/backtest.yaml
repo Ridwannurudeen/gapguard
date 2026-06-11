@@ -30,3 +30,7 @@ instrument:
   maker_fee: "0.0002"
   taker_fee: "0.0005"
   bar_type: TSLA.NASDAQ-1-DAY-LAST-EXTERNAL
+
+execution:
+  start: "2024-01-01"
+  end: "2025-12-31"
