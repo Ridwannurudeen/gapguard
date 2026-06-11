@@ -53,13 +53,53 @@ describe("decide (full pipeline)", () => {
       symbol: "TSLAx",
       tokenPrice: 103,
       referencePrice: 100, // raw gap = +3% (would look rich)
-      proxySignals: [{ name: "NQ", return: 0.03, beta: 1, weight: 1 }], // underlying implied +3%
+      // Two fully-trusted, agreeing signals → confidence 1, so the +3% blend lifts fair value fully.
+      proxySignals: [
+        { name: "NQ", return: 0.03, beta: 1, weight: 1 },
+        { name: "ES", return: 0.03, beta: 1, weight: 1 },
+      ],
       volatility: 0.015,
     };
     const rec = decide(tick, flat, gb);
     expect(rec.dislocation.fairValue).toBeCloseTo(103, 6);
     expect(rec.dislocation.direction).toBe("fair");
     expect(rec.risk.action).toBe("hold");
+  });
+
+  it("dampens fair value by proxy confidence: a weak blend moves it less than a trusted one", () => {
+    const gb = new GlassBox();
+    const base = {
+      ts: "2026-06-07T18:00:00Z", // Sunday — market closed
+      symbol: "TSLAx",
+      tokenPrice: 103,
+      referencePrice: 100,
+      volatility: 0.015,
+    } as const;
+    // Same raw blended proxyReturn (+3%), different confidence via coverage (total weight 1 vs 2).
+    const weak = decide(
+      {
+        ...base,
+        proxySignals: [{ name: "NQ", return: 0.03, beta: 1, weight: 1 }],
+      },
+      flat,
+      gb,
+    );
+    const trusted = decide(
+      {
+        ...base,
+        proxySignals: [
+          { name: "NQ", return: 0.03, beta: 1, weight: 1 },
+          { name: "ES", return: 0.03, beta: 1, weight: 1 },
+        ],
+      },
+      flat,
+      gb,
+    );
+    expect(weak.dislocation.fairValue).toBeLessThan(
+      trusted.dislocation.fairValue,
+    );
+    expect(trusted.dislocation.fairValue).toBeCloseTo(103, 6); // confidence 1 → full lift
+    expect(weak.dislocation.fairValue).toBeCloseTo(101.5, 6); // confidence 0.5 → half lift
   });
 
   it("a non-fadeable gate (multiplier 0) vetoes the trade and is recorded", () => {

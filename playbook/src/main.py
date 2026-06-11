@@ -9,6 +9,8 @@ from typing import Any
 
 from getagent import backtest, data, runtime
 
+DATA_PROVIDER = {"provider": "fmp"}
+
 
 def _sanitize(value: Any) -> Any:
     if isinstance(value, float) and not math.isfinite(value):
@@ -21,7 +23,9 @@ def run() -> None:
     symbols = cfg.get("trading_symbols") or ["TSLA"]
     symbol = symbols[0]
 
-    bars = data.equity.price.historical(symbol=symbol, interval="daily", provider="fmp")
+    bars = data.equity.price.historical(
+        symbol=symbol, interval="daily", **DATA_PROVIDER
+    )
     replay_frame = backtest.prepare_frame(bars, datetime_index="date")
 
     if replay_frame.empty:
@@ -41,10 +45,17 @@ def run() -> None:
     )
 
     chart_path = backtest.generate_chart(result)
+    summary = result.summary or {}
+    try:
+        net_pnl = float(summary.get("net_pnl", 0) or 0)
+    except (TypeError, ValueError):
+        net_pnl = 0.0
     metrics = {
         key: _sanitize(val)
         for key, val in {
             "total_return_pct": result.total_return_pct,
+            "net_pnl": net_pnl,
+            "starting_balance": summary.get("starting_balance"),
             "sharpe_ratio": result.sharpe_ratio,
             "max_drawdown_pct": result.max_drawdown_pct,
             "win_rate": result.win_rate,
