@@ -62,7 +62,7 @@ Verify after every code change: `npm test && npm run typecheck && npm run demo`.
     risk action · live JSONL feed. Drives the `decide()` loop over the replay scenario.
   - Decide: lightweight static HTML reading `glassbox-demo.jsonl`, vs a small Vite/React app.
 
-- [ ] **7. Tamper-evident glass-box** (`src/glassbox.ts`)
+- [x] **7. Tamper-evident glass-box** ✅ DONE (2026-06-11) (`src/glassbox.ts`)
   - `DecisionRecord` is appended verbatim (`formatRecord = JSON.stringify`, append-only).
   - Add `prevHash` + `recordHash` (sha256 over canonical record + prevHash) in `GlassBox.record()`
     via `node:crypto`; expose a `verifyChain()`. Stamp repo commit + run timestamp in a header line.

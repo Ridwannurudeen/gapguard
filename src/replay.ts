@@ -1,4 +1,5 @@
 import { writeFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { GlassBox, formatRecord } from "./glassbox";
 import { decide, type MarketTick } from "./pipeline";
 
@@ -107,9 +108,22 @@ console.log("-".repeat(89));
 console.log(
   `Final equity: ${equity.toFixed(2)}  |  Return: ${ret >= 0 ? "+" : ""}${ret.toFixed(2)}%  |  Costs paid: ${totalCosts.toFixed(2)}  |  Decisions logged: ${gb.all().length}`,
 );
+console.log(
+  `Glass-box chain: ${gb.verifyChain() ? "verified ✓" : "TAMPERED ✗"}  (sha256-linked, ${gb.all().length} records)`,
+);
 
+// Bind the audit trail to the code that produced it: a header line stamps the repo commit and
+// run time, then each decision follows as a hash-chained JSONL record.
+const commit = execSync("git rev-parse --short HEAD").toString().trim();
+const header = JSON.stringify({
+  _meta: {
+    commit,
+    generatedAt: new Date().toISOString(),
+    records: gb.all().length,
+  },
+});
 writeFileSync(
   "glassbox-demo.jsonl",
-  gb.all().map(formatRecord).join("\n") + "\n",
+  header + "\n" + gb.all().map(formatRecord).join("\n") + "\n",
 );
 console.log("Glass-box audit trail → glassbox-demo.jsonl");
