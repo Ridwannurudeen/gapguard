@@ -24,7 +24,7 @@ Verification: the reversion core is backtested in Bitget Playbook on real TSLA d
 | 0:20–0:50 | Chart: token drifts up over the weekend, snaps down at Monday open | "With no underlying price discovery, the token drifts on crypto sentiment overnight — then snaps to fair value at the open. That's GapGuard's edge." |
 | 0:50–1:40 | Terminal running `npm run demo`, decision table filling in | "GapGuard perceives the session, estimates fair value from 24/7 proxy signals and a Qwen convergence gate, measures the dislocation in volatility units, and fades the convergence — under a risk governor that caps off-hours size, charges fees and slippage, and flattens at the reopen." |
 | 1:40–2:20 | Bitget Playbook run: TSLA backtest metrics on screen | "The reversion core is backtested in Bitget Playbook on real TSLA bars — Sharpe 1.96, 75% win rate over 40 trades, profit factor 3.48." |
-| 2:20–2:50 | `glassbox-demo.jsonl` scrolling | "Every decision is a glass box — inputs, thesis, and risk call, logged and auditable. Not a black box." |
+| 2:20–2:50 | `glassbox-demo.jsonl` scrolling, `chain verified ✓` on screen | "Every decision is a glass box — inputs, thesis, and risk call, logged in a sha256 hash chain. Alter any past record and verification fails. Not a black box, and tamper-evident." |
 | 2:50–3:00 | GapGuard logo + tagline | "GapGuard. Trading the gap that tokenization opened." |
 
 ---
@@ -34,7 +34,7 @@ Verification: the reversion core is backtested in Bitget Playbook on real TSLA d
 | Criterion | How GapGuard meets it | Status |
 | --- | --- | --- |
 | Real problem in the US-stock tokenization scenario | 24/7-token vs ~6.5h-market gap risk — exists *only* because the asset is tokenized | ✅ built |
-| Verifiable backtesting or simulated trading records | `glassbox-demo.jsonl` (simulated trading log via `npm run demo`) + real TSLA Playbook backtest logged in GetAgent cloud | ✅ both |
+| Verifiable backtesting or simulated trading records | `glassbox-demo.jsonl` — a **tamper-evident** sha256 hash-chained simulated trading log (`npm run demo`, `verifyChain()`) + real TSLA Playbook backtest logged in GetAgent cloud | ✅ both |
 | Uses Bitget US-stock data/tools | Bitget Playbook — package uploaded, backtest run on real TSLA daily bars (Sharpe 1.96 / 75% win / 40 trades / PF 3.48) | ✅ proven |
 | Basic gate: real, workable demo; whose problem; verifiable usage record | Runnable `npm run demo`; problem = tokenized-stock holders/market-makers; record = JSONL log | ✅ met |
 
