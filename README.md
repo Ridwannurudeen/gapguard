@@ -54,3 +54,20 @@ convergence (here, a short under the off-hours cap), then flattens at the Monday
 snaps back. It charges a per-rebalance fee + slippage cost, prints a decision table, verifies the
 glass-box hash chain, and writes the tamper-evident audit trail to `glassbox-demo.jsonl` (a header
 line stamps the repo commit + run time, then one hash-chained JSONL record per decision).
+
+## Cockpit
+
+`cockpit/index.html` is a zero-dependency control-tower view of a `glassbox-demo.jsonl` run:
+session badge, token vs fair value, gap z-score, gate verdict, and risk action per decision. It
+**re-verifies the sha256 hash chain in the browser** (SubtleCrypto) — a "Simulate tampering"
+toggle flips a value live so you can watch the **CHAIN VERIFIED** badge turn red.
+
+```bash
+npm run demo                 # produces glassbox-demo.jsonl
+# then either:
+open cockpit/index.html      # and drag the .jsonl onto the page (works from file://)
+# or serve the repo root and visit /cockpit/ to auto-load it:
+python -m http.server 8080   # → http://localhost:8080/cockpit/
+```
+
+![GapGuard cockpit — chain verified](cockpit/preview-verified.png)

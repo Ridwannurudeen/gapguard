@@ -57,7 +57,7 @@ Verify after every code change: `npm test && npm run typecheck && npm run demo`.
 
 ## Tier 2 — bigger builds (decide before starting)
 
-- [ ] **6. Judge dashboard / cockpit** *(highest demo-score leverage; net-new build)*
+- [x] **6. Judge dashboard / cockpit** ✅ DONE (2026-06-12) *(highest demo-score leverage; net-new build)*
   - One view: session badge · token price · fair value · gap (z-score) · Qwen verdict ·
     risk action · live JSONL feed. Drives the `decide()` loop over the replay scenario.
   - Decide: lightweight static HTML reading `glassbox-demo.jsonl`, vs a small Vite/React app.
