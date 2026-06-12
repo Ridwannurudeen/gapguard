@@ -8,7 +8,8 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "demo": "tsx src/replay.ts",
-    "gate-demo": "tsx src/gate-demo.ts"
+    "gate-demo": "tsx src/gate-demo.ts",
+    "hedge-demo": "tsx src/hedge-demo.ts"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",

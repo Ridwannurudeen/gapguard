@@ -26,6 +26,7 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 | `src/dislocation.ts` | Estimates token vs fair-value gap in volatility units → `rich`/`cheap`/`fair` + confidence. | ✅ built + tested |
 | `src/proxyReturn.ts` | Blends 24/7 signals (futures/sector-ETF tokens) into an implied underlying return that lifts fair value during off-hours. | ✅ built + tested |
 | `src/riskGovernor.ts` | The differentiator: sizes by confidence/vol under a tighter off-hours cap, realizes into the reopen, halts on drawdown. | ✅ built + tested |
+| `src/instruments.ts` + `src/hedgeRouter.ts` | Maps a decision to Bitget's real instruments: an xStock (`TSLAx`) is spot-only on Onchain, so a short routes to the matching USDT-M stock perp (`TSLAUSDT`); flags the off-hours perp-open caveat. | ✅ built + tested |
 | `src/glassbox.ts` | Append-only JSONL audit trail, **sha256 hash-chained** (`prevHash`/`recordHash` + `verifyChain()`) so altering any past decision is detectable = the rubric's tamper-evident "verifiable usage record". | ✅ built + tested |
 | `src/convergenceGate.ts` + `src/qwen.ts` | LLM gate (Qwen): classifies an off-hours gap as fadeable noise vs justified repricing, so the agent never fades real overnight news. | ✅ built + tested |
 | Perception layer | Current perception = the `proxyReturn` blend + Qwen convergence gate. Designed to also consume Agent Hub macro/news Skills (`macro-analyst`, `news-briefing`, …) as gate context. | ✅ proxy + gate live · ⏳ Agent Hub context not yet wired |
@@ -35,6 +36,7 @@ scenario, verifiable backtest/sim records, and use of Bitget's US-stock data/too
 
 - **Agent Hub** (`bgc` CLI + `bitget-mcp-server`) — crypto-only market data + 5 analysis Skills. Perception brain.
 - **Bitget Playbook** (`@bitget-ai/getagent-skill@0.2.1`) — US-stock quant backtest/deploy engine, driven from Claude Code.
+- **Bitget instrument surface** — tokenized xStocks (`TSLAx`, …) are spot-only on Bitget Onchain/Wallet (long-or-flat); individual-stock USDT-M perps (`TSLAUSDT`, `productType=USDT-FUTURES`, `isRwa=YES`) are the shortable, ~24/7 hedge venue. GapGuard routes accordingly.
 
 ## Develop
 
@@ -46,6 +48,8 @@ npm run demo     # replay a synthetic weekend-gap scenario end-to-end
 
 # LLM convergence gate (Qwen). Needs the Bitget hackathon Qwen subsidy key:
 BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
+
+npm run hedge-demo   # show how each decision routes to a Bitget instrument (token vs perp)
 ```
 
 `npm run demo` runs the full loop (clock → dislocation → risk governor → glass-box) over a

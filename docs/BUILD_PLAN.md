@@ -68,7 +68,7 @@ Verify after every code change: `npm test && npm run typecheck && npm run demo`.
     via `node:crypto`; expose a `verifyChain()`. Stamp repo commit + run timestamp in a header line.
   - Upgrades "glass-box" from *transparent* to *verifiable*.
 
-- [ ] **8. Stock-perp hedge loop** *(thesis-completing, largest)*
+- [x] **8. Stock-perp hedge loop** ✅ DONE (2026-06-12, deterministic router; live API trading not wired — no keys, open-during-closure unconfirmed) *(thesis-completing, largest)*
   - When the product can't short tokenized spot, route the risk decision to a stock-perp hedge.
   - Requires naming the exact Bitget instrument model (tokenized spot vs stock perp) — see
     Bitget U.S.-stock guide / Onchain support / Wallet xStocks guide.
