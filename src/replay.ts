@@ -127,3 +127,6 @@ writeFileSync(
   header + "\n" + gb.all().map(formatRecord).join("\n") + "\n",
 );
 console.log("Glass-box audit trail → glassbox-demo.jsonl");
+console.log(
+  "Cockpit → open cockpit/index.html and drop the log in (or serve the repo root and visit /cockpit/).",
+);
