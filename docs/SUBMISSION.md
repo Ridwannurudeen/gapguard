@@ -35,7 +35,7 @@ Verification: the reversion core is backtested in Bitget Playbook on real TSLA d
 | --- | --- | --- |
 | Real problem in the US-stock tokenization scenario | 24/7-token vs ~6.5h-market gap risk — exists *only* because the asset is tokenized | ✅ built |
 | Verifiable backtesting or simulated trading records | `glassbox-demo.jsonl` — a **tamper-evident** sha256 hash-chained simulated trading log (`npm run demo`, `verifyChain()`) + real TSLA Playbook backtest logged in GetAgent cloud | ✅ both |
-| Uses Bitget US-stock data/tools | Bitget Playbook — package uploaded, backtest run on real TSLA daily bars (Sharpe 1.96 / 75% win / 40 trades / PF 3.48) | ✅ proven |
+| Uses Bitget US-stock data/tools | Bitget Playbook — package uploaded, backtest run on real TSLA daily bars (Sharpe 1.96 / 75% win / 40 trades / PF 3.48); execution router built on Bitget's real instrument model (spot-only xStocks → USDT-M stock perp `TSLAUSDT` for shorts) | ✅ proven |
 | Basic gate: real, workable demo; whose problem; verifiable usage record | Runnable `npm run demo`; problem = tokenized-stock holders/market-makers; record = JSONL log | ✅ met |
 
 > Note: the rubric accepts **any one** of real/simulated trading logs, API call volume, or user count. The simulated log already satisfies the gate; the Playbook backtest upgrades it and satisfies the separate "uses Bitget tools" criterion.
