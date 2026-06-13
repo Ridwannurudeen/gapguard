@@ -3,90 +3,282 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>GapGuard — Gap-Risk Control Tower</title>
+<title>GapGuard · Gap-Risk Control Tower</title>
+<link rel="icon" href="bitget-mark.svg" />
 <style>
   :root {
-    --bg: #0b0e14; --panel: #131823; --line: #232a38; --ink: #e6edf3; --dim: #8b97a8;
-    --rich: #ff6b6b; --cheap: #4dd4ac; --fair: #6b7689; --gold: #f5c451;
-    --ok: #3fb950; --bad: #ff5c5c; --accent: #5aa9ff;
+    --bg: #0c0d10;
+    --surface: #141519;
+    --surface-hi: #191b21;
+    --line: #25272f;
+    --line-soft: #1c1e25;
+    --ink: #f3f4f6;
+    --ink-2: #aeb2bc;
+    --ink-3: #71757f;
+    --accent: #00f0ff;
+    --accent-wash: rgba(0, 240, 255, 0.10);
+    --accent-line: rgba(0, 240, 255, 0.35);
+    --alert: #ff5d5d;
+    --alert-wash: rgba(255, 93, 93, 0.09);
+    --alert-line: rgba(255, 93, 93, 0.40);
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+    --radius: 12px;
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-family: var(--sans); font-size: 14px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 60px; }
-  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-  h1 { font-size: 20px; margin: 0; letter-spacing: .2px; }
-  h1 .tag { color: var(--dim); font-weight: 400; font-size: 14px; }
-  .meta { color: var(--dim); font-size: 12.5px; margin: 6px 0 18px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .meta b { color: var(--ink); font-weight: 600; }
-  .badge {
-    display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px;
-    font-weight: 700; font-size: 12.5px; letter-spacing: .3px; border: 1px solid transparent;
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ---- Top bar ---- */
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; height: 60px;
+    background: rgba(12, 13, 16, 0.82); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line-soft);
   }
-  .badge.ok { color: var(--ok); background: rgba(63,185,80,.10); border-color: rgba(63,185,80,.35); }
-  .badge.bad { color: var(--bad); background: rgba(255,92,92,.10); border-color: rgba(255,92,92,.4); }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
-  .controls { display: flex; align-items: center; gap: 16px; margin: 4px 0 18px; flex-wrap: wrap; }
-  .controls label { color: var(--dim); font-size: 13px; display: inline-flex; align-items: center; gap: 7px; cursor: pointer; }
-  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-  th, td { padding: 11px 13px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  th { color: var(--dim); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .5px; }
-  td { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
-  tr:last-child td { border-bottom: none; }
-  tr.broken td { background: rgba(255,92,92,.07); }
-  .num { text-align: right; }
-  .pill { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .2px; }
-  .s-regular { background: rgba(90,169,255,.16); color: var(--accent); }
-  .s-pre, .s-post, .s-overnight { background: rgba(245,196,81,.14); color: var(--gold); }
-  .s-weekend, .s-holiday { background: rgba(139,118,160,.18); color: #c7b3e0; }
-  .d-rich { color: var(--rich); } .d-cheap { color: var(--cheap); } .d-fair { color: var(--fair); }
-  .a-enter_short, .a-enter_long { color: var(--gold); font-weight: 700; }
-  .a-flatten { color: var(--accent); font-weight: 700; }
-  .a-reduce { color: #d9a441; } .a-hold { color: var(--dim); }
-  .hash { color: var(--dim); }
-  .link td { background: rgba(63,185,80,.04); }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .brand .mark { color: var(--accent); display: flex; }
+  .brand .mark svg { height: 24px; width: auto; display: block; }
+  .brand .name { font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+  .brand .name small { color: var(--ink-3); font-weight: 500; }
+  .built {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;
+    font-size: 12px; color: var(--ink-2); white-space: nowrap;
+  }
+  .built .mark { color: var(--accent); display: flex; }
+  .built .mark svg { height: 13px; width: auto; display: block; }
+
+  /* ---- Layout ---- */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .hero { padding: 48px 0 32px; }
+  .eyebrow {
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 14px;
+  }
+  .hero h1 { margin: 0 0 12px; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 650; }
+  .hero p { margin: 0; max-width: 60ch; color: var(--ink-2); font-size: 15px; }
+
+  .section-label {
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ---- Status card ---- */
+  .status {
+    display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+    padding: 20px 24px; margin-bottom: 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .status-main { display: flex; align-items: center; gap: 13px; min-width: 240px; }
+  .status-dot {
+    width: 11px; height: 11px; border-radius: 50%; flex: none;
+    background: var(--accent); box-shadow: 0 0 0 4px var(--accent-wash), 0 0 14px var(--accent);
+  }
+  .status.bad .status-dot { background: var(--alert); box-shadow: 0 0 0 4px var(--alert-wash), 0 0 14px var(--alert); }
+  .status-headline { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .status.bad .status-headline { color: var(--alert); }
+  .status-sub { color: var(--ink-3); font-size: 12.5px; margin-top: 1px; }
+  .status-spacer { flex: 1 1 24px; }
+  .stat { display: flex; flex-direction: column; gap: 3px; }
+  .stat .k { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .stat .v { font-size: 15px; font-weight: 600; }
+  .stat .v.mono { font-family: var(--mono); font-weight: 500; font-size: 13.5px; color: var(--ink-2); }
+
+  /* ---- Ledger panel ---- */
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .panel-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 16px 20px; border-bottom: 1px solid var(--line);
+  }
+  .panel-head .title { display: flex; align-items: baseline; gap: 10px; }
+  .panel-head .title h2 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .panel-head .title .count { color: var(--ink-3); font-size: 12.5px; font-family: var(--mono); }
+
+  /* toggle */
+  .toggle { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; font-size: 13px; color: var(--ink-2); }
+  .toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .track { width: 38px; height: 21px; border-radius: 999px; background: #2a2c34; border: 1px solid var(--line); position: relative; transition: background 0.15s, border-color 0.15s; }
+  .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 15px; height: 15px; border-radius: 50%; background: var(--ink-2); transition: transform 0.15s, background 0.15s; }
+  .toggle input:checked + .track { background: var(--alert-wash); border-color: var(--alert-line); }
+  .toggle input:checked + .track::after { transform: translateX(17px); background: var(--alert); }
+  .toggle input:focus-visible + .track { box-shadow: 0 0 0 3px var(--accent-wash); }
+
+  /* table */
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  thead th {
+    text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3);
+    white-space: nowrap; background: var(--surface);
+  }
+  tbody td { padding: 13px 16px; border-bottom: 1px solid var(--line-soft); white-space: nowrap; color: var(--ink-2); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--surface-hi); }
+  .num { text-align: right; font-family: var(--mono); font-size: 13px; color: var(--ink); }
+  .mono { font-family: var(--mono); }
+  .strong { color: var(--ink); font-weight: 600; }
+
+  .session { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .session .live { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); flex: none; }
+  .session.open .live { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+  .signal { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); }
+  .signal .arrow { width: 1.1em; color: var(--ink-3); font-size: 11px; }
+  .signal .conf { color: var(--ink-3); font-family: var(--mono); font-size: 12px; }
+
+  .act { font-weight: 600; color: var(--ink); }
+  .act.muted { color: var(--ink-3); font-weight: 500; }
+  .act.realize { color: var(--accent); }
+
+  .integ { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-3); }
+  .integ .tick { color: var(--accent); }
+  tr.broken td { background: var(--alert-wash); box-shadow: inset 3px 0 0 var(--alert); }
+  tr.broken .integ { color: var(--alert); }
+  tr.broken .integ .tick { color: var(--alert); }
+
+  /* ---- Empty state ---- */
   .drop {
-    margin-top: 26px; padding: 40px; border: 1.5px dashed var(--line); border-radius: 12px;
-    text-align: center; color: var(--dim); background: var(--panel);
+    margin: 8px 0; padding: 56px 32px; text-align: center;
+    border: 1.5px dashed var(--line); border-radius: var(--radius); background: var(--surface);
+    transition: border-color 0.15s, background 0.15s;
   }
-  .drop.hot { border-color: var(--accent); color: var(--ink); }
+  .drop.hot { border-color: var(--accent-line); background: var(--accent-wash); }
+  .drop .glyph { color: var(--ink-3); opacity: 0.7; margin-bottom: 16px; }
+  .drop .glyph svg { height: 30px; width: auto; }
+  .drop h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .drop p { margin: 0 0 18px; color: var(--ink-3); font-size: 13px; }
   .drop input { display: none; }
-  .drop b { color: var(--accent); cursor: pointer; text-decoration: underline; }
-  .foot { margin-top: 16px; color: var(--dim); font-size: 12.5px; font-family: ui-monospace, monospace; }
-  .err { color: var(--bad); }
+  .btn {
+    display: inline-block; padding: 9px 18px; border-radius: 8px; cursor: pointer;
+    background: var(--accent); color: #02232a; font-weight: 600; font-size: 13px; border: none;
+  }
+  .btn:hover { filter: brightness(1.06); }
+  .drop.err-state { border-color: var(--alert-line); }
+  .drop .err { color: var(--alert); }
+
+  /* ---- Footer ---- */
+  footer {
+    max-width: 1080px; margin: 40px auto 0; padding: 22px 24px 48px;
+    border-top: 1px solid var(--line-soft);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  footer code { font-family: var(--mono); color: var(--ink-2); }
+  footer .built { color: var(--ink-3); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 0 24px; }
+    .hero h1 { font-size: 25px; }
+    .built span { display: none; }
+    .status { gap: 18px; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>GapGuard <span class="tag">· gap-risk control tower</span></h1>
-    <span id="chainBadge" class="badge ok" style="margin-left:auto"><span class="dot"></span><span id="chainText">awaiting log…</span></span>
-  </header>
-  <div class="meta" id="meta">Load a <code>glassbox-demo.jsonl</code> produced by <b>npm run demo</b>.</div>
 
-  <div class="controls" id="controls" hidden>
-    <label><input type="checkbox" id="tamper" /> Simulate tampering with record #1 (flip its target notional)</label>
+<div class="topbar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true">
+      <svg viewBox="0 0 401 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M186.334 160.128H256.684L328.653 231.637C333.334 236.288 333.358 243.854 328.7 248.53L236.405 341.291H163.935L185.844 319.991L266.286 240.057L186.865 160.122" fill="currentColor"/>
+        <path d="M215.248 239.877H144.898L72.9293 168.369C68.2476 163.717 68.2238 156.151 72.8815 151.475L165.177 58.708H237.647L215.738 80.0083L135.296 159.943L214.716 239.877" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="name">GapGuard <small>· Control Tower</small></span>
   </div>
-
-  <table id="tbl" hidden>
-    <thead>
-      <tr>
-        <th>Time (ET)</th><th>Session</th><th class="num">Token</th><th class="num">Fair value</th>
-        <th class="num">Gap (z)</th><th>Read</th><th>Gate</th><th>Action</th><th class="num">Target</th><th>recordHash</th>
-      </tr>
-    </thead>
-    <tbody id="rows"></tbody>
-  </table>
-  <div class="foot" id="foot" hidden></div>
-
-  <div class="drop" id="drop">
-    Drop <b id="pick">glassbox-demo.jsonl</b> here to load the audit trail.
-    <input type="file" id="file" accept=".jsonl,.json,.txt" />
-    <div style="margin-top:10px;font-size:12px">Tip: run a static server at the repo root and this loads automatically.</div>
-  </div>
+  <span class="built">
+    <span class="mark" aria-hidden="true">
+      <svg viewBox="0 0 401 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M186.334 160.128H256.684L328.653 231.637C333.334 236.288 333.358 243.854 328.7 248.53L236.405 341.291H163.935L185.844 319.991L266.286 240.057L186.865 160.122" fill="currentColor"/>
+        <path d="M215.248 239.877H144.898L72.9293 168.369C68.2476 163.717 68.2238 156.151 72.8815 151.475L165.177 58.708H237.647L215.738 80.0083L135.296 159.943L214.716 239.877" fill="currentColor"/>
+      </svg>
+    </span>
+    <span>Built on Bitget</span>
+  </span>
 </div>
+
+<div class="container">
+  <section class="hero">
+    <p class="eyebrow">Tokenized gap-risk · glass box</p>
+    <h1>Gap-Risk Control Tower</h1>
+    <p>A tamper-evident view of every GapGuard decision — the US session, fair value, the gap it
+       read, and the risk action it took — recomputed against the sha256 audit chain in your browser.</p>
+  </section>
+
+  <section id="report" hidden>
+    <div class="status" id="status">
+      <div class="status-main">
+        <span class="status-dot"></span>
+        <div>
+          <div class="status-headline" id="statusText">Chain verified</div>
+          <div class="status-sub">Recomputed in-browser over the sha256 hash chain</div>
+        </div>
+      </div>
+      <div class="status-spacer"></div>
+      <div class="stat"><span class="k">Records</span><span class="v" id="stRecords">—</span></div>
+      <div class="stat"><span class="k">Convergence entries</span><span class="v" id="stEntries">—</span></div>
+      <div class="stat"><span class="k">Commit</span><span class="v mono" id="stCommit">—</span></div>
+      <div class="stat"><span class="k">Generated</span><span class="v mono" id="stTime">—</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="title"><h2>Decision ledger</h2><span class="count" id="ledgerCount"></span></div>
+        <label class="toggle">
+          <input type="checkbox" id="tamper" />
+          <span class="track"></span>
+          <span>Simulate tampering</span>
+        </label>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Time (ET)</th><th>Session</th><th class="num">Token</th><th class="num">Fair value</th>
+              <th class="num">Gap</th><th>Signal</th><th>Gate</th><th>Action</th>
+              <th class="num">Target&nbsp;$</th><th>Integrity</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="drop" id="drop">
+    <div class="glyph" aria-hidden="true">
+      <svg viewBox="0 0 401 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M186.334 160.128H256.684L328.653 231.637C333.334 236.288 333.358 243.854 328.7 248.53L236.405 341.291H163.935L185.844 319.991L266.286 240.057L186.865 160.122" fill="currentColor"/>
+        <path d="M215.248 239.877H144.898L72.9293 168.369C68.2476 163.717 68.2238 156.151 72.8815 151.475L165.177 58.708H237.647L215.738 80.0083L135.296 159.943L214.716 239.877" fill="currentColor"/>
+      </svg>
+    </div>
+    <h3 id="dropTitle">Load a decision log</h3>
+    <p id="dropMsg">Drop <code>glassbox-demo.jsonl</code> here, or choose it below.</p>
+    <button class="btn" id="pick" type="button">Choose file</button>
+    <input type="file" id="file" accept=".jsonl,.json,.txt" />
+  </section>
+</div>
+
+<footer>
+  <span>Produced by <code>npm run demo</code> · served at <code>/cockpit/</code> it auto-loads, or drag the file in.</span>
+  <span class="built">
+    <span class="mark" aria-hidden="true" style="color:var(--accent);display:flex">
+      <svg viewBox="0 0 401 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:13px">
+        <path d="M186.334 160.128H256.684L328.653 231.637C333.334 236.288 333.358 243.854 328.7 248.53L236.405 341.291H163.935L185.844 319.991L266.286 240.057L186.865 160.122" fill="currentColor"/>
+        <path d="M215.248 239.877H144.898L72.9293 168.369C68.2476 163.717 68.2238 156.151 72.8815 151.475L165.177 58.708H237.647L215.738 80.0083L135.296 159.943L214.716 239.877" fill="currentColor"/>
+      </svg>
+    </span>
+    Built on Bitget
+  </span>
+</footer>
 
 <script>
 const GENESIS = "0".repeat(64);
@@ -120,45 +312,53 @@ function parseJsonl(text) {
   return { meta, records: lines };
 }
 
-const fmt = n => (n >= 0 ? "+" : "") + n.toFixed(2);
+const fmt = n => (n >= 0 ? "+" : "−") + Math.abs(n).toFixed(2);
 const esc = s => String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const ARROW = { rich: "▲", cheap: "▼", fair: "–" };
+
+function actionClass(a) {
+  if (a === "flatten") return "realize";
+  if (a === "hold") return "muted";
+  return "";
+}
 
 async function render(meta, records) {
   const { allOk, perRecord } = await verifyChain(records);
 
-  const badge = document.getElementById("chainBadge");
-  badge.className = "badge " + (allOk ? "ok" : "bad");
-  document.getElementById("chainText").textContent =
-    allOk ? `CHAIN VERIFIED · ${records.length} records` : "CHAIN TAMPERED — verification failed";
+  const status = document.getElementById("status");
+  status.className = "status" + (allOk ? "" : " bad");
+  document.getElementById("statusText").textContent = allOk ? "Chain verified" : "Chain tampered";
 
-  document.getElementById("meta").innerHTML = meta
-    ? `commit <b>${esc(meta.commit)}</b> · generated <b>${esc(meta.generatedAt)}</b> · sha256-linked glass box`
-    : `${records.length} records · sha256-linked glass box (no header)`;
+  const entries = records.filter(r => r.risk.action.startsWith("enter")).length;
+  document.getElementById("stRecords").textContent = records.length;
+  document.getElementById("stEntries").textContent = entries;
+  document.getElementById("stCommit").textContent = meta ? meta.commit : "—";
+  document.getElementById("stTime").textContent = meta
+    ? new Date(meta.generatedAt).toISOString().replace("T", " ").slice(0, 16) + "Z"
+    : "—";
+  document.getElementById("ledgerCount").textContent = `${records.length} decisions`;
 
-  const rows = records.map((r, i) => {
+  document.getElementById("rows").innerHTML = records.map((r, i) => {
     const d = r.dislocation, rk = r.risk, se = r.session;
     const token = d.fairValue * (1 + d.dislocationPct);
     const gate = r.gate ? `×${r.gate.multiplier.toFixed(2)}` : "—";
-    return `<tr class="${perRecord[i] ? "" : "broken"}">
-      <td>${esc(se.etTime.replace(" ET", ""))}</td>
-      <td><span class="pill s-${esc(se.session)}">${esc(se.session)}</span></td>
+    const ok = perRecord[i];
+    return `<tr class="${ok ? "" : "broken"}">
+      <td class="mono">${esc(se.etTime.replace(" ET", ""))}</td>
+      <td><span class="session ${se.underlyingOpen ? "open" : ""}"><span class="live"></span>${esc(se.session)}</span></td>
       <td class="num">${token.toFixed(2)}</td>
       <td class="num">${d.fairValue.toFixed(2)}</td>
-      <td class="num">${d.zScore.toFixed(2)}σ</td>
-      <td class="d-${esc(d.direction)}">${esc(d.direction)} ${(d.confidence * 100).toFixed(0)}%</td>
-      <td>${esc(gate)}</td>
-      <td class="a-${esc(rk.action)}">${esc(rk.action)}</td>
+      <td class="num">${(d.zScore >= 0 ? "+" : "−") + Math.abs(d.zScore).toFixed(2)}σ</td>
+      <td><span class="signal"><span class="arrow">${ARROW[d.direction] || ""}</span><span class="strong">${esc(d.direction)}</span><span class="conf">${(d.confidence * 100).toFixed(0)}%</span></span></td>
+      <td class="mono" style="color:var(--ink-3)">${esc(gate)}</td>
+      <td><span class="act ${actionClass(rk.action)}">${esc(rk.action)}</span></td>
       <td class="num">${fmt(rk.targetNotional)}</td>
-      <td class="hash">${perRecord[i] ? "" : "⚠ "}${esc(r.recordHash.slice(0, 10))}…</td>
+      <td><span class="integ"><span class="tick">${ok ? "✓" : "⚠"}</span>${esc(r.recordHash.slice(0, 10))}…</span></td>
     </tr>`;
   }).join("");
-  document.getElementById("rows").innerHTML = rows;
 
-  for (const id of ["controls", "tbl", "foot"]) document.getElementById(id).hidden = false;
+  document.getElementById("report").hidden = false;
   document.getElementById("drop").hidden = true;
-  const shorts = records.filter(r => r.risk.action.startsWith("enter")).length;
-  document.getElementById("foot").textContent =
-    `${records.length} decisions · ${shorts} convergence entries · chain anchored at GENESIS (${GENESIS.slice(0,8)}…)`;
 }
 
 async function load(text) {
@@ -170,7 +370,11 @@ async function load(text) {
     await render(meta, records);
     document.getElementById("tamper").checked = false;
   } catch (e) {
-    document.getElementById("meta").innerHTML = `<span class="err">Could not read log: ${esc(e.message)}</span>`;
+    const drop = document.getElementById("drop");
+    drop.hidden = false;
+    drop.classList.add("err-state");
+    document.getElementById("dropTitle").textContent = "Couldn’t read that log";
+    document.getElementById("dropMsg").innerHTML = `<span class="err">${esc(e.message)}</span> — pick a valid glassbox-demo.jsonl.`;
   }
 }
 
