@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How it works · GapGuard</title>
+<meta name="description" content="The GapGuard pipeline: session clock, dislocation, confidence-damped fair value, an LLM convergence gate, the risk governor, a tamper-evident glass box, and the Bitget stock-perp hedge router." />
+<link rel="icon" href="assets/bitget-mark.svg" />
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span>
+      <span class="name">GapGuard</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html" class="active">How it works</a>
+      <a href="cockpit.html">Cockpit</a>
+      <a href="https://github.com/Ridwannurudeen/gapguard" class="ext" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="built"><span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span><span>Built on Bitget</span></span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero" style="padding:64px 0 8px">
+    <p class="kicker">Architecture</p>
+    <h1 style="font-size:38px">How GapGuard works</h1>
+    <p class="lead" style="max-width:62ch">A deterministic pipeline turns each market tick into a risk-governed,
+      auditable decision. The model gates conviction; it never overrides the risk rules.</p>
+  </section>
+
+  <section class="section" style="border-top:none;padding-top:24px">
+    <div class="prose">
+      <h3>The edge</h3>
+      <p>Tokenized US stocks trade 24/7, but the underlying market is open only ~6.5 hours per weekday. Off-hours,
+        the token has no real price discovery — it drifts on crypto-market sentiment, then snaps toward fair value
+        at the next US open. GapGuard only takes the trade while the underlying is <em>closed</em>, and realizes it
+        into the reopen.</p>
+
+      <h3>The pipeline</h3>
+      <p>One tick — a token price, a fair-value anchor, and recent volatility — flows through seven stages:</p>
+      <ul>
+        <li><b>Session clock</b> (<code>marketClock.ts</code>) — classifies the US session against a verified 2026
+          NYSE calendar; <code>underlyingOpen</code> gates the edge.</li>
+        <li><b>Dislocation</b> (<code>dislocation.ts</code>) — measures the token-vs-fair-value gap in volatility
+          units (a z-score) and labels it <code>rich</code> / <code>cheap</code> / <code>fair</code> with a confidence.</li>
+        <li><b>Fair value</b> (<code>proxyReturn.ts</code>) — blends 24/7 proxy signals (index futures, sector-ETF
+          tokens) into an implied underlying return, <em>damped by the blend’s own confidence</em> so a weak or
+          scattered proxy can’t swing fair value at full strength.</li>
+        <li><b>LLM gate</b> (<code>convergenceGate.ts</code> + Qwen) — classifies the gap as fadeable noise or
+          justified repricing; a non-fadeable verdict zeroes conviction so the agent never fades real overnight news.</li>
+        <li><b>Risk governor</b> (<code>riskGovernor.ts</code>) — the differentiator below.</li>
+        <li><b>Glass box</b> (<code>glassbox.ts</code>) — appends the decision to a tamper-evident hash chain.</li>
+        <li><b>Hedge router</b> (<code>hedgeRouter.ts</code>) — maps the decision onto Bitget’s real instruments.</li>
+      </ul>
+
+      <h3>The risk governor</h3>
+      <p>The convergence edge exists only while the underlying is closed, so the governor sizes positions by
+        confidence and volatility under a <em>tighter off-hours cap</em>, realizes into the reopen, and halts on a
+        hard drawdown breaker. A rebalance deadband keeps it from churning on noise. This directly counters the
+        documented failure mode of LLM traders that ignore sizing and risk.</p>
+
+      <h3>The glass box</h3>
+      <p>Every decision is appended verbatim to a JSONL audit trail and sealed into a sha256 hash chain: each record
+        carries a <code>recordHash</code> over its canonical payload plus the previous record’s hash. Alter any past
+        decision and <code>verifyChain()</code> breaks. The <a href="cockpit.html">cockpit</a> recomputes that chain
+        in your browser — so the audit trail isn’t just transparent, it’s verifiable.</p>
+
+      <h3>The hedge router</h3>
+      <p>GapGuard’s signal is on the token, but Bitget’s tokenized xStocks are spot-only — long-or-flat, no native
+        short. So a long discount rests on the token (<code>onchain-spot</code>), while a “rich” short routes to the
+        matching USDT-margined stock perpetual (<code>TSLAUSDT</code>, <code>usdt-futures</code>), which is shortable
+        and trades ~24/7. That hedge is what makes a rich-gap fade executable at all.</p>
+
+      <div class="callout warn">
+        <b>Honest limits.</b> The router is deterministic — live API execution isn’t wired (no trading keys), and
+        Bitget’s docs conflict on whether a <em>new</em> perp can be opened during a US-market closure, so the router
+        surfaces that as a <code>closureCaveat</code> rather than assuming it. The Playbook backtest runs on daily
+        bars, which validate the reversion logic but understate the intraday snap-back; and Bitget’s managed backtest
+        path is crypto-only, so the equity run logs real metrics author-side rather than as a managed run.
+      </div>
+
+      <h3>Run it</h3>
+      <p>Everything is reproducible from the repo:</p>
+      <ul>
+        <li><code>npm run demo</code> — replay a weekend gap end-to-end; writes the hash-chained glass box.</li>
+        <li><code>npm run gate-demo</code> — the Qwen convergence gate on noise vs a real earnings beat.</li>
+        <li><code>npm run hedge-demo</code> — how each decision routes to a Bitget instrument.</li>
+        <li><code>npm test</code> — 43 tests across the pipeline.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Watch it decide — and verify it.</h2>
+    <p>The cockpit renders a real run and recomputes the audit chain live.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="cockpit.html">Open the cockpit</a>
+      <a class="btn btn-ghost" href="https://github.com/Ridwannurudeen/gapguard" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <span>GapGuard · gap-risk control tower for tokenized US stocks</span>
+    <span class="fnav">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="cockpit.html">Cockpit</a>
+      <a href="https://github.com/Ridwannurudeen/gapguard" target="_blank" rel="noopener">GitHub</a>
+    </span>
+    <span class="built"><span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span><span>Built on Bitget</span></span>
+  </div>
+</footer>
+
+</body>
+</html>

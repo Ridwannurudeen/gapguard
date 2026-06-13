@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GapGuard · Gap-risk control tower for tokenized US stocks</title>
+<meta name="description" content="GapGuard reads the off-hours dislocation in tokenized US stocks, decides under a hard risk governor, and logs every move to a tamper-evident glass box. Built on Bitget." />
+<link rel="icon" href="assets/bitget-mark.svg" />
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span>
+      <span class="name">GapGuard</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="cockpit.html">Cockpit</a>
+      <a href="https://github.com/Ridwannurudeen/gapguard" class="ext" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="built"><span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span><span>Built on Bitget</span></span>
+  </div>
+</header>
+
+<main>
+  <section class="container hero">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Bitget AI Hackathon · Track 3</p>
+        <h1>Trade the <span class="hl">gap</span> that tokenization opened.</h1>
+        <p class="lead">Tokenized US stocks trade 24/7 — the underlying market doesn’t. GapGuard reads the
+          off-hours dislocation, decides whether to fade it under a hard risk governor, and logs every
+          move to a tamper-evident glass box.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="cockpit.html">Open the cockpit</a>
+          <a class="btn btn-ghost" href="how-it-works.html">How it works</a>
+        </div>
+        <p class="note">43 tests · sha256-verified audit trail · routes to Bitget’s real instruments</p>
+      </div>
+      <div class="glass-card" aria-hidden="true">
+        <div class="gc-head">
+          <span class="chip"><span class="dot"></span>Chain verified</span>
+          <span class="lbl">commit f7e008c</span>
+        </div>
+        <div class="gc-row"><span class="k">Session</span><span class="v">weekend · closed</span></div>
+        <div class="gc-row"><span class="k">Token / fair value</span><span class="v">103.50 / 100.00</span></div>
+        <div class="gc-row"><span class="k">Gap</span><span class="v">+2.33σ · rich 67%</span></div>
+        <div class="gc-row"><span class="k">Risk action</span><span class="v">enter_short</span></div>
+        <div class="gc-row"><span class="k">Routed to</span><span class="v accent">TSLAUSDT perp</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section" id="problem">
+    <p class="kicker">The opening</p>
+    <h2>A price gap that exists only because the asset is tokenized.</h2>
+    <p class="lead">xStocks trade around the clock, but the US market is open only ~6.5 hours per weekday.
+      Overnight, on weekends, and on holidays the token has no underlying price discovery — it drifts on
+      crypto-market sentiment, then snaps toward fair value at the next US open. That gap is real risk for
+      anyone holding or making markets in tokenized stocks, and a tradable edge for an agent that respects it.</p>
+  </section>
+
+  <section class="container section" id="loop">
+    <p class="kicker">The loop</p>
+    <h2>Seven stages from market state to a logged decision.</h2>
+    <p class="lead">Each tick flows through the same deterministic pipeline. The LLM only gates conviction —
+      it never gets to skip the risk governor.</p>
+    <div class="loop">
+      <div class="step"><div class="n">01</div><h4>Session clock</h4><p>Classify the US session; gate the edge to off-hours only.</p></div>
+      <div class="step"><div class="n">02</div><h4>Dislocation</h4><p>Measure the token-vs-fair-value gap in volatility units.</p></div>
+      <div class="step"><div class="n">03</div><h4>Fair value</h4><p>Blend 24/7 proxies, damped by their own confidence.</p></div>
+      <div class="step"><div class="n">04</div><h4>LLM gate</h4><p>Qwen: fadeable noise, or justified repricing — stand down.</p></div>
+      <div class="step"><div class="n">05</div><h4>Risk governor</h4><p>Size by confidence under a tighter off-hours cap; halt on drawdown.</p></div>
+      <div class="step"><div class="n">06</div><h4>Glass box</h4><p>Append the decision to a sha256 hash chain.</p></div>
+      <div class="step"><div class="n">07</div><h4>Hedge router</h4><p>Route a short to the Bitget stock perp the token can’t carry.</p></div>
+    </div>
+  </section>
+
+  <section class="container section" id="proof">
+    <p class="kicker">Evidence, not vibes</p>
+    <h2>Backtested on real TSLA data in Bitget Playbook.</h2>
+    <div class="stats">
+      <div class="stat-card"><div class="big">1.96</div><div class="lbl">Sharpe ratio</div></div>
+      <div class="stat-card"><div class="big">75%</div><div class="lbl">Win rate</div></div>
+      <div class="stat-card"><div class="big">40</div><div class="lbl">Trades</div></div>
+      <div class="stat-card"><div class="big">3.48</div><div class="lbl">Profit factor</div></div>
+    </div>
+    <p class="stats-note">Overnight-gap reversion on 252 real daily TSLA bars (2024–2025), run in Bitget Playbook’s
+      GetAgent cloud. The live off-hours convergence sim is logged to a tamper-evident, hash-chained glass box you
+      can verify yourself in the <a href="cockpit.html">cockpit</a>.</p>
+  </section>
+
+  <section class="container section" id="instruments">
+    <p class="kicker">Built on Bitget’s real instruments</p>
+    <h2>Signal on the token, execution where shorts are possible.</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>xStocks — spot only</h3>
+        <p>Tokenized US stocks (e.g. <code>TSLAx</code>) trade as spot swaps on Bitget Onchain / Wallet. They’re
+           long-or-flat — there’s no native short — so GapGuard rests a long discount on the token itself.</p>
+        <div class="meta">venue · onchain-spot</div>
+      </div>
+      <div class="card">
+        <h3>Stock perps — the hedge</h3>
+        <p>To fade a rich gap, GapGuard routes the short to the matching USDT-margined stock perpetual
+           (<code>TSLAUSDT</code>, <code>isRwa</code>), which is shortable and trades ~24/7 on Bitget’s derivatives API.</p>
+        <div class="meta">venue · usdt-futures</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>See every decision. Verify the chain yourself.</h2>
+    <p>The cockpit recomputes the sha256 audit chain in your browser — tamper with a record and watch it break.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="cockpit.html">Open the cockpit</a>
+      <a class="btn btn-ghost" href="https://github.com/Ridwannurudeen/gapguard" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <span>GapGuard · gap-risk control tower for tokenized US stocks</span>
+    <span class="fnav">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="cockpit.html">Cockpit</a>
+      <a href="https://github.com/Ridwannurudeen/gapguard" target="_blank" rel="noopener">GitHub</a>
+    </span>
+    <span class="built"><span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span><span>Built on Bitget</span></span>
+  </div>
+</footer>
+
+</body>
+</html>

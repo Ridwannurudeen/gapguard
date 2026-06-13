@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cockpit · GapGuard</title>
+<meta name="description" content="A tamper-evident view of every GapGuard decision, with the sha256 audit chain recomputed in your browser." />
+<link rel="icon" href="assets/bitget-mark.svg" />
+<link rel="stylesheet" href="assets/site.css" />
+<link rel="stylesheet" href="assets/cockpit.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span>
+      <span class="name">GapGuard</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="cockpit.html" class="active">Cockpit</a>
+      <a href="https://github.com/Ridwannurudeen/gapguard" class="ext" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <span class="spacer"></span>
+    <span class="built"><span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span><span>Built on Bitget</span></span>
+  </div>
+</header>
+
+<main class="container">
+  <section class="cockpit-head">
+    <p class="kicker">Glass box · live verification</p>
+    <h1 style="font-size:30px;margin:0 0 12px">Gap-Risk Control Tower</h1>
+    <p class="lead" style="max-width:64ch;color:var(--ink-2)">Every GapGuard decision — the US session, fair value,
+      the gap it read, and the risk action it took — recomputed against the sha256 audit chain in your browser.</p>
+  </section>
+
+  <section id="report" hidden>
+    <div class="status" id="status">
+      <div class="status-main">
+        <span class="status-dot"></span>
+        <div>
+          <div class="status-headline" id="statusText">Chain verified</div>
+          <div class="status-sub">Recomputed in-browser over the sha256 hash chain</div>
+        </div>
+      </div>
+      <div class="status-spacer"></div>
+      <div class="stat-inline"><span class="k">Records</span><span class="v" id="stRecords">—</span></div>
+      <div class="stat-inline"><span class="k">Convergence entries</span><span class="v" id="stEntries">—</span></div>
+      <div class="stat-inline"><span class="k">Commit</span><span class="v mono" id="stCommit">—</span></div>
+      <div class="stat-inline"><span class="k">Generated</span><span class="v mono" id="stTime">—</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="title"><h2>Decision ledger</h2><span class="count" id="ledgerCount"></span></div>
+        <label class="toggle">
+          <input type="checkbox" id="tamper" />
+          <span class="track"></span>
+          <span>Simulate tampering</span>
+        </label>
+      </div>
+      <div class="scroll">
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Time (ET)</th><th>Session</th><th class="num">Token</th><th class="num">Fair value</th>
+              <th class="num">Gap</th><th>Signal</th><th>Gate</th><th>Action</th>
+              <th class="num">Target&nbsp;$</th><th>Integrity</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="drop" id="drop">
+    <div class="glyph" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" style="height:30px" /></div>
+    <h3 id="dropTitle">Load a decision log</h3>
+    <p id="dropMsg">Drop <code>glassbox-demo.jsonl</code> here, or choose it below.</p>
+    <button class="btn btn-primary" id="pick" type="button">Choose file</button>
+    <input type="file" id="file" accept=".jsonl,.json,.txt" />
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <span>Produced by <code>npm run demo</code> · served at the repo root, <code>/web/cockpit.html</code> auto-loads.</span>
+    <span class="fnav">
+      <a href="index.html">Home</a>
+      <a href="how-it-works.html">How it works</a>
+      <a href="cockpit.html">Cockpit</a>
+      <a href="https://github.com/Ridwannurudeen/gapguard" target="_blank" rel="noopener">GitHub</a>
+    </span>
+    <span class="built"><span class="mark" aria-hidden="true"><img src="assets/bitget-mark.svg" alt="" /></span><span>Built on Bitget</span></span>
+  </div>
+</footer>
+
+<script src="assets/cockpit.js"></script>
+</body>
+</html>
