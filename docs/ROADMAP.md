@@ -20,7 +20,8 @@ and human-gated. 43 tests pass on `main`; typecheck clean.
   (weekend noise → fade, earnings beat → stand down).
 - **Tamper-evident glass-box** (`src/glassbox.ts`): append-only audit trail, sha256 hash-chained
   (`prevHash`/`recordHash` + `verifyChain()`); altering any past decision breaks verification.
-- **Judge cockpit** (`cockpit/index.html`): zero-dependency control-tower view of a run that
+- **Website** (`web/`): zero-dependency static site — landing page, how-it-works, and the cockpit
+  (`web/cockpit.html`) — a control-tower view of a run that
   **re-verifies the hash chain in the browser** (SubtleCrypto) and has a live "simulate tampering"
   toggle. Auto-loads when served; drag-drop fallback for `file://`.
 - **Stock-perp hedge router** (`src/instruments.ts` + `src/hedgeRouter.ts`, `npm run hedge-demo`):

@@ -128,5 +128,5 @@ writeFileSync(
 );
 console.log("Glass-box audit trail → glassbox-demo.jsonl");
 console.log(
-  "Cockpit → open cockpit/index.html and drop the log in (or serve the repo root and visit /cockpit/).",
+  "Cockpit → serve the repo root and open /web/cockpit.html (or open web/cockpit.html and drop the log in).",
 );

@@ -59,19 +59,18 @@ snaps back. It charges a per-rebalance fee + slippage cost, prints a decision ta
 glass-box hash chain, and writes the tamper-evident audit trail to `glassbox-demo.jsonl` (a header
 line stamps the repo commit + run time, then one hash-chained JSONL record per decision).
 
-## Cockpit
+## Website
 
-`cockpit/index.html` is a zero-dependency control-tower view of a `glassbox-demo.jsonl` run:
-session badge, token vs fair value, gap z-score, gate verdict, and risk action per decision. It
-**re-verifies the sha256 hash chain in the browser** (SubtleCrypto) — a "Simulate tampering"
-toggle flips a value live so you can watch the **CHAIN VERIFIED** badge turn red.
+`web/` is a zero-dependency static site: a landing page (`index.html`), an architecture
+deep-dive (`how-it-works.html`), and the **cockpit** (`cockpit.html`) — a control-tower view of a
+`glassbox-demo.jsonl` run that **re-verifies the sha256 hash chain in the browser** (SubtleCrypto).
+A "Simulate tampering" toggle flips a value live so you can watch the verification turn red.
 
 ```bash
 npm run demo                 # produces glassbox-demo.jsonl
-# then either:
-open cockpit/index.html      # and drag the .jsonl onto the page (works from file://)
-# or serve the repo root and visit /cockpit/ to auto-load it:
-python -m http.server 8080   # → http://localhost:8080/cockpit/
+python -m http.server 8080   # serve the repo root → http://localhost:8080/web/
+# the cockpit auto-loads the log; or open web/cockpit.html and drag the .jsonl in (works from file://)
 ```
 
-![GapGuard cockpit — chain verified](cockpit/preview-verified.png)
+![GapGuard landing page](web/assets/preview-home.png)
+![GapGuard cockpit — chain verified](web/assets/preview-cockpit.png)
