@@ -1,16 +1,21 @@
 name: gapguard-overnight-gap-reversion
 display_name: "GapGuard Overnight Gap Reversion"
-description: "Fades outsized overnight gaps in a US equity, expecting partial reversion"
+description: "Baseline Playbook: fades outsized overnight gaps in an ordinary US equity"
 version: "0.1.0"
 long_description: |
-  GapGuard Overnight Gap Reversion is a mean-reversion strategy on a single US
-  equity. Its thesis is that when a stock opens sharply away from the prior
-  session close, a meaningful part of that opening dislocation tends to be noise
-  rather than durable repricing, and price often drifts back toward the prior
-  level once regular trading resumes and liquidity returns. The strategy aims to
-  capture that partial snap-back rather than predict direction over long
-  horizons. It treats the overnight gap, the move between one session close and
-  the next session open, as the core signal and fades it.
+  GapGuard Overnight Gap Reversion is a baseline mean-reversion strategy on a
+  single ordinary US equity. It is intentionally scoped as a sanity-check for
+  the gap-reversion thesis, not as final proof of tokenized-stock/off-hours
+  convergence. The production GapGuard proof path must use Bitget-backed
+  tokenized-stock or off-hours data before making live performance claims.
+
+  The baseline thesis is that when a stock opens sharply away from the prior
+  session close, a meaningful part of that opening dislocation tends to be
+  noise rather than durable repricing, and price often drifts back toward the
+  prior level once regular trading resumes and liquidity returns. The strategy
+  aims to capture that partial snap-back rather than predict direction over
+  long horizons. It treats the overnight gap, the move between one session close
+  and the next session open, as the core signal and fades it.
 
   The strategy enters against the gap. When the equity opens sharply higher than
   the previous close, it reads the move as stretched and opens a short; when the
@@ -49,6 +54,7 @@ follow_trade_supported: false
 
 strategy_config:
   trading_symbols: ["TSLA"]
+  proof_scope: "ordinary_equity_baseline"
   gap_threshold_pct: 0.02
   hold_bars: 1
   trade_size: "10"

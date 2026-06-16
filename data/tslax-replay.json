@@ -1,0 +1,108 @@
+{
+  "name": "TSLAx closed-market convergence sample",
+  "proofScope": "synthetic_sample",
+  "notes": "This sample exercises the GapGuard proof pipeline. It is not live Bitget market evidence.",
+  "initialPortfolio": {
+    "equity": 10000,
+    "exposure": 0,
+    "drawdownPct": 0
+  },
+  "ticks": [
+    {
+      "ts": "2026-06-05T20:30:00Z",
+      "symbol": "TSLAx",
+      "tokenPrice": 100.5,
+      "referencePrice": 100,
+      "volatility": 0.015,
+      "newsSummary": "No company-specific catalyst after the Friday close.",
+      "gate": {
+        "multiplier": 1,
+        "rationale": "quiet tape; no repricing catalyst"
+      }
+    },
+    {
+      "ts": "2026-06-06T18:00:00Z",
+      "symbol": "TSLAx",
+      "tokenPrice": 102,
+      "referencePrice": 100,
+      "volatility": 0.015,
+      "proxySignals": [
+        {
+          "name": "NQ weekend proxy",
+          "return": 0.002,
+          "beta": 1.1,
+          "weight": 0.35
+        }
+      ],
+      "newsSummary": "Broad crypto risk bid, no TSLA-specific news.",
+      "gate": {
+        "multiplier": 0.85,
+        "rationale": "fadeable risk-on drift, but proxy coverage is thin"
+      }
+    },
+    {
+      "ts": "2026-06-07T18:00:00Z",
+      "symbol": "TSLAx",
+      "tokenPrice": 103.5,
+      "referencePrice": 100,
+      "volatility": 0.015,
+      "proxySignals": [
+        {
+          "name": "NQ weekend proxy",
+          "return": 0.003,
+          "beta": 1.1,
+          "weight": 0.4
+        },
+        {
+          "name": "EV basket proxy",
+          "return": 0.004,
+          "beta": 0.7,
+          "weight": 0.3
+        }
+      ],
+      "newsSummary": "Weekend drift extended without a confirmed TSLA catalyst.",
+      "gate": {
+        "multiplier": 0.9,
+        "rationale": "fadeable dislocation with partial proxy confirmation"
+      }
+    },
+    {
+      "ts": "2026-06-08T12:00:00Z",
+      "symbol": "TSLAx",
+      "tokenPrice": 103,
+      "referencePrice": 100,
+      "volatility": 0.015,
+      "proxySignals": [
+        {
+          "name": "NQ premarket proxy",
+          "return": 0.004,
+          "beta": 1.05,
+          "weight": 0.7
+        },
+        {
+          "name": "EV basket proxy",
+          "return": 0.0035,
+          "beta": 0.8,
+          "weight": 0.55
+        }
+      ],
+      "newsSummary": "Premarket proxies explain part of the move, but the token still screens rich.",
+      "gate": {
+        "multiplier": 0.75,
+        "rationale": "still fadeable, reduced conviction into the open"
+      }
+    },
+    {
+      "ts": "2026-06-08T13:35:00Z",
+      "symbol": "TSLAx",
+      "tokenPrice": 100.4,
+      "referencePrice": 100,
+      "volatility": 0.015,
+      "newsSummary": "Underlying market reopened; convergence window is over.",
+      "gate": {
+        "multiplier": 1,
+        "rationale": "regular session; governor should flatten"
+      }
+    }
+  ]
+}

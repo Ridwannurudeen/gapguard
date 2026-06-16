@@ -16,6 +16,11 @@ const decision: DecisionInput = {
     nextOpenUtc: "2026-06-08T13:30:00.000Z",
     msToNextOpen: 70_200_000,
   },
+  market: {
+    tokenPrice: 103,
+    referencePrice: 100,
+    proxyReturn: 0,
+  },
   dislocation: {
     fairValue: 100,
     dislocationPct: 0.03,

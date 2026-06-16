@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-06-16T11:46:42.283Z",
+  "dataset": {
+    "name": "TSLAx closed-market convergence sample",
+    "proofScope": "synthetic_sample",
+    "notes": "This sample exercises the GapGuard proof pipeline. It is not live Bitget market evidence."
+  },
+  "summary": {
+    "decisions": 5,
+    "finalEquity": 10047.271817938517,
+    "returnPct": 0.4727181793851742,
+    "verification": {
+      "ok": true,
+      "count": 5,
+      "finalHash": "ccb916f68e0e0e3673bc8486580ac0fa2c399ec5c5a94ae0785ea446ce1bd25c",
+      "errors": []
+    }
+  },
+  "records": [
+    {
+      "ts": "2026-06-05T20:30:00Z",
+      "symbol": "TSLAx",
+      "session": {
+        "session": "post",
+        "underlyingOpen": false,
+        "etTime": "2026-06-05 16:30 ET",
+        "nextOpenUtc": "2026-06-08T13:30:00.000Z",
+        "msToNextOpen": 234000000
+      },
+      "market": {
+        "tokenPrice": 100.5,
+        "referencePrice": 100
+      },
+      "dislocation": {
+        "fairValue": 100,
+        "dislocationPct": 0.005,
+        "zScore": 0.33333333333333337,
+        "direction": "fair",
+        "confidence": 0
+      },
+      "risk": {
+        "action": "hold",
+        "targetNotional": 0,
+        "reason": "No dislocation — hold"
+      },
+      "gate": {
+        "multiplier": 1,
+        "rationale": "quiet tape; no repricing catalyst"
+      },
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "41d390b1d3e5df7bfd5cc8397f809ef638801a25802f1c0b5d2937e051339fe5"
+    },
+    {
+      "ts": "2026-06-06T18:00:00Z",
+      "symbol": "TSLAx",
+      "session": {
+        "session": "weekend",
+        "underlyingOpen": false,
+        "etTime": "2026-06-06 14:00 ET",
+        "nextOpenUtc": "2026-06-08T13:30:00.000Z",
+        "msToNextOpen": 156600000
+      },
+      "market": {
+        "tokenPrice": 102,
+        "referencePrice": 100,
+        "proxyReturn": 0.000385,
+        "proxyConfidence": 0.175,
+        "proxyContributors": 1,
+        "rawProxyReturn": 0.0022
+      },
+      "dislocation": {
+        "fairValue": 100.03850000000001,
+        "dislocationPct": 0.019607451131314308,
+        "zScore": 1.3071634087542872,
+        "direction": "rich",
+        "confidence": 0.15358170437714358
+      },
+      "risk": {
+        "action": "enter_short",
+        "targetNotional": -870.2963248038136,
+        "reason": "Short convergence — conf 13.1%, size 870.30 (cap 2000.00, off-hours)"
+      },
+      "gate": {
+        "multiplier": 0.85,
+        "rationale": "fadeable risk-on drift, but proxy coverage is thin"
+      },
+      "prevHash": "41d390b1d3e5df7bfd5cc8397f809ef638801a25802f1c0b5d2937e051339fe5",
+      "hash": "f0e377fb1175ac7a1591f08608f0e98d34f879c4ddb043cfa35f3ab0dae3e167"
+    },
+    {
+      "ts": "2026-06-07T18:00:00Z",
+      "symbol": "TSLAx",
+      "session": {
+        "session": "weekend",
+        "underlyingOpen": false,
+        "etTime": "2026-06-07 14:00 ET",
+        "nextOpenUtc": "2026-06-08T13:30:00.000Z",
+        "msToNextOpen": 70200000
+      },
+      "market": {
+        "tokenPrice": 103.5,
+        "referencePrice": 100,
+        "proxyReturn": 0.0010265538607950174,
+        "proxyConfidence": 0.3326794919243112,
+        "proxyContributors": 2,
+        "rawProxyReturn": 0.003085714285714286
+      },
+      "dislocation": {
+        "fairValue": 100.1026553860795,
+        "dislocationPct": 0.03393860633184499,
+        "zScore": 2.2625737554563328,
+        "direction": "rich",
+        "confidence": 0.6312868777281664
+      },
+      "risk": {
+        "action": "enter_short",
+        "targetNotional": -1997.4403049270477,
+        "reason": "Short convergence — conf 56.8%, size 1997.44 (cap 1997.44, off-hours)"
+      },
+      "gate": {
+        "multiplier": 0.9,
+        "rationale": "fadeable dislocation with partial proxy confirmation"
+      },
+      "prevHash": "f0e377fb1175ac7a1591f08608f0e98d34f879c4ddb043cfa35f3ab0dae3e167",
+      "hash": "7a7f6200a5c3a8ec9771b41f4b507e5d0840c7ed399ccb92c998ddab62e73e24"
+    },
+    {
+      "ts": "2026-06-08T12:00:00Z",
+      "symbol": "TSLAx",
+      "session": {
+        "session": "pre",
+        "underlyingOpen": false,
+        "etTime": "2026-06-08 08:00 ET",
+        "nextOpenUtc": "2026-06-08T13:30:00.000Z",
+        "msToNextOpen": 5400000
+      },
+      "market": {
+        "tokenPrice": 103,
+        "referencePrice": 100,
+        "proxyReturn": 0.0019286661075693817,
+        "proxyConfidence": 0.538132284478064,
+        "proxyContributors": 2,
+        "rawProxyReturn": 0.0035840000000000004
+      },
+      "dislocation": {
+        "fairValue": 100.19286661075695,
+        "dislocationPct": 0.028017297879584454,
+        "zScore": 1.8678198586389636,
+        "direction": "rich",
+        "confidence": 0.4339099293194818
+      },
+      "risk": {
+        "action": "hold",
+        "targetNotional": -1997.4403049270477,
+        "reason": "Short convergence — conf 32.5%, size 1999.37 (cap 1999.37, off-hours)"
+      },
+      "gate": {
+        "multiplier": 0.75,
+        "rationale": "still fadeable, reduced conviction into the open"
+      },
+      "prevHash": "7a7f6200a5c3a8ec9771b41f4b507e5d0840c7ed399ccb92c998ddab62e73e24",
+      "hash": "f8f2e881b411c55b76c2d7862b9509d7e83ebf7332defbcd7e02a4c2200cd98e"
+    },
+    {
+      "ts": "2026-06-08T13:35:00Z",
+      "symbol": "TSLAx",
+      "session": {
+        "session": "regular",
+        "underlyingOpen": true,
+        "etTime": "2026-06-08 09:35 ET",
+        "nextOpenUtc": "2026-06-09T13:30:00.000Z",
+        "msToNextOpen": 86100000
+      },
+      "market": {
+        "tokenPrice": 100.4,
+        "referencePrice": 100
+      },
+      "dislocation": {
+        "fairValue": 100,
+        "dislocationPct": 0.0040000000000000565,
+        "zScore": 0.26666666666667044,
+        "direction": "fair",
+        "confidence": 0
+      },
+      "risk": {
+        "action": "flatten",
+        "targetNotional": 0,
+        "reason": "Underlying open — convergence realized, flattening"
+      },
+      "gate": {
+        "multiplier": 1,
+        "rationale": "regular session; governor should flatten"
+      },
+      "prevHash": "f8f2e881b411c55b76c2d7862b9509d7e83ebf7332defbcd7e02a4c2200cd98e",
+      "hash": "ccb916f68e0e0e3673bc8486580ac0fa2c399ec5c5a94ae0785ea446ce1bd25c"
+    }
+  ]
+}

@@ -1,8 +1,13 @@
-# GapGuard Overnight Gap Reversion
+# GapGuard Overnight Gap Reversion Baseline
 
-A mean-reversion Playbook on a single US equity. It fades outsized overnight gaps — when the
-stock opens far from the prior close — and expects price to partially revert as regular trading
-resumes and liquidity returns.
+A mean-reversion Playbook on a single ordinary US equity. It fades outsized overnight gaps
+when the stock opens far from the prior close and expects price to partially revert as regular
+trading resumes and liquidity returns.
+
+This is a baseline package, not final tokenized-stock proof. It is useful for validating that
+the gap-reversion mechanics can be expressed in Bitget Playbook, while the GapGuard submission
+still needs Bitget-backed tokenized-stock/off-hours data before claiming live convergence
+performance.
 
 ## How it works
 
@@ -23,6 +28,10 @@ resumes and liquidity returns.
 Strategy return is net PnL over the margin budget; account return is over the venue starting
 balance. Read max drawdown and win rate together with total trades — a high return on very few
 trades is not yet evidence.
+
+The emitted signal includes `meta.proof_scope = "ordinary_equity_baseline"` and
+`meta.limitation = "not tokenized-stock/off-hours convergence proof"` so screenshots and
+exports cannot be confused with the final proof target.
 
 ## Risks
 

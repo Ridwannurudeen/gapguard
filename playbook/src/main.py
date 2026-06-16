@@ -60,7 +60,12 @@ def run() -> None:
         symbol=symbol,
         confidence=_sanitize(result.win_rate) or 0.0,
         metrics=metrics,
-        meta={"chart_path": chart_path},
+        meta={
+            "chart_path": chart_path,
+            "proof_scope": "ordinary_equity_baseline",
+            "data_provider": "fmp daily US-equity bars",
+            "limitation": "not tokenized-stock/off-hours convergence proof",
+        },
     )
 
 

@@ -10,12 +10,22 @@ export interface GateApplied {
   rationale?: string;
 }
 
+export interface MarketEvidence {
+  tokenPrice: number;
+  referencePrice: number;
+  proxyReturn?: number;
+  proxyConfidence?: number;
+  proxyContributors?: number;
+  rawProxyReturn?: number;
+}
+
 /** One auditable decision before the hash-chain fields are attached. */
 export interface DecisionInput {
   /** Decision timestamp as a UTC ISO string (supplied by the caller / market data). */
   ts: string;
   symbol: string;
   session: SessionState;
+  market: MarketEvidence;
   dislocation: DislocationResult;
   risk: RiskDecision;
   /** Present when an LLM gate scaled the dislocation confidence. */

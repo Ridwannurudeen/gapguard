@@ -8,6 +8,9 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "demo": "tsx src/replay.ts",
+    "replay:proof": "tsx src/replay.ts",
+    "verify-log": "tsx src/verify-log.ts",
+    "probe:bitget": "tsx src/bitgetProbe.ts",
     "gate-demo": "tsx src/gate-demo.ts"
   },
   "devDependencies": {

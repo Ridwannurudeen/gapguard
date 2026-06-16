@@ -76,6 +76,18 @@ export function decide(
     ts: tick.ts,
     symbol: tick.symbol,
     session,
+    market: {
+      tokenPrice: tick.tokenPrice,
+      referencePrice: tick.referencePrice,
+      proxyReturn,
+      ...(proxyEstimate
+        ? {
+            proxyConfidence: proxyEstimate.confidence,
+            proxyContributors: proxyEstimate.contributors,
+            rawProxyReturn: proxyEstimate.proxyReturn,
+          }
+        : {}),
+    },
     dislocation,
     risk,
     ...(gate ? { gate } : {}),

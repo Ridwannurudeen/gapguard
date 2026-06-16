@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-06-16T11:46:45.132Z",
+  "baseUrl": "https://bopenapi.bgwapi.io",
+  "credentialsPresent": false,
+  "target": {
+    "productSymbol": "TSLAx",
+    "underlyingSymbol": "TSLA",
+    "venue": "Bitget Wallet RWA / xStocks",
+    "chain": "sol",
+    "chainId": 100278,
+    "contract": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+    "contractStatus": "candidate"
+  },
+  "endpoints": [
+    {
+      "name": "token-base-info",
+      "path": "/bgw-pro/market/v3/coin/getBaseInfo",
+      "ok": false,
+      "statusCode": 400,
+      "message": "missing header x-api-key"
+    },
+    {
+      "name": "token-kline-1m",
+      "path": "/bgw-pro/market/v3/coin/getKline",
+      "ok": false,
+      "statusCode": 400,
+      "message": "missing header x-api-key"
+    },
+    {
+      "name": "token-tx-info",
+      "path": "/bgw-pro/market/v3/coin/getTxInfo",
+      "ok": false,
+      "statusCode": 400,
+      "message": "missing header x-api-key"
+    },
+    {
+      "name": "rwa-quote",
+      "path": "/bgw-pro/swapx/pro/quote",
+      "ok": false,
+      "skipped": true,
+      "message": "set GAPGUARD_QUOTE_FROM_CHAIN, GAPGUARD_QUOTE_FROM_CONTRACT, and GAPGUARD_QUOTE_FROM_AMOUNT to probe executable routing"
+    }
+  ],
+  "proofStatus": "blocked_missing_credentials",
+  "conclusion": "Live Bitget tokenized-stock proof is not available from this run.",
+  "nextAction": "Set BITGET_WALLET_API_KEY and BITGET_WALLET_API_SECRET, verify the target contract, then rerun npm run probe:bitget."
+}
