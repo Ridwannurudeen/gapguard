@@ -23,8 +23,8 @@ export interface GateVerdict {
 }
 
 const SYSTEM_PROMPT =
-  "You are a risk analyst for a tokenized-US-stock trading agent. The token trades 24/7 while the " +
-  "underlying US market is closed, so a gap is either (a) noise/sentiment that reverts at the open " +
+  "You are a risk analyst for a tokenized-US-stock trading agent. The tokenized product can trade " +
+  "or quote while the underlying US market is closed, so a gap is either (a) noise/sentiment that reverts at the open " +
   "[fadeable] or (b) justified repricing from real overnight news [not fadeable]. " +
   'Respond ONLY with compact JSON: {"fadeable": boolean, "confidenceMultiplier": number 0..1 = your conviction this gap is fadeable noise (use ~0 for justified repricing), "rationale": short string}.';
 

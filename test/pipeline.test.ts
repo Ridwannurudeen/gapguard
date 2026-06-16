@@ -53,13 +53,32 @@ describe("decide (full pipeline)", () => {
       symbol: "TSLAx",
       tokenPrice: 103,
       referencePrice: 100, // raw gap = +3% (would look rich)
-      proxySignals: [{ name: "NQ", return: 0.03, beta: 1, weight: 1 }], // underlying implied +3%
+      proxySignals: [
+        { name: "NQ", return: 0.03, beta: 1, weight: 1 },
+        { name: "XLK", return: 0.06, beta: 0.5, weight: 1 },
+      ], // underlying implied +3% from two agreeing proxies
       volatility: 0.015,
     };
     const rec = decide(tick, flat, gb);
     expect(rec.dislocation.fairValue).toBeCloseTo(103, 6);
     expect(rec.dislocation.direction).toBe("fair");
     expect(rec.risk.action).toBe("hold");
+  });
+
+  it("discounts the fair-value proxy when signal confidence is weak", () => {
+    const gb = new GlassBox();
+    const tick: MarketTick = {
+      ts: "2026-06-07T18:00:00Z", // Sunday — market closed
+      symbol: "TSLAx",
+      tokenPrice: 103,
+      referencePrice: 100,
+      proxySignals: [{ name: "NQ", return: 0.03, beta: 1, weight: 0.1 }],
+      volatility: 0.015,
+    };
+    const rec = decide(tick, flat, gb);
+    expect(rec.dislocation.fairValue).toBeLessThan(101);
+    expect(rec.dislocation.direction).toBe("rich");
+    expect(rec.risk.action).toBe("enter_short");
   });
 
   it("a non-fadeable gate (multiplier 0) vetoes the trade and is recorded", () => {

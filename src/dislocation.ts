@@ -1,5 +1,5 @@
 export interface DislocationInput {
-  /** Current 24/7 tokenized-stock price. */
+  /** Current tokenized-stock product price. */
   tokenPrice: number;
   /** Reference fair value anchor — typically the last underlying close. */
   referencePrice: number;

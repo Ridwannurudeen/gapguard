@@ -13,13 +13,13 @@ export interface MarketTick {
   /** UTC ISO timestamp. */
   ts: string;
   symbol: string;
-  /** Current 24/7 token price. */
+  /** Current tokenized-stock product price. */
   tokenPrice: number;
   /** Fair-value anchor — the last underlying close. */
   referencePrice: number;
   /** Optional off-hours proxy return (futures/sector ETFs). Used when `proxySignals` is absent. */
   proxyReturn?: number;
-  /** Optional 24/7 signals; when present, their blend overrides `proxyReturn`. */
+  /** Optional off-session proxy signals; when present, their blend overrides `proxyReturn`. */
   proxySignals?: ProxySignal[];
   /** Recent return volatility (decimal). */
   volatility: number;
@@ -45,8 +45,11 @@ export function decide(
   gate?: GateApplied,
 ): DecisionRecord {
   const session = classifySession(new Date(tick.ts));
-  const proxyReturn = tick.proxySignals
-    ? estimateProxyReturn(tick.proxySignals).proxyReturn
+  const proxyEstimate = tick.proxySignals
+    ? estimateProxyReturn(tick.proxySignals)
+    : undefined;
+  const proxyReturn = proxyEstimate
+    ? proxyEstimate.proxyReturn * proxyEstimate.confidence
     : tick.proxyReturn;
   const dislocation = estimateDislocation({
     tokenPrice: tick.tokenPrice,

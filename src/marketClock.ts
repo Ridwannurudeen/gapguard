@@ -120,8 +120,9 @@ function nextRegularOpen(now: Date, full: ReadonlySet<string>): Date {
 
 /**
  * Classify the US-market session for a tokenized stock at instant `now`.
- * The token trades 24/7; `underlyingOpen` is the gate — true only when the
- * underlying market is setting price. Everything else is gap-risk territory.
+ * Tokenized-stock venues can trade or quote outside regular US hours; `underlyingOpen`
+ * is the gate for when the underlying market is setting price. Everything else is
+ * gap-risk territory.
  */
 export function classifySession(
   now: Date,
