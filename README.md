@@ -23,8 +23,10 @@ GapGuard is now the flagship exhibit inside the Arena. Quorum, an adversarial de
 | `src/agentArena.ts` | Passport issuer. Grades candidates as `LICENSED`, `PAPER_ONLY`, or `REJECTED` from evidence and controls. | built + tested |
 | `src/liveStockBroker.ts` | Agent Hub broker wrapper. Defaults to dry-run, supports paper trading, and blocks live orders unless licensed, confirmed, isolated, low-leverage, and capped. | built + tested |
 | `src/arena-demo.ts` | Generates the Arena artifact with Quorum's passport, the rejected naive bot, the Quorum decision, and the dry-run order payload. | built |
+| `src/arena-cockpit.ts` | Builds sanitized public cockpit data from the Arena artifact, paper-trade evidence, and GapGuard proof summary. | built + tested |
 | `src/bitgetWalletApi.ts` | Bitget Wallet API signer/client using the documented HMAC flow. | built + tested |
 | `src/bitgetProbe.ts` | Executable target-market probe for token info, K-lines, transaction info, and optional RWA quote routing. | built, blocked without API key |
+| `public/arena.html` | Judge-facing Arena cockpit for license leaderboard, Quorum debate, broker rail, and proof stack. | built |
 | `public/dashboard.html` | Static judge cockpit for replay outcome, proxy confidence, risk actions, and hash-chain verification. | built |
 | `playbook/` | Bitget Playbook package for the ordinary-equity baseline. | authored + local validation passed |
 
@@ -43,6 +45,7 @@ npm run typecheck
 npm run demo        # replay data/tslax-replay.json and write glassbox-demo.jsonl + public/dashboard-data.json
 npm run verify-log  # verify the hash chain in glassbox-demo.jsonl
 npm run arena:demo  # write artifacts/agent-arena-demo.json
+npm run arena:cockpit
 npm run broker:order -- --mode dry_run
 npm run broker:balance -- --mode paper
 npm run probe:bitget
@@ -54,6 +57,11 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
 `npm run arena:demo` writes:
 
 - `artifacts/agent-arena-demo.json` - Quorum's licensed passport, the rejected naive bot, the five-agent Quorum decision, and the dry-run `bgc futures futures_place_order` payload.
+
+`npm run arena:cockpit` writes:
+
+- `public/arena-data.json` - sanitized public evidence data, including the latest local paper-order summary if present.
+- `public/arena.html` - static Arena cockpit. Open it directly or serve `public/` with any static server.
 
 `npm run broker:order -- --mode dry_run` appends a non-executing order record to `artifacts/order-dry-run.jsonl`. With Demo Trading credentials, `--mode paper` adds the Agent Hub `--paper-trading` flag and defaults to `BTCUSDT`, because Bitget Demo Trading supports crypto perps rather than RWA stock perps. Live mode is the RWA graduation path and requires `--mode live --confirm-live` plus credentials, a licensed passport, and the cap checks.
 

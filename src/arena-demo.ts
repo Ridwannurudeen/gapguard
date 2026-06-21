@@ -1,12 +1,13 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
+  type AgentPassport,
   issuePassport,
   rankPassports,
   type AgentCandidate,
 } from "./agentArena";
-import { placeFuturesOrder } from "./liveStockBroker";
-import { decideQuorum, type DeskOpinion } from "./quorum";
+import { placeFuturesOrder, type BrokerResult } from "./liveStockBroker";
+import { decideQuorum, type DeskOpinion, type QuorumDecision } from "./quorum";
 
 const liveCap = Number(process.env.LIVE_MAX_NOTIONAL_USDT ?? "20");
 const referencePrice = Number(process.env.ARENA_REFERENCE_PRICE ?? "209.62");
@@ -102,6 +103,18 @@ const quorumOpinions: DeskOpinion[] = [
   },
 ];
 
+export interface ArenaDemoArtifact {
+  generatedAt: string;
+  arena: {
+    thesis: string;
+    liveInstrument: string;
+    graduationStatus: string;
+  };
+  quorumDecision: QuorumDecision;
+  passports: AgentPassport[];
+  graduationDryRun: BrokerResult;
+}
+
 function sideFromQuorum(decision: ReturnType<typeof decideQuorum>) {
   return decision.winningVote === "short" ? "open_short" : "open_long";
 }
@@ -117,7 +130,7 @@ export function buildDefaultQuorumDecision(symbol: string) {
   return decideQuorum(symbol, quorumOpinions);
 }
 
-export async function buildArenaDemo(): Promise<object> {
+export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
   const passports = buildArenaPassports();
   const quorumDecision = decideQuorum(
     process.env.ARENA_LIVE_SYMBOL ?? "NVDAUSDT",
@@ -126,9 +139,7 @@ export async function buildArenaDemo(): Promise<object> {
   const graduationDryRun = await placeFuturesOrder({
     symbol: quorumDecision.symbol,
     side: sideFromQuorum(quorumDecision),
-    size:
-      Number(process.env.ARENA_ORDER_SIZE ?? "0.01") *
-      quorumDecision.positionMultiplier,
+    size: Number(process.env.ARENA_ORDER_SIZE ?? "0.01"),
     referencePrice,
   }, {
     mode: "dry_run",

@@ -13,6 +13,7 @@
     "probe:bitget": "tsx src/bitgetProbe.ts",
     "gate-demo": "tsx src/gate-demo.ts",
     "arena:demo": "tsx src/arena-demo.ts",
+    "arena:cockpit": "tsx src/arena-cockpit.ts",
     "broker:order": "tsx src/broker-cli.ts",
     "broker:balance": "tsx src/broker-balance.ts"
   },

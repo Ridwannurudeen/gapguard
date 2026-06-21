@@ -13,6 +13,7 @@ Agent Arena is a licensing layer for autonomous trading agents. Instead of trust
 Quorum is the flagship licensed agent inside the Arena: a five-role desk where Narrative, Positioning, Market Intel, Bear, and Risk opinions debate an RWA stock-perp trade. Consensus becomes the position multiplier; a Bear or Risk veto forces flat. The rejected baseline is a naive narrative bot with no risk governor, dissent, or audit chain.
 
 Verification today: `npm run arena:demo` emits a passport artifact, Quorum decision, rejected bot, and dry-run Bitget Agent Hub order payload for `NVDAUSDT`; GapGuard still provides the hash-chained risk cockpit and replay verifier. The Bitget Demo paper path is proven on `BTCUSDT`; the RWA graduation remains a separate, explicitly approved, capped live fill.
+The judge cockpit at `public/arena.html` packages the leaderboard, five-agent debate, paper-order evidence, live gates, and hash-chain proof status in one screen.
 
 ---
 
@@ -20,7 +21,7 @@ Verification today: `npm run arena:demo` emits a passport artifact, Quorum decis
 
 | Time | Visual | Narration |
 | --- | --- | --- |
-| 0:00-0:20 | Arena artifact / leaderboard | "The Arena does not trust trading agents by default. It makes them earn a license before any capital is unlocked." |
+| 0:00-0:20 | `public/arena.html` leaderboard | "The Arena does not trust trading agents by default. It makes them earn a license before any capital is unlocked." |
 | 0:20-0:55 | Quorum five-agent decision | "Narrative, Positioning, Market Intel, Bear, and Risk argue independently. Disagreement becomes the position multiplier; a veto forces flat." |
 | 0:55-1:25 | Naive bot rejected | "The single-agent narrative bot is barred from money because it lacks risk controls, debate, and a valid audit chain." |
 | 1:25-1:55 | `npm run arena:demo` dry-run order | "Quorum earns a passport, but the broker still defaults to dry-run and prints the exact Bitget Agent Hub order payload." |
@@ -46,6 +47,7 @@ Verification today: `npm run arena:demo` emits a passport artifact, Quorum decis
 
 ```bash
 npm run arena:demo
+npm run arena:cockpit
 npm run broker:order -- --mode dry_run
 npm run replay:proof
 npm run verify-log
@@ -57,6 +59,8 @@ Current generated artifacts:
 - `artifacts/agent-arena-demo.json` - Arena passport, Quorum decision, rejected bot, and dry-run order
 - `artifacts/order-dry-run.jsonl` - non-executed broker order record
 - `artifacts/paper-btc-smoke.jsonl` - local ignored Bitget Demo BTCUSDT paper-order record with balance-before/after delta
+- `public/arena-data.json` - sanitized Arena cockpit data
+- `public/arena.html` - static Arena cockpit
 - `glassbox-demo.jsonl` - local ignored JSONL audit trail
 - `public/dashboard-data.json` - dashboard data generated from the replay
 - `public/dashboard.html` - static proof cockpit
@@ -70,6 +74,7 @@ Current generated artifacts:
 - [x] Build proof replay, hash-chain verifier, dashboard, and Bitget API probe
 - [x] Build Agent Arena passport, Quorum consensus, rejected naive bot, and dry-run broker artifact
 - [x] Prove the Bitget Demo Trading paper path on BTCUSDT
+- [x] Build the judge-facing Arena cockpit
 - [ ] Obtain Bitget Wallet API credentials and rerun `npm run probe:bitget`
 - [x] Capture a fresh paper BTCUSDT artifact with balance-before/after delta
 - [ ] Re-check RWA liquidity immediately before choosing final live instrument (`NVDAUSDT` default, `SOXLUSDT` backup)

@@ -56,6 +56,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - Show Quorum's debate, consensus score, dissent, veto status, and risk multiplier.
 - Click verify on the hash chain.
 - Run the broker dry-run payload for `NVDAUSDT`.
+- Package the leaderboard, debate, broker rail, paper evidence, and hash-chain status in `public/arena.html`.
 - If explicitly approved and the paper path has passed, execute one tiny supervised fill and write the resulting order ID/timestamp to `artifacts/live-trades.jsonl`.
 
 ## Must Ship
@@ -64,4 +65,5 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - Dry-run broker artifact.
 - Paper-trading order log if Demo API credentials are available.
 - Existing GapGuard hash-chain dashboard and verifier.
+- Static Arena cockpit.
 - README/submission copy reframed as Agent Arena with GapGuard as the flagship exhibit.

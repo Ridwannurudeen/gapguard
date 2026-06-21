@@ -1,0 +1,237 @@
+{
+  "generatedAt": "2026-06-21T17:00:18.858Z",
+  "arena": {
+    "thesis": "The Arena does not trust autonomous agents by default; it makes them earn a passport before any real capital is unlocked.",
+    "liveInstrument": "NVDAUSDT",
+    "graduationStatus": "dry_run_ready"
+  },
+  "status": {
+    "licensedAgents": 1,
+    "rejectedAgents": 1,
+    "paperEvidence": "proven",
+    "liveStatus": "gated"
+  },
+  "leaderboard": [
+    {
+      "agentId": "quorum-rwa-desk",
+      "name": "Quorum",
+      "thesis": "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
+      "grade": "LICENSED",
+      "score": 131,
+      "evidence": {
+        "paperTrades": 5,
+        "liveReadOk": true,
+        "hashChainOk": true,
+        "maxDrawdownPct": 0.021,
+        "ruleViolations": 0,
+        "debateRounds": 3,
+        "rejectedTrades": 2,
+        "backtestSharpe": 1.4
+      },
+      "controls": {
+        "riskGovernor": true,
+        "adversarialReview": true,
+        "liveNotionalCapUSDT": 20,
+        "confirmLive": true,
+        "killSwitch": true,
+        "isolatedMargin": true,
+        "maxLeverage": 1
+      },
+      "license": {
+        "liveTradingAllowed": true,
+        "maxNotionalUSDT": 20,
+        "marginMode": "isolated",
+        "maxLeverage": 1
+      },
+      "findings": [
+        "licensed for one capped supervised fill"
+      ]
+    },
+    {
+      "agentId": "naive-narrative-bot",
+      "name": "Naive Narrative Bot",
+      "thesis": "Single-agent bullish narrative follower with no dissent layer.",
+      "grade": "REJECTED",
+      "score": 8,
+      "evidence": {
+        "paperTrades": 1,
+        "liveReadOk": true,
+        "hashChainOk": false,
+        "maxDrawdownPct": 0.14,
+        "ruleViolations": 2,
+        "debateRounds": 0,
+        "rejectedTrades": 0
+      },
+      "controls": {
+        "riskGovernor": false,
+        "adversarialReview": false,
+        "liveNotionalCapUSDT": 20,
+        "confirmLive": false,
+        "killSwitch": false,
+        "isolatedMargin": false,
+        "maxLeverage": 5
+      },
+      "license": {
+        "liveTradingAllowed": false,
+        "maxNotionalUSDT": 0,
+        "marginMode": "isolated",
+        "maxLeverage": 0
+      },
+      "findings": [
+        "hash-chain verification failed",
+        "fewer than 3 paper trades",
+        "insufficient debate rounds",
+        "rule violations present",
+        "drawdown exceeds licensed threshold",
+        "missing risk governor",
+        "missing adversarial review",
+        "missing human live confirmation",
+        "missing flatten kill-switch",
+        "margin mode is not isolated",
+        "leverage exceeds licensed threshold"
+      ]
+    }
+  ],
+  "quorum": {
+    "symbol": "NVDAUSDT",
+    "winningVote": "long",
+    "consensusScore": 0.9154929577464789,
+    "vetoed": false,
+    "positionMultiplier": 1,
+    "rationale": "long won 92% weighted consensus with 1 dissenters; no hard veto; size at 100% of risk budget",
+    "opinions": [
+      {
+        "role": "narrative",
+        "vote": "long",
+        "confidence": 0.9,
+        "rationale": "RWA stock-perp attention is accelerating around the same symbols judges recognize.",
+        "evidence": [
+          "news-briefing: semiconductor and AI equity narrative"
+        ]
+      },
+      {
+        "role": "positioning",
+        "vote": "long",
+        "confidence": 0.78,
+        "rationale": "The trade is not crowded enough to disqualify a tiny supervised graduation fill.",
+        "evidence": [
+          "sentiment-analyst: funding not extreme"
+        ]
+      },
+      {
+        "role": "market_intel",
+        "vote": "long",
+        "confidence": 0.72,
+        "rationale": "Public RWA ticker data shows normal status and a tight spread.",
+        "evidence": [
+          "Bitget contracts/tickers: NVDAUSDT isRwa=YES"
+        ]
+      },
+      {
+        "role": "bear",
+        "vote": "flat",
+        "confidence": 0.3,
+        "rationale": "Volume is lower than SOXLUSDT, so the desk should avoid oversizing.",
+        "evidence": [
+          "liquidity check: SOXLUSDT higher turnover"
+        ]
+      },
+      {
+        "role": "risk",
+        "vote": "long",
+        "confidence": 0.85,
+        "rationale": "The intended 0.01 order is far below the 20 USDT cap.",
+        "evidence": [
+          "constitution: isolated margin, 1x leverage, dry-run first"
+        ]
+      }
+    ]
+  },
+  "debate": [
+    {
+      "role": "narrative",
+      "vote": "long",
+      "confidence": 0.9,
+      "rationale": "RWA stock-perp attention is accelerating around the same symbols judges recognize.",
+      "evidence": [
+        "news-briefing: semiconductor and AI equity narrative"
+      ]
+    },
+    {
+      "role": "positioning",
+      "vote": "long",
+      "confidence": 0.78,
+      "rationale": "The trade is not crowded enough to disqualify a tiny supervised graduation fill.",
+      "evidence": [
+        "sentiment-analyst: funding not extreme"
+      ]
+    },
+    {
+      "role": "market_intel",
+      "vote": "long",
+      "confidence": 0.72,
+      "rationale": "Public RWA ticker data shows normal status and a tight spread.",
+      "evidence": [
+        "Bitget contracts/tickers: NVDAUSDT isRwa=YES"
+      ]
+    },
+    {
+      "role": "bear",
+      "vote": "flat",
+      "confidence": 0.3,
+      "rationale": "Volume is lower than SOXLUSDT, so the desk should avoid oversizing.",
+      "evidence": [
+        "liquidity check: SOXLUSDT higher turnover"
+      ]
+    },
+    {
+      "role": "risk",
+      "vote": "long",
+      "confidence": 0.85,
+      "rationale": "The intended 0.01 order is far below the 20 USDT cap.",
+      "evidence": [
+        "constitution: isolated margin, 1x leverage, dry-run first"
+      ]
+    }
+  ],
+  "broker": {
+    "dryRunOrder": {
+      "symbol": "NVDAUSDT",
+      "productType": "USDT-FUTURES",
+      "marginMode": "isolated",
+      "marginCoin": "USDT",
+      "size": "0.01",
+      "side": "buy",
+      "tradeSide": "open",
+      "orderType": "market"
+    },
+    "dryRunNotionalUSDT": 2.0962,
+    "paperTrade": {
+      "ts": "2026-06-21T16:50:57.674Z",
+      "symbol": "BTCUSDT",
+      "mode": "paper",
+      "side": "open_long",
+      "size": 0.0001,
+      "referencePrice": 64202,
+      "orderId": "1452633152483852289",
+      "balanceBefore": 9999.35460371,
+      "balanceAfter": 9998.70945793,
+      "balanceDelta": -0.6451457800012577,
+      "status": "submitted"
+    },
+    "liveGate": [
+      "LICENSED passport",
+      "explicit --confirm-live",
+      "isolated margin",
+      "1x leverage",
+      "notional cap <= 20 USDT",
+      "manual approval before real funds"
+    ]
+  },
+  "gapguardProof": {
+    "ok": true,
+    "count": 5,
+    "finalHash": "ccb916f68e0e0e3673bc8486580ac0fa2c399ec5c5a94ae0785ea446ce1bd25c",
+    "proofScope": "synthetic_sample"
+  }
+}
