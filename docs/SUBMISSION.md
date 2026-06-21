@@ -1,51 +1,52 @@
-# GapGuard — Submission Pack
+# Agent Arena - Submission Pack
 
-**Bitget AI Base Camp Hackathon S1 · Track 3 — US Stock AI Trading**
+**Bitget AI Base Camp Hackathon S1 - Track 2: Trading Infra**
 
-Submission window: **Jun 15 – Jun 25, 2026 (UTC+8)**. Submit a demo link **or** GitHub repo + the project description below; video optional (≤3 min). Include the dissemination thread link for the Best Community Communication Award.
-
----
-
-## Project description (draft — cap is 200 words)
-
-GapGuard is an autonomous gap-risk agent for tokenized US stocks. Tokenized equity products can trade or quote outside the underlying US market's ~6.5-hour regular session, depending on venue and instrument. When the underlying is closed, price discovery is weaker and holders or market makers can be exposed to token/fair-value dislocations before the next US open.
-
-The loop. Perception: a market clock plus 24/7 proxy signals estimate the underlying's fair value while the market is closed; Bitget Agent Hub Skills can add macro, sentiment, news, and technical context. Decision: GapGuard measures the token's dislocation in volatility units and discounts weak proxy evidence. Execution & risk control: a governor sizes by confidence under a tighter off-hours cap, halts on drawdown, and flattens at the reopen. Each decision is written to a hash-chained JSONL audit trail.
-
-Verification today: runnable simulated TSLAx replay, hash-chain verifier, judge dashboard, Bitget Wallet API probe report, and a validated Bitget Playbook package on ordinary TSLA daily bars. Final proof target: authenticated Bitget tokenized-stock/off-hours data before claiming live convergence performance.
+Submission window: **Jun 15 - Jun 25, 2026 (UTC+8)**. Submit a demo link or GitHub repo plus the project description below. Do not submit without explicit approval.
 
 ---
 
-## Demo-video script (≤3 min)
+## Project Description
 
-| Time      | Visual                                                                 | Narration                                                                                                                                                               |
-| --------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0:00–0:20 | TSLAx weekend replay, US market "CLOSED" badge                         | "Tokenized stock products can expose traders to prices moving while the underlying market is closed. That mismatch is a gap-risk problem."                              |
-| 0:20–0:50 | Chart: token drifts while underlying is closed, then reanchors at open | "GapGuard watches for token/fair-value dislocations and only acts when the gap is large enough and evidence is strong enough."                                          |
-| 0:50–1:30 | Terminal running `npm run replay:proof` and `npm run verify-log`       | "The agent classifies the session, estimates fair value from 24/7 proxies, discounts weak proxy evidence, sizes through a governor, and emits a verifiable hash chain." |
-| 1:30–2:10 | `public/dashboard.html` proof cockpit                                  | "The dashboard shows token price, fair value, proxy confidence, action, and final hash from the same replay records."                                                   |
-| 2:10–2:35 | `data/bitget-probe-report.json`                                        | "The Bitget Wallet probe is built and reaches the production host; this run is blocked only because API credentials are missing."                                       |
-| 2:35–2:55 | Bitget Playbook package / backtest scene                               | "The Playbook package is labeled as an ordinary-equity baseline. It is not presented as tokenized-stock performance proof."                                             |
-| 2:55–3:00 | GapGuard logo + tagline                                                | "GapGuard. Risk control for the gap tokenization opened."                                                                                                               |
+Agent Arena is a licensing layer for autonomous trading agents. Instead of trusting a single LLM narrative, it makes agents earn a passport before any real capital is unlocked. Each candidate is scored on paper-trade evidence, live Bitget perception, drawdown, rule violations, adversarial debate, hash-chain verification, and hard execution controls.
+
+Quorum is the flagship licensed agent inside the Arena: a five-role desk where Narrative, Positioning, Market Intel, Bear, and Risk opinions debate an RWA stock-perp trade. Consensus becomes the position multiplier; a Bear or Risk veto forces flat. The rejected baseline is a naive narrative bot with no risk governor, dissent, or audit chain.
+
+Verification today: `npm run arena:demo` emits a passport artifact, Quorum decision, rejected bot, and dry-run Bitget Agent Hub order payload for `NVDAUSDT`; GapGuard still provides the hash-chained risk cockpit and replay verifier. The Bitget Demo paper path is proven on `BTCUSDT`; the RWA graduation remains a separate, explicitly approved, capped live fill.
 
 ---
 
-## Rubric coverage (Track 3)
+## Demo-Video Script
 
-| Criterion                                                               | How GapGuard meets it                                                                                                         | Status           |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| Real problem in the US-stock tokenization scenario                      | Off-hours token/fair-value gap risk for tokenized-stock holders and market makers                                             | ✅ built         |
-| Verifiable backtesting or simulated trading records                     | `glassbox-demo.jsonl` from `npm run replay:proof`, verified by `npm run verify-log`                                           | ✅ sim log       |
-| Uses Bitget US-stock data/tools                                         | Bitget Wallet API signer/probe built; Playbook validates locally on ordinary TSLA daily bars; live tokenized proof needs keys | ⏳ needs API key |
-| Basic gate: real, workable demo; whose problem; verifiable usage record | Runnable replay, dashboard, verifier, and probe report; problem = tokenized-stock holders/market-makers                       | ✅ met           |
-
-> Note: the rubric accepts **any one** of real/simulated trading logs, API call volume, or user count. The simulated log satisfies the gate; Bitget-backed tokenized-stock/off-hours data would upgrade the proof and should be obtained before making performance claims.
+| Time | Visual | Narration |
+| --- | --- | --- |
+| 0:00-0:20 | Arena artifact / leaderboard | "The Arena does not trust trading agents by default. It makes them earn a license before any capital is unlocked." |
+| 0:20-0:55 | Quorum five-agent decision | "Narrative, Positioning, Market Intel, Bear, and Risk argue independently. Disagreement becomes the position multiplier; a veto forces flat." |
+| 0:55-1:25 | Naive bot rejected | "The single-agent narrative bot is barred from money because it lacks risk controls, debate, and a valid audit chain." |
+| 1:25-1:55 | `npm run arena:demo` dry-run order | "Quorum earns a passport, but the broker still defaults to dry-run and prints the exact Bitget Agent Hub order payload." |
+| 1:55-2:25 | Hash-chain cockpit / `npm run verify-log` | "The underlying GapGuard strategy remains glass-boxed: every decision verifies in a local hash chain." |
+| 2:25-2:55 | Paper/live graduation | "Demo Trading proves the broker on BTCUSDT; with explicit approval only, one tiny capped RWA fill becomes the graduation artifact." |
+| 2:55-3:00 | Agent Arena tagline | "Agent Arena. Trading agents earn trust before they earn capital." |
 
 ---
 
-## Executable proof commands
+## Rubric Coverage
+
+| Criterion | How Agent Arena meets it | Status |
+| --- | --- | --- |
+| Real trading-infra problem | Agents need a licensing, monitoring, and capital-allocation layer before live execution. | built |
+| Verifiable usage record | `artifacts/agent-arena-demo.json`, `glassbox-demo.jsonl`, hash-chain verifier, and dry-run Agent Hub order payload. | built |
+| Uses Bitget data/tools | Agent Hub order shape, proven Demo Trading path, RWA perp instrument selection, Bitget Wallet probe, Playbook baseline. | paper proven; live gated |
+| Runnability | Local demo, tests, dry-run broker, paper-trading path, and live path gated by license plus explicit confirmation. | paper path proven |
+| Novelty/potential | Debate-to-consensus passporting infrastructure with GapGuard as the first strategy exhibit and a rejected naive bot as contrast. | core implemented |
+
+---
+
+## Executable Proof Commands
 
 ```bash
+npm run arena:demo
+npm run broker:order -- --mode dry_run
 npm run replay:proof
 npm run verify-log
 npm run probe:bitget
@@ -53,22 +54,28 @@ npm run probe:bitget
 
 Current generated artifacts:
 
-- `glassbox-demo.jsonl` — local ignored JSONL audit trail
-- `public/dashboard-data.json` — dashboard data generated from the replay
-- `public/dashboard.html` — static proof cockpit
-- `data/bitget-probe-report.json` — live Bitget Wallet API probe result
-- `docs/PROOF.md` — API source notes and proof scope
+- `artifacts/agent-arena-demo.json` - Arena passport, Quorum decision, rejected bot, and dry-run order
+- `artifacts/order-dry-run.jsonl` - non-executed broker order record
+- `artifacts/paper-btc-smoke.jsonl` - local ignored Bitget Demo BTCUSDT paper-order record
+- `glassbox-demo.jsonl` - local ignored JSONL audit trail
+- `public/dashboard-data.json` - dashboard data generated from the replay
+- `public/dashboard.html` - static proof cockpit
+- `data/bitget-probe-report.json` - live Bitget Wallet API probe result
+- `docs/PROOF.md` - API source notes and proof scope
 
 ---
 
-## Pre-submission checklist
+## Pre-Submission Checklist
 
 - [x] Build proof replay, hash-chain verifier, dashboard, and Bitget API probe
+- [x] Build Agent Arena passport, Quorum consensus, rejected naive bot, and dry-run broker artifact
+- [x] Prove the Bitget Demo Trading paper path on BTCUSDT
 - [ ] Obtain Bitget Wallet API credentials and rerun `npm run probe:bitget`
-- [ ] Pin exact target instrument/venue and supported trading hours from authenticated Bitget response
-- [ ] If authenticated data is available, replace the synthetic replay with real tokenized-stock/off-hours records
+- [ ] Capture a fresh paper BTCUSDT artifact with balance-before/after delta
+- [ ] Re-check RWA liquidity immediately before choosing final live instrument (`NVDAUSDT` default, `SOXLUSDT` backup)
+- [ ] If explicitly approved, execute one tiny capped live RWA fill and write `artifacts/live-trades.jsonl`
 - [ ] Keep the Playbook scene labeled as ordinary-equity baseline unless tokenized-stock data is added
-- [ ] Record ≤3-min demo video
-- [ ] Publish #BitgetHackathon dissemination thread (tag Bitget AI), keep the link
-- [ ] Decide submission artifact: GitHub repo link (repo is currently private — make public or grant judge access)
-- [ ] Submit via the official link released Jun 15 (do **not** submit without explicit approval)
+- [ ] Record demo video
+- [ ] Publish dissemination thread and keep the link
+- [ ] Decide submission artifact: GitHub repo link or demo URL
+- [ ] Submit only after explicit approval

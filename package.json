@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Tokenization gap-risk agent for Bitget AI Hackathon S1 — Track 3 (US Stock AI Trading)",
+  "description": "Trading-agent licensing arena for Bitget AI Hackathon S1 Track 2",
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
