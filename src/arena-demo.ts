@@ -11,6 +11,9 @@ import { decideQuorum, type DeskOpinion, type QuorumDecision } from "./quorum";
 
 const liveCap = Number(process.env.LIVE_MAX_NOTIONAL_USDT ?? "20");
 const referencePrice = Number(process.env.ARENA_REFERENCE_PRICE ?? "209.62");
+const liveOrderSize = Number(
+  process.env.ARENA_LIVE_ORDER_SIZE ?? process.env.ARENA_ORDER_SIZE ?? "0.03",
+);
 
 const quorum: AgentCandidate = {
   agentId: "quorum-rwa-desk",
@@ -98,8 +101,12 @@ const quorumOpinions: DeskOpinion[] = [
     role: "risk",
     vote: "long",
     confidence: 0.85,
-    rationale: "The intended 0.01 order is far below the 20 USDT cap.",
-    evidence: ["constitution: isolated margin, 1x leverage, dry-run first"],
+    rationale:
+      "The intended 0.03 order clears the contract minimum and remains below the 20 USDT cap.",
+    evidence: [
+      "constitution: isolated margin, 1x leverage, dry-run first",
+      "contract floor: minTradeUSDT rechecked before live fill",
+    ],
   },
 ];
 
@@ -120,10 +127,7 @@ function sideFromQuorum(decision: ReturnType<typeof decideQuorum>) {
 }
 
 export function buildArenaPassports() {
-  return rankPassports([
-    issuePassport(quorum),
-    issuePassport(naiveBot),
-  ]);
+  return rankPassports([issuePassport(quorum), issuePassport(naiveBot)]);
 }
 
 export function buildDefaultQuorumDecision(symbol: string) {
@@ -136,19 +140,22 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
     process.env.ARENA_LIVE_SYMBOL ?? "NVDAUSDT",
     quorumOpinions,
   );
-  const graduationDryRun = await placeFuturesOrder({
-    symbol: quorumDecision.symbol,
-    side: sideFromQuorum(quorumDecision),
-    size: Number(process.env.ARENA_ORDER_SIZE ?? "0.01"),
-    referencePrice,
-  }, {
-    mode: "dry_run",
-    passport: passports[0],
-    maxNotionalUSDT: liveCap,
-    confirmLive: false,
-    marginMode: "isolated",
-    leverage: 1,
-  });
+  const graduationDryRun = await placeFuturesOrder(
+    {
+      symbol: quorumDecision.symbol,
+      side: sideFromQuorum(quorumDecision),
+      size: liveOrderSize,
+      referencePrice,
+    },
+    {
+      mode: "dry_run",
+      passport: passports[0],
+      maxNotionalUSDT: liveCap,
+      confirmLive: false,
+      marginMode: "isolated",
+      leverage: 1,
+    },
+  );
 
   return {
     generatedAt: new Date().toISOString(),

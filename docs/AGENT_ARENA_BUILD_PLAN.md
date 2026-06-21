@@ -14,7 +14,7 @@ Quorum is the flagship agent inside the Arena. It earns the license by combining
 4. Tamper-evident simulated ledger from the existing GapGuard glass-box.
 5. Live read-only RWA market perception from Bitget public and authenticated APIs.
 
-Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `SOXLUSDT`. Re-check contracts/tickers immediately before any real order.
+Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `SOXLUSDT`. `npm run rwa:check` writes the public contract/ticker recheck and computes the suggested minimum live size; rerun it immediately before any real order.
 
 ## Safety Constitution
 
@@ -34,6 +34,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - Provision Qwen key and read-data credentials.
 - Keep live Trade key separate and unfunded until paper path passes.
 - Run `npm run arena:demo` to generate `artifacts/agent-arena-demo.json`.
+- Run `npm run rwa:check` to generate `public/rwa-market.json` from Bitget public USDT-Futures data.
 - Run the dry-run broker path; confirm the intended order payload before any paper/live execution.
 
 ### Phase 1 - Arena Passport
@@ -49,6 +50,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - `dry_run` returns the intended order without execution.
 - `paper` adds `--paper-trading` and requires Bitget demo credentials.
 - `live` is blocked unless the passport is `LICENSED`, `confirmLive` is true, the order is under cap, and the safety constitution passes.
+- Dry/live defaults use a minimum-safe `NVDAUSDT` size; paper defaults stay on a tiny `BTCUSDT` crypto order.
 
 ### Phase 3 - Judge Demo
 
@@ -56,6 +58,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - Show Quorum's debate, consensus score, dissent, veto status, and risk multiplier.
 - Click verify on the hash chain.
 - Run the broker dry-run payload for `NVDAUSDT`.
+- Show the RWA market recheck: RWA flag, normal status, spread, volume, minimum size, and liquidity backup.
 - Package the leaderboard, debate, broker rail, paper evidence, and hash-chain status in `public/arena.html`.
 - If explicitly approved and the paper path has passed, execute one tiny supervised fill and write the resulting order ID/timestamp to `artifacts/live-trades.jsonl`.
 
@@ -63,6 +66,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 
 - Arena passport artifact.
 - Dry-run broker artifact.
+- Public RWA market recheck artifact.
 - Paper-trading order log if Demo API credentials are available.
 - Existing GapGuard hash-chain dashboard and verifier.
 - Static Arena cockpit.

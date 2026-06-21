@@ -11,6 +11,7 @@
     "replay:proof": "tsx src/replay.ts",
     "verify-log": "tsx src/verify-log.ts",
     "probe:bitget": "tsx src/bitgetProbe.ts",
+    "rwa:check": "tsx src/rwa-market.ts",
     "gate-demo": "tsx src/gate-demo.ts",
     "arena:demo": "tsx src/arena-demo.ts",
     "arena:cockpit": "tsx src/arena-cockpit.ts",

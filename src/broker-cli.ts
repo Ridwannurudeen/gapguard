@@ -62,6 +62,35 @@ function defaultOut(mode: BrokerMode): string {
   return "artifacts/order-dry-run.jsonl";
 }
 
+function defaultOrderSize(mode: BrokerMode, env: NodeJS.ProcessEnv): number {
+  if (mode === "paper") {
+    return parseNumber(
+      env.ARENA_PAPER_ORDER_SIZE ?? "0.0001",
+      "ARENA_PAPER_ORDER_SIZE",
+    );
+  }
+  return parseNumber(
+    env.ARENA_LIVE_ORDER_SIZE ?? env.ARENA_ORDER_SIZE ?? "0.03",
+    env.ARENA_LIVE_ORDER_SIZE ? "ARENA_LIVE_ORDER_SIZE" : "ARENA_ORDER_SIZE",
+  );
+}
+
+function defaultReferencePrice(
+  mode: BrokerMode,
+  env: NodeJS.ProcessEnv,
+): number {
+  if (mode === "paper") {
+    return parseNumber(
+      env.ARENA_PAPER_REFERENCE_PRICE ?? "64202",
+      "ARENA_PAPER_REFERENCE_PRICE",
+    );
+  }
+  return parseNumber(
+    env.ARENA_REFERENCE_PRICE ?? "209.62",
+    "ARENA_REFERENCE_PRICE",
+  );
+}
+
 export function parseBrokerCliArgs(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -69,11 +98,8 @@ export function parseBrokerCliArgs(
   let mode: BrokerMode = "dry_run";
   let symbol: string | undefined;
   let side: FuturesSide | undefined;
-  let size = parseNumber(env.ARENA_ORDER_SIZE ?? "0.01", "ARENA_ORDER_SIZE");
-  let referencePrice = parseNumber(
-    env.ARENA_REFERENCE_PRICE ?? "209.62",
-    "ARENA_REFERENCE_PRICE",
-  );
+  let size: number | undefined;
+  let referencePrice: number | undefined;
   let maxNotionalUSDT = parseNumber(
     env.LIVE_MAX_NOTIONAL_USDT ?? "20",
     "LIVE_MAX_NOTIONAL_USDT",
@@ -119,13 +145,16 @@ export function parseBrokerCliArgs(
     (mode === "paper"
       ? (env.ARENA_PAPER_SYMBOL ?? "BTCUSDT")
       : (env.ARENA_LIVE_SYMBOL ?? "NVDAUSDT"));
+  const resolvedSize = size ?? defaultOrderSize(mode, env);
+  const resolvedReferencePrice =
+    referencePrice ?? defaultReferencePrice(mode, env);
 
   return {
     mode,
     symbol: resolvedSymbol,
     side,
-    size,
-    referencePrice,
+    size: resolvedSize,
+    referencePrice: resolvedReferencePrice,
     maxNotionalUSDT,
     confirmLive,
     out: out ?? defaultOut(mode),

@@ -5,6 +5,7 @@ import {
   type GapGuardProofSummary,
 } from "../src/arena-cockpit";
 import { buildArenaDemo } from "../src/arena-demo";
+import type { RwaMarketReport } from "../src/rwa-market";
 
 describe("arena cockpit data", () => {
   it("parses the fresh paper-order artifact shape", () => {
@@ -69,7 +70,27 @@ describe("arena cockpit data", () => {
       finalHash: "abc123",
       proofScope: "synthetic_sample",
     };
-    const data = buildArenaCockpitData(await buildArenaDemo(), null, proof);
+    const rwaMarket: RwaMarketReport = {
+      generatedAt: "2026-06-21T17:20:00.000Z",
+      source: {
+        baseUrl: "https://api.bitget.com",
+        productType: "USDT-FUTURES",
+        contracts: "/api/v2/mix/market/contracts",
+        tickers: "/api/v2/mix/market/tickers",
+      },
+      defaultLiveSymbol: "NVDAUSDT",
+      backupSymbol: "SOXLUSDT",
+      liquidityLeader: "SOXLUSDT",
+      selectedLiveSymbol: "NVDAUSDT",
+      maxNotionalUSDT: 20,
+      rows: [],
+    };
+    const data = buildArenaCockpitData(
+      await buildArenaDemo(),
+      null,
+      proof,
+      rwaMarket,
+    );
 
     expect(data.status).toMatchObject({
       licensedAgents: 1,
@@ -78,7 +99,9 @@ describe("arena cockpit data", () => {
       liveStatus: "gated",
     });
     expect(data.broker.dryRunOrder.symbol).toBe("NVDAUSDT");
+    expect(data.broker.dryRunOrder.size).toBe("0.03");
     expect(data.broker.liveGate).toContain("explicit --confirm-live");
+    expect(data.rwaMarket).toBe(rwaMarket);
     expect(data.gapguardProof).toBe(proof);
   });
 });

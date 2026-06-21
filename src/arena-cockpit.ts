@@ -4,6 +4,7 @@ import { buildArenaDemo, type ArenaDemoArtifact } from "./arena-demo";
 import type { AgentPassport } from "./agentArena";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
 import type { DeskOpinion, QuorumDecision } from "./quorum";
+import type { RwaMarketReport } from "./rwa-market";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -46,6 +47,7 @@ export interface ArenaCockpitData {
     paperTrade: PaperTradeEvidence | null;
     liveGate: string[];
   };
+  rwaMarket: RwaMarketReport | null;
   gapguardProof: GapGuardProofSummary | null;
 }
 
@@ -102,7 +104,8 @@ export function parsePaperTradeRow(value: unknown): PaperTradeEvidence | null {
     side: readString(row.side) ?? semanticSide(order),
     size,
     referencePrice,
-    orderId: readString(row.orderId) ?? (stdout ? extractOrderId(stdout) : null),
+    orderId:
+      readString(row.orderId) ?? (stdout ? extractOrderId(stdout) : null),
     balanceBefore: readNumber(row.balanceBefore),
     balanceAfter: readNumber(row.balanceAfter),
     balanceDelta: readNumber(row.balanceDelta),
@@ -140,10 +143,24 @@ export function readGapGuardProof(path: string): GapGuardProofSummary | null {
   return { ok, count, finalHash, proofScope };
 }
 
+export function readRwaMarketReport(path: string): RwaMarketReport | null {
+  if (!existsSync(path)) return null;
+  const data = asRecord(JSON.parse(readFileSync(path, "utf8")));
+  const rows = data.rows;
+  const defaultLiveSymbol = readString(data.defaultLiveSymbol);
+  const maxNotionalUSDT = readNumber(data.maxNotionalUSDT);
+
+  if (!Array.isArray(rows) || !defaultLiveSymbol || maxNotionalUSDT === null) {
+    return null;
+  }
+  return data as unknown as RwaMarketReport;
+}
+
 export function buildArenaCockpitData(
   artifact: ArenaDemoArtifact,
   paperTrade: PaperTradeEvidence | null,
   gapguardProof: GapGuardProofSummary | null,
+  rwaMarket: RwaMarketReport | null = null,
 ): ArenaCockpitData {
   return {
     generatedAt: new Date().toISOString(),
@@ -172,18 +189,25 @@ export function buildArenaCockpitData(
         "manual approval before real funds",
       ],
     },
+    rwaMarket,
     gapguardProof,
   };
 }
 
 export async function runArenaCockpitCli(): Promise<void> {
-  const paperPath = resolve(process.argv[2] ?? "artifacts/paper-btc-smoke.jsonl");
+  const paperPath = resolve(
+    process.argv[2] ?? "artifacts/paper-btc-smoke.jsonl",
+  );
   const proofPath = resolve(process.argv[3] ?? "public/dashboard-data.json");
   const out = resolve(process.argv[4] ?? "public/arena-data.json");
+  const rwaPath = resolve(
+    process.env.ARENA_RWA_MARKET_PATH ?? "public/rwa-market.json",
+  );
   const data = buildArenaCockpitData(
     await buildArenaDemo(),
     readLatestPaperTrade(paperPath),
     readGapGuardProof(proofPath),
+    readRwaMarketReport(rwaPath),
   );
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify(data, null, 2)}\n`);

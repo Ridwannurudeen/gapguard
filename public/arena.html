@@ -43,7 +43,11 @@
         margin: 0;
         background:
           linear-gradient(rgba(213, 218, 196, 0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(213, 218, 196, 0.035) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(213, 218, 196, 0.035) 1px,
+            transparent 1px
+          ),
           var(--base-950);
         background-size: 34px 34px;
         color: var(--base-100);
@@ -292,7 +296,8 @@
       .leaderboard,
       .debate,
       .rail,
-      .proof-grid {
+      .proof-grid,
+      .market-grid {
         display: grid;
         gap: 10px;
         padding: 14px;
@@ -433,6 +438,21 @@
         background: var(--surface-soft);
       }
 
+      .market-row {
+        display: grid;
+        grid-template-columns: 116px minmax(0, 1fr) repeat(4, 96px);
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface-soft);
+      }
+
+      .metric {
+        text-align: right;
+      }
+
       .hash {
         max-width: 100%;
         overflow: hidden;
@@ -466,8 +486,13 @@
 
         header,
         .agent-row,
-        .signature {
+        .signature,
+        .market-row {
           grid-template-columns: 1fr;
+        }
+
+        .metric {
+          text-align: left;
         }
 
         h1 {
@@ -572,6 +597,17 @@
       <section class="panel" style="margin-top: 16px">
         <div class="panel-head">
           <div>
+            <div class="eyebrow">RWA market recheck</div>
+            <h2>Public Bitget contract and ticker evidence</h2>
+          </div>
+          <span id="rwaStamp" class="tag warn">not loaded</span>
+        </div>
+        <div id="rwaMarket" class="market-grid"></div>
+      </section>
+
+      <section class="panel" style="margin-top: 16px">
+        <div class="panel-head">
+          <div>
             <div class="eyebrow">Quorum debate</div>
             <h2 id="quorumHeadline">Consensus pending</h2>
           </div>
@@ -622,15 +658,16 @@
             "productType": "USDT-FUTURES",
             "marginMode": "isolated",
             "marginCoin": "USDT",
-            "size": "0.01",
+            "size": "0.03",
             "side": "buy",
             "tradeSide": "open",
             "orderType": "market"
           },
-          "dryRunNotionalUSDT": 2.0962,
+          "dryRunNotionalUSDT": 6.2886,
           "paperTrade": null,
           "liveGate": ["explicit approval before real funds"]
         },
+        "rwaMarket": null,
         "gapguardProof": null
       }
     </script>
@@ -642,10 +679,26 @@
 
       const pct = (value) => `${(value * 100).toFixed(0)}%`;
       const money = (value) =>
-        `${Number(value).toLocaleString("en-US", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })} USDT`;
+        value === null || value === undefined
+          ? "n/a"
+          : `${Number(value).toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })} USDT`;
+      const compactMoney = (value) =>
+        value === null || value === undefined
+          ? "n/a"
+          : `${Number(value).toLocaleString("en-US", {
+              maximumFractionDigits: 0,
+            })} USDT`;
+      const bps = (value) =>
+        value === null || value === undefined
+          ? "n/a"
+          : `${Number(value).toFixed(2)} bps`;
+      const unit = (value) =>
+        value === null || value === undefined
+          ? "n/a"
+          : Number(value).toString();
       const text = (value) =>
         value === null || value === undefined || value === "" ? "n/a" : value;
 
@@ -661,13 +714,25 @@
         return `${order.symbol} ${order.side}/${order.tradeSide} ${order.size} ${order.marginCoin} ${order.marginMode}`;
       }
 
+      function defaultMarketRow(data) {
+        return (
+          data.rwaMarket?.rows?.find(
+            (row) => row.symbol === data.rwaMarket.defaultLiveSymbol,
+          ) ?? null
+        );
+      }
+
       function renderTicker(data) {
         const paper = data.broker.paperTrade;
+        const marketRow = defaultMarketRow(data);
         const items = [
           `LICENSED ${data.status.licensedAgents}`,
           `REJECTED ${data.status.rejectedAgents}`,
           `QUORUM ${data.quorum.symbol} ${data.quorum.winningVote} ${pct(data.quorum.consensusScore)}`,
           `DRY-RUN ${orderSummary(data.broker.dryRunOrder)}`,
+          marketRow
+            ? `RWA ${marketRow.symbol} ${marketRow.symbolStatus.toUpperCase()} SPREAD ${bps(marketRow.spreadBps)} MIN ${unit(marketRow.suggestedMinSize)}`
+            : "RWA CHECK NOT LOADED",
           paper
             ? `PAPER ${paper.symbol} ORDER ${paper.orderId} DELTA ${money(paper.balanceDelta)}`
             : "PAPER EVIDENCE MISSING",
@@ -683,9 +748,8 @@
 
       function renderStatus(data) {
         const total = data.leaderboard.length || 2;
-        document.getElementById(
-          "licensedDisplay",
-        ).textContent = `${data.status.licensedAgents}/${total}`;
+        document.getElementById("licensedDisplay").textContent =
+          `${data.status.licensedAgents}/${total}`;
         document.getElementById("paperStatus").textContent =
           data.status.paperEvidence;
         document.getElementById("liveStatus").textContent =
@@ -724,9 +788,8 @@
       function renderDebate(data) {
         document.getElementById("quorumHeadline").textContent =
           data.quorum.rationale;
-        document.getElementById(
-          "quorumVote",
-        ).textContent = `${data.quorum.winningVote} x${data.quorum.positionMultiplier}`;
+        document.getElementById("quorumVote").textContent =
+          `${data.quorum.winningVote} x${data.quorum.positionMultiplier}`;
         document.getElementById("debate").innerHTML = data.debate
           .map((opinion) => {
             const tagClass =
@@ -751,14 +814,18 @@
 
       function renderBroker(data) {
         const paper = data.broker.paperTrade;
+        const marketRow = defaultMarketRow(data);
         const paperLine = paper
           ? `order ${paper.orderId} | balance ${money(paper.balanceBefore)} -> ${money(paper.balanceAfter)} | delta ${money(paper.balanceDelta)}`
           : "no paper artifact loaded";
+        const marketLine = marketRow
+          ? ` | min floor ${money(marketRow.minTradeUSDT)} -> suggested size ${unit(marketRow.suggestedMinSize)}`
+          : "";
         document.getElementById("brokerRail").innerHTML = [
           {
             label: "RWA dry-run",
             tag: "ready",
-            body: `${orderSummary(data.broker.dryRunOrder)} | notional ${money(data.broker.dryRunNotionalUSDT)}`,
+            body: `${orderSummary(data.broker.dryRunOrder)} | notional ${money(data.broker.dryRunNotionalUSDT)}${marketLine}`,
           },
           {
             label: "Demo paper",
@@ -786,6 +853,75 @@
           .join("");
       }
 
+      function renderMarket(data) {
+        const report = data.rwaMarket;
+        const stamp = document.getElementById("rwaStamp");
+        if (
+          !report ||
+          !Array.isArray(report.rows) ||
+          report.rows.length === 0
+        ) {
+          stamp.textContent = "not loaded";
+          stamp.className = "tag warn";
+          document.getElementById("rwaMarket").innerHTML =
+            `<article class="rail-step">
+            <div class="rail-index mono">!</div>
+            <div>
+              <h3>Run npm run rwa:check</h3>
+              <div class="order-box">This public-data check reads Bitget USDT-FUTURES contracts and tickers, then writes public/rwa-market.json.</div>
+            </div>
+          </article>`;
+          return;
+        }
+
+        stamp.textContent = new Date(report.generatedAt).toLocaleString();
+        stamp.className = "tag ok";
+        document.getElementById("rwaMarket").innerHTML = report.rows
+          .slice(0, 6)
+          .map((row) => {
+            const isDefault = row.symbol === report.defaultLiveSymbol;
+            const isLeader = row.symbol === report.liquidityLeader;
+            const label = isDefault
+              ? "default"
+              : isLeader
+                ? "liquidity"
+                : row.liveReady
+                  ? "ready"
+                  : "blocked";
+            const tagClass = row.liveReady ? "ok" : "blocked";
+            const blockers = row.blockers?.length
+              ? row.blockers.join(" | ")
+              : "normal RWA contract";
+            return `<article class="market-row">
+              <div>
+                <h3>${row.symbol}</h3>
+                <span class="tag ${tagClass}">${label}</span>
+              </div>
+              <div>
+                <p class="muted">${blockers}</p>
+                <p class="order-box">last ${money(row.lastPrice)} | funding ${text(row.fundingRate)}</p>
+              </div>
+              <div class="metric">
+                <div class="eyebrow">volume</div>
+                <div class="mono">${compactMoney(row.quoteVolumeUSDT)}</div>
+              </div>
+              <div class="metric">
+                <div class="eyebrow">spread</div>
+                <div class="mono">${bps(row.spreadBps)}</div>
+              </div>
+              <div class="metric">
+                <div class="eyebrow">min size</div>
+                <div class="mono">${unit(row.suggestedMinSize)}</div>
+              </div>
+              <div class="metric">
+                <div class="eyebrow">notional</div>
+                <div class="mono">${money(row.suggestedNotionalUSDT)}</div>
+              </div>
+            </article>`;
+          })
+          .join("");
+      }
+
       function renderProof(data) {
         const proof = data.gapguardProof;
         document.getElementById("proofGrid").innerHTML = [
@@ -797,7 +933,15 @@
           {
             label: "Paper order",
             value: data.broker.paperTrade?.orderId ?? "missing",
-            detail: data.broker.paperTrade?.ts ?? "run broker:order --mode paper",
+            detail:
+              data.broker.paperTrade?.ts ?? "run broker:order --mode paper",
+          },
+          {
+            label: "RWA market",
+            value: data.rwaMarket?.selectedLiveSymbol ?? "missing",
+            detail: data.rwaMarket
+              ? `leader ${data.rwaMarket.liquidityLeader ?? "n/a"}`
+              : "run npm run rwa:check",
           },
           {
             label: "Hash chain",
@@ -821,6 +965,7 @@
         renderLeaderboard(data);
         renderDebate(data);
         renderBroker(data);
+        renderMarket(data);
         renderProof(data);
       }
 
@@ -837,13 +982,16 @@
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
         render(data);
-        document.getElementById("verifyButton").addEventListener("click", () => {
-          document.getElementById("hashStatus").textContent = data.gapguardProof
-            ? data.gapguardProof.ok
-              ? "valid"
-              : "invalid"
-            : "missing";
-        });
+        document
+          .getElementById("verifyButton")
+          .addEventListener("click", () => {
+            document.getElementById("hashStatus").textContent =
+              data.gapguardProof
+                ? data.gapguardProof.ok
+                  ? "valid"
+                  : "invalid"
+                : "missing";
+          });
       }
 
       boot();

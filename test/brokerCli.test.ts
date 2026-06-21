@@ -6,7 +6,7 @@ describe("broker cli", () => {
     expect(parseBrokerCliArgs([], {})).toMatchObject({
       mode: "dry_run",
       symbol: "NVDAUSDT",
-      size: 0.01,
+      size: 0.03,
       referencePrice: 209.62,
       maxNotionalUSDT: 20,
       confirmLive: false,
@@ -53,7 +53,11 @@ describe("broker cli", () => {
 
   it("defaults paper mode to a demo-supported crypto symbol", () => {
     // Bitget Demo lists crypto perps only, so the RWA default would be rejected.
-    expect(parseBrokerCliArgs(["--mode", "paper"], {}).symbol).toBe("BTCUSDT");
+    expect(parseBrokerCliArgs(["--mode", "paper"], {})).toMatchObject({
+      symbol: "BTCUSDT",
+      size: 0.0001,
+      referencePrice: 64202,
+    });
   });
 
   it("lets an explicit symbol win in paper mode", () => {
