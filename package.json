@@ -11,10 +11,14 @@
     "replay:proof": "tsx src/replay.ts",
     "verify-log": "tsx src/verify-log.ts",
     "probe:bitget": "tsx src/bitgetProbe.ts",
-    "gate-demo": "tsx src/gate-demo.ts"
+    "gate-demo": "tsx src/gate-demo.ts",
+    "arena:demo": "tsx src/arena-demo.ts",
+    "broker:order": "tsx src/broker-cli.ts",
+    "broker:balance": "tsx src/broker-balance.ts"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",
+    "bitget-client": "^1.1.1",
     "tsx": "^4.22.4",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
