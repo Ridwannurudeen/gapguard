@@ -56,7 +56,7 @@ Current generated artifacts:
 
 - `artifacts/agent-arena-demo.json` - Arena passport, Quorum decision, rejected bot, and dry-run order
 - `artifacts/order-dry-run.jsonl` - non-executed broker order record
-- `artifacts/paper-btc-smoke.jsonl` - local ignored Bitget Demo BTCUSDT paper-order record
+- `artifacts/paper-btc-smoke.jsonl` - local ignored Bitget Demo BTCUSDT paper-order record with balance-before/after delta
 - `glassbox-demo.jsonl` - local ignored JSONL audit trail
 - `public/dashboard-data.json` - dashboard data generated from the replay
 - `public/dashboard.html` - static proof cockpit
@@ -71,7 +71,7 @@ Current generated artifacts:
 - [x] Build Agent Arena passport, Quorum consensus, rejected naive bot, and dry-run broker artifact
 - [x] Prove the Bitget Demo Trading paper path on BTCUSDT
 - [ ] Obtain Bitget Wallet API credentials and rerun `npm run probe:bitget`
-- [ ] Capture a fresh paper BTCUSDT artifact with balance-before/after delta
+- [x] Capture a fresh paper BTCUSDT artifact with balance-before/after delta
 - [ ] Re-check RWA liquidity immediately before choosing final live instrument (`NVDAUSDT` default, `SOXLUSDT` backup)
 - [ ] If explicitly approved, execute one tiny capped live RWA fill and write `artifacts/live-trades.jsonl`
 - [ ] Keep the Playbook scene labeled as ordinary-equity baseline unless tokenized-stock data is added
