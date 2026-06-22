@@ -41,6 +41,8 @@ End-to-end MVP runs today: live RWA perception, the evidence-weighted adversaria
 
 **News-aware backtest — the AI's edge, measured (`npm run backtest:news`):** the always-fade baseline is ~flat, but its worst single loss was *fading the WWDC keynote reaction* (−1.96% into the 2026-06-09 open) — a justified repricing, not noise. An agent that **stands aside on verified catalysts** (real, sourced: WWDC, FOMC, jobs/CPI — `data/aaplusdt-catalysts.json`) scores **+1.87%** (AAPL-news-aware) vs **−0.31%** baseline over the same window. This is exactly the only-AI contribution GapGuard claims: *judging which overnight moves are fadeable noise vs news-justified.* **Honest caveat:** n=15 and the lift is driven mainly by one event — illustrative of the mechanism, not statistically significant. The labels here are verified scheduled catalysts; live, the **Qwen convergence gate** produces these fade-vs-justified calls.
 
+**Live gate audit — the AI actually makes the call (`npm run gate:audit`, needs `BITGET_QWEN_API_KEY`):** running the live Qwen convergence gate over all 15 backtest gaps, it scored **11/11 = 100%** on the scorable cases — it faded every quiet session and, critically, **stood aside on the 2026-06-09 WWDC gap** (`fadeable=false`), avoiding the −1.96% loss the always-fade baseline took. It also stood aside on the FOMC and jobs-report days (prudent macro caution; left unscored as ambiguous). Result in `artifacts/aaplusdt-gate-audit.json`. **Honest scope:** the gate is fed the *verified catalyst fact* (or "quiet session") as context and judges it — live, an Agent Hub news-briefing supplies that context; the gate's *judgment* is what's measured, and the noise→fade cases are easy while the valuable WWDC→stand-aside call is the hard one it got right.
+
 ---
 
 ## Executable proof commands
@@ -50,6 +52,7 @@ npm install
 npm test                 # 93 tests, typecheck-clean
 npm run backtest         # real AAPLUSDT gap-reversion backtest (no key) -> metrics + per-trade log
 npm run backtest:news    # news-aware variant: stand aside on verified catalysts (+1.87% vs -0.31%)
+BITGET_QWEN_API_KEY=<key> npm run gate:audit   # live Qwen gate over the gaps: 11/11, stands aside on WWDC
 npm run arena:demo       # passport, Quorum decision, Naive breach, sim fill, arena-chain.jsonl
 npm run arena:cockpit    # build arena-data.json + arena-chain.jsonl + signed Merkle arena-attestation.json
 npm run rwa:check        # live public Bitget RWA contract/ticker/spread/min-size evidence

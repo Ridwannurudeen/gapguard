@@ -62,6 +62,7 @@ npm run probe:bitget
 
 # Optional Qwen convergence gate:
 BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
+BITGET_QWEN_API_KEY=<your-key> npm run gate:audit  # live gate over every backtest gap -> artifacts/aaplusdt-gate-audit.json
 ```
 
 `npm run arena:demo` writes:

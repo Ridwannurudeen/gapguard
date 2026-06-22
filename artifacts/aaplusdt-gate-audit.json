@@ -1,0 +1,160 @@
+{
+  "asset": "AAPLUSDT",
+  "model": "qwen (BITGET_QWEN_API_KEY)",
+  "accuracyPct": 100,
+  "correct": 11,
+  "scored": 11,
+  "note": "Live Qwen convergence-gate verdicts on each backtest gap; scored cases = major AAPL catalyst (expect not-fadeable) + no-news sessions (expect fadeable). Macro/minor events reported but unscored.",
+  "results": [
+    {
+      "date": "2026-05-14",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.9,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": 0.155,
+      "rationale": "Small overnight drift absent fundamental catalysts or macro volatility indicates low-liquidity noise; high probability of mean reversion at US open."
+    },
+    {
+      "date": "2026-05-18",
+      "type": "aapl_event",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": null,
+      "correct": null,
+      "returnPct": -0.18,
+      "rationale": "WWDC scheduling announcement is low-impact; -0.70% drop reflects off-hours sentiment noise rather than fundamental repricing, highly likely to revert at open."
+    },
+    {
+      "date": "2026-05-19",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": -0.067,
+      "rationale": "Small 0.42% premium with no fundamental catalyst or broad market movement indicates low-liquidity noise or arbitrage lag; highly likely to revert at US open."
+    },
+    {
+      "date": "2026-05-22",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": -0.129,
+      "rationale": "No fundamental catalyst or broad market move; 1.28% premium likely driven by low off-hours liquidity and crypto sentiment, expected to revert at US open."
+    },
+    {
+      "date": "2026-05-26",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": 0.711,
+      "rationale": "0.60% premium lacks fundamental catalyst; quiet market suggests liquidity/sentiment-driven deviation likely to revert at US open."
+    },
+    {
+      "date": "2026-05-27",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": 0.191,
+      "rationale": "No fundamental catalyst or broad market move; 1.25% premium likely stems from thin off-hours liquidity and crypto-order-flow noise, highly prone to mean-reversion at US open."
+    },
+    {
+      "date": "2026-06-01",
+      "type": "macro",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": null,
+      "correct": null,
+      "returnPct": -1.299,
+      "rationale": "Downward move contradicts positive macro/tech catalyst, indicating liquidity-driven noise or sentiment lag rather than fundamental repricing; small gap highly likely to revert at open."
+    },
+    {
+      "date": "2026-06-02",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.88,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": -2.016,
+      "rationale": "No fundamental catalyst or overnight news; 0.94% premium likely driven by thin off-hours liquidity and crypto market sentiment, highly expected to arbitrage converge at US open."
+    },
+    {
+      "date": "2026-06-04",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": 0.188,
+      "rationale": "No fundamental catalyst or macro news supports the 0.63% premium; likely driven by thin off-hours liquidity or crypto sentiment drift. Expect mean reversion at US open."
+    },
+    {
+      "date": "2026-06-05",
+      "type": "macro",
+      "fadeable": false,
+      "multiplier": 0,
+      "expectedFadeable": null,
+      "correct": null,
+      "returnPct": 1.832,
+      "rationale": "Pre-open macro catalyst (NFP) drives justified repricing and directional positioning; high risk of gap continuation at open rather than mean reversion."
+    },
+    {
+      "date": "2026-06-08",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": 2.96,
+      "rationale": "No fundamental catalyst or broad market move; 1.15% premium likely driven by low off-hours liquidity and crypto sentiment, expected to revert at US open."
+    },
+    {
+      "date": "2026-06-09",
+      "type": "aapl_event",
+      "fadeable": false,
+      "multiplier": 0,
+      "expectedFadeable": false,
+      "correct": true,
+      "returnPct": -1.963,
+      "rationale": "Verified WWDC catalyst indicates justified fundamental repricing, not transient noise."
+    },
+    {
+      "date": "2026-06-12",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": -0.11,
+      "rationale": "No fundamental catalyst or broad market move; -1.46% likely driven by thin overnight token liquidity and sentiment, highly likely to revert at US open."
+    },
+    {
+      "date": "2026-06-15",
+      "type": "noise",
+      "fadeable": true,
+      "multiplier": 0.85,
+      "expectedFadeable": true,
+      "correct": true,
+      "returnPct": -0.455,
+      "rationale": "No fundamental catalyst; 1.44% premium reflects typical low-liquidity off-hours drift and will likely revert at US open."
+    },
+    {
+      "date": "2026-06-18",
+      "type": "macro",
+      "fadeable": false,
+      "multiplier": 0,
+      "expectedFadeable": null,
+      "correct": null,
+      "returnPct": -0.013,
+      "rationale": "FOMC decisions drive fundamental macro repricing, not transient sentiment. The 0.76% premium reflects justified risk-asset adjustment to new rate/guidance expectations and is highly unlikely to revert at the open."
+    }
+  ]
+}
