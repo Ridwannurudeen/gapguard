@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Trading-agent licensing arena for Bitget AI Hackathon S1 Track 2",
+  "description": "GapGuard — AI agent for trading the off-hours gap on tokenized US stocks (Bitget AI Hackathon S1, Track 3)",
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
@@ -16,7 +16,10 @@
     "arena:demo": "tsx src/arena-demo.ts",
     "arena:cockpit": "tsx src/arena-cockpit.ts",
     "broker:order": "tsx src/broker-cli.ts",
-    "broker:balance": "tsx src/broker-balance.ts"
+    "broker:balance": "tsx src/broker-balance.ts",
+    "playbook:run": "node scripts/playbook-run.mjs",
+    "backtest": "tsx src/backtest.ts",
+    "backtest:fetch": "node scripts/fetch-aaplusdt.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",

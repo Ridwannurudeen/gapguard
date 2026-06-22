@@ -1,0 +1,208 @@
+{
+  "strategy": "GapGuard off-hours gap reversion",
+  "asset": "AAPLUSDT",
+  "interval": "1H",
+  "dataSource": "public Bitget /api/v2/mix/market/candles (no key)",
+  "window": {
+    "from": "2026-05-12",
+    "to": "2026-06-18",
+    "sessions": 27
+  },
+  "params": {
+    "gapThresholdPct": 0.4,
+    "costPerSidePct": 0.05,
+    "startEquity": 1000
+  },
+  "metrics": {
+    "totalReturnPct": -0.308,
+    "sharpePerTrade": -0.01,
+    "sharpeAnnualized": -0.124,
+    "maxDrawdownPct": 3.289,
+    "winRatePct": 40,
+    "totalTrades": 15,
+    "profitFactor": 0.97,
+    "endingEquity": 996.92
+  },
+  "trades": [
+    {
+      "ts": "2026-05-14",
+      "asset": "AAPLUSDT",
+      "direction": "long",
+      "gapPct": -0.485,
+      "entryPrice": 297.71,
+      "exitPrice": 298.47,
+      "qty": 3.359,
+      "returnPct": 0.155,
+      "balanceBefore": 1000,
+      "balanceAfter": 1001.55
+    },
+    {
+      "ts": "2026-05-18",
+      "asset": "AAPLUSDT",
+      "direction": "long",
+      "gapPct": -0.702,
+      "entryPrice": 298.33,
+      "exitPrice": 298.09,
+      "qty": 3.3572,
+      "returnPct": -0.18,
+      "balanceBefore": 1001.55,
+      "balanceAfter": 999.75
+    },
+    {
+      "ts": "2026-05-19",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 0.416,
+      "entryPrice": 299.33,
+      "exitPrice": 299.23,
+      "qty": 3.3399,
+      "returnPct": -0.067,
+      "balanceBefore": 999.75,
+      "balanceAfter": 999.08
+    },
+    {
+      "ts": "2026-05-22",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 1.282,
+      "entryPrice": 308.9,
+      "exitPrice": 308.99,
+      "qty": 3.2343,
+      "returnPct": -0.129,
+      "balanceBefore": 999.08,
+      "balanceAfter": 997.79
+    },
+    {
+      "ts": "2026-05-26",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 0.602,
+      "entryPrice": 310.85,
+      "exitPrice": 308.33,
+      "qty": 3.2099,
+      "returnPct": 0.711,
+      "balanceBefore": 997.79,
+      "balanceAfter": 1004.88
+    },
+    {
+      "ts": "2026-05-27",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 1.255,
+      "entryPrice": 312.2,
+      "exitPrice": 311.29,
+      "qty": 3.2187,
+      "returnPct": 0.191,
+      "balanceBefore": 1004.88,
+      "balanceAfter": 1006.8
+    },
+    {
+      "ts": "2026-06-01",
+      "asset": "AAPLUSDT",
+      "direction": "long",
+      "gapPct": -0.669,
+      "entryPrice": 310.27,
+      "exitPrice": 306.55,
+      "qty": 3.2449,
+      "returnPct": -1.299,
+      "balanceBefore": 1006.8,
+      "balanceAfter": 993.73
+    },
+    {
+      "ts": "2026-06-02",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 0.939,
+      "entryPrice": 309.43,
+      "exitPrice": 315.36,
+      "qty": 3.2115,
+      "returnPct": -2.016,
+      "balanceBefore": 993.73,
+      "balanceAfter": 973.69
+    },
+    {
+      "ts": "2026-06-04",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 0.625,
+      "entryPrice": 312.49,
+      "exitPrice": 311.59,
+      "qty": 3.1159,
+      "returnPct": 0.188,
+      "balanceBefore": 973.69,
+      "balanceAfter": 975.52
+    },
+    {
+      "ts": "2026-06-05",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 0.668,
+      "entryPrice": 313.67,
+      "exitPrice": 307.61,
+      "qty": 3.11,
+      "returnPct": 1.832,
+      "balanceBefore": 975.52,
+      "balanceAfter": 993.39
+    },
+    {
+      "ts": "2026-06-08",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 1.148,
+      "entryPrice": 311.14,
+      "exitPrice": 301.62,
+      "qty": 3.1927,
+      "returnPct": 2.96,
+      "balanceBefore": 993.39,
+      "balanceAfter": 1022.79
+    },
+    {
+      "ts": "2026-06-09",
+      "asset": "AAPLUSDT",
+      "direction": "long",
+      "gapPct": -1.764,
+      "entryPrice": 296.3,
+      "exitPrice": 290.78,
+      "qty": 3.4519,
+      "returnPct": -1.963,
+      "balanceBefore": 1022.79,
+      "balanceAfter": 1002.72
+    },
+    {
+      "ts": "2026-06-12",
+      "asset": "AAPLUSDT",
+      "direction": "long",
+      "gapPct": -1.458,
+      "entryPrice": 291.3,
+      "exitPrice": 291.27,
+      "qty": 3.4422,
+      "returnPct": -0.11,
+      "balanceBefore": 1002.72,
+      "balanceAfter": 1001.61
+    },
+    {
+      "ts": "2026-06-15",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 1.439,
+      "entryPrice": 295.46,
+      "exitPrice": 296.51,
+      "qty": 3.39,
+      "returnPct": -0.455,
+      "balanceBefore": 1001.61,
+      "balanceAfter": 997.05
+    },
+    {
+      "ts": "2026-06-18",
+      "asset": "AAPLUSDT",
+      "direction": "short",
+      "gapPct": 0.757,
+      "entryPrice": 298.3,
+      "exitPrice": 298.04,
+      "qty": 3.3424,
+      "returnPct": -0.013,
+      "balanceBefore": 997.05,
+      "balanceAfter": 996.92
+    }
+  ]
+}

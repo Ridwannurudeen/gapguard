@@ -1,6 +1,6 @@
-# Agent Arena
+# GapGuard
 
-A trading-agent licensing arena for the **Bitget AI Base Camp Hackathon S1 - Track 2 (Trading Infra)**, with GapGuard/Quorum as the flagship RWA stock-perp exhibit.
+An AI agent for trading the **off-hours gap on tokenized US stocks** — **Bitget AI Base Camp Hackathon S1, Track 3 (US Stock AI Trading)**. It fades the overnight dislocation on Bitget RWA stock perps (`AAPLUSDT`/`NVDAUSDT`) *only when the move looks like noise*, decided by the adversarial **Quorum** desk and made auditable by a verifiable **Agent Arena** licensing layer.
 
 ## The problem
 
@@ -26,6 +26,7 @@ GapGuard is now the flagship exhibit inside the Arena. Quorum, an adversarial de
 | `src/simBroker.ts`                       | Offline broker compatible with the live broker plan shape; fills against a deterministic price path for local Arena runs.                                     | built + tested                     |
 | `src/liveStockBroker.ts`                 | Agent Hub broker wrapper. Defaults to dry-run, supports paper trading, and blocks live orders unless licensed, confirmed, isolated, low-leverage, and capped. | built + tested                     |
 | `src/rwa-market.ts`                      | Public Bitget USDT-Futures contract/ticker recheck for RWA status, spread, volume, and minimum live order size.                                               | built + tested                     |
+| `src/backtest.ts`                        | Deterministic off-hours gap-reversion backtest on real public Bitget `AAPLUSDT` candles (no key); emits metrics + a per-trade log. No LLM in this path.       | built                              |
 | `src/arena-demo.ts`                      | Generates the Arena artifact with Quorum's passport, Naive's recorded mandate breach, the Quorum decision, sim broker fill, and Arena chain.                  | built + tested                     |
 | `src/arena-cockpit.ts`                   | Builds sanitized public cockpit data from the Arena artifact, paper-trade evidence, Arena chain, and GapGuard proof summary.                                  | built + tested                     |
 | `src/bitgetWalletApi.ts`                 | Bitget Wallet API signer/client using the documented HMAC flow.                                                                                               | built + tested                     |
@@ -46,6 +47,7 @@ GapGuard is now the flagship exhibit inside the Arena. Quorum, an adversarial de
 npm install
 npm test
 npm run typecheck
+npm run backtest    # real AAPLUSDT off-hours gap-reversion backtest (no key) -> artifacts/aaplusdt-backtest.json
 npm run demo        # replay data/tslax-replay.json and write glassbox-demo.jsonl + public/dashboard-data.json
 npm run verify-log  # verify the hash chain in glassbox-demo.jsonl
 npm run arena:demo  # write artifacts/agent-arena-demo.json
@@ -74,6 +76,8 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
 `npm run broker:order -- --mode dry_run` appends a non-executing order record to `artifacts/order-dry-run.jsonl`. With Demo Trading credentials, `--mode paper` adds the Agent Hub `--paper-trading` flag and defaults to a tiny `BTCUSDT` order, because Bitget Demo Trading supports crypto perps rather than RWA stock perps. Live mode is the RWA graduation path and requires `--mode live --confirm-live` plus credentials, a licensed passport, and the cap checks.
 
 `npm run broker:balance -- --mode paper` checks the Demo USDT-Futures balance with the required `productType=USDT-FUTURES` query. Demo spot funds and demo futures funds are separate, so a funded spot demo wallet can still reject futures orders until USDT is moved or adjusted in the futures demo account.
+
+`npm run backtest` runs a deterministic off-hours gap-reversion on **real public Bitget `AAPLUSDT` candles** (committed fixture in `data/`; regenerate with `npm run backtest:fetch`). It fades an overnight gap at the US-session open (via `marketClock`) and exits at the session close, then writes `artifacts/aaplusdt-backtest.json` with metrics **and a per-trade log** (timestamp, asset, direction, price, qty, balance change). No API key, no LLM in this path. The always-fade baseline is honestly ~flat — it motivates the convergence gate + risk governor rather than claiming edge.
 
 `npm run demo` writes:
 

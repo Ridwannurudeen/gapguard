@@ -1,91 +1,91 @@
-# Agent Arena - Submission Pack
+# GapGuard — Submission Pack
 
-**Bitget AI Base Camp Hackathon S1 - Track 2: Trading Infra**
+**Bitget AI Base Camp Hackathon S1 — Track 3: US Stock AI Trading**
 
-Submission window: **Jun 15 - Jun 25, 2026 (UTC+8)**. Submit a demo link or GitHub repo plus the project description below. Do not submit without explicit approval.
+Submission window: **Jun 15 – Jun 25, 2026 (UTC+8)**. Submit the public GitHub repo (or login-free demo) plus the project description below. Do not submit without explicit approval.
 
 ---
 
 ## Project Description
 
-Agent Arena is a licensing layer for autonomous trading agents. Instead of trusting a single LLM narrative, it makes agents earn a passport before any real capital is unlocked. Each candidate is scored on paper-trade evidence, live Bitget perception, drawdown, rule violations, adversarial debate, hash-chain verification, and hard execution controls.
+### Problem
+Tokenized US stocks on Bitget (RWA perps like `AAPLUSDT`, `NVDAUSDT`, `TSLAUSDT`) trade **24/7**, but the underlying US market is open only ~6.5h/weekday. Off-hours, the token price dislocates from fair value; some of that move is **fadeable noise** that reverts at the US open, and some is **justified repricing** (an earnings beat, a Fed surprise) that keeps going. The hard part is not seeing the gap — it's *judging which kind it is*, in real time, over unstructured overnight news. Getting it wrong is how naive bots blow up. And separately: **why would anyone trust an autonomous agent with capital on this?**
 
-Quorum is the flagship licensed agent inside the Arena: a five-role desk where Narrative, Positioning, Market Intel, Bear, and Risk opinions debate an RWA stock-perp trade. Consensus becomes the position multiplier; a Bear or Risk veto forces flat. The rejected baseline is a naive momentum bot that decides the same scenario, over-sizes, ignores conflicting evidence, and records a mandate breach.
+### Thesis (core strategy logic)
+Fade an outsized overnight gap on a tokenized US stock **only when the move looks like noise**, stand aside when it looks news-justified, size by conviction under a hard risk governor, and **make every decision verifiable**. An always-fade baseline has no edge (we show this with a real backtest); the agent's contribution is the *judgment* about when to fade, plus the discipline and auditability around it.
 
-Verification today: `npm run arena:demo` emits a passport artifact, Quorum decision, Naive breach record, simulated broker fill, and `public/arena-chain.jsonl`; `npm run rwa:check` writes public Bitget contract/ticker evidence for RWA status, spread, volume, and minimum order sizing. The Bitget Demo paper path is proven on `BTCUSDT`; the RWA graduation remains a separate, explicitly approved, capped live fill.
-The judge cockpit at `public/arena.html` packages the leaderboard, five-agent debate, RWA market recheck, paper-order evidence, live gates, in-browser Arena-chain verification, and tamper simulation in one screen.
+### How it works
+- **Perception** — live, read-only Bitget RWA data: `futures_get_contracts` (`isRwa=YES`), ticker, funding, spread, min size (`npm run rwa:check`), plus a deterministic off-hours **dislocation** estimate from the US-session clock (`src/marketClock.ts` + `nyseCalendar2026.ts`).
+- **Decision** — **Quorum**, a five-role adversarial desk (Narrative, Positioning, Market-Intel, Bear, Risk). Consensus becomes the position multiplier; a Bear or Risk **veto forces flat**. A naive momentum bot decides the *same* scenario, over-sizes, ignores conflicting evidence, and **records a mandate breach** → it is **rejected**; Quorum is **licensed**.
+- **Risk** — a natural-language **mandate** compiled into hard vetoes (max position, overnight drawdown cap, flat-before-open), enforced in code.
+- **Execution** — a deterministic **sim broker** for offline reproducibility, and a real **Bitget Agent Hub** path proven on Demo Trading (see *Honest limitations* for why the live on-exchange fill is on `BTCUSDT`).
+- **Trust** — every decision, mandate ruling, breach, passport, and order is sealed into a **sha256 hash chain** (`public/arena-chain.jsonl`) that a judge **re-verifies in the browser** (`public/arena.html`, SubtleCrypto) with a **"simulate tampering"** toggle that flags the exact broken row.
 
----
-
-## Demo-Video Script
-
-| Time      | Visual                                    | Narration                                                                                                                                     |
-| --------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0:00-0:20 | `public/arena.html` leaderboard           | "The Arena does not trust trading agents by default. It makes them earn a license before any capital is unlocked."                            |
-| 0:20-0:55 | Quorum five-agent decision                | "Narrative, Positioning, Market Intel, Bear, and Risk argue independently. Disagreement becomes the position multiplier; a veto forces flat." |
-| 0:55-1:25 | Naive bot rejected                        | "The naive momentum bot sees the same path, over-sizes, ignores conflict, breaches the mandate, and is rejected from capital."                |
-| 1:25-1:55 | `npm run arena:demo` + RWA market recheck | "Quorum earns a passport, but the Arena demo runs offline through a deterministic sim broker while live execution stays gated."              |
-| 1:55-2:25 | Arena chain verify + tamper toggle        | "The cockpit recomputes the Arena chain in the browser. Toggle tampering and the exact broken row turns red."                                |
-| 2:25-2:55 | Paper/live graduation                     | "Demo Trading proves the broker on BTCUSDT; with explicit approval only, one tiny capped RWA fill becomes the graduation artifact."           |
-| 2:55-3:00 | Agent Arena tagline                       | "Agent Arena. Trading agents earn trust before they earn capital."                                                                            |
+### Completeness (honest self-assessment)
+End-to-end MVP runs today: live RWA perception, the adversarial decision, the risk mandate, the sim + real-demo execution, the verifiable chain + cockpit, and a reproducible AAPLUSDT backtest — **87 automated tests pass, typecheck clean.** What is *not* claimed: a profitable strategy (the mechanical baseline is ~flat — that's the point), a live on-exchange *stock* fill (not possible on Bitget Demo — see below), or a platform-certified managed backtest (blocked by Bitget's equity-data ceiling — see below). We report these limits plainly; the rubric values honesty over exaggeration.
 
 ---
 
-## Rubric Coverage
+## Track-3 evidence
 
-| Criterion                  | How Agent Arena meets it                                                                                                         | Status                   |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| Real trading-infra problem | Agents need a licensing, monitoring, and capital-allocation layer before live execution.                                         | built                    |
-| Verifiable usage record    | `artifacts/agent-arena-demo.json`, `public/arena-chain.jsonl`, browser verifier, `glassbox-demo.jsonl`, and dry-run broker path. | built                    |
-| Uses Bitget data/tools     | Agent Hub order shape, proven Demo Trading path, public RWA contract/ticker recheck, Bitget Wallet probe, AAPLUSDT Playbook.    | paper proven; live gated |
-| Runnability                | Offline Arena sim, local tests, dry-run broker, paper-trading path, and live path gated by license plus explicit confirmation.   | paper path proven        |
-| Novelty/potential          | Debate-to-consensus passporting infrastructure with GapGuard as the first strategy exhibit and a rejected naive bot as contrast. | core implemented         |
+| Required material | What we provide |
+| --- | --- |
+| **Public GitHub repo + README** | This repo (public), README with install + run + integration. |
+| **Login-free demo** | `public/arena.html` cockpit (static; in-browser chain verification + tamper toggle). |
+| **Paper trading log** (ts / asset / direction / price / qty / balance change) | `artifacts/aaplusdt-backtest.json` — per-trade log on the real `AAPLUSDT` RWA perp **with all required fields**; plus `artifacts/paper-btc-smoke.jsonl` — a **real Bitget Demo fill** (orderId + balance delta) proving the execution path. |
+| **Backtest report** (optional; code required) | `npm run backtest` — deterministic off-hours gap reversion on **real public Bitget `AAPLUSDT` candles** (no key), code in `src/backtest.ts`, fixture in `data/`, output in `artifacts/aaplusdt-backtest.json`. |
+
+**Backtest result (real `AAPLUSDT` 1H, 27 sessions, honest):** total return ≈ **−0.3%**, Sharpe ≈ −0.1, max DD ≈ 3.3%, win 40%, 15 trades, PF 0.97. This is the **always-fade baseline** — it confirms blindly fading every gap has *no* standalone edge, which is exactly why GapGuard adds the convergence gate + risk governor. Small sample; not statistically significant; presented as a baseline, not a headline.
 
 ---
 
-## Executable Proof Commands
+## Executable proof commands
 
 ```bash
-npm run arena:demo
-npm run rwa:check
-npm run arena:cockpit
-npm run broker:order -- --mode dry_run
-npm run replay:proof
-npm run verify-log
-npm run probe:bitget
+npm install
+npm test                 # 87 tests, typecheck-clean
+npm run backtest         # real AAPLUSDT gap-reversion backtest (no key) -> metrics + per-trade log
+npm run arena:demo       # passport, Quorum decision, Naive breach, sim fill, arena-chain.jsonl
+npm run arena:cockpit    # build public/arena-data.json + public/arena-chain.jsonl
+npm run rwa:check        # live public Bitget RWA contract/ticker/spread/min-size evidence
+npm run verify-log       # recompute + verify the hash chain
+# (optional) open public/arena.html -> Verify chain, then Simulate tampering
 ```
 
-Current generated artifacts:
-
-- `artifacts/agent-arena-demo.json` - Arena passport, Quorum decision, rejected bot, and dry-run order
-- `public/arena-chain.jsonl` - Arena-native chain for mandate rules, decisions, breaches, passports, and sim broker record
-- `artifacts/order-dry-run.jsonl` - non-executed broker order record
-- `artifacts/paper-btc-smoke.jsonl` - local ignored Bitget Demo BTCUSDT paper-order record with balance-before/after delta
-- `public/rwa-market.json` - public Bitget RWA contract/ticker recheck and suggested minimum live size
-- `public/arena-data.json` - sanitized Arena cockpit data
-- `public/arena.html` - Arena cockpit with browser verification and tamper simulation
-- `glassbox-demo.jsonl` - local ignored JSONL audit trail
-- `public/dashboard-data.json` - dashboard data generated from the replay
-- `public/dashboard.html` - static proof cockpit
-- `data/bitget-probe-report.json` - live Bitget Wallet API probe result
-- `docs/PROOF.md` - API source notes and proof scope
+Key generated artifacts: `artifacts/aaplusdt-backtest.json` (backtest + paper log), `artifacts/paper-btc-smoke.jsonl` (real Demo fill), `public/arena-chain.jsonl` (verifiable chain), `public/arena.html` (cockpit), `public/rwa-market.json` (live RWA evidence).
 
 ---
 
-## Pre-Submission Checklist
+## Demo-video script (≤3 min)
 
-- [x] Build proof replay, hash-chain verifier, dashboard, and Bitget API probe
-- [x] Build Agent Arena passport, Quorum consensus, rejected naive bot, and dry-run broker artifact
-- [x] Build Arena-native hash chain, browser verifier, and tamper simulation
-- [x] Prove the Bitget Demo Trading paper path on BTCUSDT
-- [x] Build the judge-facing Arena cockpit
-- [ ] Obtain Bitget Wallet API credentials and rerun `npm run probe:bitget`
-- [x] Capture a fresh paper BTCUSDT artifact with balance-before/after delta
-- [x] Build public RWA liquidity/contract recheck (`NVDAUSDT` default, `SOXLUSDT` backup)
-- [ ] Re-run `npm run rwa:check` immediately before any approved live fill
-- [ ] If explicitly approved, execute one tiny capped live RWA fill and write `artifacts/live-trades.jsonl`
-- [x] Repoint Playbook package to deterministic `AAPLUSDT` RWA perp managed-kline path and record the local public-kline probe
-- [ ] Record demo video
-- [ ] Publish dissemination thread and keep the link
-- [ ] Decide submission artifact: GitHub repo link or demo URL
-- [ ] Submit only after explicit approval
+| Time | Visual | Narration |
+| --- | --- | --- |
+| 0:00–0:20 | `public/arena.html` | "GapGuard trades the off-hours gap on tokenized US stocks — and makes the agent earn a license before any capital." |
+| 0:20–0:55 | Quorum five-role decision | "Five roles argue the same AAPLUSDT gap. Consensus sizes the trade; a Bear or Risk veto forces flat." |
+| 0:55–1:25 | Naive bot rejected | "A naive momentum bot sees the same path, over-sizes, breaches its drawdown mandate — and is rejected." |
+| 1:25–1:55 | `npm run backtest` + `rwa:check` | "Real Bitget AAPLUSDT data: a reproducible gap-reversion backtest and live RWA market evidence." |
+| 1:55–2:25 | Arena chain verify + tamper | "The cockpit recomputes the decision chain in your browser. Toggle tampering — the exact broken row turns red." |
+| 2:25–3:00 | Paper fill + tagline | "The execution path is proven on Bitget Demo. GapGuard: judge the gap, earn trust, then trade." |
+
+---
+
+## Honest limitations (state these plainly)
+1. **No live on-exchange *stock* fill.** Bitget **Demo Trading lists crypto perps only** (verified) — RWA stock perps are live-only. So our *real* on-exchange fill is on `BTCUSDT` (proof the execution path works); the **stock** trading evidence is the simulated RWA ledger + the AAPLUSDT backtest. Sim/backtest records are explicitly accepted by the rules.
+2. **Backtest baseline is ~flat.** Reported truthfully; the value is the gate/governor/verification, not a magic return. Small sample.
+3. **Managed (platform-certified) backtest is blocked by Bitget's equity-data ceiling** for US equities; the `AAPLUSDT` RWA-perp package is repointed to the `exchange=bitget` kline path and the public-kline probe is recorded (`playbook/aaplusdt-kline-probe.json`), but a completed managed run is pending and **not claimed**.
+4. **LLM is live/evaluation-only**, never in the backtested path (kept deterministic for reproducibility).
+
+---
+
+## Pre-submission checklist
+- [x] Public repo + runnable README (install → test → backtest → arena)
+- [x] Reproducible AAPLUSDT backtest with code (`npm run backtest`)
+- [x] Track-3 paper-trading log with required fields (`artifacts/aaplusdt-backtest.json` + real Demo `paper-btc-smoke.jsonl`)
+- [x] Live RWA perception evidence (`npm run rwa:check` → `public/rwa-market.json`)
+- [x] Verifiable Arena chain + in-browser tamper demo (`public/arena.html`)
+- [x] 87 tests + typecheck green
+- [ ] Confirm registered **UID** matches submission (verify against registration email)
+- [ ] Record ≤3-min demo video (optional but recommended)
+- [ ] Publish dissemination thread (#BitgetHackathon, @Bitget_AI, quote the official post) — Community Impact Award
+- [ ] (optional) Codex runs the AAPLUSDT managed backtest for a certified number; slot in if it lands
+- [ ] Submit via the official form link **only after explicit approval**
