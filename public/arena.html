@@ -936,8 +936,9 @@
             <div id="licensedDisplay" class="display num">0/0</div>
           </div>
           <p class="muted">
-            Quorum is paper-only while the gate-driven alpha replay is negative;
-            live RWA orders need positive evidence plus explicit approval.
+            Quorum has positive walk-forward alpha evidence, but the live
+            license still waits for the third Demo paper fill plus explicit
+            approval.
           </p>
         </div>
         <div class="stat">
@@ -946,7 +947,7 @@
         </div>
         <div class="stat">
           <div class="eyebrow">RWA live gate</div>
-          <div id="liveStatus" class="stat-value">disabled_alpha_unproven</div>
+          <div id="liveStatus" class="stat-value">gated</div>
         </div>
         <div class="stat">
           <div class="eyebrow">Generated</div>
@@ -1027,14 +1028,14 @@
         "arena": {
           "thesis": "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
           "liveInstrument": "NVDAUSDT",
-          "graduationStatus": "sim_dry_run_only_alpha_unproven"
+          "graduationStatus": "alpha_certified_waiting_paper_fill"
         },
         "status": {
           "licensedAgents": 0,
           "paperOnlyAgents": 1,
           "rejectedAgents": 1,
           "paperEvidence": "missing",
-          "liveStatus": "disabled_alpha_unproven"
+          "liveStatus": "gated"
         },
         "leaderboard": [],
         "quorum": {

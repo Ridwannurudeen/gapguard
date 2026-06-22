@@ -50,6 +50,29 @@ export interface ArenaDemoArtifact {
   };
 }
 
+function graduationStatus(
+  passports: AgentPassport[],
+  evidence: ArenaScenario["evidence"],
+): string {
+  const quorum =
+    passports.find((passport) => passport.agentId === "quorum-rwa-desk") ??
+    passports[0];
+
+  if (quorum?.grade === "LICENSED") {
+    return "licensed_waiting_explicit_approval";
+  }
+
+  if (evidence.backtest.alphaStatus === "positive") {
+    return quorum?.findings.some((finding) =>
+      finding.includes("fewer than 3 paper trades"),
+    )
+      ? "alpha_certified_waiting_paper_fill"
+      : "alpha_certified_paper_only";
+  }
+
+  return "sim_dry_run_only_alpha_unproven";
+}
+
 function sideFromQuorum(decision: ReturnType<typeof decideQuorum>) {
   if (decision.winningVote === "short") return "open_short";
   if (decision.winningVote === "long") return "open_long";
@@ -196,7 +219,7 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
       thesis:
         "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
       liveInstrument: graduationDryRun.plan.order.symbol,
-      graduationStatus: "sim_dry_run_only_alpha_unproven",
+      graduationStatus: graduationStatus(passports, scenario.evidence),
     },
     mandate: scenario.mandate,
     perception: scenario.perception,

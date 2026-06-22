@@ -63,7 +63,7 @@ describe("arena cockpit data", () => {
     });
   });
 
-  it("summarizes the licensed desk, rejected bot, and gated broker path", async () => {
+  it("summarizes the paper-only desk, rejected bot, and gated broker path", async () => {
     const proof: GapGuardProofSummary = {
       ok: true,
       count: 5,
@@ -97,7 +97,7 @@ describe("arena cockpit data", () => {
       paperOnlyAgents: 1,
       rejectedAgents: 1,
       paperEvidence: "missing",
-      liveStatus: "disabled_alpha_unproven",
+      liveStatus: "gated",
     });
     expect(data.broker.dryRunOrder.symbol).toBe("NVDAUSDT");
     expect(data.broker.dryRunOrder.size).toBe("0.03");

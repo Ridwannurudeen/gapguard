@@ -12,8 +12,11 @@ describe("arena behavioral scenario", () => {
       (passport) => passport.agentId === "naive-momentum",
     );
 
+    expect(artifact.evidence.backtest.alphaStatus).toBe("positive");
     expect(quorum?.grade).toBe("PAPER_ONLY");
-    expect(quorum?.findings.join(" | ")).toContain("alpha not live-certified");
+    expect(quorum?.findings.join(" | ")).toContain(
+      "fewer than 3 paper trades",
+    );
     expect(naive?.grade).toBe("REJECTED");
     expect(naive?.findings.join(" | ")).toContain(
       "overnight loss <= 1.5%",
@@ -23,7 +26,7 @@ describe("arena behavioral scenario", () => {
     );
     expect(artifact.arenaChain.verification.ok).toBe(true);
     expect(artifact.arena.graduationStatus).toBe(
-      "sim_dry_run_only_alpha_unproven",
+      "alpha_certified_waiting_paper_fill",
     );
     expect(artifact.graduationDryRun.status).toBe("dry_run");
     expect(artifact.perception.source).toContain("Bitget public RWA");
@@ -49,6 +52,6 @@ describe("arena behavioral scenario", () => {
     expect(scenario.naiveAgentDecision.mandateOk).toBe(false);
     expect(scenario.naiveAgentDecision.positionPct).toBe(0.5);
     expect(scenario.quorumAgentDecision.positionPct).toBe(0.1);
-    expect(scenario.evidence.backtest.alphaStatus).toBe("negative");
+    expect(scenario.evidence.backtest.alphaStatus).toBe("positive");
   });
 });

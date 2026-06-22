@@ -13,6 +13,7 @@ const CRITICAL_EVIDENCE_FILES = [
   "public/dashboard-data.json",
   "artifacts/aaplusdt-backtest.json",
   "artifacts/aaplusdt-news-aware-backtest.json",
+  "artifacts/rwa-alpha-certification.json",
   "playbook/aaplusdt-backtest-result.json",
 ] as const;
 
@@ -100,8 +101,12 @@ function sourceBacktestSharpes(): number[] {
   const newsAware = asRecord(
     readJson("artifacts/aaplusdt-news-aware-backtest.json"),
   );
+  const alphaCertification = asRecord(
+    readJson("artifacts/rwa-alpha-certification.json"),
+  );
   const playbook = asRecord(readJson("playbook/aaplusdt-backtest-result.json"));
   const variants = getRecord(newsAware, "variants");
+  const passportEvidence = getRecord(alphaCertification, "passportEvidence");
   const managedMetrics = getRecord(
     getRecord(getRecord(playbook, "data"), "metrics_output"),
     "summary",
@@ -112,6 +117,7 @@ function sourceBacktestSharpes(): number[] {
     ...Object.values(variants)
       .map(asRecord)
       .map((variant) => getNumber(variant, "sharpeAnnualized")),
+    getNumber(passportEvidence, "sharpeAnnualized"),
     getNumber(managedMetrics, "sharpe_ratio"),
   ];
 }

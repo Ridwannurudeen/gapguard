@@ -33,6 +33,7 @@ const REQUIRED_LOCAL_EVIDENCE = [
   "artifacts/aaplusdt-news-aware-backtest.json",
   "artifacts/aaplusdt-gate-audit.json",
   "artifacts/rwa-multi-backtest.json",
+  "artifacts/rwa-alpha-certification.json",
   "artifacts/paper-btc-smoke.jsonl",
   "playbook/aaplusdt-backtest-result.json",
 ];

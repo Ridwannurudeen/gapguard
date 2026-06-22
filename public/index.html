@@ -651,15 +651,15 @@
             <div class="l">RWA sample trades · 20 symbols</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">−2.165%</div>
-            <div class="l">Qwen gate-driven AAPL result</div>
+            <div class="v cyan">+3.785%</div>
+            <div class="l">walk-forward RWA alpha cert</div>
           </div>
           <div class="metric reveal">
             <div class="v">Ed25519</div>
             <div class="l">signed Merkle audit · verify in-browser</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">102 / 0</div>
+            <div class="v cyan">109 / 0</div>
             <div class="l">tests passing · typecheck clean</div>
           </div>
         </div>
@@ -761,9 +761,10 @@
         <p class="lede reveal">
           On real public Bitget <span class="mono">AAPLUSDT</span> candles
           (2026-05-12 → 06-18), blindly fading every gap is ~flat. Across a broader
-          20-symbol RWA basket, it is negative. GapGuard does not sell the naive fade;
-          it sells the gate, the risk governor, and the proof layer that decide when
-          the agent is allowed to leave simulation.
+          20-symbol RWA basket, it is negative. A locked walk-forward rule then
+          tests the opposite regime: follow only when prior same-direction RWA
+          gaps have earned it. GapGuard sells that gate, the risk governor, and
+          the proof layer that decide when the agent is allowed to leave simulation.
         </p>
 
         <div class="grid2">
@@ -778,12 +779,15 @@
                 <tr><td>AAPL gate-driven</td><td class="down">−2.165%</td><td>13</td><td>38.5%</td></tr>
                 <tr class="row-hi"><td>AAPL label-aware</td><td>+1.793%</td><td>13</td><td>46%</td></tr>
                 <tr><td>20-symbol always-fade</td><td class="down">−8.233%</td><td>790</td><td>44%</td></tr>
+                <tr class="row-hi"><td>Walk-forward RWA cert</td><td>+3.785%</td><td>119</td><td>59.7%</td></tr>
               </tbody>
             </table>
             <p class="note">
               <strong>Honest caveat:</strong> the Qwen gate scored 14/15 but missed the key
               WWDC stand-aside, so the true gate-driven row is negative. The +1.793%
-              row is a label-grounded catalyst baseline, not an AI edge claim.
+              row is a label-grounded catalyst baseline, not an AI edge claim. The
+              walk-forward row is the current passport alpha evidence and remains
+              bounded by an 83-day sample.
             </p>
           </div>
 
@@ -805,7 +809,7 @@
               The audit no longer feeds Qwen the answer key. It uses blinded overnight
               summaries, scores every AAPL gap after the model returns, and writes a
               verdict cache that <span class="mono">backtest:news</span> replays honestly.
-              The current AI-backed replay is negative because Qwen missed WWDC.
+              The current AAPL Qwen replay is negative because Qwen missed WWDC.
             </p>
             <p class="note" style="margin-top:10px">
               <strong>Certified:</strong> a Bitget Playbook managed run
@@ -848,11 +852,12 @@
           <div class="panel reveal">
             <h3>What you can run yourself</h3>
             <ul class="checks">
-              <li><span class="mono">npm test</span> — 102 tests, typecheck clean</li>
+              <li><span class="mono">npm test</span> — 109 tests, typecheck clean</li>
               <li><span class="mono">npm run backtest</span> — real AAPLUSDT gap backtest, no key</li>
               <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
+              <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA alpha certification</li>
               <li><span class="mono">npm run backtest:news</span> — label baseline + gate cache replay</li>
-              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache; current replay is negative</li>
+              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache; AAPL replay is negative</li>
               <li><span class="mono">npm run arena:cockpit</span> — rebuild the signed chain</li>
               <li>Open <span class="mono">arena.html</span> → Verify chain, then Simulate tampering</li>
             </ul>

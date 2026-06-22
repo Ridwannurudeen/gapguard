@@ -31,6 +31,7 @@ GapGuard is now the flagship exhibit inside the Arena. Quorum, an adversarial de
 | `src/backtest.ts`                        | Deterministic off-hours gap-reversion backtest on real public Bitget `AAPLUSDT` candles (no key); emits metrics + a per-trade log. No LLM in this path.       | built                              |
 | `src/newsBacktest.ts`                    | Cache-aware news variant: reports the label-aware catalyst baseline and consumes `data/aaplusdt-gate-verdicts.json` for the true gate-driven variant.                      | built + tested                     |
 | `src/multiBacktest.ts`                   | 20-symbol public Bitget RWA basket backtest for broader, no-key evidence beyond the small AAPL window.                                                        | built + tested                     |
+| `src/alphaCertification.ts`              | Walk-forward RWA alpha certification: a locked selective gap-follow rule, formation/OOS split, baselines, and passport evidence.                              | built + tested                     |
 | `src/arena-demo.ts`                      | Generates the Arena artifact with Quorum's passport, Naive's recorded mandate breach, the Quorum decision, sim broker fill, and Arena chain.                  | built + tested                     |
 | `src/arena-cockpit.ts`                   | Builds sanitized public cockpit data from the Arena artifact, crypto Demo paper-trade evidence, Arena chain, and GapGuard proof summary.                      | built + tested                     |
 | `src/bitgetWalletApi.ts`                 | Bitget Wallet API signer/client using the documented HMAC flow.                                                                                               | built + tested                     |
@@ -54,6 +55,7 @@ npm run typecheck
 npm run backtest    # real AAPLUSDT off-hours gap-reversion backtest (no key) -> artifacts/aaplusdt-backtest.json
 npm run backtest:news  # label-aware baseline + cached Qwen gate-driven variant
 npm run backtest:multi # 20-symbol RWA basket -> artifacts/rwa-multi-backtest.json
+npm run alpha:certify  # walk-forward RWA alpha certification -> artifacts/rwa-alpha-certification.json
 npm run demo        # replay data/tslax-replay.json and write glassbox-demo.jsonl + public/dashboard-data.json
 npm run verify-log  # verify the hash chain in glassbox-demo.jsonl
 npm run arena:demo  # write artifacts/agent-arena-demo.json
@@ -71,7 +73,7 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit  # blinded live gate over ever
 
 `npm run arena:demo` writes:
 
-- `artifacts/agent-arena-demo.json` - Quorum's paper-only passport under the current negative AI backtest, the rejected naive bot, the deterministic five-role Quorum decision, and the dry-run `bgc futures futures_place_order` payload.
+- `artifacts/agent-arena-demo.json` - Quorum's paper-only passport under the positive walk-forward RWA certification but only 2 paper fills, the rejected naive bot, the deterministic five-role Quorum decision, and the dry-run `bgc futures futures_place_order` payload.
 - `public/arena-chain.jsonl` - Arena-native tamper-evident chain covering mandate rules, Quorum/Naive decisions, mandate breaches, passports, and the simulated broker record.
 
 `npm run arena:cockpit` writes:
@@ -82,7 +84,7 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit  # blinded live gate over ever
 
 `npm run rwa:check` writes `public/rwa-market.json` from Bitget's public contracts/tickers endpoints. It keeps `NVDAUSDT` as the judge-recognizable default when it is normal and RWA-labeled, reports the liquidity leader/backup, and computes the minimum size needed to clear the contract-reported `minTradeUSDT` floor under the 20 USDT cap.
 
-`npm run broker:order -- --mode dry_run` appends a non-executing order record to `artifacts/order-dry-run.jsonl`. With Demo Trading credentials, `--mode paper` adds the Agent Hub `--paper-trading` flag and defaults to a tiny `BTCUSDT` order, because Bitget Demo Trading supports crypto perps rather than RWA stock perps. Live mode is implemented but disabled by the current negative gate-driven backtest; it requires `--mode live --confirm-live` plus credentials, a truly `LICENSED` passport, positive alpha evidence, and the cap checks.
+`npm run broker:order -- --mode dry_run` appends a non-executing order record to `artifacts/order-dry-run.jsonl`. With Demo Trading credentials, `--mode paper` adds the Agent Hub `--paper-trading` flag and defaults to a tiny `BTCUSDT` order, because Bitget Demo Trading supports crypto perps rather than RWA stock perps. Live mode is implemented but remains gated; it requires `--mode live --confirm-live` plus credentials, a truly `LICENSED` passport, positive alpha evidence, at least 3 paper fills, and the cap checks.
 
 `npm run broker:balance -- --mode paper` checks the Demo USDT-Futures balance with the required `productType=USDT-FUTURES` query. Demo spot funds and demo futures funds are separate, so a funded spot demo wallet can still reject futures orders until USDT is moved or adjusted in the futures demo account.
 
@@ -91,6 +93,8 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit  # blinded live gate over ever
 `npm run backtest:news` separates the label baseline from the AI-backed path. The committed `data/aaplusdt-gate-verdicts.json` cache was generated by `BITGET_QWEN_API_KEY=<your-key> npm run gate:audit`: Qwen scored 14/15 blinded verdicts, but missed the key WWDC stand-aside, so the true gate-driven backtest is negative (-2.165%). That is the honest result, not a marketing edge claim.
 
 `npm run backtest:fetch:rwa` writes a broader public Bitget RWA fixture basket under `data/rwa-sample/`; `npm run backtest:multi` replays it. The current 20-symbol, 790-trade always-fade result is negative, which is useful evidence: blindly fading every RWA off-hours gap is not the product. The product is the gate, risk governor, and verifiable licensing layer.
+
+`npm run alpha:certify` runs the locked walk-forward RWA certification on the same 20-symbol fixture basket. It does not select full-sample winners. The first 60% of unique gap dates form the prior history; later dates are out-of-sample. The current artifact (`artifacts/rwa-alpha-certification.json`) clears positive alpha on the selected rule: 119 OOS trades, +3.785% portfolio return, Sharpe 6.511, PF 2.20, versus -5.471% for OOS always-fade after costs. This is the passport alpha evidence; it is still not a live-fill claim.
 
 `npm run demo` writes:
 
@@ -107,4 +111,4 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit  # blinded live gate over ever
 3. Run `npm run rwa:check` immediately before selecting the final live RWA symbol and size.
 4. Only after paper trading passes, provision a separate live Trade key for one tiny supervised RWA stock-perp order; this is the future live path, not a fill claimed by the current artifacts.
 
-Live orders remain blocked unless the passport is `LICENSED`, the gate-driven evidence is positive, the order is below `LIVE_MAX_NOTIONAL_USDT`, margin is isolated, leverage is 1-2x, and the caller explicitly confirms live execution. In the current generated artifacts Quorum is `PAPER_ONLY`, not live-licensed, because the Qwen gate-driven replay is negative.
+Live orders remain blocked unless the passport is `LICENSED`, the alpha evidence is positive, the order is below `LIVE_MAX_NOTIONAL_USDT`, margin is isolated, leverage is 1-2x, and the caller explicitly confirms live execution. In the current generated artifacts Quorum is still `PAPER_ONLY`, not live-licensed, because this shell has only 2 real Demo paper fills recorded; one more tiny BTCUSDT Demo paper fill is needed before the Arena can issue a `LICENSED` passport.
