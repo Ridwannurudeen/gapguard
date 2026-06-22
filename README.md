@@ -20,21 +20,24 @@ GapGuard is now the flagship exhibit inside the Arena. Quorum, an adversarial de
 | `src/glassbox.ts`                        | Hash-chained JSONL audit trail for tamper-evident decision records.                                                                                           | built + tested                     |
 | `src/convergenceGate.ts` + `src/qwen.ts` | Qwen gate for fadeable gap vs justified repricing.                                                                                                            | built + tested                     |
 | `src/quorum.ts`                          | Five-role adversarial desk: narrative, positioning, market intel, bear, and risk opinions become consensus, veto status, and a position multiplier.           | built + tested                     |
-| `src/agentArena.ts`                      | Passport issuer. Grades candidates as `LICENSED`, `PAPER_ONLY`, or `REJECTED` from evidence and controls.                                                     | built + tested                     |
+| `src/agentArena.ts`                      | Passport issuer. Grades candidates as `LICENSED`, `PAPER_ONLY`, or `REJECTED` from recorded evidence and controls.                                            | built + tested                     |
+| `src/arena-chain.ts`                     | Arena-native JSONL hash chain for mandate rules, Quorum decisions, naive breaches, passports, and broker records.                                             | built + tested                     |
+| `src/mandate.ts`                         | Deterministic natural-language risk mandate compiler for loss, position, and conflicting-evidence vetoes.                                                     | built + tested                     |
+| `src/simBroker.ts`                       | Offline broker compatible with the live broker plan shape; fills against a deterministic price path for local Arena runs.                                     | built + tested                     |
 | `src/liveStockBroker.ts`                 | Agent Hub broker wrapper. Defaults to dry-run, supports paper trading, and blocks live orders unless licensed, confirmed, isolated, low-leverage, and capped. | built + tested                     |
 | `src/rwa-market.ts`                      | Public Bitget USDT-Futures contract/ticker recheck for RWA status, spread, volume, and minimum live order size.                                               | built + tested                     |
-| `src/arena-demo.ts`                      | Generates the Arena artifact with Quorum's passport, the rejected naive bot, the Quorum decision, and the dry-run order payload.                              | built                              |
-| `src/arena-cockpit.ts`                   | Builds sanitized public cockpit data from the Arena artifact, paper-trade evidence, and GapGuard proof summary.                                               | built + tested                     |
+| `src/arena-demo.ts`                      | Generates the Arena artifact with Quorum's passport, Naive's recorded mandate breach, the Quorum decision, sim broker fill, and Arena chain.                  | built + tested                     |
+| `src/arena-cockpit.ts`                   | Builds sanitized public cockpit data from the Arena artifact, paper-trade evidence, Arena chain, and GapGuard proof summary.                                  | built + tested                     |
 | `src/bitgetWalletApi.ts`                 | Bitget Wallet API signer/client using the documented HMAC flow.                                                                                               | built + tested                     |
 | `src/bitgetProbe.ts`                     | Executable target-market probe for token info, K-lines, transaction info, and optional RWA quote routing.                                                     | built, blocked without API key     |
-| `public/arena.html`                      | Judge-facing Arena cockpit for license leaderboard, Quorum debate, broker rail, and proof stack.                                                              | built                              |
+| `public/arena.html`                      | Judge-facing Arena cockpit with in-browser SubtleCrypto verification and a tamper simulation toggle for `public/arena-chain.jsonl`.                           | built                              |
 | `public/dashboard.html`                  | Static judge cockpit for replay outcome, proxy confidence, risk actions, and hash-chain verification.                                                         | built                              |
-| `playbook/`                              | Bitget Playbook package for the ordinary-equity baseline.                                                                                                     | authored + local validation passed |
+| `playbook/`                              | Bitget Playbook package for the deterministic `AAPLUSDT` RWA perp managed-kline backtest path.                                                               | authored + local validation passed |
 
 ## Tooling
 
 - **Agent Hub** (`bgc` CLI + `bitget-mcp-server`) - order path, Demo Trading bridge, and live-order guardrail.
-- **Bitget Playbook** (`@bitget-ai/getagent-skill`) - US-stock quant backtest/deploy baseline.
+- **Bitget Playbook** (`@bitget-ai/getagent-skill`) - deterministic `AAPLUSDT` RWA perp backtest package; no upload or publish has been run.
 - **Qwen** (`qwen3.6-plus`) - optional convergence-gate reasoning.
 
 ## Develop
@@ -59,11 +62,12 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate-demo
 `npm run arena:demo` writes:
 
 - `artifacts/agent-arena-demo.json` - Quorum's licensed passport, the rejected naive bot, the five-agent Quorum decision, and the dry-run `bgc futures futures_place_order` payload.
+- `public/arena-chain.jsonl` - Arena-native tamper-evident chain covering mandate rules, Quorum/Naive decisions, mandate breaches, passports, and the simulated broker record.
 
 `npm run arena:cockpit` writes:
 
 - `public/arena-data.json` - sanitized public evidence data, including the latest local paper-order summary if present.
-- `public/arena.html` - static Arena cockpit. Open it directly or serve `public/` with any static server.
+- `public/arena.html` - Arena cockpit. Serve `public/` with any static server so the browser can fetch `arena-data.json` and `arena-chain.jsonl`.
 
 `npm run rwa:check` writes `public/rwa-market.json` from Bitget's public contracts/tickers endpoints. It keeps `NVDAUSDT` as the judge-recognizable default when it is normal and RWA-labeled, reports the liquidity leader/backup, and computes the minimum size needed to clear the contract-reported `minTradeUSDT` floor under the 20 USDT cap.
 

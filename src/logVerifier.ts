@@ -1,10 +1,5 @@
 import { readFileSync } from "node:fs";
-import {
-  GENESIS_HASH,
-  hashDecision,
-  type DecisionInput,
-  type DecisionRecord,
-} from "./glassbox";
+import { GENESIS_HASH, hashDecision, type DecisionInput } from "./glassbox";
 
 export interface LogVerification {
   ok: boolean;
@@ -13,22 +8,29 @@ export interface LogVerification {
   errors: string[];
 }
 
-function stripHashFields(record: DecisionRecord): DecisionInput {
-  const input: Partial<DecisionRecord> = { ...record };
-  delete input.hash;
-  delete input.prevHash;
-  return input as DecisionInput;
+export interface ChainRecord {
+  prevHash: string;
+  hash: string;
 }
 
-export function parseJsonlRecords(raw: string): DecisionRecord[] {
+function stripHashFields(record: ChainRecord): Record<string, unknown> {
+  const input: Record<string, unknown> = {
+    ...(record as unknown as Record<string, unknown>),
+  };
+  delete input.hash;
+  delete input.prevHash;
+  return input;
+}
+
+export function parseJsonlRecords(raw: string): ChainRecord[] {
   return raw
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
-    .map((line) => JSON.parse(line) as DecisionRecord);
+    .map((line) => JSON.parse(line) as ChainRecord);
 }
 
-export function verifyRecords(records: DecisionRecord[]): LogVerification {
+export function verifyRecords(records: ChainRecord[]): LogVerification {
   const errors: string[] = [];
   let expectedPrev = GENESIS_HASH;
   let finalHash = GENESIS_HASH;
@@ -44,7 +46,7 @@ export function verifyRecords(records: DecisionRecord[]): LogVerification {
     const expectedHash = hashDecision({
       ...stripHashFields(record),
       prevHash: record.prevHash,
-    });
+    } as DecisionInput & { prevHash: string });
     if (record.hash !== expectedHash) {
       errors.push(
         `line ${row}: hash ${record.hash} does not match expected ${expectedHash}`,

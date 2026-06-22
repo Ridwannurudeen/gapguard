@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaDemo, type ArenaDemoArtifact } from "./arena-demo";
+import { writeArenaChain } from "./arena-chain";
 import type { AgentPassport } from "./agentArena";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
 import type { DeskOpinion, QuorumDecision } from "./quorum";
@@ -48,6 +49,13 @@ export interface ArenaCockpitData {
     liveGate: string[];
   };
   rwaMarket: RwaMarketReport | null;
+  arenaChain: {
+    path: string;
+    ok: boolean;
+    count: number;
+    finalHash: string;
+    errors: string[];
+  };
   gapguardProof: GapGuardProofSummary | null;
 }
 
@@ -190,6 +198,13 @@ export function buildArenaCockpitData(
       ],
     },
     rwaMarket,
+    arenaChain: {
+      path: artifact.arenaChain.path,
+      ok: artifact.arenaChain.verification.ok,
+      count: artifact.arenaChain.verification.count,
+      finalHash: artifact.arenaChain.verification.finalHash,
+      errors: artifact.arenaChain.verification.errors,
+    },
     gapguardProof,
   };
 }
@@ -200,11 +215,14 @@ export async function runArenaCockpitCli(): Promise<void> {
   );
   const proofPath = resolve(process.argv[3] ?? "public/dashboard-data.json");
   const out = resolve(process.argv[4] ?? "public/arena-data.json");
+  const chainOut = resolve(process.argv[5] ?? "public/arena-chain.jsonl");
   const rwaPath = resolve(
     process.env.ARENA_RWA_MARKET_PATH ?? "public/rwa-market.json",
   );
+  const artifact = await buildArenaDemo();
+  writeArenaChain(chainOut, artifact.arenaChain.records);
   const data = buildArenaCockpitData(
-    await buildArenaDemo(),
+    artifact,
     readLatestPaperTrade(paperPath),
     readGapGuardProof(proofPath),
     readRwaMarketReport(rwaPath),

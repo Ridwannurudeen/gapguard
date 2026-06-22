@@ -1,0 +1,44 @@
+{
+  "probedAt": "2026-06-22T08:50:52.152Z",
+  "symbol": "AAPLUSDT",
+  "exchange": "bitget",
+  "interval": "1h",
+  "managedRuntimeAvailableLocally": false,
+  "managedRuntimeNote": "Local python import failed with ModuleNotFoundError: No module named 'getagent'; package is wired to data.crypto.futures.kline for hosted managed validation.",
+  "publicBitgetContract": {
+    "source": "node_modules/bitget-client futures_get_contracts",
+    "productType": "USDT-FUTURES",
+    "isRwa": "YES",
+    "symbolStatus": "normal",
+    "minTradeNum": "0.01",
+    "minTradeUSDT": "5",
+    "sizeMultiplier": "0.01"
+  },
+  "publicBitgetKline": {
+    "source": "https://api.bitget.com/api/v2/mix/market/candles?symbol=AAPLUSDT&productType=USDT-FUTURES&granularity=1H&limit=20",
+    "httpStatus": 200,
+    "code": "00000",
+    "msg": "success",
+    "rowCount": 20,
+    "first": [
+      "1782046800000",
+      "295.23",
+      "295.54",
+      "295.1",
+      "295.32",
+      "18.12",
+      "5351.184"
+    ],
+    "last": [
+      "1782115200000",
+      "297.19",
+      "297.52",
+      "296.64",
+      "296.94",
+      "167.44",
+      "49739.7383"
+    ]
+  },
+  "backtestSupportDecision": "full_when_hosted_managed_kline_returns_rows",
+  "submissionBoundary": "Do not claim a managed run, upload, publish, or live stock fill until those actions are explicitly approved and performed."
+}

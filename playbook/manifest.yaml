@@ -1,50 +1,50 @@
-name: gapguard-overnight-gap-reversion
-display_name: "GapGuard Overnight Gap Reversion"
-description: "Baseline Playbook: fades outsized overnight gaps in an ordinary US equity"
-version: "0.1.0"
+name: gapguard-aaplusdt-rwa-perp-reversion
+display_name: "GapGuard AAPLUSDT RWA Perp Reversion"
+description: "Deterministic Bitget AAPLUSDT RWA perp reversion Playbook"
+version: "0.2.0"
 long_description: |
-  GapGuard Overnight Gap Reversion is a baseline mean-reversion strategy on a
-  single ordinary US equity. It is intentionally scoped as a sanity-check for
-  the gap-reversion thesis, not as final proof of tokenized-stock/off-hours
-  convergence. The production GapGuard proof path must use Bitget-backed
-  tokenized-stock or off-hours data before making live performance claims.
+  GapGuard AAPLUSDT RWA Perp Reversion is the managed backtest package for the
+  tokenized-stock evidence path. It replaces the earlier ordinary-equity sanity
+  check with exchange-native Bitget contract data and keeps the reasoning layer
+  out of the historical strategy. The package reads AAPLUSDT futures candles from
+  the managed crypto kline provider, converts those rows into a Nautilus replay,
+  and emits a signal with the resulting return, drawdown, trade count, and chart
+  artifact.
 
-  The baseline thesis is that when a stock opens sharply away from the prior
-  session close, a meaningful part of that opening dislocation tends to be
-  noise rather than durable repricing, and price often drifts back toward the
-  prior level once regular trading resumes and liquidity returns. The strategy
-  aims to capture that partial snap-back rather than predict direction over
-  long horizons. It treats the overnight gap, the move between one session close
-  and the next session open, as the core signal and fades it.
+  The thesis is that sharp candle-to-candle dislocations in a new RWA perp can
+  overshoot when narrative demand arrives faster than balanced positioning. The
+  objective is not to predict the equity itself; it is to test whether the perp
+  microstructure briefly stretches away from the previous close and then mean
+  reverts once liquidity catches up. That keeps the backtest falsifiable and
+  avoids letting an agent explain away a bad result after the fact.
 
-  The strategy enters against the gap. When the equity opens sharply higher than
-  the previous close, it reads the move as stretched and opens a short; when the
-  equity opens sharply lower, it opens a long. It only acts when the opening
-  dislocation is large enough to stand out from ordinary movement, and otherwise
-  stays flat and waits, accepting that most sessions produce no trade at all.
+  The strategy is intentionally simple. It watches the current candle open
+  against the previous candle close. When the move is stretched upward, it fades
+  short; when the move is stretched downward, it fades long. Positions are held
+  for a short fixed window and then closed, so the backtest measures whether the
+  RWA perp tends to retrace sharp candle-to-candle dislocations without asking an
+  LLM to pick direction.
 
-  The strategy exits by time. Once a position is open, it closes after a short,
-  fixed holding window, taking whatever reversion has occurred rather than
-  waiting for a perfect round trip. There is no separate take profit or stop
-  loss in this version; the holding window is both the exit and the risk-control
-  mechanism, which keeps exposure brief and predictable.
+  Entry logic is mechanical. The strategy enters short when the candle opens far
+  above the prior close, enters long when it opens far below the prior close, and
+  otherwise stays flat. Exit logic is also mechanical: once a position has been
+  open for the configured holding window, the strategy closes it at market and
+  waits for the next setup. Every order comes from the candle data and fixed
+  parameters in the manifest.
 
-  Subscribers can tune several parameters. Raising the gap sensitivity makes the
-  strategy more selective, trading less often but only on the most extreme
-  opens; lowering it trades more frequently on smaller dislocations. Extending
-  the holding window gives reversion more room to play out but increases
-  exposure to fresh news; shortening it locks in faster. Margin budget sets the
-  capital the platform sizes against and uses as the denominator for return, so
-  treat it as the most you are willing to risk here.
+  This Playbook is supporting evidence for Agent Arena rather than a claim of
+  live stock execution. The arena uses simulated and paper broker evidence for
+  safe demo operation, and live RWA trading remains gated behind a licensed
+  passport, explicit confirmation, isolated margin, and manual approval. If the
+  managed kline probe ever returns empty rows, the project must mark backtest
+  support as unavailable and rely on the simulated and paper evidence instead.
 
-  The main risk is that a gap reflects real, justified repricing, an earnings
-  surprise or major news, in which case price keeps moving and the faded
-  position loses. The strategy underperforms in strong trends and around
-  scheduled catalysts, and can string together losses when gaps persist. Past
-  backtest performance does not guarantee live results.
-market_type: spot
-trading_symbols: ["TSLA"]
-tags: ["mean-reversion", "equity", "gap", "us-stock"]
+  Subscribers can tune symbol, dislocation sensitivity, holding window, trade
+  size, and margin budget. Larger sensitivity values trade fewer moves; longer
+  holding windows give reversion more time but increase exposure to fresh news.
+market_type: contract
+trading_symbols: ["AAPLUSDT"]
+tags: ["mean-reversion", "rwa", "contract", "bitget"]
 
 decision_mode: deterministic
 backtest_support: full
@@ -53,41 +53,43 @@ execution_mode: signal_only
 follow_trade_supported: false
 
 strategy_config:
-  trading_symbols: ["TSLA"]
-  proof_scope: "ordinary_equity_baseline"
-  gap_threshold_pct: 0.02
-  hold_bars: 1
-  trade_size: "10"
+  trading_symbols: ["AAPLUSDT"]
+  proof_scope: "bitget_aaplusdt_rwa_perp_backtest"
+  exchange: "bitget"
+  interval: "1h"
+  gap_threshold_pct: 0.004
+  hold_bars: 4
+  trade_size: "0.03"
   margin_budget: "1000"
 
 user_config_schema:
   trading_symbols:
     type: array
     item_type: string
-    default: ["TSLA"]
-    options: ["TSLA", "AAPL", "NVDA", "MSFT", "AMZN"]
+    default: ["AAPLUSDT"]
+    options: ["AAPLUSDT"]
     min_items: 1
     max_items: 1
     label: "Trading symbol"
   gap_threshold_pct:
     type: number
-    default: 0.02
-    min: 0.005
-    max: 0.1
-    label: "Gap threshold (fraction)"
+    default: 0.004
+    min: 0.001
+    max: 0.05
+    label: "Dislocation threshold"
   hold_bars:
     type: integer
-    default: 1
+    default: 4
     min: 1
-    max: 10
-    label: "Holding days"
+    max: 24
+    label: "Holding bars"
   trade_size:
     type: string
-    default: "10"
+    default: "0.03"
     pattern: "^[0-9]+(\\.[0-9]+)?$"
-    label: "Shares per trade"
+    label: "Contracts per trade"
   margin_budget:
     type: string
     default: "1000"
     pattern: "^[0-9]+(\\.[0-9]+)?$"
-    label: "Margin budget USD"
+    label: "Margin budget USDT"

@@ -1,8 +1,4 @@
-"""Entry point for the GapGuard Overnight Gap Reversion Playbook.
-
-For backtest_support: full, the platform injects runtime.evaluation_mode="historical"
-on /api/v1/playbook/run. This package only runs the historical backtest path.
-"""
+"""Entry point for the GapGuard AAPLUSDT RWA perp Playbook."""
 
 import math
 from typing import Any
@@ -18,10 +14,18 @@ def _sanitize(value: Any) -> Any:
 
 def run() -> None:
     cfg = runtime.manifest.get("strategy_config", {}) or {}
-    symbols = cfg.get("trading_symbols") or ["TSLA"]
+    symbols = cfg.get("trading_symbols") or ["AAPLUSDT"]
     symbol = symbols[0]
+    interval = cfg.get("interval", "1h")
+    exchange = cfg.get("exchange", "bitget")
 
-    bars = data.equity.price.historical(symbol=symbol, interval="daily", provider="fmp")
+    bars = data.crypto.futures.kline(
+        symbol=symbol,
+        interval=interval,
+        exchange=exchange,
+        limit=200,
+        provider="bitget_data",
+    )
     replay_frame = backtest.prepare_frame(bars, datetime_index="date")
 
     if replay_frame.empty:
@@ -30,11 +34,15 @@ def run() -> None:
             symbol=symbol,
             confidence=0.0,
             metrics={"rows": 0},
-            meta={"reason": "no historical bars returned"},
+            meta={
+                "reason": "no managed Bitget kline rows returned",
+                "proof_scope": "bitget_aaplusdt_rwa_perp_backtest",
+                "backtest_support": "none",
+            },
         )
         return
 
-    instrument_key = f"{symbol}.NASDAQ"
+    instrument_key = f"{symbol}.BITGET"
     result = backtest.run(
         ohlcv_data={instrument_key: replay_frame},
         spec=runtime.backtest_spec,
@@ -62,9 +70,12 @@ def run() -> None:
         metrics=metrics,
         meta={
             "chart_path": chart_path,
-            "proof_scope": "ordinary_equity_baseline",
-            "data_provider": "fmp daily US-equity bars",
-            "limitation": "not tokenized-stock/off-hours convergence proof",
+            "proof_scope": "bitget_aaplusdt_rwa_perp_backtest",
+            "data_provider": "data.crypto.futures.kline bitget_data",
+            "exchange": exchange,
+            "interval": interval,
+            "backtest_support": "full",
+            "limitation": "managed backtest evidence only; no live stock fill claimed",
         },
     )
 

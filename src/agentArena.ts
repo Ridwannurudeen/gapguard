@@ -9,6 +9,7 @@ export interface AgentEvidence {
   debateRounds: number;
   rejectedTrades: number;
   backtestSharpe?: number;
+  mandateBreaches?: string[];
 }
 
 export interface ArenaControls {
@@ -96,7 +97,12 @@ function licensedBlockers(candidate: AgentCandidate): string[] {
   if (!evidence.liveReadOk) blockers.push("no live read-only Bitget evidence");
   if (evidence.paperTrades < 3) blockers.push("fewer than 3 paper trades");
   if (evidence.debateRounds < 2) blockers.push("insufficient debate rounds");
-  if (evidence.ruleViolations > 0) blockers.push("rule violations present");
+  if (evidence.ruleViolations > 0) {
+    const detail = evidence.mandateBreaches?.length
+      ? `: ${evidence.mandateBreaches.join("; ")}`
+      : "";
+    blockers.push(`rule violations present${detail}`);
+  }
   if (evidence.maxDrawdownPct > MAX_LICENSED_DRAWDOWN_PCT) {
     blockers.push("drawdown exceeds licensed threshold");
   }
@@ -126,7 +132,12 @@ function paperOnlyBlockers(candidate: AgentCandidate): string[] {
   const { evidence, controls } = candidate;
 
   if (!evidence.hashChainOk) blockers.push("hash-chain verification failed");
-  if (evidence.ruleViolations > 0) blockers.push("rule violations present");
+  if (evidence.ruleViolations > 0) {
+    const detail = evidence.mandateBreaches?.length
+      ? `: ${evidence.mandateBreaches.join("; ")}`
+      : "";
+    blockers.push(`rule violations present${detail}`);
+  }
   if (!controls.riskGovernor) blockers.push("missing risk governor");
   if (!controls.confirmLive) blockers.push("missing human live confirmation");
   if (

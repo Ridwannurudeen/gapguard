@@ -4,14 +4,14 @@
 
 Agent Arena turns GapGuard into a Track 2 trading-infrastructure project: autonomous agents do not get trusted by default. They compete for a passport, and only a passport graded `LICENSED` can graduate from simulation into one capped, supervised RWA perp fill.
 
-Quorum is the flagship agent inside the Arena. It earns the license by combining GapGuard's deterministic risk governor, adversarial debate, paper-trade evidence, read-only Bitget perception, and a hash-chained record. A naive single-agent narrative bot is structurally barred from real money.
+Quorum is the flagship agent inside the Arena. It earns the license by combining GapGuard's deterministic risk governor, adversarial debate, paper-trade evidence, read-only Bitget perception, and an Arena-native hash-chained record. A naive single-signal momentum bot is structurally barred from real money because its own recorded decision breaches the mandate.
 
 ## Evidence Stack
 
 1. Real-funds fill on a liquid RWA USDT perp after dry-run, explicit approval, and `--confirm-live`.
 2. Bitget Demo Trading paper-trade log through Agent Hub's `--paper-trading` mode.
-3. Playbook backtest baseline for the RWA thesis.
-4. Tamper-evident simulated ledger from the existing GapGuard glass-box.
+3. Playbook backtest package for the `AAPLUSDT` RWA perp managed-kline path.
+4. Tamper-evident Arena ledger plus the existing GapGuard glass-box replay.
 5. Live read-only RWA market perception from Bitget public and authenticated APIs.
 
 Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `SOXLUSDT`. `npm run rwa:check` writes the public contract/ticker recheck and computes the suggested minimum live size; rerun it immediately before any real order.
@@ -34,6 +34,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - Provision Qwen key and read-data credentials.
 - Keep live Trade key separate and unfunded until paper path passes.
 - Run `npm run arena:demo` to generate `artifacts/agent-arena-demo.json`.
+- Confirm `public/arena-chain.jsonl` verifies in the browser and catches simulated tampering.
 - Run `npm run rwa:check` to generate `public/rwa-market.json` from Bitget public USDT-Futures data.
 - Run the dry-run broker path; confirm the intended order payload before any paper/live execution.
 
@@ -41,12 +42,15 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 
 - `src/agentArena.ts` grades agents as `LICENSED`, `PAPER_ONLY`, or `REJECTED`.
 - `src/quorum.ts` converts role-specialized opinions into a consensus score, veto flag, and position multiplier.
+- `src/mandate.ts` compiles the English risk constitution into enforced caps and veto predicates.
+- `src/arena-chain.ts` seals mandate rules, decisions, breaches, passports, and broker records.
 - Quorum must pass evidence checks: paper trades, live read, hash-chain verification, drawdown limits, no rule violations, and debate rounds.
 - Controls must pass: risk governor, adversarial review, human live confirmation, kill-switch, isolated margin, capped notional, and low leverage.
 
 ### Phase 2 - Broker Graduation
 
 - `src/liveStockBroker.ts` builds the Agent Hub `bgc futures futures_place_order` call.
+- `src/simBroker.ts` is the default Arena/test broker so the demo runs offline without Bitget credentials.
 - `dry_run` returns the intended order without execution.
 - `paper` adds `--paper-trading` and requires Bitget demo credentials.
 - `live` is blocked unless the passport is `LICENSED`, `confirmLive` is true, the order is under cap, and the safety constitution passes.
@@ -56,7 +60,7 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 
 - Show the Arena leaderboard: Quorum licensed, naive bot rejected.
 - Show Quorum's debate, consensus score, dissent, veto status, and risk multiplier.
-- Click verify on the hash chain.
+- Click verify on the Arena hash chain, then simulate tampering and show the broken row.
 - Run the broker dry-run payload for `NVDAUSDT`.
 - Show the RWA market recheck: RWA flag, normal status, spread, volume, minimum size, and liquidity backup.
 - Package the leaderboard, debate, broker rail, paper evidence, and hash-chain status in `public/arena.html`.
@@ -65,9 +69,12 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 ## Must Ship
 
 - Arena passport artifact.
+- Arena-native chain artifact and browser verifier.
 - Dry-run broker artifact.
+- Offline sim broker artifact.
 - Public RWA market recheck artifact.
 - Paper-trading order log if Demo API credentials are available.
 - Existing GapGuard hash-chain dashboard and verifier.
-- Static Arena cockpit.
+- Interactive Arena cockpit.
+- `AAPLUSDT` RWA perp Playbook package with probe record and local validation.
 - README/submission copy reframed as Agent Arena with GapGuard as the flagship exhibit.

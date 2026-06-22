@@ -21,7 +21,7 @@ class GapReversionConfig(StrategyConfig):
 
 
 class GapReversionStrategy(Strategy):
-    """Fade an outsized overnight gap (open vs prior close) and exit after a fixed hold."""
+    """Fade an outsized RWA perp candle move and exit after a fixed hold."""
 
     def __init__(self, config: GapReversionConfig) -> None:
         super().__init__(config)
@@ -72,12 +72,12 @@ class GapReversionStrategy(Strategy):
         qty = Quantity(Decimal(self.cfg.trade_size), instrument.size_precision)
 
         if gap >= self.cfg.gap_threshold_pct:
-            # Sharp gap up -> fade short, expecting a pull back toward the prior close.
+            # Sharp candle up -> fade short, expecting a pull back toward the prior close.
             self._submit(instrument.id, OrderSide.SELL, qty)
             self._position = "SHORT"
             self._bars_held = 0
         elif gap <= -self.cfg.gap_threshold_pct:
-            # Sharp gap down -> fade long.
+            # Sharp candle down -> fade long.
             self._submit(instrument.id, OrderSide.BUY, qty)
             self._position = "LONG"
             self._bars_held = 0

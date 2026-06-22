@@ -349,6 +349,14 @@
         color: var(--amber);
       }
 
+      .ok-text {
+        color: var(--mint);
+      }
+
+      .bad-text {
+        color: var(--red);
+      }
+
       .scorebar {
         height: 4px;
         margin-top: 9px;
@@ -438,6 +446,28 @@
         background: var(--surface-soft);
       }
 
+      .chain-list {
+        display: grid;
+        gap: 8px;
+        padding: 0 14px 14px;
+      }
+
+      .chain-row {
+        display: grid;
+        grid-template-columns: 52px 150px minmax(0, 1fr) 122px;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface-soft);
+      }
+
+      .chain-row.broken {
+        border-color: rgba(255, 98, 112, 0.6);
+        background: rgba(255, 98, 112, 0.08);
+      }
+
       .market-row {
         display: grid;
         grid-template-columns: 116px minmax(0, 1fr) repeat(4, 96px);
@@ -487,7 +517,8 @@
         header,
         .agent-row,
         .signature,
-        .market-row {
+        .market-row,
+        .chain-row {
           grid-template-columns: 1fr;
         }
 
@@ -540,6 +571,7 @@
         <nav class="actions" aria-label="Demo links">
           <a class="button-link" href="dashboard.html">Proof cockpit</a>
           <button id="verifyButton" type="button">Verify chain</button>
+          <button id="tamperButton" type="button">Simulate tampering</button>
         </nav>
       </header>
 
@@ -624,6 +656,7 @@
           </div>
         </div>
         <div id="proofGrid" class="proof-grid"></div>
+        <div id="chainRows" class="chain-list"></div>
       </section>
     </main>
 
@@ -668,6 +701,13 @@
           "liveGate": ["explicit approval before real funds"]
         },
         "rwaMarket": null,
+        "arenaChain": {
+          "path": "public/arena-chain.jsonl",
+          "ok": false,
+          "count": 0,
+          "finalHash": "",
+          "errors": []
+        },
         "gapguardProof": null
       }
     </script>
@@ -676,6 +716,16 @@
       const fallback = JSON.parse(
         document.getElementById("fallback-data").textContent,
       );
+      const genesis = "0".repeat(64);
+      let chainRecords = [];
+      let tamperEnabled = false;
+      let chainResult = {
+        ok: false,
+        count: 0,
+        finalHash: genesis,
+        errors: ["arena-chain.jsonl not loaded"],
+        brokenRows: [],
+      };
 
       const pct = (value) => `${(value * 100).toFixed(0)}%`;
       const money = (value) =>
@@ -736,9 +786,9 @@
           paper
             ? `PAPER ${paper.symbol} ORDER ${paper.orderId} DELTA ${money(paper.balanceDelta)}`
             : "PAPER EVIDENCE MISSING",
-          data.gapguardProof
-            ? `HASH ${data.gapguardProof.ok ? "VALID" : "INVALID"} ${data.gapguardProof.count} RECORDS`
-            : "HASH PROOF NOT LOADED",
+          data.arenaChain
+            ? `ARENA CHAIN ${data.arenaChain.ok ? "SERVER OK" : "SERVER INVALID"} ${data.arenaChain.count} RECORDS`
+            : "ARENA CHAIN NOT LOADED",
         ];
         const row = items
           .map((item) => `<span class="mono">${item}</span>`)
@@ -754,11 +804,13 @@
           data.status.paperEvidence;
         document.getElementById("liveStatus").textContent =
           data.status.liveStatus;
-        document.getElementById("hashStatus").textContent = data.gapguardProof
-          ? data.gapguardProof.ok
-            ? "valid"
-            : "invalid"
-          : "missing";
+        const hashStatus = document.getElementById("hashStatus");
+        hashStatus.textContent = data.arenaChain
+          ? data.arenaChain.ok
+            ? `SERVER OK · ${data.arenaChain.count}`
+            : "SERVER INVALID"
+          : "pending";
+        hashStatus.className = "stat-value";
         document.getElementById("generatedAt").textContent =
           data.generatedAt === "pending"
             ? "pending"
@@ -923,7 +975,6 @@
       }
 
       function renderProof(data) {
-        const proof = data.gapguardProof;
         document.getElementById("proofGrid").innerHTML = [
           {
             label: "Arena artifact",
@@ -945,8 +996,18 @@
           },
           {
             label: "Hash chain",
-            value: proof ? `${proof.count} records` : "missing",
-            detail: proof?.finalHash ?? "open GapGuard proof cockpit",
+            value: data.arenaChain
+              ? `${data.arenaChain.count} records`
+              : "missing",
+            detail: data.arenaChain?.finalHash ?? "run npm run arena:demo",
+          },
+          {
+            label: "Legacy proof",
+            value: data.gapguardProof
+              ? `${data.gapguardProof.count} records`
+              : "missing",
+            detail:
+              data.gapguardProof?.finalHash ?? "open GapGuard proof cockpit",
           },
         ]
           .map(
@@ -957,6 +1018,114 @@
             </div>`,
           )
           .join("");
+      }
+
+      async function sha256(value) {
+        const bytes = new TextEncoder().encode(value);
+        const digest = await crypto.subtle.digest("SHA-256", bytes);
+        return [...new Uint8Array(digest)]
+          .map((byte) => byte.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      async function verifyArenaChain(records) {
+        const errors = [];
+        const brokenRows = new Set();
+        let expectedPrev = genesis;
+        let finalHash = genesis;
+
+        if (records.length === 0) {
+          return {
+            ok: false,
+            count: 0,
+            finalHash,
+            errors: ["arena-chain.jsonl is empty"],
+            brokenRows: [],
+          };
+        }
+
+        for (const [index, record] of records.entries()) {
+          const row = index + 1;
+          if (record.prevHash !== expectedPrev) {
+            errors.push(`line ${row}: prevHash mismatch`);
+            brokenRows.add(row);
+          }
+
+          const payload = { ...record };
+          delete payload.hash;
+          const expectedHash = await sha256(JSON.stringify(payload));
+          if (record.hash !== expectedHash) {
+            errors.push(`line ${row}: hash mismatch`);
+            brokenRows.add(row);
+          }
+
+          expectedPrev = record.hash;
+          finalHash = record.hash;
+        }
+
+        return {
+          ok: errors.length === 0,
+          count: records.length,
+          finalHash,
+          errors,
+          brokenRows: [...brokenRows],
+        };
+      }
+
+      function tamperedRecords(records) {
+        if (!tamperEnabled) return records;
+        const copy = JSON.parse(JSON.stringify(records));
+        const index = Math.max(
+          0,
+          copy.findIndex((record) => record.kind === "agent_decision"),
+        );
+        copy[index].payload = {
+          ...copy[index].payload,
+          positionPct: 0.05,
+          tampered: true,
+        };
+        return copy;
+      }
+
+      function renderChainRows(records, result) {
+        const broken = new Set(result.brokenRows);
+        document.getElementById("chainRows").innerHTML = records
+          .map((record, index) => {
+            const row = index + 1;
+            const rowClass = broken.has(row) ? "chain-row broken" : "chain-row";
+            return `<article class="${rowClass}">
+              <div class="mono">#${row}</div>
+              <div>
+                <div class="eyebrow">${record.kind}</div>
+                <h3>${record.agentId}</h3>
+              </div>
+              <div class="muted mono hash">${record.hash}</div>
+              <span class="tag ${broken.has(row) ? "blocked" : "ok"}">${broken.has(row) ? "broken row" : "verified"}</span>
+            </article>`;
+          })
+          .join("");
+      }
+
+      function renderChainStatus(result) {
+        const status = document.getElementById("hashStatus");
+        if (result.ok) {
+          status.textContent = `CHAIN VERIFIED · ${result.count} records`;
+          status.className = "stat-value ok-text";
+          return;
+        }
+
+        const rows = result.brokenRows.length
+          ? ` · row ${result.brokenRows.join(", ")}`
+          : "";
+        status.textContent = `CHAIN TAMPERED${rows}`;
+        status.className = "stat-value bad-text";
+      }
+
+      async function refreshChain() {
+        const visibleRecords = tamperedRecords(chainRecords);
+        chainResult = await verifyArenaChain(visibleRecords);
+        renderChainStatus(chainResult);
+        renderChainRows(visibleRecords, chainResult);
       }
 
       function render(data) {
@@ -979,19 +1148,37 @@
         }
       }
 
+      async function loadJsonl(path) {
+        try {
+          const res = await fetch(path, { cache: "no-store" });
+          if (!res.ok) return [];
+          const raw = await res.text();
+          return raw
+            .split(/\r?\n/)
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .map((line) => JSON.parse(line));
+        } catch {
+          return [];
+        }
+      }
+
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
+        chainRecords = await loadJsonl("arena-chain.jsonl");
         render(data);
         document
           .getElementById("verifyButton")
+          .addEventListener("click", () => void refreshChain());
+        document
+          .getElementById("tamperButton")
           .addEventListener("click", () => {
-            document.getElementById("hashStatus").textContent =
-              data.gapguardProof
-                ? data.gapguardProof.ok
-                  ? "valid"
-                  : "invalid"
-                : "missing";
+            tamperEnabled = !tamperEnabled;
+            document.getElementById("tamperButton").textContent =
+              tamperEnabled ? "Clear tamper" : "Simulate tampering";
+            void refreshChain();
           });
+        await refreshChain();
       }
 
       boot();
