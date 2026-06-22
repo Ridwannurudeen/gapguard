@@ -22,6 +22,7 @@
     "broker:balance": "tsx src/broker-balance.ts",
     "playbook:run": "node scripts/playbook-run.mjs",
     "backtest": "tsx src/backtest.ts",
+    "alpha:certify": "tsx src/alphaCertification.ts",
     "backtest:news": "tsx src/newsBacktest.ts",
     "backtest:multi": "tsx src/multiBacktest.ts",
     "backtest:fetch:rwa": "node scripts/fetch-rwa-sample.mjs",

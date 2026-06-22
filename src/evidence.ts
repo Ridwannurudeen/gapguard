@@ -88,6 +88,45 @@ export function loadGateDrivenBacktestEvidence(
   };
 }
 
+export function loadWalkForwardAlphaEvidence(
+  path = "artifacts/rwa-alpha-certification.json",
+): BacktestEvidenceSummary | null {
+  const report = asRecord(readJson(path));
+  const passportEvidence = asRecord(report.passportEvidence);
+  const variant = readString(passportEvidence.variant);
+  const returnPct = readNumber(passportEvidence.returnPct);
+  const sharpeAnnualized = readNumber(passportEvidence.sharpeAnnualized);
+  const totalTrades = readNumber(passportEvidence.totalTrades);
+  const status = readString(passportEvidence.alphaStatus);
+  const note = readString(passportEvidence.note);
+
+  if (
+    !variant ||
+    returnPct === null ||
+    sharpeAnnualized === null ||
+    totalTrades === null ||
+    (status !== "positive" && status !== "negative" && status !== "unproven")
+  ) {
+    return null;
+  }
+
+  return {
+    source: path,
+    variant,
+    returnPct,
+    sharpeAnnualized,
+    totalTrades,
+    alphaStatus: status,
+    note:
+      note ??
+      "walk-forward RWA certification artifact loaded; inspect source for details",
+  };
+}
+
+export function loadBestAlphaEvidence(): BacktestEvidenceSummary {
+  return loadWalkForwardAlphaEvidence() ?? loadGateDrivenBacktestEvidence();
+}
+
 export function countPaperEvidenceRows(
   paths = ["artifacts/paper-btc-smoke.jsonl", "artifacts/paper-trades.jsonl"],
 ): number {

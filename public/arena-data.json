@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T18:42:36.797Z",
+  "generatedAt": "2026-06-22T19:15:36.993Z",
   "arena": {
     "thesis": "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
     "liveInstrument": "NVDAUSDT",
@@ -10,7 +10,7 @@
     "paperOnlyAgents": 1,
     "rejectedAgents": 1,
     "paperEvidence": "proven",
-    "liveStatus": "disabled_alpha_unproven"
+    "liveStatus": "gated"
   },
   "perception": {
     "source": "Bitget public RWA market report 2026-06-22T18:33:52.318Z",
@@ -36,19 +36,19 @@
   "evidence": {
     "paperTrades": 2,
     "backtest": {
-      "source": "artifacts/aaplusdt-news-aware-backtest.json",
-      "variant": "gateDriven",
-      "returnPct": -2.165,
-      "sharpeAnnualized": -1.45,
-      "totalTrades": 13,
-      "alphaStatus": "negative",
-      "note": "gate-driven AI path is negative on the current evidence set; passport is safety-only, not alpha certification"
+      "source": "artifacts/rwa-alpha-certification.json",
+      "variant": "walkForwardRwaFollow",
+      "returnPct": 3.815,
+      "sharpeAnnualized": 6.562,
+      "totalTrades": 119,
+      "alphaStatus": "positive",
+      "note": "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
     },
     "rwaFreshness": {
       "path": "public/rwa-market.json",
-      "status": "fresh",
+      "status": "stale",
       "generatedAt": "2026-06-22T18:33:52.318Z",
-      "ageMinutes": 8.7,
+      "ageMinutes": 41.7,
       "maxAgeMinutes": 30
     }
   },
@@ -58,7 +58,7 @@
       "name": "Quorum",
       "thesis": "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
       "grade": "PAPER_ONLY",
-      "score": 112,
+      "score": 127,
       "evidence": {
         "paperTrades": 2,
         "liveReadOk": true,
@@ -67,15 +67,15 @@
         "ruleViolations": 0,
         "debateRounds": 3,
         "rejectedTrades": 2,
-        "backtestSharpe": -1.45,
+        "backtestSharpe": 6.562,
         "backtest": {
-          "source": "artifacts/aaplusdt-news-aware-backtest.json",
-          "variant": "gateDriven",
-          "returnPct": -2.165,
-          "sharpeAnnualized": -1.45,
-          "totalTrades": 13,
-          "alphaStatus": "negative",
-          "note": "gate-driven AI path is negative on the current evidence set; passport is safety-only, not alpha certification"
+          "source": "artifacts/rwa-alpha-certification.json",
+          "variant": "walkForwardRwaFollow",
+          "returnPct": 3.815,
+          "sharpeAnnualized": 6.562,
+          "totalTrades": 119,
+          "alphaStatus": "positive",
+          "note": "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
         },
         "mandateBreaches": []
       },
@@ -95,8 +95,7 @@
         "maxLeverage": 0
       },
       "findings": [
-        "fewer than 3 paper trades",
-        "alpha not live-certified: gate-driven AI path is negative on the current evidence set; passport is safety-only, not alpha certification"
+        "fewer than 3 paper trades"
       ]
     },
     {
@@ -609,7 +608,7 @@
     "path": "public/arena-chain.jsonl",
     "ok": true,
     "count": 11,
-    "finalHash": "3b129cfdbdcc1086ad051a73a46fbc28a19194340ee9f8f588d76418e2c83a8f",
+    "finalHash": "9d17813ed14ed67364d45a74834501bfe31d147a611d8fd8f5e51d623371d204",
     "errors": []
   },
   "gapguardProof": {

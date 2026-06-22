@@ -118,22 +118,23 @@ function arenaEvidenceChecks(path = "public/arena-data.json"): ReadinessCheck[] 
   const alphaStatus = readString(backtest.alphaStatus);
   const backtestSharpe = readNumber(evidence.backtestSharpe);
   const liveStatus = readString(status.liveStatus);
+  const alphaGateConsistent =
+    (alphaStatus === "positive" && liveStatus === "gated") ||
+    ((alphaStatus === "negative" || alphaStatus === "unproven") &&
+      liveStatus === "disabled_alpha_unproven");
+  const sharpeConsistent =
+    typeof backtestSharpe === "number" &&
+    (alphaStatus === "positive" ? backtestSharpe > 0 : backtestSharpe <= 0);
 
   return [
     {
       id: "arena-alpha-status",
-      status:
-        alphaStatus === "negative" && liveStatus === "disabled_alpha_unproven"
-          ? "pass"
-          : "fail",
+      status: alphaGateConsistent ? "pass" : "fail",
       detail: `alphaStatus=${alphaStatus ?? "missing"}, liveStatus=${liveStatus ?? "missing"}`,
     },
     {
       id: "arena-sharpe-alignment",
-      status:
-        typeof backtestSharpe === "number" && backtestSharpe <= 0
-          ? "pass"
-          : "fail",
+      status: sharpeConsistent ? "pass" : "fail",
       detail: `quorum backtestSharpe=${backtestSharpe ?? "missing"}`,
     },
   ];

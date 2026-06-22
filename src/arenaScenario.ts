@@ -6,7 +6,7 @@ import type { RwaMarketReport, RwaMarketRow } from "./rwa-market";
 import {
   assessRwaMarketFreshness,
   countPaperEvidenceRows,
-  loadGateDrivenBacktestEvidence,
+  loadBestAlphaEvidence,
   type BacktestEvidenceSummary,
   type RwaFreshnessSummary,
 } from "./evidence";
@@ -255,7 +255,7 @@ export function buildArenaScenario(
 ): ArenaScenario {
   const mandate = compileMandate(ARENA_MANDATE_TEXT);
   const backtestEvidence =
-    evidenceInputs.backtest ?? loadGateDrivenBacktestEvidence();
+    evidenceInputs.backtest ?? loadBestAlphaEvidence();
   const paperTrades =
     evidenceInputs.paperTrades ?? countPaperEvidenceRows();
   const rwaFreshness =
