@@ -1,4 +1,4 @@
-import { webcrypto } from "node:crypto";
+import { generateKeyPairSync, webcrypto } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import { GENESIS_HASH } from "../src/glassbox";
 import {
@@ -106,24 +106,47 @@ describe("arena attestation (Merkle + Ed25519)", () => {
   ]);
 
   it("signs a Merkle root and verifies it", () => {
+    const pair = generateKeyPairSync("ed25519");
     const att = attestChain(records, {
       signedAt: "2026-06-22T00:00:00.000Z",
       model: "qwen3.6-plus",
+      privateKey: pair.privateKey,
     });
     expect(att.alg).toBe("Ed25519");
     expect(att.recordCount).toBe(2);
-    expect(verifyAttestation(records, att)).toEqual({
+    expect(verifyAttestation(records, att, { publicKey: pair.publicKey })).toEqual({
       ok: true,
       merkleRootOk: true,
       signatureOk: true,
+      publicKeyOk: true,
     });
   });
 
-  it("detects a tampered ledger via Merkle-root mismatch", () => {
+  it("detects a tampered payload via Merkle-root mismatch", () => {
     const att = attestChain(records, { signedAt: "2026-06-22T00:00:00.000Z" });
-    const tampered = [{ ...records[0], hash: "0".repeat(64) }, records[1]];
+    const tampered = [
+      { ...records[0], payload: { vote: "short", multiplier: 1 } },
+      records[1],
+    ];
     const result = verifyAttestation(tampered, att);
     expect(result.merkleRootOk).toBe(false);
+    expect(result.ok).toBe(false);
+  });
+
+  it("rejects an attestation signed by a different published key", () => {
+    const signer = generateKeyPairSync("ed25519");
+    const published = generateKeyPairSync("ed25519");
+    const att = attestChain(records, {
+      signedAt: "2026-06-22T00:00:00.000Z",
+      privateKey: signer.privateKey,
+    });
+
+    const result = verifyAttestation(records, att, {
+      publicKey: published.publicKey,
+    });
+
+    expect(result.signatureOk).toBe(true);
+    expect(result.publicKeyOk).toBe(false);
     expect(result.ok).toBe(false);
   });
 

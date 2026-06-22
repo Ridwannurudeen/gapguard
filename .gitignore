@@ -7,5 +7,12 @@ glassbox-*.jsonl
 *.tar.gz
 .DS_Store
 artifacts/
+!artifacts/
+!artifacts/aaplusdt-backtest.json
+!artifacts/aaplusdt-news-aware-backtest.json
+!artifacts/aaplusdt-gate-audit.json
+!artifacts/rwa-multi-backtest.json
+!artifacts/paper-btc-smoke.jsonl
 .pbkey
 .qwenkey
+.arena-signing-key.pem

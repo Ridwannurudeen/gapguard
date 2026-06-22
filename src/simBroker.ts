@@ -33,7 +33,6 @@ export interface SimBrokerFill {
 }
 
 export interface SimBrokerResult extends BrokerResult {
-  status: "submitted";
   fill: SimBrokerFill;
   stdout: string;
   stderr: string;
@@ -93,7 +92,7 @@ export async function placeSimulatedFuturesOrder(
   };
 
   return {
-    status: "submitted",
+    status: cfg.mode === "dry_run" ? "dry_run" : "submitted",
     plan,
     fill,
     stdout: JSON.stringify({

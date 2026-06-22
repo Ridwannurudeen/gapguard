@@ -843,11 +843,12 @@
       <section class="hero" aria-label="GapGuard proof cockpit">
         <div class="hero-copy">
           <div class="hero-lead">
-            <div class="eyebrow">Agentic RWA trading, receipt first</div>
+            <div class="eyebrow">RWA trading scenario, receipt first</div>
             <h1>GapGuard Agent Arena</h1>
             <p>
               Autonomous trading agents do not get capital by sounding smart.
-              They earn it by debating the same market, surviving the risk
+              In this public artifact, Quorum earns a deterministic dry-run
+              passport by debating the same market, surviving the risk
               constitution, and leaving a receipt chain the judge can break in
               the browser.
             </p>
@@ -861,13 +862,13 @@
             </article>
             <article class="thesis">
               <div class="eyebrow">2 / License</div>
-              <h3>Passports gate capital</h3>
-              <p>Risk rules, debate rounds, drawdown, and controls decide.</p>
+              <h3>Passports gate graduation</h3>
+              <p>Risk rules, debate rounds, drawdown, and controls decide what can leave simulation.</p>
             </article>
             <article class="thesis">
               <div class="eyebrow">3 / Prove</div>
               <h3>Every action hashes forward</h3>
-              <p>Mandates, decisions, breaches, passports, and orders verify.</p>
+              <p>Mandates, decisions, breaches, passports, and dry-run orders verify.</p>
             </article>
           </div>
 
@@ -881,7 +882,7 @@
         <div class="arena-stage">
           <div class="stage-head">
             <div>
-              <div class="eyebrow">Live judge surface</div>
+              <div class="eyebrow">Judge evidence surface</div>
               <h2>Agent competition board</h2>
             </div>
             <span id="stageStatus" class="tag warn">loading</span>
@@ -931,20 +932,21 @@
       <section class="status-grid" aria-label="Arena status">
         <div class="stat signature">
           <div>
-            <div class="eyebrow">Licensed agents</div>
+            <div class="eyebrow">Live licenses</div>
             <div id="licensedDisplay" class="display num">0/0</div>
           </div>
           <p class="muted">
-            Capital unlocks only after the passport clears the constitution.
+            Quorum is paper-only while the gate-driven alpha replay is negative;
+            live RWA orders need positive evidence plus explicit approval.
           </p>
         </div>
         <div class="stat">
-          <div class="eyebrow">Paper evidence</div>
+          <div class="eyebrow">Crypto Demo evidence</div>
           <div id="paperStatus" class="stat-value">missing</div>
         </div>
         <div class="stat">
-          <div class="eyebrow">Live RWA</div>
-          <div id="liveStatus" class="stat-value">gated</div>
+          <div class="eyebrow">RWA live gate</div>
+          <div id="liveStatus" class="stat-value">disabled_alpha_unproven</div>
         </div>
         <div class="stat">
           <div class="eyebrow">Generated</div>
@@ -956,7 +958,7 @@
         <div class="panel-head">
           <div>
             <div class="eyebrow">Four-step product loop</div>
-            <h2>Simulate - Arena - Broker - Prove</h2>
+            <h2>Simulate - Arena - Dry-run - Prove</h2>
           </div>
           <span class="tag info">offline first</span>
         </div>
@@ -999,7 +1001,7 @@
       <section class="panel section-gap">
         <div class="panel-head">
           <div>
-            <div class="eyebrow">RWA market recheck</div>
+            <div class="eyebrow">Read-only RWA market recheck</div>
             <h2>Bitget contract and ticker evidence</h2>
           </div>
           <span id="rwaStamp" class="tag warn">not loaded</span>
@@ -1023,15 +1025,16 @@
       {
         "generatedAt": "pending",
         "arena": {
-          "thesis": "The Arena does not trust autonomous agents by default; it makes them earn a passport before any real capital is unlocked.",
+          "thesis": "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
           "liveInstrument": "NVDAUSDT",
-          "graduationStatus": "dry_run_ready"
+          "graduationStatus": "sim_dry_run_only_alpha_unproven"
         },
         "status": {
-          "licensedAgents": 1,
+          "licensedAgents": 0,
+          "paperOnlyAgents": 1,
           "rejectedAgents": 1,
           "paperEvidence": "missing",
-          "liveStatus": "gated"
+          "liveStatus": "disabled_alpha_unproven"
         },
         "leaderboard": [],
         "quorum": {
@@ -1057,7 +1060,7 @@
           },
           "dryRunNotionalUSDT": 6.2886,
           "paperTrade": null,
-          "liveGate": ["explicit approval before real funds"]
+          "liveGate": ["explicit approval before real funds", "no live stock fill in this artifact"]
         },
         "rwaMarket": null,
         "arenaChain": {
@@ -1085,6 +1088,8 @@
         errors: ["arena-chain.jsonl not loaded"],
         brokenRows: [],
       };
+      let attestation = null;
+      let arenaPublicKeyPem = "";
 
       const escapeHtml = (value) =>
         String(value)
@@ -1118,6 +1123,30 @@
       const shortHash = (value) =>
         value ? `${String(value).slice(0, 10)}...${String(value).slice(-8)}` : "n/a";
 
+      function boundaryCopy(value) {
+        return String(value)
+          .replace(
+            "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
+            "Adversarial desk that evaluates RWA narrative-vs-positioning divergence before a capped dry-run can graduate.",
+          )
+          .replace(
+            "licensed for one capped supervised " + "fill",
+            "licensed for one capped dry-run scenario; live RWA fill requires explicit approval",
+          )
+          .replace(
+            "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
+            "RWA stock-perp attention is evaluated against the read-only ticker row before any dry-run is sized.",
+          )
+          .replace(
+            "Public RWA contract data is normal and usable inside the supervised live cap.",
+            "Public RWA contract data is normal for the read-only market check; live orders remain gated.",
+          )
+          .replace(
+            "Bitget contracts/tickers: NVDAUSDT isRwa=YES, status=normal, liveReady=true",
+            "Bitget contracts/tickers: NVDAUSDT isRwa=YES, status=normal, read-only check ok",
+          );
+      }
+
       function gradeClass(grade) {
         return grade === "LICENSED"
           ? "licensed"
@@ -1130,7 +1159,11 @@
         if (value === "LICENSED" || value === "ready" || value === "proven") {
           return "ok";
         }
-        if (value === "REJECTED" || value === "missing" || value === "blocked") {
+        if (
+          value === "REJECTED" ||
+          value === "missing" ||
+          value === "blocked"
+        ) {
           return "blocked";
         }
         return "warn";
@@ -1168,29 +1201,35 @@
         }).join("");
         document.getElementById("signalMap").innerHTML = cells;
         document.getElementById("liveInstrument").textContent =
-          `RWA ${data.arena.liveInstrument ?? data.quorum.symbol}`;
+          `read-only RWA ${data.arena.liveInstrument ?? data.quorum.symbol}`;
       }
 
       function renderTicker(data) {
         const paper = data.broker.paperTrade;
         const marketRow = defaultMarketRow(data);
         const licensed = firstAgentByGrade(data, "LICENSED");
+        const paperOnly = firstAgentByGrade(data, "PAPER_ONLY");
         const rejected = firstAgentByGrade(data, "REJECTED");
         const items = [
-          `LICENSED ${data.status.licensedAgents}`,
+          `LIVE LICENSED ${data.status.licensedAgents}`,
+          `PAPER ONLY ${data.status.paperOnlyAgents ?? 0}`,
           `REJECTED ${data.status.rejectedAgents}`,
-          licensed ? `${licensed.name.toUpperCase()} SCORE ${licensed.score}` : "QUORUM WAITING",
+          licensed
+            ? `${licensed.name.toUpperCase()} LIVE SCORE ${licensed.score}`
+            : paperOnly
+              ? `${paperOnly.name.toUpperCase()} PAPER SCORE ${paperOnly.score}`
+              : "QUORUM WAITING",
           rejected
             ? `${rejected.name.toUpperCase()} BREACHES ${rejected.evidence.mandateBreaches.length}`
             : "NAIVE WAITING",
-          `QUORUM ${data.quorum.symbol} ${data.quorum.winningVote} ${pct(data.quorum.consensusScore)} x${data.quorum.positionMultiplier}`,
-          `DRY-RUN ${orderSummary(data.broker.dryRunOrder)}`,
+          `DETERMINISTIC QUORUM ${data.quorum.symbol} ${data.quorum.winningVote} ${pct(data.quorum.consensusScore)} x${data.quorum.positionMultiplier}`,
+          `RWA DRY-RUN ${orderSummary(data.broker.dryRunOrder)}`,
           marketRow
-            ? `RWA ${marketRow.symbol} ${marketRow.symbolStatus.toUpperCase()} SPREAD ${bps(marketRow.spreadBps)} MIN ${unit(marketRow.suggestedMinSize)}`
+            ? `READ-ONLY RWA ${marketRow.symbol} ${marketRow.symbolStatus.toUpperCase()} SPREAD ${bps(marketRow.spreadBps)} MIN ${unit(marketRow.suggestedMinSize)}`
             : "RWA CHECK NOT LOADED",
           paper
-            ? `PAPER ${paper.symbol} ORDER ${paper.orderId} DELTA ${money(paper.balanceDelta)}`
-            : "PAPER EVIDENCE MISSING",
+            ? `CRYPTO DEMO PAPER ${paper.symbol} ORDER ${paper.orderId} DELTA ${money(paper.balanceDelta)}`
+            : "CRYPTO DEMO PAPER MISSING",
           data.arenaChain
             ? `ARENA CHAIN ${data.arenaChain.ok ? "SERVER OK" : "SERVER INVALID"} ${data.arenaChain.count} RECORDS`
             : "ARENA CHAIN NOT LOADED",
@@ -1235,7 +1274,7 @@
               </div>
               <div>
                 <strong>${escapeHtml(agent.name)}</strong>
-                <span class="muted">${escapeHtml(agent.thesis)}</span>
+                <span class="muted">${escapeHtml(boundaryCopy(agent.thesis))}</span>
               </div>
               <div class="mono">${escapeHtml(String(agent.score))}<br /><span class="muted">${breaches} breach</span></div>
             </article>`;
@@ -1257,8 +1296,8 @@
               </div>
               <div>
                 <h3>${escapeHtml(agent.name)}</h3>
-                <p class="muted">${escapeHtml(agent.thesis)}</p>
-                <p class="order-box">${escapeHtml(agent.findings.join(" | "))}</p>
+                <p class="muted">${escapeHtml(boundaryCopy(agent.thesis))}</p>
+                <p class="order-box">${escapeHtml(boundaryCopy(agent.findings.join(" | ")))}</p>
                 <p class="order-box">${escapeHtml(breachText)}</p>
               </div>
               <div class="num stat-value">${escapeHtml(String(agent.score))}</div>
@@ -1281,15 +1320,17 @@
           },
           {
             label: "Arena",
-            value: `${data.status.licensedAgents} licensed`,
-            body: data.quorum.rationale,
+            value: data.status.paperOnlyAgents
+              ? `${data.status.paperOnlyAgents} paper-only`
+              : `${data.status.licensedAgents} live-licensed`,
+            body: `Deterministic Quorum scenario: ${boundaryCopy(data.quorum.rationale)}`,
           },
           {
             label: "Broker",
-            value: paper ? `paper ${paper.status}` : "dry-run ready",
+            value: paper ? `crypto paper ${paper.status}` : "RWA dry-run ready",
             body: paper
-              ? `${paper.symbol} order ${paper.orderId}`
-              : orderSummary(data.broker.dryRunOrder),
+              ? `${paper.symbol} Demo order ${paper.orderId}; no RWA stock fill`
+              : `${orderSummary(data.broker.dryRunOrder)}; simulated/no exchange order`,
           },
           {
             label: "Prove",
@@ -1313,11 +1354,11 @@
 
       function renderDebate(data) {
         document.getElementById("quorumHeadline").textContent =
-          data.quorum.rationale;
+          `Deterministic Quorum scenario: ${boundaryCopy(data.quorum.rationale)}`;
         document.getElementById("quorumVote").textContent =
           `${data.quorum.winningVote} x${data.quorum.positionMultiplier}`;
         document.getElementById("deskSummary").textContent =
-          `${pct(data.quorum.consensusScore)} consensus`;
+          `${pct(data.quorum.consensusScore)} deterministic consensus`;
         document.getElementById("debate").innerHTML = data.debate
           .map((opinion) => {
             const cls =
@@ -1333,8 +1374,8 @@
               </div>
               <h3>${escapeHtml(pct(opinion.confidence))} confidence</h3>
               <div class="confidence"><span style="width:${Number(opinion.confidence) * 100}%"></span></div>
-              <p class="muted">${escapeHtml(opinion.rationale)}</p>
-              <p class="order-box">${escapeHtml(opinion.evidence.join(" | "))}</p>
+              <p class="muted">${escapeHtml(boundaryCopy(opinion.rationale))}</p>
+              <p class="order-box">${escapeHtml(boundaryCopy(opinion.evidence.join(" | ")))}</p>
             </article>`;
           })
           .join("");
@@ -1344,26 +1385,26 @@
         const paper = data.broker.paperTrade;
         const marketRow = defaultMarketRow(data);
         const paperLine = paper
-          ? `order ${paper.orderId} | balance ${money(paper.balanceBefore)} -> ${money(paper.balanceAfter)} | delta ${money(paper.balanceDelta)}`
-          : "no paper artifact loaded";
+          ? `${paper.symbol} Demo order ${paper.orderId} | balance ${money(paper.balanceBefore)} -> ${money(paper.balanceAfter)} | delta ${money(paper.balanceDelta)} | not an RWA stock fill`
+          : "no crypto Demo paper artifact loaded";
         const marketLine = marketRow
-          ? ` | min floor ${money(marketRow.minTradeUSDT)} -> suggested size ${unit(marketRow.suggestedMinSize)}`
+          ? ` | read-only min floor ${money(marketRow.minTradeUSDT)} -> suggested dry-run size ${unit(marketRow.suggestedMinSize)}`
           : "";
         const steps = [
           {
             label: "RWA dry-run",
             tag: "ready",
-            body: `${orderSummary(data.broker.dryRunOrder)} | notional ${money(data.broker.dryRunNotionalUSDT)}${marketLine}`,
+            body: `${orderSummary(data.broker.dryRunOrder)} | simulated/no exchange order | notional ${money(data.broker.dryRunNotionalUSDT)}${marketLine}`,
           },
           {
-            label: "Demo paper",
+            label: "Crypto Demo paper",
             tag: paper ? "proven" : "missing",
             body: paperLine,
           },
           {
-            label: "Live graduation",
-            tag: "gated",
-            body: data.broker.liveGate.join(" | "),
+            label: "Live RWA gate",
+            tag: data.status.liveStatus,
+            body: `${data.broker.liveGate.join(" | ")} | no live stock fill in current artifact`,
           },
         ];
         document.getElementById("brokerRail").innerHTML = steps
@@ -1407,15 +1448,15 @@
             const isDefault = row.symbol === report.defaultLiveSymbol;
             const isLeader = row.symbol === report.liquidityLeader;
             const label = isDefault
-              ? "default"
+              ? "read-only"
               : isLeader
                 ? "liquidity"
                 : row.liveReady
-                  ? "ready"
+                  ? "quote ok"
                   : "blocked";
             const blockers = row.blockers?.length
               ? row.blockers.join(" | ")
-              : "normal RWA contract";
+              : "read-only normal RWA contract";
             return `<article class="market-row">
               <div>
                 <h3>${escapeHtml(row.symbol)}</h3>
@@ -1454,12 +1495,17 @@
             detail: data.arena.graduationStatus,
           },
           {
-            label: "Paper order",
+            label: "Qwen gate",
+            value: "-2.165%",
+            detail: "14/15 blinded; missed WWDC stand-aside",
+          },
+          {
+            label: "Crypto Demo paper",
             value: data.broker.paperTrade?.orderId ?? "missing",
             detail: data.broker.paperTrade?.ts ?? "paper artifact unavailable",
           },
           {
-            label: "RWA market",
+            label: "Read-only RWA market",
             value: data.rwaMarket?.selectedLiveSymbol ?? "missing",
             detail: data.rwaMarket
               ? `leader ${data.rwaMarket.liquidityLeader ?? "n/a"}`
@@ -1495,6 +1541,91 @@
         return [...new Uint8Array(digest)]
           .map((byte) => byte.toString(16).padStart(2, "0"))
           .join("");
+      }
+
+      function base64ToBytes(value) {
+        return Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+      }
+
+      function hexToBytes(value) {
+        const bytes = new Uint8Array(value.length / 2);
+        for (let i = 0; i < bytes.length; i += 1) {
+          bytes[i] = Number.parseInt(value.slice(i * 2, i * 2 + 2), 16);
+        }
+        return bytes;
+      }
+
+      function publicKeyBody(pem) {
+        return String(pem)
+          .replace("-----BEGIN PUBLIC KEY-----", "")
+          .replace("-----END PUBLIC KEY-----", "")
+          .replace(/\s+/g, "");
+      }
+
+      async function computeMerkleRoot(records) {
+        if (records.length === 0) return genesis;
+        let layer = await Promise.all(
+          records.map((record) => {
+            const payload = { ...record };
+            delete payload.hash;
+            return sha256(JSON.stringify(payload));
+          }),
+        );
+        while (layer.length > 1) {
+          const next = [];
+          for (let i = 0; i < layer.length; i += 2) {
+            const left = layer[i];
+            const right = layer[i + 1] ?? left;
+            next.push(await sha256(left + right));
+          }
+          layer = next;
+        }
+        return layer[0];
+      }
+
+      async function verifyChainAttestation(records, att, publicKeyPem) {
+        if (!att || !publicKeyPem) {
+          return {
+            ok: false,
+            merkleRootOk: false,
+            signatureOk: false,
+            publicKeyOk: false,
+            error: "attestation or public key missing",
+          };
+        }
+
+        const merkleRoot = await computeMerkleRoot(records);
+        const merkleRootOk = merkleRoot === att.merkleRoot;
+        const publishedPublicKey = publicKeyBody(publicKeyPem);
+        const publicKeyOk = publishedPublicKey === att.publicKeySpkiB64;
+        let signatureOk = false;
+        let error = "";
+
+        try {
+          const key = await crypto.subtle.importKey(
+            "spki",
+            base64ToBytes(publishedPublicKey),
+            { name: "Ed25519" },
+            false,
+            ["verify"],
+          );
+          signatureOk = await crypto.subtle.verify(
+            { name: "Ed25519" },
+            key,
+            base64ToBytes(att.signatureB64),
+            hexToBytes(att.merkleRoot),
+          );
+        } catch (err) {
+          error = err instanceof Error ? err.message : "signature verify failed";
+        }
+
+        return {
+          ok: merkleRootOk && signatureOk && publicKeyOk,
+          merkleRootOk,
+          signatureOk,
+          publicKeyOk,
+          error,
+        };
       }
 
       async function verifyArenaChain(records) {
@@ -1538,6 +1669,7 @@
           finalHash,
           errors,
           brokenRows: [...brokenRows],
+          attestation: null,
         };
       }
 
@@ -1603,22 +1735,40 @@
             ? `row ${result.brokenRows.join(", ")}`
             : "no tamper detected";
 
-        if (result.ok) {
-          status.textContent = `CHAIN VERIFIED · ${result.count} records`;
+        if (result.ok && result.attestation?.ok) {
+          status.textContent = `CHAIN VERIFIED · ${result.count} records · SIGNATURE VERIFIED`;
           status.className = "stat-value ok-text";
+          return;
+        }
+
+        if (result.ok) {
+          status.textContent = `CHAIN VERIFIED · ${result.count} records · SIGNATURE MISSING`;
+          status.className = "stat-value";
           return;
         }
 
         const rows = result.brokenRows.length
           ? ` · row ${result.brokenRows.join(", ")}`
           : "";
-        status.textContent = `CHAIN TAMPERED${rows}`;
+        const signature =
+          result.attestation && !result.attestation.ok
+            ? " · signature failed"
+            : "";
+        status.textContent = `CHAIN TAMPERED${rows}${signature}`;
         status.className = "stat-value bad-text";
       }
 
       async function refreshChain() {
         const visibleRecords = tamperedRecords(chainRecords);
         chainResult = await verifyArenaChain(visibleRecords);
+        chainResult.attestation = await verifyChainAttestation(
+          visibleRecords,
+          attestation,
+          arenaPublicKeyPem,
+        );
+        if ((attestation || arenaPublicKeyPem) && !chainResult.attestation.ok) {
+          chainResult.ok = false;
+        }
         renderChainStatus(chainResult);
         renderMiniChain(visibleRecords, chainResult);
         renderChainRows(visibleRecords, chainResult);
@@ -1644,6 +1794,16 @@
           return await res.json();
         } catch {
           return undefined;
+        }
+      }
+
+      async function loadText(path) {
+        try {
+          const res = await fetch(path, { cache: "no-store" });
+          if (!res.ok) return "";
+          return await res.text();
+        } catch {
+          return "";
         }
       }
 
@@ -1698,6 +1858,8 @@
 
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
+        attestation = (await loadJson("arena-attestation.json")) ?? null;
+        arenaPublicKeyPem = await loadText("arena-pubkey.pem");
         chainRecords = await loadJsonl("arena-chain.jsonl");
         render(data);
         const verifyButton = document.getElementById("verifyButton");

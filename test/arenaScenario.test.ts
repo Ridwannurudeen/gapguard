@@ -3,7 +3,7 @@ import { buildArenaDemo } from "../src/arena-demo";
 import { buildArenaScenario } from "../src/arenaScenario";
 
 describe("arena behavioral scenario", () => {
-  it("licenses Quorum and rejects Naive from recorded mandate behavior", async () => {
+  it("keeps Quorum paper-only and rejects Naive from recorded mandate behavior", async () => {
     const artifact = await buildArenaDemo();
     const quorum = artifact.passports.find(
       (passport) => passport.agentId === "quorum-rwa-desk",
@@ -12,7 +12,8 @@ describe("arena behavioral scenario", () => {
       (passport) => passport.agentId === "naive-momentum",
     );
 
-    expect(quorum?.grade).toBe("LICENSED");
+    expect(quorum?.grade).toBe("PAPER_ONLY");
+    expect(quorum?.findings.join(" | ")).toContain("alpha not live-certified");
     expect(naive?.grade).toBe("REJECTED");
     expect(naive?.findings.join(" | ")).toContain(
       "overnight loss <= 1.5%",
@@ -21,6 +22,20 @@ describe("arena behavioral scenario", () => {
       "stay flat when evidence conflicts",
     );
     expect(artifact.arenaChain.verification.ok).toBe(true);
+    expect(artifact.arena.graduationStatus).toBe(
+      "sim_dry_run_only_alpha_unproven",
+    );
+    expect(artifact.graduationDryRun.status).toBe("dry_run");
+    expect(artifact.perception.source).toContain("Bitget public RWA");
+    const quorumRecord = artifact.arenaChain.records.find(
+      (record) => record.kind === "quorum_decision",
+    );
+    expect(quorumRecord?.payload).toMatchObject({
+      perception: expect.objectContaining({
+        symbol: "NVDAUSDT",
+        isRwa: "YES",
+      }),
+    });
     expect(artifact.arenaChain.records.map((record) => record.kind)).toContain(
       "mandate_breach",
     );
@@ -34,5 +49,6 @@ describe("arena behavioral scenario", () => {
     expect(scenario.naiveAgentDecision.mandateOk).toBe(false);
     expect(scenario.naiveAgentDecision.positionPct).toBe(0.5);
     expect(scenario.quorumAgentDecision.positionPct).toBe(0.1);
+    expect(scenario.evidence.backtest.alphaStatus).toBe("negative");
   });
 });

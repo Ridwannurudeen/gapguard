@@ -8,6 +8,7 @@ import {
   verify as edVerify,
   type KeyObject,
 } from "node:crypto";
+import { publicKeySpkiB64 } from "./arenaSigning";
 import { GENESIS_HASH, hashDecision, type DecisionInput } from "./glassbox";
 import {
   parseJsonlRecords,
@@ -91,16 +92,28 @@ export interface AttestationVerification {
   ok: boolean;
   merkleRootOk: boolean;
   signatureOk: boolean;
+  publicKeyOk: boolean;
 }
 
 function sha256Hex(input: string): string {
   return createHash("sha256").update(input).digest("hex");
 }
 
+function stripArenaHashFields(record: ArenaRecord): ArenaRecordInput {
+  return {
+    ts: record.ts,
+    kind: record.kind,
+    agentId: record.agentId,
+    payload: record.payload,
+  };
+}
+
 /** Merkle root over the per-record hashes (duplicate the last node on odd layers). */
 export function computeMerkleRoot(records: ArenaRecord[]): string {
   if (records.length === 0) return GENESIS_HASH;
-  let layer = records.map((record) => record.hash);
+  let layer = records.map((record) =>
+    recordHash(stripArenaHashFields(record), record.prevHash),
+  );
   while (layer.length > 1) {
     const next: string[] = [];
     for (let i = 0; i < layer.length; i += 2) {
@@ -134,9 +147,7 @@ export function attestChain(
     recordCount: records.length,
     signedAt: opts.signedAt,
     ...(opts.model ? { model: opts.model } : {}),
-    publicKeySpkiB64: publicKey
-      .export({ format: "der", type: "spki" })
-      .toString("base64"),
+    publicKeySpkiB64: publicKeySpkiB64(publicKey),
     signatureB64: signature.toString("base64"),
   };
 }
@@ -144,15 +155,20 @@ export function attestChain(
 export function verifyAttestation(
   records: ArenaRecord[],
   attestation: ArenaAttestation,
+  opts: { publicKey?: KeyObject } = {},
 ): AttestationVerification {
   const merkleRootOk = computeMerkleRoot(records) === attestation.merkleRoot;
   let signatureOk = false;
+  let publicKeyOk = false;
   try {
     const publicKey = createPublicKey({
       key: Buffer.from(attestation.publicKeySpkiB64, "base64"),
       format: "der",
       type: "spki",
     });
+    publicKeyOk = opts.publicKey
+      ? publicKeySpkiB64(opts.publicKey) === attestation.publicKeySpkiB64
+      : true;
     signatureOk = edVerify(
       null,
       Buffer.from(attestation.merkleRoot, "hex"),
@@ -161,6 +177,12 @@ export function verifyAttestation(
     );
   } catch {
     signatureOk = false;
+    publicKeyOk = false;
   }
-  return { ok: merkleRootOk && signatureOk, merkleRootOk, signatureOk };
+  return {
+    ok: merkleRootOk && signatureOk && publicKeyOk,
+    merkleRootOk,
+    signatureOk,
+    publicKeyOk,
+  };
 }

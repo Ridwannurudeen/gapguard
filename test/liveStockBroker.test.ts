@@ -19,6 +19,15 @@ const candidate: AgentCandidate = {
     ruleViolations: 0,
     debateRounds: 3,
     rejectedTrades: 2,
+    backtest: {
+      source: "artifacts/example-positive.json",
+      variant: "gateDriven",
+      returnPct: 1.2,
+      sharpeAnnualized: 1.2,
+      totalTrades: 25,
+      alphaStatus: "positive",
+      note: "positive fixture for live broker guard tests",
+    },
   },
   controls: {
     riskGovernor: true,

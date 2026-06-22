@@ -93,10 +93,11 @@ describe("arena cockpit data", () => {
     );
 
     expect(data.status).toMatchObject({
-      licensedAgents: 1,
+      licensedAgents: 0,
+      paperOnlyAgents: 1,
       rejectedAgents: 1,
       paperEvidence: "missing",
-      liveStatus: "gated",
+      liveStatus: "disabled_alpha_unproven",
     });
     expect(data.broker.dryRunOrder.symbol).toBe("NVDAUSDT");
     expect(data.broker.dryRunOrder.size).toBe("0.03");

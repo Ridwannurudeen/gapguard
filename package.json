@@ -16,11 +16,15 @@
     "gate:audit": "tsx src/gateAudit.ts",
     "arena:demo": "tsx src/arena-demo.ts",
     "arena:cockpit": "tsx src/arena-cockpit.ts",
+    "arena:keygen": "node scripts/arena-keygen.mjs",
+    "readiness:audit": "tsx src/readiness-audit.ts",
     "broker:order": "tsx src/broker-cli.ts",
     "broker:balance": "tsx src/broker-balance.ts",
     "playbook:run": "node scripts/playbook-run.mjs",
     "backtest": "tsx src/backtest.ts",
     "backtest:news": "tsx src/newsBacktest.ts",
+    "backtest:multi": "tsx src/multiBacktest.ts",
+    "backtest:fetch:rwa": "node scripts/fetch-rwa-sample.mjs",
     "backtest:fetch": "node scripts/fetch-aaplusdt.mjs"
   },
   "devDependencies": {

@@ -9,6 +9,15 @@ export interface AgentEvidence {
   debateRounds: number;
   rejectedTrades: number;
   backtestSharpe?: number;
+  backtest?: {
+    source: string;
+    variant: string;
+    returnPct: number;
+    sharpeAnnualized: number;
+    totalTrades: number;
+    alphaStatus: "positive" | "negative" | "unproven";
+    note: string;
+  };
   mandateBreaches?: string[];
 }
 
@@ -57,9 +66,11 @@ function scoreEvidence(evidence: AgentEvidence): number {
   const paperScore = Math.min(evidence.paperTrades, 10) * 4;
   const debateScore = Math.min(evidence.debateRounds, 5) * 6;
   const restraintScore = Math.min(evidence.rejectedTrades, 5) * 4;
+  const sharpe =
+    evidence.backtest?.sharpeAnnualized ?? evidence.backtestSharpe;
   const backtestScore =
-    typeof evidence.backtestSharpe === "number"
-      ? Math.max(0, Math.min(evidence.backtestSharpe, 3)) * 5
+    typeof sharpe === "number"
+      ? Math.max(0, Math.min(sharpe, 3)) * 5
       : 0;
   const drawdownPenalty = Math.min(evidence.maxDrawdownPct, 0.25) * 120;
   const violationPenalty = evidence.ruleViolations * 30;
@@ -97,6 +108,11 @@ function licensedBlockers(candidate: AgentCandidate): string[] {
   if (!evidence.liveReadOk) blockers.push("no live read-only Bitget evidence");
   if (evidence.paperTrades < 3) blockers.push("fewer than 3 paper trades");
   if (evidence.debateRounds < 2) blockers.push("insufficient debate rounds");
+  if (!evidence.backtest) {
+    blockers.push("no gate-driven backtest evidence");
+  } else if (evidence.backtest.alphaStatus !== "positive") {
+    blockers.push(`alpha not live-certified: ${evidence.backtest.note}`);
+  }
   if (evidence.ruleViolations > 0) {
     const detail = evidence.mandateBreaches?.length
       ? `: ${evidence.mandateBreaches.join("; ")}`

@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-06-22T17:02:43.010Z",
+  "productType": "USDT-FUTURES",
+  "source": "https://api.bitget.com/api/v2/mix/market/history-candles",
+  "granularity": "1H",
+  "days": 83,
+  "symbols": [
+    {
+      "symbol": "AAPLUSDT",
+      "file": "data/rwa-sample/aaplusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "file": "data/rwa-sample/nvdausdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "file": "data/rwa-sample/tslausdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "file": "data/rwa-sample/msftusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "file": "data/rwa-sample/googlusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "file": "data/rwa-sample/amznusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "METAUSDT",
+      "file": "data/rwa-sample/metausdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "AMDUSDT",
+      "file": "data/rwa-sample/amdusdt-1h.json",
+      "count": 1642,
+      "from": "2026-04-15T07:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "COINUSDT",
+      "file": "data/rwa-sample/coinusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "file": "data/rwa-sample/mstrusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "QQQUSDT",
+      "file": "data/rwa-sample/qqqusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "SPYUSDT",
+      "file": "data/rwa-sample/spyusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "NDX100USDT",
+      "file": "data/rwa-sample/ndx100usdt-1h.json",
+      "count": 755,
+      "from": "2026-05-22T06:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "SP500USDT",
+      "file": "data/rwa-sample/sp500usdt-1h.json",
+      "count": 755,
+      "from": "2026-05-22T06:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "file": "data/rwa-sample/tsmusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "file": "data/rwa-sample/babausdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "file": "data/rwa-sample/nflxusdt-1h.json",
+      "count": 1807,
+      "from": "2026-04-08T10:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "file": "data/rwa-sample/pltrusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "file": "data/rwa-sample/avgousdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "file": "data/rwa-sample/armusdt-1h.json",
+      "count": 1992,
+      "from": "2026-03-31T17:00:00.000Z",
+      "to": "2026-06-22T16:00:00.000Z"
+    }
+  ]
+}

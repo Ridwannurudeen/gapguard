@@ -1,0 +1,66 @@
+{
+  "asset": "AAPLUSDT",
+  "note": "Blinded overnight news summaries for the Qwen convergence gate. gateAudit.ts passes only date/newsSummary from this file to the model; expected labels live separately in aaplusdt-gate-labels.json.",
+  "contexts": [
+    {
+      "date": "2026-05-14",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-05-18",
+      "newsSummary": "Apple newsroom previewed the WWDC 2026 lineup and schedule. The feed did not identify product launches, financial guidance, or earnings news overnight."
+    },
+    {
+      "date": "2026-05-19",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-05-22",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-05-26",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-05-27",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-06-01",
+      "newsSummary": "Feed highlighted a broad US macro and technology-sector rally around stronger manufacturing data. No Apple-specific corporate headline was identified."
+    },
+    {
+      "date": "2026-06-02",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-06-04",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-06-05",
+      "newsSummary": "US Employment Situation data was scheduled before the US cash open, creating a broad market macro repricing window for large-cap technology exposure."
+    },
+    {
+      "date": "2026-06-08",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move before the WWDC keynote."
+    },
+    {
+      "date": "2026-06-09",
+      "newsSummary": "Apple held the WWDC keynote during the prior US session. Overnight coverage focused on Apple software and product-platform announcements from that event."
+    },
+    {
+      "date": "2026-06-12",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-06-15",
+      "newsSummary": "Overnight feed found no Apple-specific corporate headline, product event, earnings update, analyst shock, or scheduled US macro release tied to the move."
+    },
+    {
+      "date": "2026-06-18",
+      "newsSummary": "Markets were digesting the June FOMC decision and press conference from the prior session, a broad macro event affecting risk assets and mega-cap technology."
+    }
+  ]
+}

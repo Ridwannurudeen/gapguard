@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GapGuard — verifiable AI trading on tokenized US stocks</title>
+    <title>GapGuard — verifiable tokenized-stock gap evidence</title>
     <meta
       name="description"
-      content="GapGuard trades the off-hours gap on tokenized US stocks with an adversarial AI desk and a tamper-evident, signed audit trail. Bitget AI Hackathon S1, Track 3."
+      content="GapGuard evaluates the off-hours gap on tokenized US stocks with deterministic Quorum evidence, an explicit Qwen gate audit, and a tamper-evident signed trail. Bitget AI Hackathon S1, Track 3."
     />
     <link
       rel="icon"
@@ -621,7 +621,7 @@
           <a class="hide-sm" href="#how">How it works</a>
           <a class="hide-sm" href="#proof">Proof</a>
           <a class="hide-sm" href="#field">vs the field</a>
-          <a class="pill" href="arena.html">Live cockpit →</a>
+          <a class="pill" href="arena.html">Arena cockpit →</a>
         </nav>
       </div>
     </header>
@@ -631,35 +631,35 @@
       <div class="wrap hero-in">
         <span class="eyebrow"><span class="dot"></span> Bitget AI Hackathon S1 · Track 3 · US Stock AI Trading</span>
         <h1 class="title">
-          Trade the off-hours gap on tokenized US stocks —
+          Judge the off-hours gap on tokenized US stocks —
           <span class="grad">and prove every call.</span>
         </h1>
         <p class="sub">
           A tokenized stock trades 24/7; the underlying market is open ~6.5h a day.
-          GapGuard fades the overnight gap <em>only when an adversarial AI desk judges
-          it noise</em>, stands aside on real news, and seals every decision into a
-          signed, tamper-evident audit trail a judge can re-verify in the browser.
+          GapGuard's public build replays an evidence-weighted deterministic Quorum
+          scenario, names the live Qwen gate only in the audit path, and seals every
+          decision into a signed, tamper-evident trail a judge can re-verify in the browser.
         </p>
         <div class="cta-row">
-          <a class="btn primary" href="arena.html">Open the live cockpit →</a>
-          <a class="btn ghost" href="#proof">See the measured edge</a>
+          <a class="btn primary" href="arena.html">Open the Arena cockpit →</a>
+          <a class="btn ghost" href="#proof">See the evidence</a>
         </div>
 
         <div class="metrics">
           <div class="metric reveal">
-            <div class="v">+1.87%</div>
-            <div class="l">news-aware vs −0.31% always-fade</div>
+            <div class="v">790</div>
+            <div class="l">RWA sample trades · 20 symbols</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">11/11</div>
-            <div class="l">live gate accuracy · stands aside on WWDC</div>
+            <div class="v cyan">−2.165%</div>
+            <div class="l">Qwen gate-driven AAPL result</div>
           </div>
           <div class="metric reveal">
             <div class="v">Ed25519</div>
             <div class="l">signed Merkle audit · verify in-browser</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">93 / 0</div>
+            <div class="v cyan">102 / 0</div>
             <div class="l">tests passing · typecheck clean</div>
           </div>
         </div>
@@ -700,7 +700,7 @@
           <div class="step reveal">
             <div class="no">WHITE SPACE</div>
             <h3>Nobody owns it</h3>
-            <p>The off-hours-gap edge on tokenized equities is documented yet unproductized.</p>
+            <p>The off-hours-gap hypothesis on tokenized equities is visible, testable, and still unproductized.</p>
           </div>
         </div>
       </div>
@@ -714,7 +714,7 @@
         <div class="steps">
           <div class="step reveal">
             <div class="no">01 · PERCEIVE</div>
-            <h3>Live RWA data</h3>
+            <h3>Read-only RWA data</h3>
             <p>
               Read-only Bitget RWA perps (<span class="mono">isRwa=YES</span>), ticker,
               funding, spread, plus a deterministic off-hours dislocation from the
@@ -754,60 +754,64 @@
     <!-- PROOF -->
     <section id="proof">
       <div class="wrap">
-        <div class="kicker reveal">03 — The measured edge</div>
+        <div class="kicker reveal">03 — The evidence</div>
         <h2 class="sec reveal">
-          The always-fade baseline is flat. The <em>judgment</em> is the edge — and we measured it.
+          The naive baseline fails at scale. The <em>judgment layer</em> is the product.
         </h2>
         <p class="lede reveal">
           On real public Bitget <span class="mono">AAPLUSDT</span> candles
-          (2026-05-12 → 06-18), blindly fading every gap is ~flat. An agent that stands
-          aside on <strong style="color:var(--ink)">verified catalysts</strong> — chiefly
-          not fading the WWDC keynote reaction — turns that into a real result. The live
-          Qwen gate makes that call itself.
+          (2026-05-12 → 06-18), blindly fading every gap is ~flat. Across a broader
+          20-symbol RWA basket, it is negative. GapGuard does not sell the naive fade;
+          it sells the gate, the risk governor, and the proof layer that decide when
+          the agent is allowed to leave simulation.
         </p>
 
         <div class="grid2">
           <div class="panel reveal">
-            <h3>News-aware backtest <span class="mono" style="color:var(--dim);font-size:12px">npm run backtest:news</span></h3>
+            <h3>Backtests <span class="mono" style="color:var(--dim);font-size:12px">npm run backtest:multi</span></h3>
             <table class="data">
               <thead>
                 <tr><th>Strategy</th><th>Return</th><th>Trades</th><th>Win</th></tr>
               </thead>
               <tbody>
-                <tr><td>always-fade (baseline)</td><td class="down">−0.31%</td><td>15</td><td>40%</td></tr>
-                <tr class="row-hi"><td>AAPL-news-aware</td><td>+1.87%</td><td>13</td><td>46%</td></tr>
-                <tr><td>all-catalyst-aware</td><td class="up">+1.37%</td><td>10</td><td>50%</td></tr>
+                <tr><td>AAPL always-fade</td><td class="down">−0.397%</td><td>15</td><td>40%</td></tr>
+                <tr><td>AAPL gate-driven</td><td class="down">−2.165%</td><td>13</td><td>38.5%</td></tr>
+                <tr class="row-hi"><td>AAPL label-aware</td><td>+1.793%</td><td>13</td><td>46%</td></tr>
+                <tr><td>20-symbol always-fade</td><td class="down">−8.233%</td><td>790</td><td>44%</td></tr>
               </tbody>
             </table>
             <p class="note">
-              <strong>Honest caveat:</strong> n=15 over ~6 weeks; the lift is driven mainly
-              by one event (WWDC) — illustrative of the mechanism, not statistically
-              significant. Catalyst dates are verified against Apple / Fed / BLS sources.
+              <strong>Honest caveat:</strong> the Qwen gate scored 14/15 but missed the key
+              WWDC stand-aside, so the true gate-driven row is negative. The +1.793%
+              row is a label-grounded catalyst baseline, not an AI edge claim.
             </p>
           </div>
 
           <div class="panel reveal">
-            <h3>Live gate — the AI makes the call</h3>
+            <h3>Blinded gate audit</h3>
             <table class="data">
               <thead>
                 <tr><th>Session</th><th>Verdict</th></tr>
               </thead>
               <tbody>
-                <tr><td>10 quiet sessions</td><td class="up">fade ✓</td></tr>
-                <tr class="row-hi"><td>WWDC (2026-06-09)</td><td>stand aside ✓</td></tr>
-                <tr><td>FOMC / jobs days</td><td class="up">stand aside ✓</td></tr>
+                <tr><td>Prompt input</td><td>news summary only</td></tr>
+                <tr class="row-hi"><td>Holdout labels</td><td>separate file</td></tr>
+                <tr><td>Coverage</td><td class="up">15/15 gaps scored</td></tr>
+                <tr><td>Accuracy</td><td class="up">14/15 Qwen verdicts</td></tr>
+                <tr><td>Gate result</td><td class="down">−2.165% replay</td></tr>
               </tbody>
             </table>
             <p class="note">
-              The live Qwen convergence gate scored <strong>11/11 = 100%</strong> on the
-              scorable gaps — fading every quiet session and standing aside on the WWDC
-              gap, avoiding the −1.96% loss the baseline took.
+              The audit no longer feeds Qwen the answer key. It uses blinded overnight
+              summaries, scores every AAPL gap after the model returns, and writes a
+              verdict cache that <span class="mono">backtest:news</span> replays honestly.
+              The current AI-backed replay is negative because Qwen missed WWDC.
             </p>
             <p class="note" style="margin-top:10px">
               <strong>Certified:</strong> a Bitget Playbook managed run
               (<span class="mono">pbrun-e3fe0ec8c873</span>) completed on
-              <span class="mono">AAPLUSDT.BITGET</span> — 38 trades, the first completed
-              managed backtest on a real tokenized US stock.
+              <span class="mono">AAPLUSDT.BITGET</span> — 38 trades, honest flat/negative
+              Sharpe, the first completed managed backtest on a real tokenized US stock.
             </p>
           </div>
         </div>
@@ -831,10 +835,10 @@
             <p style="margin-top:12px"><span class="hashpill"><span class="chk">✓</span> <span id="rootpill" class="mono">Ed25519 · Merkle root verified</span></span></p>
             <div class="codeblock">
 <span class="k">"alg"</span>: <span class="s">"Ed25519"</span>,
-<span class="k">"merkleRoot"</span>: <span class="s">"a83bc0…e704"</span>,
+<span class="k">"merkleRoot"</span>: <span class="s">"c3bb60…8a9e"</span>,
 <span class="k">"recordCount"</span>: 11,
-<span class="k">"model"</span>: <span class="s">"qwen3.6-plus + deterministic"</span>,
-<span class="k">"signatureB64"</span>: <span class="s">"oNxtJygw…"</span>
+<span class="k">"model"</span>: <span class="s">"Qwen gate cache + deterministic Quorum"</span>,
+<span class="k">"signatureB64"</span>: <span class="s">"bBSN61mb…"</span>
             </div>
             <p class="note">
               A compact "verify, don't trust" fingerprint aligned with MiFID II / EU AI Act
@@ -844,10 +848,11 @@
           <div class="panel reveal">
             <h3>What you can run yourself</h3>
             <ul class="checks">
-              <li><span class="mono">npm test</span> — 93 tests, typecheck clean</li>
+              <li><span class="mono">npm test</span> — 102 tests, typecheck clean</li>
               <li><span class="mono">npm run backtest</span> — real AAPLUSDT gap backtest, no key</li>
-              <li><span class="mono">npm run backtest:news</span> — the +1.87% news-aware variant</li>
-              <li><span class="mono">npm run gate:audit</span> — live gate, 11/11</li>
+              <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
+              <li><span class="mono">npm run backtest:news</span> — label baseline + gate cache replay</li>
+              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache; current replay is negative</li>
               <li><span class="mono">npm run arena:cockpit</span> — rebuild the signed chain</li>
               <li>Open <span class="mono">arena.html</span> → Verify chain, then Simulate tampering</li>
             </ul>
@@ -888,8 +893,8 @@
               <td class="no">No</td>
             </tr>
             <tr>
-              <th>Live execution under a risk governor</th>
-              <td class="yes us">Yes — gated, capped</td>
+              <th>Execution rail under a risk governor</th>
+              <td class="yes us">RWA dry-run + crypto Demo fill; live gated/capped</td>
               <td class="no">Backtest / educational</td>
               <td class="no">No</td>
             </tr>
@@ -900,8 +905,8 @@
               <td class="yes">Audit only (post-hoc)</td>
             </tr>
             <tr>
-              <th>Measured only-AI edge</th>
-              <td class="yes us">11/11 live gate, +1.87%</td>
+              <th>Measured evidence discipline</th>
+              <td class="yes us">790-trade baseline + blinded gate cache</td>
               <td class="no">Asserted</td>
               <td class="no">N/A</td>
             </tr>
@@ -910,7 +915,9 @@
         <p class="note">
           Sources: TradingAgents (arXiv 2412.20138), ai-hedge-fund (virattt), Recall
           (recall.network), VeritasChain (veritaschain.org). The off-hours reversion edge is
-          documented (SSRN) yet, per public sources, unproductized — that's the white space.
+          treated as a hypothesis here; the SSRN abstract is not enough to claim the full
+          paper proves it. Per public sources, the tokenized-stock gap product remains
+          unproductized — that's the white space.
         </p>
       </div>
     </section>
@@ -918,12 +925,12 @@
     <div class="final wrap">
       <h2>Judge the gap. Earn trust. Then trade.</h2>
       <p>
-        The whole agent runs today — live RWA perception, the adversarial desk, the risk
-        mandate, the verifiable chain, and reproducible backtests. Open the cockpit and
-        re-verify it yourself.
+        The public artifact runs today — read-only RWA market evidence, deterministic
+        Quorum scenario, dry-run broker rail, verifiable chain, and reproducible
+        backtests. Open the cockpit and re-verify the boundaries yourself.
       </p>
       <div class="cta-row">
-        <a class="btn primary" href="arena.html">Open the live cockpit →</a>
+        <a class="btn primary" href="arena.html">Open the Arena cockpit →</a>
         <a class="btn ghost" href="dashboard.html">Replay dashboard</a>
       </div>
     </div>

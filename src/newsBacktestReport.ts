@@ -1,0 +1,166 @@
+import {
+  collapseSessions,
+  computeGapTrades,
+  summarize,
+  type BacktestMetrics,
+  type Candle,
+  type Trade,
+} from "./gapEngine";
+import {
+  gateStandAsideDates,
+  type GateVerdictCache,
+} from "./gateVerdicts";
+
+export interface Catalyst {
+  date: string;
+  type: string;
+  weight: string;
+  description: string;
+  confidence: string;
+  source: string;
+}
+
+export interface NewsBacktestReport {
+  strategy: string;
+  asset: string;
+  interval: string;
+  window: {
+    from: string | undefined;
+    to: string | undefined;
+    sessions: number;
+  };
+  catalysts: Catalyst[];
+  params: {
+    gapThresholdPct: number;
+    costPerSidePct: number;
+    slippagePerSideBps: number;
+    slippageSource: string;
+    startEquity: number;
+  };
+  variants: {
+    alwaysFade: BacktestMetrics;
+    gateDriven: BacktestMetrics | null;
+    aaplNewsAware: BacktestMetrics;
+    allCatalystAware: BacktestMetrics;
+  };
+  gateVerdictCache:
+    | {
+        path: string;
+        model: string;
+        promptSource: string | undefined;
+        generatedAt: string | undefined;
+        standAsideDates: string[];
+      }
+    | {
+        path: string;
+        status: string;
+      };
+  skippedOnCatalyst: {
+    aapl: { date: string; returnPct: number }[];
+    all: { date: string; returnPct: number }[];
+    gate: { date: string; returnPct: number }[];
+  };
+  honesty: string;
+}
+
+export function buildNewsBacktestReport(params: {
+  symbol: string;
+  interval: string;
+  candles: Candle[];
+  catalysts: Catalyst[];
+  gapThreshold: number;
+  costPerSide: number;
+  slippageBps: number;
+  slippageSource: string;
+  startEquity: number;
+  gateVerdictPath: string;
+  gateCache: GateVerdictCache | null;
+}): NewsBacktestReport {
+  const aaplDates = new Set(
+    params.catalysts
+      .filter((c) => c.type === "aapl_event")
+      .map((c) => c.date),
+  );
+  const allDates = new Set(params.catalysts.map((c) => c.date));
+  const gateStandAside = params.gateCache
+    ? gateStandAsideDates(params.gateCache)
+    : null;
+
+  const sessions = collapseSessions(params.candles);
+  const run = (skip?: (d: string) => boolean) => {
+    const trades = computeGapTrades(params.symbol, sessions, {
+      gapThreshold: params.gapThreshold,
+      costPerSide: params.costPerSide,
+      slippageBps: params.slippageBps,
+      startEquity: params.startEquity,
+      skip,
+    });
+    return {
+      trades,
+      metrics: summarize(trades, sessions, params.startEquity),
+    };
+  };
+
+  const baseline = run();
+  const aaplAware = run((d) => aaplDates.has(d));
+  const allAware = run((d) => allDates.has(d));
+  const gateDriven = gateStandAside
+    ? run((d) => gateStandAside.has(d))
+    : null;
+  const skipped = (trades: Trade[]) =>
+    trades.map((t) => ({ date: t.ts, returnPct: t.returnPct }));
+  const skippedAapl = baseline.trades.filter((t) => aaplDates.has(t.ts));
+  const skippedAll = baseline.trades.filter((t) => allDates.has(t.ts));
+  const skippedGate = gateStandAside
+    ? baseline.trades.filter((t) => gateStandAside.has(t.ts))
+    : [];
+  const gateStandAsideDatesSorted = gateStandAside
+    ? [...gateStandAside].sort()
+    : [];
+
+  return {
+    strategy: "GapGuard news-aware gap reversion",
+    asset: params.symbol,
+    interval: params.interval,
+    window: {
+      from: sessions[0]?.date,
+      to: sessions[sessions.length - 1]?.date,
+      sessions: sessions.length,
+    },
+    catalysts: params.catalysts,
+    params: {
+      gapThresholdPct: params.gapThreshold * 100,
+      costPerSidePct: params.costPerSide * 100,
+      slippagePerSideBps: params.slippageBps,
+      slippageSource: params.slippageSource,
+      startEquity: params.startEquity,
+    },
+    variants: {
+      alwaysFade: baseline.metrics,
+      gateDriven: gateDriven?.metrics ?? null,
+      aaplNewsAware: aaplAware.metrics,
+      allCatalystAware: allAware.metrics,
+    },
+    gateVerdictCache: params.gateCache
+      ? {
+          path: params.gateVerdictPath,
+          model: params.gateCache.model,
+          promptSource: params.gateCache.promptSource,
+          generatedAt: params.gateCache.generatedAt,
+          standAsideDates: gateStandAsideDatesSorted,
+        }
+      : {
+          path: params.gateVerdictPath,
+          status:
+            "missing; run BITGET_QWEN_API_KEY=<key> npm run gate:audit to generate cached gate verdicts",
+        },
+    skippedOnCatalyst: {
+      aapl: skipped(skippedAapl),
+      all: skipped(skippedAll),
+      gate: skipped(skippedGate),
+    },
+    honesty: gateDriven
+      ? `n=${baseline.metrics.totalTrades} trades over ~6 weeks; gate-driven results come from cached Qwen verdicts, not hand-labeled catalyst dates. Still illustrative only, not statistically significant.`
+      : `n=${baseline.metrics.totalTrades} trades over ~6 weeks; catalyst variants are label-grounded baselines only. Gate-driven results require a cached Qwen verdict file generated by gate:audit.`,
+  };
+}
