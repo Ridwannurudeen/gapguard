@@ -3,31 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agent Arena</title>
+    <title>GapGuard Agent Arena</title>
     <link
       rel="icon"
       href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%23080907"/><path d="M7 23V9h6.8c4.5 0 7.2 2.8 7.2 7s-2.7 7-7.2 7H7zm4-3.4h2.5c2.3 0 3.5-1.3 3.5-3.6s-1.2-3.6-3.5-3.6H11v7.2zM23 9h3v14h-3z" fill="%23D7FF6A"/></svg>'
     />
     <style>
       :root {
-        --base-50: #f8f8f2;
-        --base-100: #eceee2;
-        --base-200: #d5dac4;
-        --base-300: #aeb894;
-        --base-400: #7d8967;
-        --base-500: #586246;
-        --base-700: #242a20;
-        --base-800: #171c16;
-        --base-900: #0e120d;
-        --base-950: #080907;
-        --mint: #2fe6a2;
+        --ink: #f4f4ec;
+        --muted: #aab0a0;
+        --dim: #737a6b;
+        --ground: #080907;
+        --floor: #10130f;
+        --panel: #161a15;
+        --line: rgba(224, 231, 204, 0.14);
+        --line-strong: rgba(215, 255, 106, 0.4);
         --lime: #d7ff6a;
+        --mint: #2fe6a2;
         --amber: #efb758;
         --red: #ff6270;
-        --line: rgba(213, 218, 196, 0.13);
-        --line-strong: rgba(215, 255, 106, 0.42);
-        --surface: rgba(23, 28, 22, 0.82);
-        --surface-soft: rgba(14, 18, 13, 0.74);
+        --cyan: #66d9ef;
       }
 
       * {
@@ -35,22 +30,25 @@
       }
 
       html {
-        background: var(--base-950);
+        background: var(--ground);
       }
 
       body {
         min-width: 320px;
         margin: 0;
         background:
-          linear-gradient(rgba(213, 218, 196, 0.035) 1px, transparent 1px),
+          linear-gradient(rgba(224, 231, 204, 0.035) 1px, transparent 1px),
           linear-gradient(
             90deg,
-            rgba(213, 218, 196, 0.035) 1px,
+            rgba(224, 231, 204, 0.032) 1px,
             transparent 1px
           ),
-          var(--base-950);
-        background-size: 34px 34px;
-        color: var(--base-100);
+          linear-gradient(180deg, #0b0d0a 0%, #080907 58%, #0d100c 100%);
+        background-size:
+          38px 38px,
+          38px 38px,
+          100% 100%;
+        color: var(--ink);
         font-family:
           "Aptos",
           "Segoe UI",
@@ -73,19 +71,19 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 36px;
+        min-height: 38px;
         border: 1px solid var(--line-strong);
-        border-radius: 6px;
-        background: rgba(215, 255, 106, 0.1);
-        color: var(--base-50);
+        border-radius: 7px;
+        background: rgba(215, 255, 106, 0.11);
+        color: var(--ink);
         cursor: pointer;
         font:
-          700 11px/1 ui-monospace,
+          800 11px/1 ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
         letter-spacing: 0;
-        padding: 0 12px;
+        padding: 0 13px;
         text-transform: uppercase;
         transition:
           transform 140ms ease,
@@ -97,29 +95,21 @@
       .button-link:hover {
         transform: translateY(-1px);
         border-color: var(--lime);
-        background: rgba(215, 255, 106, 0.16);
+        background: rgba(215, 255, 106, 0.18);
       }
 
       button:focus-visible,
       a:focus-visible {
         outline: none;
         box-shadow:
-          0 0 0 2px var(--base-950),
+          0 0 0 2px var(--ground),
           0 0 0 4px var(--lime);
       }
 
       main {
-        width: min(1260px, calc(100% - 32px));
+        width: min(1360px, calc(100% - 32px));
         margin: 0 auto;
-        padding: 22px 0 36px;
-      }
-
-      header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 16px;
-        align-items: start;
-        margin-bottom: 18px;
+        padding: 18px 0 38px;
       }
 
       h1,
@@ -130,50 +120,65 @@
       }
 
       h1 {
-        max-width: 820px;
-        color: var(--base-50);
-        font-size: 42px;
-        font-weight: 760;
-        line-height: 1.04;
+        max-width: 830px;
+        color: var(--ink);
+        font-size: 58px;
+        font-weight: 780;
+        line-height: 0.98;
         letter-spacing: 0;
       }
 
       h2 {
-        color: var(--base-50);
+        color: var(--ink);
         font-size: 18px;
         line-height: 1.2;
       }
 
       h3 {
-        color: var(--base-50);
+        color: var(--ink);
         font-size: 15px;
         line-height: 1.25;
       }
 
-      .eyebrow,
       .mono,
-      .num {
+      .eyebrow,
+      .num,
+      .tag,
+      .grade {
         font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
         font-variant-numeric: tabular-nums;
       }
 
       .eyebrow {
-        color: var(--base-400);
+        color: var(--dim);
         font-size: 10px;
-        font-weight: 800;
+        font-weight: 900;
         letter-spacing: 0;
         text-transform: uppercase;
       }
 
       .muted {
-        color: var(--base-300);
+        color: var(--muted);
+      }
+
+      .shell {
+        display: grid;
+        gap: 16px;
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 16px;
+        align-items: center;
+        padding: 11px 0 2px;
       }
 
       .brand {
         display: flex;
         gap: 12px;
         align-items: center;
-        margin-bottom: 14px;
+        min-width: 0;
       }
 
       .mark {
@@ -183,13 +188,18 @@
         place-items: center;
         border: 1px solid var(--line-strong);
         border-radius: 8px;
+        background: #0f130d;
         color: var(--lime);
-        background: rgba(215, 255, 106, 0.1);
         font:
-          800 12px/1 ui-monospace,
+          900 12px/1 ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
+      }
+
+      .brand-title {
+        color: var(--ink);
+        font-weight: 760;
       }
 
       .actions {
@@ -199,17 +209,246 @@
         gap: 8px;
       }
 
-      .ticker {
-        overflow: hidden;
-        margin-bottom: 16px;
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(520px, 1.08fr);
+        gap: 18px;
+        min-height: 650px;
+        align-items: stretch;
+      }
+
+      .hero-copy,
+      .arena-stage,
+      .panel,
+      .stat,
+      .thesis,
+      .proof-cell {
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(8, 9, 7, 0.72);
+        background: rgba(16, 19, 15, 0.88);
+      }
+
+      .hero-copy {
+        display: grid;
+        align-content: space-between;
+        gap: 28px;
+        padding: 28px;
+      }
+
+      .hero-lead {
+        display: grid;
+        gap: 18px;
+      }
+
+      .hero-lead p {
+        max-width: 680px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.45;
+      }
+
+      .thesis-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .thesis {
+        min-height: 118px;
+        padding: 13px;
+        background: var(--floor);
+      }
+
+      .thesis h3 {
+        margin-top: 12px;
+      }
+
+      .thesis p {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .arena-stage {
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, rgba(47, 230, 162, 0.08), transparent 42%),
+          rgba(16, 19, 15, 0.9);
+      }
+
+      .stage-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        padding: 15px 16px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(28, 34, 27, 0.72);
+      }
+
+      .stage-body {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 210px;
+        min-height: 530px;
+      }
+
+      .competition-board {
+        padding: 16px;
+        border-right: 1px solid var(--line);
+      }
+
+      .board-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .signal-map {
+        display: grid;
+        grid-template-columns: repeat(18, 1fr);
+        gap: 5px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #0c0f0b;
+      }
+
+      .cell {
+        aspect-ratio: 1;
+        border-radius: 3px;
+        background: rgba(224, 231, 204, 0.08);
+      }
+
+      .cell.hot {
+        background: var(--lime);
+      }
+
+      .cell.good {
+        background: var(--mint);
+      }
+
+      .cell.warn {
+        background: var(--amber);
+      }
+
+      .cell.bad {
+        background: var(--red);
+      }
+
+      .agent-stack {
+        display: grid;
+        gap: 9px;
+        margin-top: 12px;
+      }
+
+      .agent-row {
+        display: grid;
+        grid-template-columns: 120px minmax(0, 1fr) 82px;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(8, 9, 7, 0.78);
+      }
+
+      .agent-row strong {
+        display: block;
+        color: var(--ink);
+      }
+
+      .scorebar,
+      .confidence {
+        overflow: hidden;
+        border-radius: 4px;
+        background: rgba(224, 231, 204, 0.1);
+      }
+
+      .scorebar {
+        height: 4px;
+        margin-top: 9px;
+      }
+
+      .scorebar span,
+      .confidence span {
+        display: block;
+        height: 100%;
+        background: var(--lime);
+      }
+
+      .receipt-panel {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 12px;
+        padding: 16px;
+        background: rgba(8, 9, 7, 0.5);
+      }
+
+      .receipt-meter {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #0c0f0b;
+      }
+
+      .receipt-value {
+        color: var(--lime);
+        font:
+          820 44px/0.92 ui-monospace,
+          "SFMono-Regular",
+          Consolas,
+          monospace;
+      }
+
+      .receipt-hash {
+        overflow: hidden;
+        color: var(--muted);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .mini-chain {
+        display: grid;
+        gap: 7px;
+      }
+
+      .mini-receipt {
+        display: grid;
+        grid-template-columns: 24px minmax(0, 1fr);
+        gap: 8px;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: rgba(16, 19, 15, 0.88);
+      }
+
+      .mini-receipt.broken {
+        border-color: rgba(255, 98, 112, 0.65);
+        background: rgba(255, 98, 112, 0.1);
+      }
+
+      .ticker {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(8, 9, 7, 0.82);
         mask-image: linear-gradient(
           90deg,
           transparent,
-          #000 8%,
-          #000 92%,
+          #000 7%,
+          #000 93%,
           transparent
         );
       }
@@ -217,38 +456,30 @@
       .ticker-track {
         display: flex;
         width: max-content;
-        animation: tape 30s linear infinite;
+        animation: tape 34s linear infinite;
       }
 
       .ticker span {
-        padding: 10px 22px;
+        padding: 11px 22px;
         white-space: nowrap;
-        color: var(--base-300);
+        color: var(--muted);
       }
 
       .status-grid {
         display: grid;
-        grid-template-columns: 1.15fr repeat(3, minmax(0, 0.62fr));
+        grid-template-columns: 1.25fr repeat(3, minmax(0, 0.75fr));
         gap: 10px;
-        margin-bottom: 16px;
-      }
-
-      .stat,
-      .panel,
-      .card {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--surface);
       }
 
       .stat {
         min-height: 118px;
         padding: 14px;
+        background: rgba(22, 26, 21, 0.88);
       }
 
-      .signature {
+      .stat.signature {
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: auto minmax(0, 1fr);
         gap: 16px;
         align-items: end;
       }
@@ -256,18 +487,17 @@
       .display {
         color: var(--lime);
         font:
-          780 72px/0.95 ui-monospace,
+          820 72px/0.95 ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
-        letter-spacing: 0;
       }
 
       .stat-value {
         margin-top: 12px;
-        color: var(--base-50);
+        color: var(--ink);
         font:
-          750 24px/1 ui-monospace,
+          760 23px/1 ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -275,7 +505,7 @@
 
       .layout {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 390px;
+        grid-template-columns: minmax(0, 1fr) 400px;
         gap: 16px;
       }
 
@@ -290,28 +520,30 @@
         align-items: center;
         padding: 14px 16px;
         border-bottom: 1px solid var(--line);
-        background: rgba(36, 42, 32, 0.55);
+        background: rgba(28, 34, 27, 0.62);
       }
 
       .leaderboard,
       .debate,
       .rail,
       .proof-grid,
-      .market-grid {
+      .market-grid,
+      .workflow-grid {
         display: grid;
         gap: 10px;
         padding: 14px;
       }
 
-      .agent-row {
-        display: grid;
-        grid-template-columns: 120px 1fr 74px;
-        gap: 12px;
-        align-items: center;
-        padding: 12px;
+      .workflow-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .workflow-step {
+        min-height: 150px;
+        padding: 13px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--surface-soft);
+        background: rgba(8, 9, 7, 0.68);
       }
 
       .grade,
@@ -321,32 +553,35 @@
         justify-content: center;
         min-height: 22px;
         border: 1px solid var(--line);
-        border-radius: 4px;
+        border-radius: 5px;
         padding: 0 7px;
-        font:
-          800 10px/1 ui-monospace,
-          "SFMono-Regular",
-          Consolas,
-          monospace;
+        font-size: 10px;
+        font-weight: 900;
         letter-spacing: 0;
         text-transform: uppercase;
+        white-space: nowrap;
       }
 
       .grade.licensed,
       .tag.ok {
-        border-color: rgba(47, 230, 162, 0.38);
+        border-color: rgba(47, 230, 162, 0.42);
         color: var(--mint);
       }
 
       .grade.rejected,
       .tag.blocked {
-        border-color: rgba(255, 98, 112, 0.38);
+        border-color: rgba(255, 98, 112, 0.42);
         color: var(--red);
       }
 
       .tag.warn {
-        border-color: rgba(239, 183, 88, 0.38);
+        border-color: rgba(239, 183, 88, 0.42);
         color: var(--amber);
+      }
+
+      .tag.info {
+        border-color: rgba(102, 217, 239, 0.42);
+        color: var(--cyan);
       }
 
       .ok-text {
@@ -357,28 +592,16 @@
         color: var(--red);
       }
 
-      .scorebar {
-        height: 4px;
-        margin-top: 9px;
-        overflow: hidden;
-        border-radius: 3px;
-        background: rgba(213, 218, 196, 0.08);
-      }
-
-      .scorebar span {
-        display: block;
-        height: 100%;
-        background: var(--lime);
-      }
-
       .debate {
         grid-template-columns: repeat(5, minmax(0, 1fr));
       }
 
       .card {
-        min-height: 172px;
+        min-height: 184px;
         padding: 12px;
-        background: var(--surface-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(8, 9, 7, 0.68);
       }
 
       .card-head {
@@ -390,28 +613,19 @@
       }
 
       .confidence {
-        height: 3px;
+        height: 4px;
         margin: 10px 0 12px;
-        border-radius: 3px;
-        background: rgba(213, 218, 196, 0.08);
-      }
-
-      .confidence span {
-        display: block;
-        height: 100%;
-        border-radius: inherit;
-        background: var(--mint);
       }
 
       .rail-step {
         display: grid;
-        grid-template-columns: 34px 1fr;
+        grid-template-columns: 34px minmax(0, 1fr);
         gap: 10px;
         align-items: start;
         padding: 12px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--surface-soft);
+        background: rgba(8, 9, 7, 0.68);
       }
 
       .rail-index {
@@ -427,7 +641,7 @@
       .order-box {
         margin-top: 10px;
         overflow-wrap: anywhere;
-        color: var(--base-300);
+        color: var(--muted);
         font:
           11px/1.45 ui-monospace,
           "SFMono-Regular",
@@ -436,14 +650,13 @@
       }
 
       .proof-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
       }
 
       .proof-cell {
+        min-height: 112px;
         padding: 12px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--surface-soft);
+        background: rgba(8, 9, 7, 0.68);
       }
 
       .chain-list {
@@ -454,18 +667,18 @@
 
       .chain-row {
         display: grid;
-        grid-template-columns: 52px 150px minmax(0, 1fr) 122px;
+        grid-template-columns: 52px 150px minmax(0, 1fr) 124px;
         gap: 10px;
         align-items: center;
         padding: 10px 12px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--surface-soft);
+        background: rgba(8, 9, 7, 0.68);
       }
 
       .chain-row.broken {
-        border-color: rgba(255, 98, 112, 0.6);
-        background: rgba(255, 98, 112, 0.08);
+        border-color: rgba(255, 98, 112, 0.72);
+        background: rgba(255, 98, 112, 0.1);
       }
 
       .market-row {
@@ -476,7 +689,7 @@
         padding: 12px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--surface-soft);
+        background: rgba(8, 9, 7, 0.68);
       }
 
       .metric {
@@ -490,6 +703,10 @@
         white-space: nowrap;
       }
 
+      .section-gap {
+        margin-top: 16px;
+      }
+
       @keyframes tape {
         from {
           transform: translateX(0);
@@ -499,43 +716,85 @@
         }
       }
 
-      @media (max-width: 1040px) {
-        .status-grid,
-        .layout,
-        .debate,
-        .proof-grid {
+      @media (max-width: 1180px) {
+        .hero,
+        .layout {
           grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .stage-body {
+          grid-template-columns: 1fr;
+        }
+
+        .competition-board {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .receipt-panel {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-template-rows: auto;
+        }
+
+        .debate,
+        .proof-grid,
+        .workflow-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
-      @media (max-width: 720px) {
+      @media (max-width: 820px) {
         main {
-          width: min(100% - 20px, 640px);
-          padding-top: 14px;
+          width: min(100% - 20px, 720px);
+          padding-top: 12px;
         }
 
-        header,
+        .topbar,
+        .stage-head,
+        .status-grid,
+        .thesis-strip,
         .agent-row,
-        .signature,
+        .stat.signature,
         .market-row,
-        .chain-row {
+        .chain-row,
+        .receipt-panel,
+        .debate,
+        .proof-grid,
+        .workflow-grid {
           grid-template-columns: 1fr;
-        }
-
-        .metric {
-          text-align: left;
-        }
-
-        h1 {
-          font-size: 32px;
-        }
-
-        .display {
-          font-size: 54px;
         }
 
         .actions {
           justify-content: flex-start;
+        }
+
+        h1 {
+          font-size: 38px;
+          line-height: 1.02;
+        }
+
+        .hero-copy {
+          padding: 18px;
+        }
+
+        .hero-lead p {
+          font-size: 16px;
+        }
+
+        .display {
+          font-size: 56px;
+        }
+
+        .signal-map {
+          grid-template-columns: repeat(12, 1fr);
+        }
+
+        .metric {
+          text-align: left;
         }
       }
 
@@ -552,28 +811,105 @@
     </style>
   </head>
   <body>
-    <main>
-      <header>
-        <div>
-          <div class="brand">
-            <div class="mark">AA</div>
-            <div>
-              <div class="eyebrow">Bitget AI Base Camp S1</div>
-              <h1>Agent Arena licenses trading agents before capital.</h1>
-            </div>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="GapGuard Agent Arena">
+          <div class="mark">GG</div>
+          <div>
+            <div class="brand-title">GapGuard Agent Arena</div>
+            <div class="eyebrow">Bitget AI Base Camp S1</div>
           </div>
-          <p class="muted">
-            Quorum earns the RWA desk passport. The naive narrative bot is
-            rejected. Demo Trading proves the broker path on BTCUSDT while live
-            RWA execution stays gated.
-          </p>
-        </div>
+        </a>
         <nav class="actions" aria-label="Demo links">
-          <a class="button-link" href="dashboard.html">Proof cockpit</a>
+          <a class="button-link" href="dashboard.html">Legacy proof</a>
           <button id="verifyButton" type="button">Verify chain</button>
           <button id="tamperButton" type="button">Simulate tampering</button>
         </nav>
       </header>
+
+      <section class="hero" aria-label="GapGuard proof cockpit">
+        <div class="hero-copy">
+          <div class="hero-lead">
+            <div class="eyebrow">Agentic RWA trading, receipt first</div>
+            <h1>GapGuard Agent Arena</h1>
+            <p>
+              Autonomous trading agents do not get capital by sounding smart.
+              They earn it by debating the same market, surviving the risk
+              constitution, and leaving a receipt chain the judge can break in
+              the browser.
+            </p>
+          </div>
+
+          <div class="thesis-strip" aria-label="Product thesis">
+            <article class="thesis">
+              <div class="eyebrow">1 / Simulate</div>
+              <h3>Same scenario, different agents</h3>
+              <p>Quorum sizes down under conflict. Naive Momentum chases.</p>
+            </article>
+            <article class="thesis">
+              <div class="eyebrow">2 / License</div>
+              <h3>Passports gate capital</h3>
+              <p>Risk rules, debate rounds, drawdown, and controls decide.</p>
+            </article>
+            <article class="thesis">
+              <div class="eyebrow">3 / Prove</div>
+              <h3>Every action hashes forward</h3>
+              <p>Mandates, decisions, breaches, passports, and orders verify.</p>
+            </article>
+          </div>
+
+          <div class="hero-actions">
+            <button id="heroVerifyButton" type="button">Verify receipts</button>
+            <button id="heroTamperButton" type="button">Break one row</button>
+            <span class="tag info" id="liveInstrument">RWA loading</span>
+          </div>
+        </div>
+
+        <div class="arena-stage">
+          <div class="stage-head">
+            <div>
+              <div class="eyebrow">Live judge surface</div>
+              <h2>Agent competition board</h2>
+            </div>
+            <span id="stageStatus" class="tag warn">loading</span>
+          </div>
+          <div class="stage-body">
+            <div class="competition-board">
+              <div class="board-title">
+                <div>
+                  <div class="eyebrow">Market x evidence matrix</div>
+                  <h2 id="quorumHeadline">Consensus pending</h2>
+                </div>
+                <span id="quorumVote" class="tag ok">pending</span>
+              </div>
+              <div
+                id="signalMap"
+                class="signal-map"
+                aria-label="Arena signal map"
+              ></div>
+              <div id="heroLeaderboard" class="agent-stack"></div>
+            </div>
+
+            <aside class="receipt-panel" aria-label="Receipt verifier">
+              <div class="receipt-meter">
+                <div class="eyebrow">Browser verifier</div>
+                <div id="chainCount" class="receipt-value num">0</div>
+                <div id="hashStatus" class="stat-value">pending</div>
+                <div id="finalHash" class="receipt-hash mono">hash pending</div>
+              </div>
+              <div class="receipt-meter">
+                <div class="eyebrow">Broken row trap</div>
+                <div id="brokenCount" class="receipt-value num">0</div>
+                <div id="brokenStatus" class="muted mono">no tamper simulated</div>
+              </div>
+              <div>
+                <div class="eyebrow">Recent receipts</div>
+                <div id="miniChain" class="mini-chain"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
 
       <section class="ticker" aria-label="Arena tape">
         <div id="tickerTrack" class="ticker-track"></div>
@@ -586,7 +922,7 @@
             <div id="licensedDisplay" class="display num">0/0</div>
           </div>
           <p class="muted">
-            Passport grade controls the jump from analysis to execution.
+            Capital unlocks only after the passport clears the constitution.
           </p>
         </div>
         <div class="stat">
@@ -598,9 +934,20 @@
           <div id="liveStatus" class="stat-value">gated</div>
         </div>
         <div class="stat">
-          <div class="eyebrow">Hash chain</div>
-          <div id="hashStatus" class="stat-value">pending</div>
+          <div class="eyebrow">Generated</div>
+          <div id="generatedAt" class="stat-value">loading</div>
         </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow">Four-step product loop</div>
+            <h2>Simulate - Arena - Broker - Prove</h2>
+          </div>
+          <span class="tag info">offline first</span>
+        </div>
+        <div id="workflowGrid" class="workflow-grid"></div>
       </section>
 
       <section class="layout">
@@ -608,9 +955,8 @@
           <div class="panel-head">
             <div>
               <div class="eyebrow">Arena leaderboard</div>
-              <h2>License, score, controls</h2>
+              <h2>License, score, mandate trace</h2>
             </div>
-            <span id="generatedAt" class="tag warn">loading</span>
           </div>
           <div id="leaderboard" class="leaderboard"></div>
         </div>
@@ -626,33 +972,33 @@
         </aside>
       </section>
 
-      <section class="panel" style="margin-top: 16px">
+      <section class="panel section-gap">
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow">Quorum desk</div>
+            <h2>Five agents, one risk budget</h2>
+          </div>
+          <span id="deskSummary" class="tag ok">pending</span>
+        </div>
+        <div id="debate" class="debate"></div>
+      </section>
+
+      <section class="panel section-gap">
         <div class="panel-head">
           <div>
             <div class="eyebrow">RWA market recheck</div>
-            <h2>Public Bitget contract and ticker evidence</h2>
+            <h2>Bitget contract and ticker evidence</h2>
           </div>
           <span id="rwaStamp" class="tag warn">not loaded</span>
         </div>
         <div id="rwaMarket" class="market-grid"></div>
       </section>
 
-      <section class="panel" style="margin-top: 16px">
-        <div class="panel-head">
-          <div>
-            <div class="eyebrow">Quorum debate</div>
-            <h2 id="quorumHeadline">Consensus pending</h2>
-          </div>
-          <span id="quorumVote" class="tag ok">pending</span>
-        </div>
-        <div id="debate" class="debate"></div>
-      </section>
-
-      <section class="panel" style="margin-top: 16px">
+      <section class="panel section-gap">
         <div class="panel-head">
           <div>
             <div class="eyebrow">Proof stack</div>
-            <h2>Evidence judges can inspect</h2>
+            <h2>Receipts judges can inspect</h2>
           </div>
         </div>
         <div id="proofGrid" class="proof-grid"></div>
@@ -727,7 +1073,14 @@
         brokenRows: [],
       };
 
-      const pct = (value) => `${(value * 100).toFixed(0)}%`;
+      const escapeHtml = (value) =>
+        String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      const pct = (value) => `${(Number(value) * 100).toFixed(0)}%`;
       const money = (value) =>
         value === null || value === undefined
           ? "n/a"
@@ -746,11 +1099,11 @@
           ? "n/a"
           : `${Number(value).toFixed(2)} bps`;
       const unit = (value) =>
-        value === null || value === undefined
-          ? "n/a"
-          : Number(value).toString();
+        value === null || value === undefined ? "n/a" : Number(value).toString();
       const text = (value) =>
         value === null || value === undefined || value === "" ? "n/a" : value;
+      const shortHash = (value) =>
+        value ? `${String(value).slice(0, 10)}...${String(value).slice(-8)}` : "n/a";
 
       function gradeClass(grade) {
         return grade === "LICENSED"
@@ -758,6 +1111,16 @@
           : grade === "REJECTED"
             ? "rejected"
             : "warn";
+      }
+
+      function tagClass(value) {
+        if (value === "LICENSED" || value === "ready" || value === "proven") {
+          return "ok";
+        }
+        if (value === "REJECTED" || value === "missing" || value === "blocked") {
+          return "blocked";
+        }
+        return "warn";
       }
 
       function orderSummary(order) {
@@ -772,13 +1135,42 @@
         );
       }
 
+      function firstAgentByGrade(data, grade) {
+        return data.leaderboard.find((agent) => agent.grade === grade) ?? null;
+      }
+
+      function renderSignalMap(data) {
+        const cells = Array.from({ length: 90 }, (_, index) => {
+          const marker =
+            index % 23 === 0
+              ? "hot"
+              : index % 17 === 0
+                ? "good"
+                : index % 31 === 0
+                  ? "warn"
+                  : index % 43 === 0
+                    ? "bad"
+                    : "";
+          return `<span class="cell ${marker}" aria-hidden="true"></span>`;
+        }).join("");
+        document.getElementById("signalMap").innerHTML = cells;
+        document.getElementById("liveInstrument").textContent =
+          `RWA ${data.arena.liveInstrument ?? data.quorum.symbol}`;
+      }
+
       function renderTicker(data) {
         const paper = data.broker.paperTrade;
         const marketRow = defaultMarketRow(data);
+        const licensed = firstAgentByGrade(data, "LICENSED");
+        const rejected = firstAgentByGrade(data, "REJECTED");
         const items = [
           `LICENSED ${data.status.licensedAgents}`,
           `REJECTED ${data.status.rejectedAgents}`,
-          `QUORUM ${data.quorum.symbol} ${data.quorum.winningVote} ${pct(data.quorum.consensusScore)}`,
+          licensed ? `${licensed.name.toUpperCase()} SCORE ${licensed.score}` : "QUORUM WAITING",
+          rejected
+            ? `${rejected.name.toUpperCase()} BREACHES ${rejected.evidence.mandateBreaches.length}`
+            : "NAIVE WAITING",
+          `QUORUM ${data.quorum.symbol} ${data.quorum.winningVote} ${pct(data.quorum.consensusScore)} x${data.quorum.positionMultiplier}`,
           `DRY-RUN ${orderSummary(data.broker.dryRunOrder)}`,
           marketRow
             ? `RWA ${marketRow.symbol} ${marketRow.symbolStatus.toUpperCase()} SPREAD ${bps(marketRow.spreadBps)} MIN ${unit(marketRow.suggestedMinSize)}`
@@ -791,7 +1183,7 @@
             : "ARENA CHAIN NOT LOADED",
         ];
         const row = items
-          .map((item) => `<span class="mono">${item}</span>`)
+          .map((item) => `<span class="mono">${escapeHtml(item)}</span>`)
           .join("");
         document.getElementById("tickerTrack").innerHTML = row + row;
       }
@@ -804,36 +1196,105 @@
           data.status.paperEvidence;
         document.getElementById("liveStatus").textContent =
           data.status.liveStatus;
-        const hashStatus = document.getElementById("hashStatus");
-        hashStatus.textContent = data.arenaChain
-          ? data.arenaChain.ok
-            ? `SERVER OK · ${data.arenaChain.count}`
-            : "SERVER INVALID"
-          : "pending";
-        hashStatus.className = "stat-value";
         document.getElementById("generatedAt").textContent =
           data.generatedAt === "pending"
             ? "pending"
-            : new Date(data.generatedAt).toLocaleString();
+            : new Date(data.generatedAt).toLocaleDateString(undefined, {
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+        document.getElementById("stageStatus").textContent =
+          data.arena.graduationStatus;
+      }
+
+      function renderHeroLeaderboard(data) {
+        const agents = data.leaderboard.slice(0, 3);
+        document.getElementById("heroLeaderboard").innerHTML = agents
+          .map((agent) => {
+            const width = Math.min(100, Math.max(4, Number(agent.score)));
+            const breaches = agent.evidence.mandateBreaches.length;
+            return `<article class="agent-row">
+              <div>
+                <span class="grade ${gradeClass(agent.grade)}">${escapeHtml(agent.grade)}</span>
+                <div class="scorebar"><span style="width:${width}%"></span></div>
+              </div>
+              <div>
+                <strong>${escapeHtml(agent.name)}</strong>
+                <span class="muted">${escapeHtml(agent.thesis)}</span>
+              </div>
+              <div class="mono">${escapeHtml(String(agent.score))}<br /><span class="muted">${breaches} breach</span></div>
+            </article>`;
+          })
+          .join("");
       }
 
       function renderLeaderboard(data) {
         document.getElementById("leaderboard").innerHTML = data.leaderboard
           .map((agent) => {
-            const width = Math.min(100, Math.max(4, agent.score));
+            const width = Math.min(100, Math.max(4, Number(agent.score)));
+            const breachText = agent.evidence.mandateBreaches.length
+              ? agent.evidence.mandateBreaches.join(" | ")
+              : "no mandate breach recorded";
             return `<article class="agent-row">
               <div>
-                <span class="grade ${gradeClass(agent.grade)}">${agent.grade}</span>
+                <span class="grade ${gradeClass(agent.grade)}">${escapeHtml(agent.grade)}</span>
                 <div class="scorebar"><span style="width:${width}%"></span></div>
               </div>
               <div>
-                <h3>${agent.name}</h3>
-                <p class="muted">${agent.thesis}</p>
-                <p class="muted mono">${agent.findings.join(" | ")}</p>
+                <h3>${escapeHtml(agent.name)}</h3>
+                <p class="muted">${escapeHtml(agent.thesis)}</p>
+                <p class="order-box">${escapeHtml(agent.findings.join(" | "))}</p>
+                <p class="order-box">${escapeHtml(breachText)}</p>
               </div>
-              <div class="num stat-value">${agent.score}</div>
+              <div class="num stat-value">${escapeHtml(String(agent.score))}</div>
             </article>`;
           })
+          .join("");
+      }
+
+      function renderWorkflow(data) {
+        const paper = data.broker.paperTrade;
+        const marketRow = defaultMarketRow(data);
+        const naive = firstAgentByGrade(data, "REJECTED");
+        const steps = [
+          {
+            label: "Simulate",
+            value: `${data.quorum.symbol} scenario`,
+            body: naive
+              ? `${naive.name} records ${naive.evidence.ruleViolations} rule violations.`
+              : "Scenario loading.",
+          },
+          {
+            label: "Arena",
+            value: `${data.status.licensedAgents} licensed`,
+            body: data.quorum.rationale,
+          },
+          {
+            label: "Broker",
+            value: paper ? `paper ${paper.status}` : "dry-run ready",
+            body: paper
+              ? `${paper.symbol} order ${paper.orderId}`
+              : orderSummary(data.broker.dryRunOrder),
+          },
+          {
+            label: "Prove",
+            value: `${data.arenaChain?.count ?? 0} receipts`,
+            body: marketRow
+              ? `${marketRow.symbol} spread ${bps(marketRow.spreadBps)}.`
+              : "Hash chain ready for browser verification.",
+          },
+        ];
+
+        document.getElementById("workflowGrid").innerHTML = steps
+          .map(
+            (step, index) => `<article class="workflow-step">
+              <div class="eyebrow">0${index + 1} / ${escapeHtml(step.label)}</div>
+              <h3>${escapeHtml(step.value)}</h3>
+              <p class="order-box">${escapeHtml(step.body)}</p>
+            </article>`,
+          )
           .join("");
       }
 
@@ -842,9 +1303,11 @@
           data.quorum.rationale;
         document.getElementById("quorumVote").textContent =
           `${data.quorum.winningVote} x${data.quorum.positionMultiplier}`;
+        document.getElementById("deskSummary").textContent =
+          `${pct(data.quorum.consensusScore)} consensus`;
         document.getElementById("debate").innerHTML = data.debate
           .map((opinion) => {
-            const tagClass =
+            const cls =
               opinion.vote === "flat" || opinion.vote === "veto"
                 ? "warn"
                 : opinion.vote === data.quorum.winningVote
@@ -852,13 +1315,13 @@
                   : "blocked";
             return `<article class="card">
               <div class="card-head">
-                <div class="eyebrow">${opinion.role.replace("_", " ")}</div>
-                <span class="tag ${tagClass}">${opinion.vote}</span>
+                <div class="eyebrow">${escapeHtml(opinion.role.replace("_", " "))}</div>
+                <span class="tag ${cls}">${escapeHtml(opinion.vote)}</span>
               </div>
-              <h3>${pct(opinion.confidence)} confidence</h3>
-              <div class="confidence"><span style="width:${opinion.confidence * 100}%"></span></div>
-              <p class="muted">${opinion.rationale}</p>
-              <p class="order-box">${opinion.evidence.join(" | ")}</p>
+              <h3>${escapeHtml(pct(opinion.confidence))} confidence</h3>
+              <div class="confidence"><span style="width:${Number(opinion.confidence) * 100}%"></span></div>
+              <p class="muted">${escapeHtml(opinion.rationale)}</p>
+              <p class="order-box">${escapeHtml(opinion.evidence.join(" | "))}</p>
             </article>`;
           })
           .join("");
@@ -873,7 +1336,7 @@
         const marketLine = marketRow
           ? ` | min floor ${money(marketRow.minTradeUSDT)} -> suggested size ${unit(marketRow.suggestedMinSize)}`
           : "";
-        document.getElementById("brokerRail").innerHTML = [
+        const steps = [
           {
             label: "RWA dry-run",
             tag: "ready",
@@ -889,16 +1352,17 @@
             tag: "gated",
             body: data.broker.liveGate.join(" | "),
           },
-        ]
+        ];
+        document.getElementById("brokerRail").innerHTML = steps
           .map(
             (step, index) => `<article class="rail-step">
               <div class="rail-index mono">${index + 1}</div>
               <div>
                 <div class="card-head">
-                  <h3>${step.label}</h3>
-                  <span class="tag ${step.tag === "gated" ? "warn" : step.tag === "missing" ? "blocked" : "ok"}">${step.tag}</span>
+                  <h3>${escapeHtml(step.label)}</h3>
+                  <span class="tag ${tagClass(step.tag)}">${escapeHtml(step.tag)}</span>
                 </div>
-                <div class="order-box">${step.body}</div>
+                <div class="order-box">${escapeHtml(step.body)}</div>
               </div>
             </article>`,
           )
@@ -908,21 +1372,17 @@
       function renderMarket(data) {
         const report = data.rwaMarket;
         const stamp = document.getElementById("rwaStamp");
-        if (
-          !report ||
-          !Array.isArray(report.rows) ||
-          report.rows.length === 0
-        ) {
+        if (!report || !Array.isArray(report.rows) || report.rows.length === 0) {
           stamp.textContent = "not loaded";
           stamp.className = "tag warn";
           document.getElementById("rwaMarket").innerHTML =
             `<article class="rail-step">
-            <div class="rail-index mono">!</div>
-            <div>
-              <h3>Run npm run rwa:check</h3>
-              <div class="order-box">This public-data check reads Bitget USDT-FUTURES contracts and tickers, then writes public/rwa-market.json.</div>
-            </div>
-          </article>`;
+              <div class="rail-index mono">!</div>
+              <div>
+                <h3>RWA market data missing</h3>
+                <div class="order-box">public/rwa-market.json was not loaded.</div>
+              </div>
+            </article>`;
           return;
         }
 
@@ -940,34 +1400,33 @@
                 : row.liveReady
                   ? "ready"
                   : "blocked";
-            const tagClass = row.liveReady ? "ok" : "blocked";
             const blockers = row.blockers?.length
               ? row.blockers.join(" | ")
               : "normal RWA contract";
             return `<article class="market-row">
               <div>
-                <h3>${row.symbol}</h3>
-                <span class="tag ${tagClass}">${label}</span>
+                <h3>${escapeHtml(row.symbol)}</h3>
+                <span class="tag ${row.liveReady ? "ok" : "blocked"}">${escapeHtml(label)}</span>
               </div>
               <div>
-                <p class="muted">${blockers}</p>
-                <p class="order-box">last ${money(row.lastPrice)} | funding ${text(row.fundingRate)}</p>
+                <p class="muted">${escapeHtml(blockers)}</p>
+                <p class="order-box">last ${escapeHtml(money(row.lastPrice))} | funding ${escapeHtml(text(row.fundingRate))}</p>
               </div>
               <div class="metric">
                 <div class="eyebrow">volume</div>
-                <div class="mono">${compactMoney(row.quoteVolumeUSDT)}</div>
+                <div class="mono">${escapeHtml(compactMoney(row.quoteVolumeUSDT))}</div>
               </div>
               <div class="metric">
                 <div class="eyebrow">spread</div>
-                <div class="mono">${bps(row.spreadBps)}</div>
+                <div class="mono">${escapeHtml(bps(row.spreadBps))}</div>
               </div>
               <div class="metric">
                 <div class="eyebrow">min size</div>
-                <div class="mono">${unit(row.suggestedMinSize)}</div>
+                <div class="mono">${escapeHtml(unit(row.suggestedMinSize))}</div>
               </div>
               <div class="metric">
                 <div class="eyebrow">notional</div>
-                <div class="mono">${money(row.suggestedNotionalUSDT)}</div>
+                <div class="mono">${escapeHtml(money(row.suggestedNotionalUSDT))}</div>
               </div>
             </article>`;
           })
@@ -975,7 +1434,7 @@
       }
 
       function renderProof(data) {
-        document.getElementById("proofGrid").innerHTML = [
+        const proofItems = [
           {
             label: "Arena artifact",
             value: `${data.leaderboard.length} agents`,
@@ -984,37 +1443,34 @@
           {
             label: "Paper order",
             value: data.broker.paperTrade?.orderId ?? "missing",
-            detail:
-              data.broker.paperTrade?.ts ?? "run broker:order --mode paper",
+            detail: data.broker.paperTrade?.ts ?? "paper artifact unavailable",
           },
           {
             label: "RWA market",
             value: data.rwaMarket?.selectedLiveSymbol ?? "missing",
             detail: data.rwaMarket
               ? `leader ${data.rwaMarket.liquidityLeader ?? "n/a"}`
-              : "run npm run rwa:check",
+              : "market report unavailable",
           },
           {
             label: "Hash chain",
-            value: data.arenaChain
-              ? `${data.arenaChain.count} records`
-              : "missing",
-            detail: data.arenaChain?.finalHash ?? "run npm run arena:demo",
+            value: data.arenaChain ? `${data.arenaChain.count} records` : "missing",
+            detail: data.arenaChain?.finalHash ?? "arena chain unavailable",
           },
           {
             label: "Legacy proof",
             value: data.gapguardProof
               ? `${data.gapguardProof.count} records`
               : "missing",
-            detail:
-              data.gapguardProof?.finalHash ?? "open GapGuard proof cockpit",
+            detail: data.gapguardProof?.finalHash ?? "dashboard proof unavailable",
           },
-        ]
+        ];
+        document.getElementById("proofGrid").innerHTML = proofItems
           .map(
             (item) => `<div class="proof-cell">
-              <div class="eyebrow">${item.label}</div>
-              <div class="stat-value hash">${item.value}</div>
-              <div class="muted mono hash">${item.detail}</div>
+              <div class="eyebrow">${escapeHtml(item.label)}</div>
+              <div class="stat-value hash">${escapeHtml(item.value)}</div>
+              <div class="muted mono hash">${escapeHtml(item.detail)}</div>
             </div>`,
           )
           .join("");
@@ -1087,20 +1543,36 @@
         return copy;
       }
 
+      function renderMiniChain(records, result) {
+        const broken = new Set(result.brokenRows);
+        const visible = records.slice(Math.max(0, records.length - 5));
+        const offset = records.length - visible.length;
+        document.getElementById("miniChain").innerHTML = visible
+          .map((record, index) => {
+            const row = offset + index + 1;
+            const isBroken = broken.has(row);
+            return `<article class="mini-receipt ${isBroken ? "broken" : ""}">
+              <span class="mono">#${row}</span>
+              <span class="mono hash">${escapeHtml(record.kind)} ${escapeHtml(shortHash(record.hash))}</span>
+            </article>`;
+          })
+          .join("");
+      }
+
       function renderChainRows(records, result) {
         const broken = new Set(result.brokenRows);
         document.getElementById("chainRows").innerHTML = records
           .map((record, index) => {
             const row = index + 1;
-            const rowClass = broken.has(row) ? "chain-row broken" : "chain-row";
-            return `<article class="${rowClass}">
+            const isBroken = broken.has(row);
+            return `<article class="chain-row ${isBroken ? "broken" : ""}">
               <div class="mono">#${row}</div>
               <div>
-                <div class="eyebrow">${record.kind}</div>
-                <h3>${record.agentId}</h3>
+                <div class="eyebrow">${escapeHtml(record.kind)}</div>
+                <h3>${escapeHtml(record.agentId)}</h3>
               </div>
-              <div class="muted mono hash">${record.hash}</div>
-              <span class="tag ${broken.has(row) ? "blocked" : "ok"}">${broken.has(row) ? "broken row" : "verified"}</span>
+              <div class="muted mono hash">${escapeHtml(record.hash)}</div>
+              <span class="tag ${isBroken ? "blocked" : "ok"}">${isBroken ? "broken row" : "verified"}</span>
             </article>`;
           })
           .join("");
@@ -1108,6 +1580,16 @@
 
       function renderChainStatus(result) {
         const status = document.getElementById("hashStatus");
+        document.getElementById("chainCount").textContent = String(result.count);
+        document.getElementById("finalHash").textContent = result.finalHash;
+        document.getElementById("brokenCount").textContent = String(
+          result.brokenRows.length,
+        );
+        document.getElementById("brokenStatus").textContent =
+          result.brokenRows.length > 0
+            ? `row ${result.brokenRows.join(", ")}`
+            : "no tamper detected";
+
         if (result.ok) {
           status.textContent = `CHAIN VERIFIED · ${result.count} records`;
           status.className = "stat-value ok-text";
@@ -1125,13 +1607,17 @@
         const visibleRecords = tamperedRecords(chainRecords);
         chainResult = await verifyArenaChain(visibleRecords);
         renderChainStatus(chainResult);
+        renderMiniChain(visibleRecords, chainResult);
         renderChainRows(visibleRecords, chainResult);
       }
 
       function render(data) {
+        renderSignalMap(data);
         renderTicker(data);
         renderStatus(data);
+        renderHeroLeaderboard(data);
         renderLeaderboard(data);
+        renderWorkflow(data);
         renderDebate(data);
         renderBroker(data);
         renderMarket(data);
@@ -1163,6 +1649,19 @@
         }
       }
 
+      function bindTamper(buttonId) {
+        document.getElementById(buttonId).addEventListener("click", () => {
+          tamperEnabled = !tamperEnabled;
+          document.getElementById("tamperButton").textContent = tamperEnabled
+            ? "Clear tamper"
+            : "Simulate tampering";
+          document.getElementById("heroTamperButton").textContent = tamperEnabled
+            ? "Clear tamper"
+            : "Break one row";
+          void refreshChain();
+        });
+      }
+
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
         chainRecords = await loadJsonl("arena-chain.jsonl");
@@ -1171,13 +1670,10 @@
           .getElementById("verifyButton")
           .addEventListener("click", () => void refreshChain());
         document
-          .getElementById("tamperButton")
-          .addEventListener("click", () => {
-            tamperEnabled = !tamperEnabled;
-            document.getElementById("tamperButton").textContent =
-              tamperEnabled ? "Clear tamper" : "Simulate tampering";
-            void refreshChain();
-          });
+          .getElementById("heroVerifyButton")
+          .addEventListener("click", () => void refreshChain());
+        bindTamper("tamperButton");
+        bindTamper("heroTamperButton");
         await refreshChain();
       }
 
