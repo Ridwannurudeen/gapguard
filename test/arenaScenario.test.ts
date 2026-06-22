@@ -3,7 +3,7 @@ import { buildArenaDemo } from "../src/arena-demo";
 import { buildArenaScenario } from "../src/arenaScenario";
 
 describe("arena behavioral scenario", () => {
-  it("keeps Quorum paper-only and rejects Naive from recorded mandate behavior", async () => {
+  it("licenses Quorum and rejects Naive from recorded mandate behavior", async () => {
     const artifact = await buildArenaDemo();
     const quorum = artifact.passports.find(
       (passport) => passport.agentId === "quorum-rwa-desk",
@@ -13,20 +13,19 @@ describe("arena behavioral scenario", () => {
     );
 
     expect(artifact.evidence.backtest.alphaStatus).toBe("positive");
-    expect(quorum?.grade).toBe("PAPER_ONLY");
+    // The 3rd Bitget Demo paper fill cleared the "fewer than 3 paper trades" blocker.
+    expect(quorum?.grade).toBe("LICENSED");
     expect(quorum?.findings.join(" | ")).toContain(
-      "fewer than 3 paper trades",
+      "licensed for one capped supervised fill",
     );
     expect(naive?.grade).toBe("REJECTED");
-    expect(naive?.findings.join(" | ")).toContain(
-      "overnight loss <= 1.5%",
-    );
+    expect(naive?.findings.join(" | ")).toContain("overnight loss <= 1.5%");
     expect(artifact.naiveDecision.breachedRules).toContain(
       "stay flat when evidence conflicts",
     );
     expect(artifact.arenaChain.verification.ok).toBe(true);
     expect(artifact.arena.graduationStatus).toBe(
-      "alpha_certified_waiting_paper_fill",
+      "licensed_waiting_explicit_approval",
     );
     expect(artifact.graduationDryRun.status).toBe("dry_run");
     expect(artifact.perception.source).toContain("Bitget public RWA");

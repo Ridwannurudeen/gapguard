@@ -93,8 +93,8 @@ describe("arena cockpit data", () => {
     );
 
     expect(data.status).toMatchObject({
-      licensedAgents: 0,
-      paperOnlyAgents: 1,
+      licensedAgents: 1,
+      paperOnlyAgents: 0,
       rejectedAgents: 1,
       paperEvidence: "missing",
       liveStatus: "gated",
