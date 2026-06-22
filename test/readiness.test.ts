@@ -6,13 +6,15 @@ import {
 } from "../src/evidence";
 
 describe("readiness evidence", () => {
-  it("loads the current gate-driven backtest as negative alpha", () => {
+  it("loads the current gate-driven backtest as positive alpha on real Finnhub news", () => {
+    // On real, blinded Finnhub news the gate correctly stands aside on WWDC, so the
+    // gate-driven path is now positive (+1.346%) — was negative on the old stubbed run.
     const evidence = loadGateDrivenBacktestEvidence();
 
     expect(evidence.variant).toBe("gateDriven");
-    expect(evidence.returnPct).toBeLessThan(0);
-    expect(evidence.sharpeAnnualized).toBeLessThan(0);
-    expect(evidence.alphaStatus).toBe("negative");
+    expect(evidence.returnPct).toBeGreaterThan(0);
+    expect(evidence.sharpeAnnualized).toBeGreaterThan(0);
+    expect(evidence.alphaStatus).toBe("positive");
   });
 
   it("loads walk-forward certification when the artifact exists", () => {
@@ -36,7 +38,9 @@ describe("readiness evidence", () => {
       ],
     };
 
-    expect(formatReadinessReport(report)).toContain("GapGuard readiness: BLOCKED");
+    expect(formatReadinessReport(report)).toContain(
+      "GapGuard readiness: BLOCKED",
+    );
     expect(formatReadinessReport(report)).toContain("FAIL arena-alpha-status");
   });
 });
