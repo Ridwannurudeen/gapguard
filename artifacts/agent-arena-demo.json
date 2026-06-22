@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T19:26:12.118Z",
+  "generatedAt": "2026-06-22T21:09:55.985Z",
   "arena": {
     "thesis": "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
     "liveInstrument": "NVDAUSDT",
@@ -39,22 +39,22 @@
     ]
   },
   "perception": {
-    "source": "Bitget public RWA market report 2026-06-22T19:25:30.366Z",
+    "source": "Bitget public RWA market report 2026-06-22T21:08:44.873Z",
     "symbol": "NVDAUSDT",
-    "tokenPrice": 208.72,
-    "referencePrice": 208.44013392364047,
-    "spreadBps": 0.9585430146182715,
+    "tokenPrice": 208.33,
+    "referencePrice": 208.09359704241032,
+    "spreadBps": 0.4800652888788509,
     "fundingRate": 0,
-    "quoteVolumeUSDT": 10813842.4337,
+    "quoteVolumeUSDT": 11469883.352,
     "isRwa": "YES",
     "symbolStatus": "normal",
     "liveReady": true,
     "blockers": [],
-    "newsSummary": "NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=10813842.43, spreadBps=0.959, fundingRate=0",
+    "newsSummary": "NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=11469883.35, spreadBps=0.480, fundingRate=0",
     "dislocation": {
-      "fairValue": 208.44013392364047,
-      "dislocationPct": 0.0013426688569584716,
-      "zScore": 0.08951125713056478,
+      "fairValue": 208.09359704241032,
+      "dislocationPct": 0.001136041478208046,
+      "zScore": 0.07573609854720308,
       "direction": "fair",
       "confidence": 0
     }
@@ -64,17 +64,17 @@
     "backtest": {
       "source": "artifacts/rwa-alpha-certification.json",
       "variant": "walkForwardRwaFollow",
-      "returnPct": 3.785,
-      "sharpeAnnualized": 6.511,
-      "totalTrades": 119,
+      "returnPct": 2.648,
+      "sharpeAnnualized": 4.46,
+      "totalTrades": 116,
       "alphaStatus": "positive",
       "note": "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
     },
     "rwaFreshness": {
       "path": "public/rwa-market.json",
       "status": "fresh",
-      "generatedAt": "2026-06-22T19:25:30.366Z",
-      "ageMinutes": 0.7,
+      "generatedAt": "2026-06-22T21:08:44.873Z",
+      "ageMinutes": 1.2,
       "maxAgeMinutes": 30
     }
   },
@@ -92,7 +92,7 @@
         "confidence": 0.9,
         "rationale": "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
         "evidence": [
-          "news-briefing: NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=10813842.43, spreadBps=0.959, fundingRate=0"
+          "news-briefing: NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=11469883.35, spreadBps=0.480, fundingRate=0"
         ]
       },
       {
@@ -101,7 +101,7 @@
         "confidence": 0.8,
         "rationale": "Positioning supports a trade only after funding and spread are checked against the mandate.",
         "evidence": [
-          "sentiment-analyst: fundingRate=0, spreadBps=0.959"
+          "sentiment-analyst: fundingRate=0, spreadBps=0.480"
         ]
       },
       {
@@ -119,7 +119,7 @@
         "confidence": 0.45,
         "rationale": "The dislocation read is not enough to justify a full-size chase, so the desk keeps dissent active.",
         "evidence": [
-          "dislocation: direction=fair, z=0.090, spreadBps=0.959"
+          "dislocation: direction=fair, z=0.076, spreadBps=0.480"
         ]
       },
       {
@@ -138,7 +138,7 @@
     "symbol": "NVDAUSDT",
     "action": "chase_long",
     "positionPct": 0.5,
-    "overnightLossPct": 0.02499999999999995,
+    "overnightLossPct": 0.02499975999615996,
     "drawdownPct": 0.14,
     "evidenceConflict": true,
     "mandateOk": false,
@@ -164,13 +164,13 @@
         "ruleViolations": 0,
         "debateRounds": 3,
         "rejectedTrades": 2,
-        "backtestSharpe": 6.511,
+        "backtestSharpe": 4.46,
         "backtest": {
           "source": "artifacts/rwa-alpha-certification.json",
           "variant": "walkForwardRwaFollow",
-          "returnPct": 3.785,
-          "sharpeAnnualized": 6.511,
-          "totalTrades": 119,
+          "returnPct": 2.648,
+          "sharpeAnnualized": 4.46,
+          "totalTrades": 116,
           "alphaStatus": "positive",
           "note": "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
         },
@@ -259,7 +259,7 @@
         "tradeSide": "open",
         "orderType": "market"
       },
-      "notionalUSDT": 6.253204017709214,
+      "notionalUSDT": 6.242807911272309,
       "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
         "C:\\Users\\gudma\\OneDrive\\Desktop\\GITHUB-FILES\\gapguard\\node_modules\\bitget-client\\dist\\index.js",
@@ -270,22 +270,22 @@
       ]
     },
     "fill": {
-      "ts": "2026-06-22T19:26:12.118Z",
+      "ts": "2026-06-22T21:09:55.985Z",
       "symbol": "NVDAUSDT",
       "mode": "dry_run",
       "side": "open_long",
       "size": 0.03,
-      "referencePrice": 208.44013392364047,
-      "fillPrice": 208.72,
-      "exitPrice": 203.502,
-      "orderId": "SIM-4bc501cd11f8d533",
+      "referencePrice": 208.09359704241032,
+      "fillPrice": 208.33,
+      "exitPrice": 203.1218,
+      "orderId": "SIM-88cdf86c3c18b525",
       "balanceBefore": 10000,
-      "balanceAfter": 9999.84346,
-      "balanceDelta": -0.15653999999999968,
-      "notionalUSDT": 6.253204017709214,
-      "realizedPnlUSDT": -0.15653999999999968
+      "balanceAfter": 9999.843754,
+      "balanceDelta": -0.15624600000000013,
+      "notionalUSDT": 6.242807911272309,
+      "realizedPnlUSDT": -0.15624600000000013
     },
-    "stdout": "{\"code\":\"SIMULATED\",\"data\":{\"orderId\":\"SIM-4bc501cd11f8d533\",\"fillPrice\":208.72,\"exitPrice\":203.502,\"balanceBefore\":10000,\"balanceAfter\":9999.84346,\"balanceDelta\":-0.15653999999999968}}",
+    "stdout": "{\"code\":\"SIMULATED\",\"data\":{\"orderId\":\"SIM-88cdf86c3c18b525\",\"fillPrice\":208.33,\"exitPrice\":203.1218,\"balanceBefore\":10000,\"balanceAfter\":9999.843754,\"balanceDelta\":-0.15624600000000013}}",
     "stderr": ""
   },
   "arenaChain": {
@@ -293,12 +293,12 @@
     "verification": {
       "ok": true,
       "count": 11,
-      "finalHash": "885d27bc36a1d3c401205519cff2eda1dad6e5a149dbb3bd328812ba338cd604",
+      "finalHash": "c11d1f0cec1f5f49435dff178f0e31229aca5a68ad2d76bd2a35d28f18208ba6",
       "errors": []
     },
     "records": [
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "mandate_rule",
         "agentId": "arena-constitution",
         "payload": {
@@ -309,10 +309,10 @@
           "limitPct": 0.015
         },
         "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
-        "hash": "6c083bf2912d72665f2b07c79e80ca8ed055ada9990ae201ba37a5d71ec7ea1c"
+        "hash": "eea9582ba51d8f47c7264017d1d424d2977a3095af53bfc41bd743fdbbd16656"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "mandate_rule",
         "agentId": "arena-constitution",
         "payload": {
@@ -322,11 +322,11 @@
           "effect": "risk_config",
           "limitPct": 0.2
         },
-        "prevHash": "6c083bf2912d72665f2b07c79e80ca8ed055ada9990ae201ba37a5d71ec7ea1c",
-        "hash": "a44203510a1eb05e3ee1c5c75f476aec58d98311c4fe3bf88098329f6856d589"
+        "prevHash": "eea9582ba51d8f47c7264017d1d424d2977a3095af53bfc41bd743fdbbd16656",
+        "hash": "a0362ae841014fdd5783053bfc9d67140c2bfa323f5fa6972a25463e6080183f"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "mandate_rule",
         "agentId": "arena-constitution",
         "payload": {
@@ -335,31 +335,31 @@
           "sourceText": "never lose >1.5% overnight; max 20% position; stay flat when evidence conflicts",
           "effect": "hard_veto"
         },
-        "prevHash": "a44203510a1eb05e3ee1c5c75f476aec58d98311c4fe3bf88098329f6856d589",
-        "hash": "8e0d78401eb159976a941821812f1af20467a3872b4ea960af0b57c2bf3673b9"
+        "prevHash": "a0362ae841014fdd5783053bfc9d67140c2bfa323f5fa6972a25463e6080183f",
+        "hash": "b1f3ab2cd1ba8ffbc4bcc8efd067ace0b40bd0c04f14d54fa133f7537b1abfb7"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "quorum_decision",
         "agentId": "quorum-rwa-desk",
         "payload": {
           "perception": {
-            "source": "Bitget public RWA market report 2026-06-22T19:25:30.366Z",
+            "source": "Bitget public RWA market report 2026-06-22T21:08:44.873Z",
             "symbol": "NVDAUSDT",
-            "tokenPrice": 208.72,
-            "referencePrice": 208.44013392364047,
-            "spreadBps": 0.9585430146182715,
+            "tokenPrice": 208.33,
+            "referencePrice": 208.09359704241032,
+            "spreadBps": 0.4800652888788509,
             "fundingRate": 0,
-            "quoteVolumeUSDT": 10813842.4337,
+            "quoteVolumeUSDT": 11469883.352,
             "isRwa": "YES",
             "symbolStatus": "normal",
             "liveReady": true,
             "blockers": [],
-            "newsSummary": "NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=10813842.43, spreadBps=0.959, fundingRate=0",
+            "newsSummary": "NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=11469883.35, spreadBps=0.480, fundingRate=0",
             "dislocation": {
-              "fairValue": 208.44013392364047,
-              "dislocationPct": 0.0013426688569584716,
-              "zScore": 0.08951125713056478,
+              "fairValue": 208.09359704241032,
+              "dislocationPct": 0.001136041478208046,
+              "zScore": 0.07573609854720308,
               "direction": "fair",
               "confidence": 0
             }
@@ -378,7 +378,7 @@
                 "confidence": 0.9,
                 "rationale": "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
                 "evidence": [
-                  "news-briefing: NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=10813842.43, spreadBps=0.959, fundingRate=0"
+                  "news-briefing: NVDAUSDT isRwa=YES, status=normal, quoteVolumeUSDT=11469883.35, spreadBps=0.480, fundingRate=0"
                 ]
               },
               {
@@ -387,7 +387,7 @@
                 "confidence": 0.8,
                 "rationale": "Positioning supports a trade only after funding and spread are checked against the mandate.",
                 "evidence": [
-                  "sentiment-analyst: fundingRate=0, spreadBps=0.959"
+                  "sentiment-analyst: fundingRate=0, spreadBps=0.480"
                 ]
               },
               {
@@ -405,7 +405,7 @@
                 "confidence": 0.45,
                 "rationale": "The dislocation read is not enough to justify a full-size chase, so the desk keeps dissent active.",
                 "evidence": [
-                  "dislocation: direction=fair, z=0.090, spreadBps=0.959"
+                  "dislocation: direction=fair, z=0.076, spreadBps=0.480"
                 ]
               },
               {
@@ -424,7 +424,7 @@
             "symbol": "NVDAUSDT",
             "action": "size_down",
             "positionPct": 0.1,
-            "overnightLossPct": 0.012499999999999975,
+            "overnightLossPct": 0.01249987999807998,
             "drawdownPct": 0.021,
             "evidenceConflict": false,
             "mandateOk": true,
@@ -432,11 +432,11 @@
             "rationale": "Five-role desk keeps the trade below the constitution caps after dissent."
           }
         },
-        "prevHash": "8e0d78401eb159976a941821812f1af20467a3872b4ea960af0b57c2bf3673b9",
-        "hash": "4f1c9a45a35cf7cf08c94b6a87713c17146a96c971d9e1175fe76d81ad103be4"
+        "prevHash": "b1f3ab2cd1ba8ffbc4bcc8efd067ace0b40bd0c04f14d54fa133f7537b1abfb7",
+        "hash": "7f095640e0e01ac65c606dc02adfc0fa43fbd8280a259dad62b42fcc91245635"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "agent_decision",
         "agentId": "naive-momentum",
         "payload": {
@@ -444,7 +444,7 @@
           "symbol": "NVDAUSDT",
           "action": "chase_long",
           "positionPct": 0.5,
-          "overnightLossPct": 0.02499999999999995,
+          "overnightLossPct": 0.02499975999615996,
           "drawdownPct": 0.14,
           "evidenceConflict": true,
           "mandateOk": false,
@@ -455,11 +455,11 @@
           ],
           "rationale": "Single-signal momentum bot chases the narrative without dissent or veto."
         },
-        "prevHash": "4f1c9a45a35cf7cf08c94b6a87713c17146a96c971d9e1175fe76d81ad103be4",
-        "hash": "ed9bc2ff059dd566bcd0dd1298614185d7a7e4b8a5dd85b5570ff43a3e9ed107"
+        "prevHash": "7f095640e0e01ac65c606dc02adfc0fa43fbd8280a259dad62b42fcc91245635",
+        "hash": "115dcde97921c37df2c2791f7fdfcabc582baf8e672ded75fbb60d4b597b86fd"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "mandate_breach",
         "agentId": "naive-momentum",
         "payload": {
@@ -475,7 +475,7 @@
             "symbol": "NVDAUSDT",
             "action": "chase_long",
             "positionPct": 0.5,
-            "overnightLossPct": 0.02499999999999995,
+            "overnightLossPct": 0.02499975999615996,
             "drawdownPct": 0.14,
             "evidenceConflict": true,
             "mandateOk": false,
@@ -487,11 +487,11 @@
             "rationale": "Single-signal momentum bot chases the narrative without dissent or veto."
           }
         },
-        "prevHash": "ed9bc2ff059dd566bcd0dd1298614185d7a7e4b8a5dd85b5570ff43a3e9ed107",
-        "hash": "ab0364c030f3845589b289944537c9217edb50404ba80dd5f717ebffdd6eb972"
+        "prevHash": "115dcde97921c37df2c2791f7fdfcabc582baf8e672ded75fbb60d4b597b86fd",
+        "hash": "aad80d8f07adc8fef4543fc035417903802045b33fda69ca40aa7b129bfaa455"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "mandate_breach",
         "agentId": "naive-momentum",
         "payload": {
@@ -507,7 +507,7 @@
             "symbol": "NVDAUSDT",
             "action": "chase_long",
             "positionPct": 0.5,
-            "overnightLossPct": 0.02499999999999995,
+            "overnightLossPct": 0.02499975999615996,
             "drawdownPct": 0.14,
             "evidenceConflict": true,
             "mandateOk": false,
@@ -519,11 +519,11 @@
             "rationale": "Single-signal momentum bot chases the narrative without dissent or veto."
           }
         },
-        "prevHash": "ab0364c030f3845589b289944537c9217edb50404ba80dd5f717ebffdd6eb972",
-        "hash": "d48acb14edaa4845f9882ca7c26a0b792fc95bc91372c937bf3d146151da0a9b"
+        "prevHash": "aad80d8f07adc8fef4543fc035417903802045b33fda69ca40aa7b129bfaa455",
+        "hash": "1121bfa34337b36c173fda9638044797fc0b788e181f51db66c94eb60c9e490c"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "mandate_breach",
         "agentId": "naive-momentum",
         "payload": {
@@ -538,7 +538,7 @@
             "symbol": "NVDAUSDT",
             "action": "chase_long",
             "positionPct": 0.5,
-            "overnightLossPct": 0.02499999999999995,
+            "overnightLossPct": 0.02499975999615996,
             "drawdownPct": 0.14,
             "evidenceConflict": true,
             "mandateOk": false,
@@ -550,11 +550,11 @@
             "rationale": "Single-signal momentum bot chases the narrative without dissent or veto."
           }
         },
-        "prevHash": "d48acb14edaa4845f9882ca7c26a0b792fc95bc91372c937bf3d146151da0a9b",
-        "hash": "bee9409f4b52e3eb32cc02bf66dbf1fa49faf150672b060bb47f956e89b02008"
+        "prevHash": "1121bfa34337b36c173fda9638044797fc0b788e181f51db66c94eb60c9e490c",
+        "hash": "322d48982158b035e3927a89bf815f4e193873a30e9751961b62b01e229f6f6f"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "passport_issued",
         "agentId": "quorum-rwa-desk",
         "payload": {
@@ -571,13 +571,13 @@
             "ruleViolations": 0,
             "debateRounds": 3,
             "rejectedTrades": 2,
-            "backtestSharpe": 6.511,
+            "backtestSharpe": 4.46,
             "backtest": {
               "source": "artifacts/rwa-alpha-certification.json",
               "variant": "walkForwardRwaFollow",
-              "returnPct": 3.785,
-              "sharpeAnnualized": 6.511,
-              "totalTrades": 119,
+              "returnPct": 2.648,
+              "sharpeAnnualized": 4.46,
+              "totalTrades": 116,
               "alphaStatus": "positive",
               "note": "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
             },
@@ -602,11 +602,11 @@
             "fewer than 3 paper trades"
           ]
         },
-        "prevHash": "bee9409f4b52e3eb32cc02bf66dbf1fa49faf150672b060bb47f956e89b02008",
-        "hash": "bb30fa9978ad99a1e111273aa60b813df5b6433ee7600f113b9027866eeb9e22"
+        "prevHash": "322d48982158b035e3927a89bf815f4e193873a30e9751961b62b01e229f6f6f",
+        "hash": "928a54e3896262b343395dc25ce120d04b9fcaeaa42a8b562ba5940f8b8b0ebd"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "passport_issued",
         "agentId": "naive-momentum",
         "payload": {
@@ -658,11 +658,11 @@
             "leverage exceeds licensed threshold"
           ]
         },
-        "prevHash": "bb30fa9978ad99a1e111273aa60b813df5b6433ee7600f113b9027866eeb9e22",
-        "hash": "4b2dff5bdc26bccd1fc0e8e8d41c7a1e3d3cc290cc4556b0bb4421ac8f475895"
+        "prevHash": "928a54e3896262b343395dc25ce120d04b9fcaeaa42a8b562ba5940f8b8b0ebd",
+        "hash": "ce1b1cad8eea6df76440ec39a57ede59261bf15764ebaa5be499c0bbb524897e"
       },
       {
-        "ts": "2026-06-22T19:26:12.118Z",
+        "ts": "2026-06-22T21:09:55.985Z",
         "kind": "broker_order",
         "agentId": "quorum-rwa-desk",
         "payload": {
@@ -679,7 +679,7 @@
               "tradeSide": "open",
               "orderType": "market"
             },
-            "notionalUSDT": 6.253204017709214,
+            "notionalUSDT": 6.242807911272309,
             "command": "C:\\Program Files\\nodejs\\node.exe",
             "args": [
               "C:\\Users\\gudma\\OneDrive\\Desktop\\GITHUB-FILES\\gapguard\\node_modules\\bitget-client\\dist\\index.js",
@@ -690,26 +690,26 @@
             ]
           },
           "fill": {
-            "ts": "2026-06-22T19:26:12.118Z",
+            "ts": "2026-06-22T21:09:55.985Z",
             "symbol": "NVDAUSDT",
             "mode": "dry_run",
             "side": "open_long",
             "size": 0.03,
-            "referencePrice": 208.44013392364047,
-            "fillPrice": 208.72,
-            "exitPrice": 203.502,
-            "orderId": "SIM-4bc501cd11f8d533",
+            "referencePrice": 208.09359704241032,
+            "fillPrice": 208.33,
+            "exitPrice": 203.1218,
+            "orderId": "SIM-88cdf86c3c18b525",
             "balanceBefore": 10000,
-            "balanceAfter": 9999.84346,
-            "balanceDelta": -0.15653999999999968,
-            "notionalUSDT": 6.253204017709214,
-            "realizedPnlUSDT": -0.15653999999999968
+            "balanceAfter": 9999.843754,
+            "balanceDelta": -0.15624600000000013,
+            "notionalUSDT": 6.242807911272309,
+            "realizedPnlUSDT": -0.15624600000000013
           },
-          "stdout": "{\"code\":\"SIMULATED\",\"data\":{\"orderId\":\"SIM-4bc501cd11f8d533\",\"fillPrice\":208.72,\"exitPrice\":203.502,\"balanceBefore\":10000,\"balanceAfter\":9999.84346,\"balanceDelta\":-0.15653999999999968}}",
+          "stdout": "{\"code\":\"SIMULATED\",\"data\":{\"orderId\":\"SIM-88cdf86c3c18b525\",\"fillPrice\":208.33,\"exitPrice\":203.1218,\"balanceBefore\":10000,\"balanceAfter\":9999.843754,\"balanceDelta\":-0.15624600000000013}}",
           "stderr": ""
         },
-        "prevHash": "4b2dff5bdc26bccd1fc0e8e8d41c7a1e3d3cc290cc4556b0bb4421ac8f475895",
-        "hash": "885d27bc36a1d3c401205519cff2eda1dad6e5a149dbb3bd328812ba338cd604"
+        "prevHash": "ce1b1cad8eea6df76440ec39a57ede59261bf15764ebaa5be499c0bbb524897e",
+        "hash": "c11d1f0cec1f5f49435dff178f0e31229aca5a68ad2d76bd2a35d28f18208ba6"
       }
     ]
   }

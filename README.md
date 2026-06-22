@@ -94,7 +94,7 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit  # blinded live gate over ever
 
 `npm run backtest:fetch:rwa` writes a broader public Bitget RWA fixture basket under `data/rwa-sample/`; `npm run backtest:multi` replays it. The current 20-symbol, 790-trade always-fade result is negative, which is useful evidence: blindly fading every RWA off-hours gap is not the product. The product is the gate, risk governor, and verifiable licensing layer.
 
-`npm run alpha:certify` runs the locked walk-forward RWA certification on the same 20-symbol fixture basket. It does not select full-sample winners. The first 60% of unique gap dates form the prior history; later dates are out-of-sample. The current artifact (`artifacts/rwa-alpha-certification.json`) clears positive alpha on the selected rule: 119 OOS trades, +3.785% portfolio return, Sharpe 6.511, PF 2.20, versus -5.471% for OOS always-fade after costs. This is the passport alpha evidence; it is still not a live-fill claim.
+`npm run alpha:certify` runs the locked walk-forward RWA certification on the same 20-symbol fixture basket. It does not select full-sample winners. The first 60% of unique gap dates form the prior history; later dates are out-of-sample. The current artifact (`artifacts/rwa-alpha-certification.json`) clears positive alpha on the selected rule: 116 OOS trades over 16 trading days, +2.648% return, 54.3% win rate, PF 1.74, versus -5.394% for OOS always-fade after costs. This is the passport alpha evidence on a tiny sample; it is still not a live-fill claim.
 
 `npm run demo` writes:
 

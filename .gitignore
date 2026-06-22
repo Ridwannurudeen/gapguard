@@ -18,3 +18,4 @@ artifacts/
 .qwenkey
 .arena-signing-key.pem
 .finnhubkey
+.bitget-demo.env
