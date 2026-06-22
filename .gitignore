@@ -16,3 +16,4 @@ artifacts/
 .pbkey
 .qwenkey
 .arena-signing-key.pem
+.finnhubkey
