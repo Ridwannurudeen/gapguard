@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="0; url=arena.html" />
+    <title>GapGuard</title>
+    <link rel="canonical" href="arena.html" />
+    <style>
+      :root {
+        --ink: #f4f4ec;
+        --muted: #aab0a0;
+        --ground: #080907;
+        --line: rgba(224, 231, 204, 0.14);
+        --lime: #d7ff6a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+        place-items: center;
+        background:
+          linear-gradient(rgba(224, 231, 204, 0.035) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(224, 231, 204, 0.032) 1px,
+            transparent 1px
+          ),
+          var(--ground);
+        background-size: 38px 38px;
+        color: var(--ink);
+        font-family:
+          "Aptos",
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      main {
+        width: min(560px, calc(100% - 32px));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 19, 15, 0.9);
+        padding: 24px;
+      }
+
+      h1,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.05;
+      }
+
+      p {
+        margin-top: 12px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      a {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 18px;
+        border: 1px solid rgba(215, 255, 106, 0.4);
+        border-radius: 7px;
+        background: rgba(215, 255, 106, 0.11);
+        color: var(--ink);
+        font:
+          800 11px/1 ui-monospace,
+          "SFMono-Regular",
+          Consolas,
+          monospace;
+        padding: 0 13px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .mark {
+        color: var(--lime);
+        font:
+          900 12px/1 ui-monospace,
+          "SFMono-Regular",
+          Consolas,
+          monospace;
+        margin-bottom: 14px;
+      }
+    </style>
+    <script>
+      window.location.replace("arena.html");
+    </script>
+  </head>
+  <body>
+    <main>
+      <div class="mark">GG</div>
+      <h1>GapGuard Agent Arena</h1>
+      <p>Opening the main proof cockpit.</p>
+      <a href="arena.html">Enter Arena</a>
+    </main>
+  </body>
+</html>
