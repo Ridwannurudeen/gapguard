@@ -13,7 +13,7 @@
 // prints metrics, and saves the run to playbook/aaplusdt-backtest-result.json.
 
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -33,9 +33,14 @@ async function main() {
   console.log(`preflight: upload+run ${PKG_DIR} -> GetAgent prod ${BASE} with ACCESS-KEY=${masked}`);
 
   const tmp = mkdtempSync(join(tmpdir(), "pbk-"));
-  const tgz = join(tmp, "package.tar.gz");
-  execFileSync("tar", ["-czf", tgz, "-C", PKG_DIR, "."]);
-  const bytes = readFileSync(tgz);
+  // Use a RELATIVE archive name with cwd=tmp so GNU tar (Git Bash) doesn't misread
+  // a leading "C:" as a remote host; -C with an absolute path is fine. bsdtar works too.
+  // The upload validator allows only README.md, manifest.yaml, optional
+  // backtest.yaml, and src/** — package exactly those (no stray artifacts).
+  const allowed = ["README.md", "manifest.yaml", "src"];
+  if (existsSync(join(PKG_DIR, "backtest.yaml"))) allowed.push("backtest.yaml");
+  execFileSync("tar", ["-czf", "package.tar.gz", "-C", PKG_DIR, ...allowed], { cwd: tmp });
+  const bytes = readFileSync(join(tmp, "package.tar.gz"));
   console.log(`packaged ${PKG_DIR} -> ${(bytes.length / 1024).toFixed(1)} KB`);
 
   const headers = { "ACCESS-KEY": key };
@@ -44,12 +49,13 @@ async function main() {
   form.append("package", new Blob([bytes], { type: "application/gzip" }), "package.tar.gz");
   let res = await fetch(`${BASE}/api/v1/playbook/upload`, { method: "POST", headers, body: form });
   let body = await res.json().catch(() => ({}));
-  const versionId = body.draft_id || body.version_id;
+  let d = body.data ?? body; // Bitget nests the payload under `data`
+  const versionId = d.draft_id || d.version_id || d.playbook_id;
   if (!res.ok || !versionId) {
     console.error(`upload failed (HTTP ${res.status}): ${JSON.stringify(body).slice(0, 400)}`);
     return 1;
   }
-  console.log(`uploaded: strategy=${body.strategy_id ?? "?"} version=${versionId} status=${body.status ?? "?"}`);
+  console.log(`uploaded: strategy=${d.strategy_id ?? "?"} version=${versionId} status=${d.status ?? "?"}`);
 
   res = await fetch(`${BASE}/api/v1/playbook/run`, {
     method: "POST",
@@ -57,12 +63,13 @@ async function main() {
     body: JSON.stringify({ version_id: versionId }),
   });
   body = await res.json().catch(() => ({}));
-  if (!res.ok || !body.run_id) {
+  d = body.data ?? body;
+  if (!res.ok || !d.run_id) {
     console.error(`run dispatch failed (HTTP ${res.status}): ${JSON.stringify(body).slice(0, 400)}`);
     return 1;
   }
-  const runId = body.run_id;
-  console.log(`run dispatched: ${runId} status=${body.status ?? "pending"}`);
+  const runId = d.run_id;
+  console.log(`run dispatched: ${runId} status=${d.status ?? "pending"}`);
 
   const deadline = Date.now() + 5 * 60 * 1000;
   let last = "";
@@ -70,23 +77,24 @@ async function main() {
     await new Promise((r) => setTimeout(r, 5000));
     res = await fetch(`${BASE}/api/v1/playbook/run?run_id=${encodeURIComponent(runId)}`, { headers });
     body = await res.json().catch(() => ({}));
-    if (body.status && body.status !== last) {
-      console.log(`  status: ${body.status}`);
-      last = body.status;
+    d = body.data ?? body;
+    if (d.status && d.status !== last) {
+      console.log(`  status: ${d.status}`);
+      last = d.status;
     }
-    if (body.status === "completed" || body.status === "failed") break;
+    if (d.status === "completed" || d.status === "failed") break;
   }
 
-  if (body.status === "completed") {
+  if (d.status === "completed") {
     console.log("\n=== metrics_output ===");
-    console.log(JSON.stringify(body.metrics_output ?? {}, null, 2));
+    console.log(JSON.stringify(d.metrics_output ?? {}, null, 2));
     writeFileSync(RESULT_OUT, `${JSON.stringify(body, null, 2)}\n`);
     console.log(`\nsaved: ${RESULT_OUT}`);
     return 0;
   }
 
   console.error(
-    `\nrun did not complete: status=${body.status ?? "timeout"}${body.failure_reason ? ` - ${body.failure_reason}` : ""}`,
+    `\nrun did not complete: status=${d.status ?? "timeout"}${d.failure_reason ? ` - ${d.failure_reason}` : ""}`,
   );
   console.error("If the managed kline path returned no rows for this symbol, set backtest_support: none in playbook/manifest.yaml and rely on the simulated/paper evidence.");
   return 1;

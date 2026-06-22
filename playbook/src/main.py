@@ -24,7 +24,6 @@ def run() -> None:
         interval=interval,
         exchange=exchange,
         limit=200,
-        provider="bitget_data",
     )
     replay_frame = backtest.prepare_frame(bars, datetime_index="date")
 
@@ -71,7 +70,7 @@ def run() -> None:
         meta={
             "chart_path": chart_path,
             "proof_scope": "bitget_aaplusdt_rwa_perp_backtest",
-            "data_provider": "data.crypto.futures.kline bitget_data",
+            "data_provider": "data.crypto.futures.kline (exchange=bitget)",
             "exchange": exchange,
             "interval": interval,
             "backtest_support": "full",

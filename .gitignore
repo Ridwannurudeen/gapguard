@@ -7,3 +7,4 @@ glassbox-*.jsonl
 *.tar.gz
 .DS_Store
 artifacts/
+.pbkey

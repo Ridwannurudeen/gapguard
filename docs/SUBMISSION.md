@@ -33,9 +33,11 @@ End-to-end MVP runs today: live RWA perception, the adversarial decision, the ri
 | **Public GitHub repo + README** | This repo (public), README with install + run + integration. |
 | **Login-free demo** | `public/arena.html` cockpit (static; in-browser chain verification + tamper toggle). |
 | **Paper trading log** (ts / asset / direction / price / qty / balance change) | `artifacts/aaplusdt-backtest.json` — per-trade log on the real `AAPLUSDT` RWA perp **with all required fields**; plus `artifacts/paper-btc-smoke.jsonl` — a **real Bitget Demo fill** (orderId + balance delta) proving the execution path. |
-| **Backtest report** (optional; code required) | `npm run backtest` — deterministic off-hours gap reversion on **real public Bitget `AAPLUSDT` candles** (no key), code in `src/backtest.ts`, fixture in `data/`, output in `artifacts/aaplusdt-backtest.json`. |
+| **Backtest report** (optional; code required) | Two, both on real `AAPLUSDT`: (a) `npm run backtest` — deterministic gap reversion on real public Bitget candles (no key), code in `src/backtest.ts`, output `artifacts/aaplusdt-backtest.json`; (b) a **platform-certified Bitget Playbook managed run** (`playbook/`, run `pbrun-e3fe0ec8c873`, completed) → `playbook/aaplusdt-backtest-result.json`. |
 
 **Backtest result (real `AAPLUSDT` 1H, 27 sessions, honest):** total return ≈ **−0.3%**, Sharpe ≈ −0.1, max DD ≈ 3.3%, win 40%, 15 trades, PF 0.97. This is the **always-fade baseline** — it confirms blindly fading every gap has *no* standalone edge, which is exactly why GapGuard adds the convergence gate + risk governor. Small sample; not statistically significant; presented as a baseline, not a headline.
+
+**Platform-certified managed backtest (Bitget Playbook, run `pbrun-e3fe0ec8c873`, status `completed`):** the `AAPLUSDT` RWA-perp package ran end-to-end on Bitget's managed Nautilus engine on real `exchange=bitget` data — **total return −0.018%, Sharpe −1.05, max DD 0.053%, win 42.1%, 38 trades (19 positions), profit factor 1.06** (`playbook/aaplusdt-backtest-result.json`). Same honest ~flat finding, now **platform-certified on a real tokenized US stock** — and the first completed managed run for this project (the US-equity package can't get one; the RWA-perp `exchange=bitget` path does).
 
 ---
 
@@ -72,7 +74,7 @@ Key generated artifacts: `artifacts/aaplusdt-backtest.json` (backtest + paper lo
 ## Honest limitations (state these plainly)
 1. **No live on-exchange *stock* fill.** Bitget **Demo Trading lists crypto perps only** (verified) — RWA stock perps are live-only. So our *real* on-exchange fill is on `BTCUSDT` (proof the execution path works); the **stock** trading evidence is the simulated RWA ledger + the AAPLUSDT backtest. Sim/backtest records are explicitly accepted by the rules.
 2. **Backtest baseline is ~flat.** Reported truthfully; the value is the gate/governor/verification, not a magic return. Small sample.
-3. **Managed (platform-certified) backtest is blocked by Bitget's equity-data ceiling** for US equities; the `AAPLUSDT` RWA-perp package is repointed to the `exchange=bitget` kline path and the public-kline probe is recorded (`playbook/aaplusdt-kline-probe.json`), but a completed managed run is pending and **not claimed**.
+3. **Managed backtest: COMPLETED + certified on the `AAPLUSDT` RWA perp** (run `pbrun-e3fe0ec8c873`, `playbook/aaplusdt-backtest-result.json`). The US-*equity* path (`TSLA.NASDAQ`) is still blocked by Bitget's equity-data ceiling, but the RWA-perp `exchange=bitget` kline path runs end-to-end — so we claim a real certified managed run, on a tokenized US stock, with the honest ~flat result. Not published (publish is approval-gated).
 4. **LLM is live/evaluation-only**, never in the backtested path (kept deterministic for reproducibility).
 
 ---
@@ -87,5 +89,5 @@ Key generated artifacts: `artifacts/aaplusdt-backtest.json` (backtest + paper lo
 - [ ] Confirm registered **UID** matches submission (verify against registration email)
 - [ ] Record ≤3-min demo video (optional but recommended)
 - [ ] Publish dissemination thread (#BitgetHackathon, @Bitget_AI, quote the official post) — Community Impact Award
-- [ ] (optional) Codex runs the AAPLUSDT managed backtest for a certified number; slot in if it lands
+- [x] Platform-certified AAPLUSDT managed backtest completed (`pbrun-e3fe0ec8c873`) and wired in
 - [ ] Submit via the official form link **only after explicit approval**
