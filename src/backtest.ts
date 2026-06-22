@@ -18,6 +18,7 @@ import {
   summarize,
   type Candle,
 } from "./gapEngine";
+import { resolveBacktestSlippage } from "./slippage";
 
 const GAP_THRESHOLD = Number(process.env.BT_GAP_THRESHOLD ?? "0.004"); // fade gaps >= 0.4%
 const COST_PER_SIDE = Number(process.env.BT_COST ?? "0.0005"); // 5 bps fee+slippage each side
@@ -30,11 +31,13 @@ const fixture = JSON.parse(readFileSync(file, "utf8")) as {
   candles: Candle[];
 };
 const { symbol, candles } = fixture;
+const slippage = resolveBacktestSlippage([symbol]);
 
 const sessions = collapseSessions(candles);
 const trades = computeGapTrades(symbol, sessions, {
   gapThreshold: GAP_THRESHOLD,
   costPerSide: COST_PER_SIDE,
+  slippageBps: slippage.slippageBps,
   startEquity: START_EQUITY,
 });
 const metrics = summarize(trades, sessions, START_EQUITY);
@@ -52,6 +55,8 @@ const report = {
   params: {
     gapThresholdPct: GAP_THRESHOLD * 100,
     costPerSidePct: COST_PER_SIDE * 100,
+    slippagePerSideBps: slippage.slippageBps,
+    slippageSource: slippage.source,
     startEquity: START_EQUITY,
   },
   metrics,

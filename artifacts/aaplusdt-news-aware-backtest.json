@@ -49,71 +49,108 @@
       "source": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260617.htm"
     }
   ],
+  "params": {
+    "gapThresholdPct": 0.4,
+    "costPerSidePct": 0.05,
+    "slippagePerSideBps": 0.5599,
+    "slippageSource": "median half-spread from public/rwa-market.json RWA basket fallback",
+    "startEquity": 1000
+  },
   "variants": {
     "alwaysFade": {
-      "totalReturnPct": -0.308,
-      "sharpePerTrade": -0.01,
-      "sharpeAnnualized": -0.124,
-      "maxDrawdownPct": 3.289,
+      "totalReturnPct": -0.475,
+      "sharpePerTrade": -0.019,
+      "sharpeAnnualized": -0.232,
+      "maxDrawdownPct": 3.312,
       "winRatePct": 40,
       "totalTrades": 15,
-      "profitFactor": 0.97,
-      "endingEquity": 996.92
+      "profitFactor": 0.94,
+      "endingEquity": 995.25
+    },
+    "gateDriven": {
+      "totalReturnPct": 1.346,
+      "sharpePerTrade": 0.089,
+      "sharpeAnnualized": 1.003,
+      "maxDrawdownPct": 3.312,
+      "winRatePct": 38.5,
+      "totalTrades": 13,
+      "profitFactor": 1.33,
+      "endingEquity": 1013.46
     },
     "aaplNewsAware": {
-      "totalReturnPct": 1.872,
-      "sharpePerTrade": 0.121,
-      "sharpeAnnualized": 1.37,
-      "maxDrawdownPct": 3.289,
+      "totalReturnPct": 1.724,
+      "sharpePerTrade": 0.112,
+      "sharpeAnnualized": 1.267,
+      "maxDrawdownPct": 3.311,
       "winRatePct": 46.2,
       "totalTrades": 13,
-      "profitFactor": 1.48,
-      "endingEquity": 1018.72
+      "profitFactor": 1.43,
+      "endingEquity": 1017.24
     },
     "allCatalystAware": {
-      "totalReturnPct": 1.369,
-      "sharpePerTrade": 0.117,
-      "sharpeAnnualized": 1.16,
-      "maxDrawdownPct": 2.016,
+      "totalReturnPct": 1.256,
+      "sharpePerTrade": 0.107,
+      "sharpeAnnualized": 1.068,
+      "maxDrawdownPct": 2.028,
       "winRatePct": 50,
       "totalTrades": 10,
-      "profitFactor": 1.51,
-      "endingEquity": 1013.69
+      "profitFactor": 1.46,
+      "endingEquity": 1012.56
     }
+  },
+  "gateVerdictCache": {
+    "path": "C:\\Users\\gudma\\OneDrive\\Desktop\\GITHUB-FILES\\gapguard\\data\\aaplusdt-gate-verdicts.json",
+    "model": "qwen3.6-plus",
+    "promptSource": "blinded overnight summaries; no fade/stand-aside labels in prompt",
+    "generatedAt": "2026-06-22T19:09:52.866Z",
+    "standAsideDates": [
+      "2026-05-27",
+      "2026-06-09"
+    ]
   },
   "skippedOnCatalyst": {
     "aapl": [
       {
         "date": "2026-05-18",
-        "returnPct": -0.18
+        "returnPct": -0.192
       },
       {
         "date": "2026-06-09",
-        "returnPct": -1.963
+        "returnPct": -1.974
       }
     ],
     "all": [
       {
         "date": "2026-05-18",
-        "returnPct": -0.18
+        "returnPct": -0.192
       },
       {
         "date": "2026-06-01",
-        "returnPct": -1.299
+        "returnPct": -1.31
       },
       {
         "date": "2026-06-05",
-        "returnPct": 1.832
+        "returnPct": 1.821
       },
       {
         "date": "2026-06-09",
-        "returnPct": -1.963
+        "returnPct": -1.974
       },
       {
         "date": "2026-06-18",
-        "returnPct": -0.013
+        "returnPct": -0.024
+      }
+    ],
+    "gate": [
+      {
+        "date": "2026-05-27",
+        "returnPct": 0.18
+      },
+      {
+        "date": "2026-06-09",
+        "returnPct": -1.974
       }
     ]
   },
-  "honesty": "n=15 trades over ~6 weeks; the news-aware lift is driven mainly by standing aside on the WWDC keynote reaction (2026-06-09). Illustrative of the mechanism, not statistically significant. Labels are verified scheduled catalysts; the live agent produces these calls with the Qwen convergence gate."
+  "honesty": "n=15 trades over ~6 weeks; gate-driven results come from cached Qwen verdicts, not hand-labeled catalyst dates. Still illustrative only, not statistically significant."
 }

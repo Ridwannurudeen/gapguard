@@ -1,6 +1,15 @@
 import { type AgentCandidate } from "./agentArena";
 import { compileMandate, type MandateCheck, type MandateState } from "./mandate";
 import { decideQuorum, type DeskOpinion, type QuorumDecision } from "./quorum";
+import { estimateDislocation, type DislocationResult } from "./dislocation";
+import type { RwaMarketReport, RwaMarketRow } from "./rwa-market";
+import {
+  assessRwaMarketFreshness,
+  countPaperEvidenceRows,
+  loadBestAlphaEvidence,
+  type BacktestEvidenceSummary,
+  type RwaFreshnessSummary,
+} from "./evidence";
 
 export const ARENA_MANDATE_TEXT =
   "never lose >1.5% overnight; max 20% position; stay flat when evidence conflicts";
@@ -18,14 +27,36 @@ export interface ArenaAgentDecision {
   rationale: string;
 }
 
+export interface ArenaPerception {
+  source: string;
+  symbol: string;
+  tokenPrice: number;
+  referencePrice: number;
+  spreadBps: number | null;
+  fundingRate: number | null;
+  quoteVolumeUSDT: number;
+  isRwa: string;
+  symbolStatus: string;
+  liveReady: boolean;
+  blockers: string[];
+  newsSummary: string;
+  dislocation: DislocationResult;
+}
+
 export interface ArenaScenario {
   symbol: string;
   referencePrice: number;
   pricePath: number[];
+  perception: ArenaPerception;
   mandate: {
     source: string;
     riskConfig: ReturnType<typeof compileMandate>["riskConfig"];
     rules: ReturnType<typeof compileMandate>["rules"];
+  };
+  evidence: {
+    paperTrades: number;
+    backtest: BacktestEvidenceSummary;
+    rwaFreshness: RwaFreshnessSummary;
   };
   quorumOpinions: DeskOpinion[];
   quorumDecision: QuorumDecision;
@@ -65,44 +96,144 @@ function summarizeCheck(
   };
 }
 
-export function buildArenaScenario(
-  symbol = "NVDAUSDT",
-  referencePrice = 209.62,
+export interface ArenaEvidenceInputs {
+  paperTrades?: number;
+  backtest?: BacktestEvidenceSummary;
+  rwaFreshness?: RwaFreshnessSummary;
+}
+
+function referenceFromRow(row: RwaMarketRow, fallback: number): number {
+  return row.indexPrice ?? row.markPrice ?? row.lastPrice ?? fallback;
+}
+
+function tokenFromRow(row: RwaMarketRow, fallback: number): number {
+  return row.lastPrice ?? row.markPrice ?? row.indexPrice ?? fallback;
+}
+
+function defaultPerception(
+  symbol: string,
+  referencePrice: number,
+): ArenaPerception {
+  const tokenPrice = referencePrice;
+  return {
+    source: "deterministic fallback scenario",
+    symbol,
+    tokenPrice,
+    referencePrice,
+    spreadBps: 1.5,
+    fundingRate: 0,
+    quoteVolumeUSDT: 0,
+    isRwa: "YES",
+    symbolStatus: "normal",
+    liveReady: true,
+    blockers: [],
+    newsSummary:
+      "fallback RWA narrative scenario used when public/rwa-market.json is unavailable",
+    dislocation: estimateDislocation({
+      tokenPrice,
+      referencePrice,
+      volatility: 0.015,
+    }),
+  };
+}
+
+export function buildArenaPerceptionFromRwaMarket(
+  report: RwaMarketReport,
+  symbol = report.selectedLiveSymbol ?? report.defaultLiveSymbol,
+  fallbackReferencePrice = 209.62,
+): ArenaPerception | null {
+  const row =
+    report.rows.find((candidate) => candidate.symbol === symbol) ??
+    report.rows.find((candidate) => candidate.symbol === report.selectedLiveSymbol) ??
+    report.rows[0];
+  if (!row) return null;
+
+  const referencePrice = referenceFromRow(row, fallbackReferencePrice);
+  const tokenPrice = tokenFromRow(row, referencePrice);
+  return {
+    source: `Bitget public RWA market report ${report.generatedAt}`,
+    symbol: row.symbol,
+    tokenPrice,
+    referencePrice,
+    spreadBps: row.spreadBps,
+    fundingRate: row.fundingRate,
+    quoteVolumeUSDT: row.quoteVolumeUSDT,
+    isRwa: row.isRwa,
+    symbolStatus: row.symbolStatus,
+    liveReady: row.liveReady,
+    blockers: row.blockers,
+    newsSummary: `${row.symbol} isRwa=${row.isRwa}, status=${row.symbolStatus}, quoteVolumeUSDT=${row.quoteVolumeUSDT.toFixed(2)}, spreadBps=${row.spreadBps?.toFixed(3) ?? "n/a"}, fundingRate=${row.fundingRate ?? "n/a"}`,
+    dislocation: estimateDislocation({
+      tokenPrice,
+      referencePrice,
+      volatility: 0.015,
+    }),
+  };
+}
+
+export function buildArenaScenarioFromRwaMarket(
+  report: RwaMarketReport,
+  symbol = report.selectedLiveSymbol ?? report.defaultLiveSymbol,
+  fallbackReferencePrice = 209.62,
   liveCap = 20,
+  evidenceInputs: ArenaEvidenceInputs = {},
 ): ArenaScenario {
-  const mandate = compileMandate(ARENA_MANDATE_TEXT);
-  const pricePath = [referencePrice, 214.2, 204.4];
-  const quorumOpinions: DeskOpinion[] = [
+  const perception =
+    buildArenaPerceptionFromRwaMarket(report, symbol, fallbackReferencePrice) ??
+    defaultPerception(symbol, fallbackReferencePrice);
+  return buildArenaScenario(
+    perception.symbol,
+    perception.referencePrice,
+    liveCap,
+    perception,
+    evidenceInputs,
+  );
+}
+
+function buildQuorumOpinions(perception: ArenaPerception): DeskOpinion[] {
+  const targetVote = perception.dislocation.direction === "rich" ? "short" : "long";
+  const spreadText = perception.spreadBps?.toFixed(3) ?? "n/a";
+  const fundingText =
+    perception.fundingRate === null ? "n/a" : perception.fundingRate.toString();
+
+  return [
     {
       role: "narrative",
-      vote: "long",
+      vote: targetVote,
       confidence: 0.9,
       rationale:
-        "RWA stock-perp attention is accelerating around recognizable AI equity symbols.",
-      evidence: ["news-briefing: AI equity narrative expanding"],
+        "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
+      evidence: [`news-briefing: ${perception.newsSummary}`],
     },
     {
       role: "positioning",
-      vote: "long",
+      vote: targetVote,
       confidence: 0.8,
       rationale:
-        "Positioning supports a trade, but only after the mandate caps the exposure.",
-      evidence: ["sentiment-analyst: funding not at an extreme"],
+        "Positioning supports a trade only after funding and spread are checked against the mandate.",
+      evidence: [
+        `sentiment-analyst: fundingRate=${fundingText}, spreadBps=${spreadText}`,
+      ],
     },
     {
       role: "market_intel",
-      vote: "long",
+      vote: targetVote,
       confidence: 0.7,
-      rationale: "Public RWA ticker data shows normal status and usable spread.",
-      evidence: ["Bitget contracts/tickers: selected symbol isRwa=YES"],
+      rationale:
+        "Public RWA contract data is normal and usable inside the supervised live cap.",
+      evidence: [
+        `Bitget contracts/tickers: ${perception.symbol} isRwa=${perception.isRwa}, status=${perception.symbolStatus}, liveReady=${perception.liveReady}`,
+      ],
     },
     {
       role: "bear",
       vote: "flat",
       confidence: 0.45,
       rationale:
-        "The same price path can punish a late narrative chase, so the desk should cut size.",
-      evidence: ["scenario: late buyers lose more than the overnight mandate"],
+        "The dislocation read is not enough to justify a full-size chase, so the desk keeps dissent active.",
+      evidence: [
+        `dislocation: direction=${perception.dislocation.direction}, z=${perception.dislocation.zScore.toFixed(3)}, spreadBps=${spreadText}`,
+      ],
     },
     {
       role: "risk",
@@ -113,6 +244,29 @@ export function buildArenaScenario(
       evidence: ["constitution: max 20% position, loss and conflict vetoes"],
     },
   ];
+}
+
+export function buildArenaScenario(
+  symbol = "NVDAUSDT",
+  referencePrice = 209.62,
+  liveCap = 20,
+  perception = defaultPerception(symbol, referencePrice),
+  evidenceInputs: ArenaEvidenceInputs = {},
+): ArenaScenario {
+  const mandate = compileMandate(ARENA_MANDATE_TEXT);
+  const backtestEvidence =
+    evidenceInputs.backtest ?? loadBestAlphaEvidence();
+  const paperTrades =
+    evidenceInputs.paperTrades ?? countPaperEvidenceRows();
+  const rwaFreshness =
+    evidenceInputs.rwaFreshness ?? assessRwaMarketFreshness();
+  const entryPrice = perception.tokenPrice;
+  const pricePath = [
+    entryPrice,
+    +(entryPrice * 1.021).toFixed(4),
+    +(entryPrice * 0.975).toFixed(4),
+  ];
+  const quorumOpinions = buildQuorumOpinions(perception);
   const quorumDecision = decideQuorum(symbol, quorumOpinions);
   const lossPct = overnightLossPct(pricePath);
   const quorumState: MandateState = {
@@ -148,12 +302,18 @@ export function buildArenaScenario(
 
   return {
     symbol,
-    referencePrice,
+    referencePrice: perception.referencePrice,
     pricePath,
+    perception,
     mandate: {
       source: mandate.source,
       riskConfig: mandate.riskConfig,
       rules: mandate.rules,
+    },
+    evidence: {
+      paperTrades,
+      backtest: backtestEvidence,
+      rwaFreshness,
     },
     quorumOpinions,
     quorumDecision,
@@ -167,14 +327,15 @@ export function buildArenaScenario(
       thesis:
         "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
       evidence: {
-        paperTrades: 5,
+        paperTrades,
         liveReadOk: true,
         hashChainOk: true,
         maxDrawdownPct: quorumState.drawdownPct,
         ruleViolations: quorumMandateCheck.breachedRules.length,
         debateRounds: 3,
         rejectedTrades: 2,
-        backtestSharpe: 1.4,
+        backtestSharpe: backtestEvidence.sharpeAnnualized,
+        backtest: backtestEvidence,
         mandateBreaches: quorumMandateCheck.vetoReasons,
       },
       controls: {

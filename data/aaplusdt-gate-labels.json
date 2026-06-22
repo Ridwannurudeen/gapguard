@@ -1,0 +1,81 @@
+{
+  "asset": "AAPLUSDT",
+  "note": "Holdout labels for scoring the convergence gate. This file is not passed to Qwen; gateAudit.ts uses it only after a verdict is returned. Every backtest gap is scored.",
+  "labels": [
+    {
+      "date": "2026-05-14",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-05-18",
+      "expectedFadeable": true,
+      "labelRationale": "WWDC schedule preview was low-impact calendar news, not a fundamental repricing event."
+    },
+    {
+      "date": "2026-05-19",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-05-22",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-05-26",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-05-27",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-06-01",
+      "expectedFadeable": true,
+      "labelRationale": "Broad tech rally context did not directly justify an Apple-specific down gap."
+    },
+    {
+      "date": "2026-06-02",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-06-04",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-06-05",
+      "expectedFadeable": false,
+      "labelRationale": "Pre-open employment data is a scheduled macro catalyst; stand aside."
+    },
+    {
+      "date": "2026-06-08",
+      "expectedFadeable": true,
+      "labelRationale": "No Apple-specific headline before the keynote; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-06-09",
+      "expectedFadeable": false,
+      "labelRationale": "Prior-session WWDC keynote coverage is Apple-specific event risk; stand aside."
+    },
+    {
+      "date": "2026-06-12",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-06-15",
+      "expectedFadeable": true,
+      "labelRationale": "No identified Apple or macro catalyst; classify as fadeable off-hours noise."
+    },
+    {
+      "date": "2026-06-18",
+      "expectedFadeable": false,
+      "labelRationale": "Overnight FOMC digestion is broad macro repricing risk; stand aside."
+    }
+  ]
+}

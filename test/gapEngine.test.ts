@@ -53,5 +53,11 @@ describe("gapEngine", () => {
     });
     expect(stoodAside).toHaveLength(0);
     expect(summarize(stoodAside, sessions, 1000).totalReturnPct).toBe(0);
+
+    const stressed = computeGapTrades("AAPLUSDT", sessions, {
+      ...opts,
+      slippageBps: 25,
+    });
+    expect(stressed[0].returnPct).toBeLessThan(faded[0].returnPct);
   });
 });

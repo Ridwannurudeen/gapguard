@@ -47,6 +47,7 @@ export interface BacktestMetrics {
 export interface RunOptions {
   gapThreshold: number;
   costPerSide: number;
+  slippageBps?: number;
   startEquity: number;
   /** Return true to STAND ASIDE on this session's gap (e.g. a confirmed catalyst). */
   skip?: (date: string) => boolean;
@@ -102,7 +103,8 @@ export function computeGapTrades(
     const exit = today.closePrice;
     const gross =
       direction === "short" ? (entry - exit) / entry : (exit - entry) / entry;
-    const net = gross - 2 * opts.costPerSide;
+    const slippagePerSide = (opts.slippageBps ?? 0) / 10_000;
+    const net = gross - 2 * (opts.costPerSide + slippagePerSide);
     const balanceBefore = equity;
     equity *= 1 + net;
     trades.push({

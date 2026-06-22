@@ -50,7 +50,7 @@ describe("sim broker", () => {
       },
     );
 
-    expect(result.status).toBe("submitted");
+    expect(result.status).toBe("dry_run");
     expect(result.plan.order).toMatchObject({
       symbol: "NVDAUSDT",
       side: "buy",

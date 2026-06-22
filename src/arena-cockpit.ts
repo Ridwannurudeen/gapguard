@@ -2,6 +2,11 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaDemo, type ArenaDemoArtifact } from "./arena-demo";
 import { attestChain, verifyAttestation, writeArenaChain } from "./arena-chain";
+import {
+  DEFAULT_PUBLIC_KEY_FILE,
+  loadArenaSigningKey,
+  readArenaPublicKey,
+} from "./arenaSigning";
 import type { AgentPassport } from "./agentArena";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
 import type { DeskOpinion, QuorumDecision } from "./quorum";
@@ -35,10 +40,13 @@ export interface ArenaCockpitData {
   arena: ArenaDemoArtifact["arena"];
   status: {
     licensedAgents: number;
+    paperOnlyAgents: number;
     rejectedAgents: number;
     paperEvidence: "proven" | "missing";
-    liveStatus: "gated";
+    liveStatus: "disabled_alpha_unproven" | "gated";
   };
+  perception: ArenaDemoArtifact["perception"];
+  evidence: ArenaDemoArtifact["evidence"];
   leaderboard: AgentPassport[];
   quorum: QuorumDecision;
   debate: DeskOpinion[];
@@ -176,11 +184,19 @@ export function buildArenaCockpitData(
     status: {
       licensedAgents: artifact.passports.filter((p) => p.grade === "LICENSED")
         .length,
+      paperOnlyAgents: artifact.passports.filter(
+        (p) => p.grade === "PAPER_ONLY",
+      ).length,
       rejectedAgents: artifact.passports.filter((p) => p.grade === "REJECTED")
         .length,
       paperEvidence: paperTrade ? "proven" : "missing",
-      liveStatus: "gated",
+      liveStatus:
+        artifact.evidence.backtest.alphaStatus === "positive"
+          ? "gated"
+          : "disabled_alpha_unproven",
     },
+    perception: artifact.perception,
+    evidence: artifact.evidence,
     leaderboard: artifact.passports,
     quorum: artifact.quorumDecision,
     debate: artifact.quorumDecision.opinions,
@@ -220,19 +236,34 @@ export async function runArenaCockpitCli(): Promise<void> {
     process.env.ARENA_RWA_MARKET_PATH ?? "public/rwa-market.json",
   );
   const attestOut = resolve(process.argv[6] ?? "public/arena-attestation.json");
+  const publicKeyPath = resolve(process.argv[7] ?? DEFAULT_PUBLIC_KEY_FILE);
+  const signingKey = loadArenaSigningKey();
+  if (!signingKey) {
+    throw new Error(
+      "Arena attestation requires ARENA_SIGNING_KEY or .arena-signing-key.pem; run npm run arena:keygen first",
+    );
+  }
+  const publicKey = readArenaPublicKey(publicKeyPath);
   const artifact = await buildArenaDemo();
   writeArenaChain(chainOut, artifact.arenaChain.records);
 
   const attestation = attestChain(artifact.arenaChain.records, {
     signedAt: new Date().toISOString(),
     model: "qwen3.6-plus (desk) + deterministic (gap core)",
+    privateKey: signingKey,
   });
   mkdirSync(dirname(attestOut), { recursive: true });
   writeFileSync(attestOut, `${JSON.stringify(attestation, null, 2)}\n`);
   const attestationCheck = verifyAttestation(
     artifact.arenaChain.records,
     attestation,
+    { publicKey },
   );
+  if (!attestationCheck.ok) {
+    throw new Error(
+      `Arena attestation failed verification against ${publicKeyPath}`,
+    );
+  }
   console.log(
     `Arena attestation (Ed25519 over Merkle root ${attestation.merkleRoot.slice(0, 12)}…): ${attestOut} — self-verify ${attestationCheck.ok ? "OK" : "FAILED"}`,
   );
@@ -246,6 +277,39 @@ export async function runArenaCockpitCli(): Promise<void> {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify(data, null, 2)}\n`);
   console.log(`Agent Arena cockpit data: ${out}`);
+
+  // Publish the gate verdicts (real Finnhub news + NOISE/NEWS call + P&L per gap)
+  // for the cockpit's Agent News Desk + replay scrubber.
+  const verdictsSrc = resolve("data/aaplusdt-gate-verdicts.json");
+  if (existsSync(verdictsSrc)) {
+    const cache = JSON.parse(readFileSync(verdictsSrc, "utf8")) as {
+      asset?: string;
+      model?: string;
+      generatedAt?: string;
+      verdicts?: unknown[];
+      results?: unknown[];
+    };
+    const rows = (cache.verdicts ?? cache.results ?? []) as Array<
+      Record<string, unknown>
+    >;
+    const verdicts = rows.map((v) => ({
+      date: v.date,
+      fadeable: v.fadeable,
+      multiplier: v.multiplier,
+      returnPct: v.returnPct,
+      correct: v.correct,
+      newsSummary: v.newsSummary,
+      rationale: v.rationale,
+    }));
+    const newsOut = resolve("public/gate-verdicts.json");
+    writeFileSync(
+      newsOut,
+      `${JSON.stringify({ asset: cache.asset, model: cache.model, generatedAt: cache.generatedAt, verdicts }, null, 2)}\n`,
+    );
+    console.log(
+      `Agent News Desk data: ${newsOut} (${verdicts.length} verdicts)`,
+    );
+  }
 }
 
 if (process.argv[1]?.endsWith("arena-cockpit.ts")) {

@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GapGuard — verifiable AI trading on tokenized US stocks</title>
+    <title>GapGuard — verifiable tokenized-stock gap evidence</title>
     <meta
       name="description"
-      content="GapGuard trades the off-hours gap on tokenized US stocks with an adversarial AI desk and a tamper-evident, signed audit trail. Bitget AI Hackathon S1, Track 3."
+      content="GapGuard evaluates the off-hours gap on tokenized US stocks with deterministic Quorum evidence, an explicit Qwen gate audit, and a tamper-evident signed trail. Bitget AI Hackathon S1, Track 3."
     />
     <link
       rel="icon"
@@ -621,7 +621,7 @@
           <a class="hide-sm" href="#how">How it works</a>
           <a class="hide-sm" href="#proof">Proof</a>
           <a class="hide-sm" href="#field">vs the field</a>
-          <a class="pill" href="arena.html">Live cockpit →</a>
+          <a class="pill" href="arena.html">Arena cockpit →</a>
         </nav>
       </div>
     </header>
@@ -631,35 +631,35 @@
       <div class="wrap hero-in">
         <span class="eyebrow"><span class="dot"></span> Bitget AI Hackathon S1 · Track 3 · US Stock AI Trading</span>
         <h1 class="title">
-          Trade the off-hours gap on tokenized US stocks —
+          Judge the off-hours gap on tokenized US stocks —
           <span class="grad">and prove every call.</span>
         </h1>
         <p class="sub">
           A tokenized stock trades 24/7; the underlying market is open ~6.5h a day.
-          GapGuard fades the overnight gap <em>only when an adversarial AI desk judges
-          it noise</em>, stands aside on real news, and seals every decision into a
-          signed, tamper-evident audit trail a judge can re-verify in the browser.
+          GapGuard's public build replays an evidence-weighted deterministic Quorum
+          scenario, names the live Qwen gate only in the audit path, and seals every
+          decision into a signed, tamper-evident trail a judge can re-verify in the browser.
         </p>
         <div class="cta-row">
-          <a class="btn primary" href="arena.html">Open the live cockpit →</a>
-          <a class="btn ghost" href="#proof">See the measured edge</a>
+          <a class="btn primary" href="arena.html">Open the Arena cockpit →</a>
+          <a class="btn ghost" href="#proof">See the evidence</a>
         </div>
 
         <div class="metrics">
           <div class="metric reveal">
-            <div class="v">+1.87%</div>
-            <div class="l">news-aware vs −0.31% always-fade</div>
+            <div class="v">790</div>
+            <div class="l">RWA sample trades · 20 symbols</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">11/11</div>
-            <div class="l">live gate accuracy · stands aside on WWDC</div>
+            <div class="v cyan">+2.62%</div>
+            <div class="l">walk-forward RWA cert · 16 OOS days</div>
           </div>
           <div class="metric reveal">
             <div class="v">Ed25519</div>
             <div class="l">signed Merkle audit · verify in-browser</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">93 / 0</div>
+            <div class="v cyan">109 / 0</div>
             <div class="l">tests passing · typecheck clean</div>
           </div>
         </div>
@@ -700,7 +700,7 @@
           <div class="step reveal">
             <div class="no">WHITE SPACE</div>
             <h3>Nobody owns it</h3>
-            <p>The off-hours-gap edge on tokenized equities is documented yet unproductized.</p>
+            <p>The off-hours-gap hypothesis on tokenized equities is visible, testable, and still unproductized.</p>
           </div>
         </div>
       </div>
@@ -714,7 +714,7 @@
         <div class="steps">
           <div class="step reveal">
             <div class="no">01 · PERCEIVE</div>
-            <h3>Live RWA data</h3>
+            <h3>Read-only RWA data</h3>
             <p>
               Read-only Bitget RWA perps (<span class="mono">isRwa=YES</span>), ticker,
               funding, spread, plus a deterministic off-hours dislocation from the
@@ -754,60 +754,69 @@
     <!-- PROOF -->
     <section id="proof">
       <div class="wrap">
-        <div class="kicker reveal">03 — The measured edge</div>
+        <div class="kicker reveal">03 — The evidence</div>
         <h2 class="sec reveal">
-          The always-fade baseline is flat. The <em>judgment</em> is the edge — and we measured it.
+          The naive baseline fails at scale. The <em>judgment layer</em> is the product.
         </h2>
         <p class="lede reveal">
           On real public Bitget <span class="mono">AAPLUSDT</span> candles
-          (2026-05-12 → 06-18), blindly fading every gap is ~flat. An agent that stands
-          aside on <strong style="color:var(--ink)">verified catalysts</strong> — chiefly
-          not fading the WWDC keynote reaction — turns that into a real result. The live
-          Qwen gate makes that call itself.
+          (2026-05-12 → 06-18), blindly fading every gap is ~flat. Across a broader
+          20-symbol RWA basket, it is negative. A locked walk-forward rule then
+          tests the opposite regime: follow only when prior same-direction RWA
+          gaps have earned it. GapGuard sells that gate, the risk governor, and
+          the proof layer that decide when the agent is allowed to leave simulation.
         </p>
 
         <div class="grid2">
           <div class="panel reveal">
-            <h3>News-aware backtest <span class="mono" style="color:var(--dim);font-size:12px">npm run backtest:news</span></h3>
+            <h3>Backtests <span class="mono" style="color:var(--dim);font-size:12px">npm run backtest:multi</span></h3>
             <table class="data">
               <thead>
                 <tr><th>Strategy</th><th>Return</th><th>Trades</th><th>Win</th></tr>
               </thead>
               <tbody>
-                <tr><td>always-fade (baseline)</td><td class="down">−0.31%</td><td>15</td><td>40%</td></tr>
-                <tr class="row-hi"><td>AAPL-news-aware</td><td>+1.87%</td><td>13</td><td>46%</td></tr>
-                <tr><td>all-catalyst-aware</td><td class="up">+1.37%</td><td>10</td><td>50%</td></tr>
+                <tr><td>AAPL always-fade</td><td class="down">−0.397%</td><td>15</td><td>40%</td></tr>
+                <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td class="up">+1.346%</td><td>13</td><td>38.5%</td></tr>
+                <tr><td>AAPL label-aware</td><td>+1.793%</td><td>13</td><td>46%</td></tr>
+                <tr><td>20-symbol always-fade</td><td class="down">−8.233%</td><td>790</td><td>44%</td></tr>
+                <tr class="row-hi"><td>Walk-forward RWA cert (16 OOS days)</td><td class="up">+2.62%</td><td>116</td><td>54.3%</td></tr>
               </tbody>
             </table>
             <p class="note">
-              <strong>Honest caveat:</strong> n=15 over ~6 weeks; the lift is driven mainly
-              by one event (WWDC) — illustrative of the mechanism, not statistically
-              significant. Catalyst dates are verified against Apple / Fed / BLS sources.
+              <strong>Honest caveat:</strong> on real blinded Finnhub news the Qwen gate scores
+              12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.346% —
+              driven mainly by that one catalyst, small sample. The +1.793% row is a
+              label-grounded baseline, not an AI edge. The walk-forward cert is on just 16 OOS
+              trading days — a hypothesis, not a live edge; we don't headline a Sharpe at that sample.
             </p>
           </div>
 
           <div class="panel reveal">
-            <h3>Live gate — the AI makes the call</h3>
+            <h3>Blinded gate audit</h3>
             <table class="data">
               <thead>
                 <tr><th>Session</th><th>Verdict</th></tr>
               </thead>
               <tbody>
-                <tr><td>10 quiet sessions</td><td class="up">fade ✓</td></tr>
-                <tr class="row-hi"><td>WWDC (2026-06-09)</td><td>stand aside ✓</td></tr>
-                <tr><td>FOMC / jobs days</td><td class="up">stand aside ✓</td></tr>
+                <tr><td>Prompt input</td><td>real Finnhub headlines (blinded)</td></tr>
+                <tr><td>Holdout labels</td><td>separate file</td></tr>
+                <tr><td>Accuracy</td><td class="up">12/15 (80%)</td></tr>
+                <tr class="row-hi"><td>WWDC call</td><td class="up">stood aside ✓</td></tr>
+                <tr><td>Gate-driven</td><td class="up">+1.346% vs −0.475%</td></tr>
               </tbody>
             </table>
             <p class="note">
-              The live Qwen convergence gate scored <strong>11/11 = 100%</strong> on the
-              scorable gaps — fading every quiet session and standing aside on the WWDC
-              gap, avoiding the −1.96% loss the baseline took.
+              The audit no longer feeds Qwen the answer key. On <strong style="color:var(--ink)">real,
+              blinded Finnhub headlines</strong> it scores every AAPL gap after the model returns,
+              and writes a verdict cache that <span class="mono">backtest:news</span> replays
+              honestly. On real news Qwen scores 12/15 and <strong style="color:var(--ink)">correctly
+              stands aside on WWDC</strong>, turning the −0.475% always-fade baseline into +1.346%.
             </p>
             <p class="note" style="margin-top:10px">
               <strong>Certified:</strong> a Bitget Playbook managed run
               (<span class="mono">pbrun-e3fe0ec8c873</span>) completed on
-              <span class="mono">AAPLUSDT.BITGET</span> — 38 trades, the first completed
-              managed backtest on a real tokenized US stock.
+              <span class="mono">AAPLUSDT.BITGET</span> — 38 trades, honest flat/negative
+              Sharpe, the first completed managed backtest on a real tokenized US stock.
             </p>
           </div>
         </div>
@@ -831,10 +840,10 @@
             <p style="margin-top:12px"><span class="hashpill"><span class="chk">✓</span> <span id="rootpill" class="mono">Ed25519 · Merkle root verified</span></span></p>
             <div class="codeblock">
 <span class="k">"alg"</span>: <span class="s">"Ed25519"</span>,
-<span class="k">"merkleRoot"</span>: <span class="s">"a83bc0…e704"</span>,
+<span class="k">"merkleRoot"</span>: <span class="s">"c3bb60…8a9e"</span>,
 <span class="k">"recordCount"</span>: 11,
-<span class="k">"model"</span>: <span class="s">"qwen3.6-plus + deterministic"</span>,
-<span class="k">"signatureB64"</span>: <span class="s">"oNxtJygw…"</span>
+<span class="k">"model"</span>: <span class="s">"Qwen gate cache + deterministic Quorum"</span>,
+<span class="k">"signatureB64"</span>: <span class="s">"bBSN61mb…"</span>
             </div>
             <p class="note">
               A compact "verify, don't trust" fingerprint aligned with MiFID II / EU AI Act
@@ -844,10 +853,12 @@
           <div class="panel reveal">
             <h3>What you can run yourself</h3>
             <ul class="checks">
-              <li><span class="mono">npm test</span> — 93 tests, typecheck clean</li>
+              <li><span class="mono">npm test</span> — 109 tests, typecheck clean</li>
               <li><span class="mono">npm run backtest</span> — real AAPLUSDT gap backtest, no key</li>
-              <li><span class="mono">npm run backtest:news</span> — the +1.87% news-aware variant</li>
-              <li><span class="mono">npm run gate:audit</span> — live gate, 11/11</li>
+              <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
+              <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA alpha certification</li>
+              <li><span class="mono">npm run backtest:news</span> — label baseline + gate cache replay</li>
+              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache on real Finnhub news; +1.346% gate-driven, WWDC correct</li>
               <li><span class="mono">npm run arena:cockpit</span> — rebuild the signed chain</li>
               <li>Open <span class="mono">arena.html</span> → Verify chain, then Simulate tampering</li>
             </ul>
@@ -888,8 +899,8 @@
               <td class="no">No</td>
             </tr>
             <tr>
-              <th>Live execution under a risk governor</th>
-              <td class="yes us">Yes — gated, capped</td>
+              <th>Execution rail under a risk governor</th>
+              <td class="yes us">RWA dry-run + crypto Demo fill; live gated/capped</td>
               <td class="no">Backtest / educational</td>
               <td class="no">No</td>
             </tr>
@@ -900,8 +911,8 @@
               <td class="yes">Audit only (post-hoc)</td>
             </tr>
             <tr>
-              <th>Measured only-AI edge</th>
-              <td class="yes us">11/11 live gate, +1.87%</td>
+              <th>Measured evidence discipline</th>
+              <td class="yes us">790-trade baseline + blinded gate cache</td>
               <td class="no">Asserted</td>
               <td class="no">N/A</td>
             </tr>
@@ -910,20 +921,100 @@
         <p class="note">
           Sources: TradingAgents (arXiv 2412.20138), ai-hedge-fund (virattt), Recall
           (recall.network), VeritasChain (veritaschain.org). The off-hours reversion edge is
-          documented (SSRN) yet, per public sources, unproductized — that's the white space.
+          treated as a hypothesis here; the SSRN abstract is not enough to claim the full
+          paper proves it. Per public sources, the tokenized-stock gap product remains
+          unproductized — that's the white space.
         </p>
+      </div>
+    </section>
+
+    <style>
+      /* Interactive: News Desk + replay scrubber + mandate editor */
+      .verdict-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); }
+      .badge-noise { color: var(--lime); border-color: var(--line-strong); background: rgba(215, 255, 106, 0.08); }
+      .badge-news { color: var(--cyan); border-color: rgba(102, 217, 239, 0.4); background: rgba(102, 217, 239, 0.08); }
+      .scrubber { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+      .scrub-btn { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ink); background: rgba(244, 244, 236, 0.04); border: 1px solid var(--line); border-radius: 7px; padding: 8px 12px; cursor: pointer; transition: border-color 140ms ease; }
+      .scrub-btn:hover { border-color: var(--cyan); }
+      .desk-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; }
+      @media (max-width: 820px) { .desk-grid { grid-template-columns: 1fr; } }
+      .desk-news { white-space: pre-wrap; font-size: 12px; line-height: 1.65; color: var(--muted); max-height: 240px; overflow: auto; margin: 8px 0 0; background: #0a0c08; border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+      .desk-rationale { margin-top: 8px; color: var(--ink); font-size: 15px; line-height: 1.5; }
+      .desk-stats { display: flex; gap: 26px; margin-top: 18px; }
+      .desk-stats .lab { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+      .desk-stats .mono { font-size: 16px; }
+      .mandate-input { width: 100%; box-sizing: border-box; background: #0a0c08; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 12px; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; resize: vertical; }
+      .mandate-rules { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+      .rule-chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line-strong); background: rgba(215, 255, 106, 0.06); border-radius: 8px; padding: 8px 12px; font-size: 13px; }
+      .rule-effect { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; }
+      .rule-effect.veto { color: var(--red); border-color: rgba(255, 98, 112, 0.4); }
+    </style>
+
+    <!-- 06 AGENT NEWS DESK + REPLAY -->
+    <section id="newsdesk">
+      <div class="wrap">
+        <div class="kicker reveal">06 — Agent News Desk</div>
+        <h2 class="sec reveal">Watch the AI read the news and call each gap.</h2>
+        <p class="lede reveal">
+          Real Finnhub headlines from before each US open, fed <em>blinded</em> to the Qwen
+          gate (no answer key). Scrub through every backtest gap and see the verdict, the
+          evidence it read, and the outcome.
+        </p>
+        <div class="panel reveal" id="newsDeskPanel">
+          <div class="scrubber">
+            <button id="prevGap" class="scrub-btn" type="button">‹ Prev</button>
+            <span id="gapPos" class="mono" style="color:var(--dim)">gap — / —</span>
+            <button id="nextGap" class="scrub-btn" type="button">Next ›</button>
+            <span id="gapDate" class="mono" style="color:var(--ink);font-weight:700"></span>
+            <span id="verdictBadge" class="verdict-badge">—</span>
+          </div>
+          <div class="desk-grid">
+            <div>
+              <div class="eyebrow" style="color:var(--dim);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.06em">Overnight headlines (Finnhub, blinded)</div>
+              <pre id="deskNews" class="desk-news">loading…</pre>
+            </div>
+            <div>
+              <div class="eyebrow" style="color:var(--dim);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.06em">Gate verdict</div>
+              <p id="deskRationale" class="desk-rationale">—</p>
+              <div class="desk-stats">
+                <div><span class="mono" id="deskDecision">—</span><br /><span class="lab">decision</span></div>
+                <div><span class="mono" id="deskPnl">—</span><br /><span class="lab">if faded</span></div>
+                <div><span class="mono" id="deskCorrect">—</span><br /><span class="lab">vs holdout</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="note" style="margin-top:16px">Data: <span class="mono">gate-verdicts.json</span> — produced by <span class="mono">npm run gate:audit</span> on real Finnhub news. 12/15 correct; WWDC correctly stood aside.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 RISK MANDATE EDITOR -->
+    <section id="mandate">
+      <div class="wrap">
+        <div class="kicker reveal">07 — Risk mandate</div>
+        <h2 class="sec reveal">Write the rule in English. Watch it compile to hard limits.</h2>
+        <p class="lede reveal">
+          The same compiler the agent uses (<span class="mono">src/mandate.ts</span>) turns
+          plain English into enforced vetoes. Edit the mandate and recompile — these are
+          hard gates, not suggestions.
+        </p>
+        <div class="panel reveal">
+          <textarea id="mandateInput" class="mandate-input" rows="3" spellcheck="false">Never lose >2% overnight. Max 10% position. Stay flat when evidence conflicts.</textarea>
+          <button id="compileMandate" class="btn primary" type="button" style="margin-top:12px">Compile mandate →</button>
+          <div id="mandateRules" class="mandate-rules"></div>
+        </div>
       </div>
     </section>
 
     <div class="final wrap">
       <h2>Judge the gap. Earn trust. Then trade.</h2>
       <p>
-        The whole agent runs today — live RWA perception, the adversarial desk, the risk
-        mandate, the verifiable chain, and reproducible backtests. Open the cockpit and
-        re-verify it yourself.
+        The public artifact runs today — read-only RWA market evidence, deterministic
+        Quorum scenario, dry-run broker rail, verifiable chain, and reproducible
+        backtests. Open the cockpit and re-verify the boundaries yourself.
       </p>
       <div class="cta-row">
-        <a class="btn primary" href="arena.html">Open the live cockpit →</a>
+        <a class="btn primary" href="arena.html">Open the Arena cockpit →</a>
         <a class="btn ghost" href="dashboard.html">Replay dashboard</a>
       </div>
     </div>
@@ -967,6 +1058,70 @@
           }
         })
         .catch(() => {});
+
+      // --- Agent News Desk + replay scrubber (#1 badge, #2 desk, #4 scrubber) ---
+      fetch("gate-verdicts.json")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!data || !Array.isArray(data.verdicts) || !data.verdicts.length) return;
+          const v = data.verdicts;
+          const wwdc = v.findIndex((x) => x.date === "2026-06-09");
+          let i = wwdc >= 0 ? wwdc : v.length - 1; // open on the headline case
+          const $ = (id) => document.getElementById(id);
+          function render() {
+            const g = v[i];
+            const isNews = !g.fadeable;
+            $("gapPos").textContent = `gap ${i + 1} / ${v.length}`;
+            $("gapDate").textContent = g.date;
+            const badge = $("verdictBadge");
+            badge.textContent = isNews ? "NEWS · stand aside" : "NOISE · fade";
+            badge.className = "verdict-badge " + (isNews ? "badge-news" : "badge-noise");
+            $("deskNews").textContent = g.newsSummary || "—";
+            $("deskRationale").textContent = g.rationale || "—";
+            $("deskDecision").textContent = isNews ? "STAND ASIDE" : "FADE";
+            const ret = typeof g.returnPct === "number" ? g.returnPct : 0;
+            const pnlEl = $("deskPnl");
+            pnlEl.textContent = (ret > 0 ? "+" : "") + ret + "%";
+            pnlEl.className = "mono " + (ret > 0 ? "up" : "down");
+            const okEl = $("deskCorrect");
+            okEl.textContent = g.correct ? "✓ correct" : "✗ miss";
+            okEl.className = "mono " + (g.correct ? "up" : "down");
+          }
+          $("prevGap").addEventListener("click", () => { i = (i - 1 + v.length) % v.length; render(); });
+          $("nextGap").addEventListener("click", () => { i = (i + 1) % v.length; render(); });
+          render();
+        })
+        .catch(() => {});
+
+      // --- Risk mandate editor (#5) — ports src/mandate.ts compileMandate ---
+      function compileMandate(text) {
+        const lower = text.toLowerCase();
+        const rules = [];
+        const ovn = lower.match(/(?:never\s+)?lose\s*>\s*(\d+(?:\.\d+)?)%\s*overnight/);
+        const pos = lower.match(/max\s*(\d+(?:\.\d+)?)%\s*position/);
+        if (ovn) rules.push({ label: `overnight loss ≤ ${ovn[1]}%`, effect: "hard veto" });
+        if (pos) rules.push({ label: `position ≤ ${pos[1]}%`, effect: "risk config" });
+        if (lower.includes("evidence conflicts"))
+          rules.push({ label: "stay flat when evidence conflicts", effect: "hard veto" });
+        return rules;
+      }
+      function renderMandate() {
+        const rules = compileMandate(document.getElementById("mandateInput").value);
+        const out = document.getElementById("mandateRules");
+        if (!rules.length) {
+          out.innerHTML =
+            '<p class="note">No supported rule found. Try: "never lose &gt;2% overnight", "max 10% position", "stay flat when evidence conflicts".</p>';
+          return;
+        }
+        out.innerHTML = rules
+          .map(
+            (r) =>
+              `<div class="rule-chip"><span class="mono">${r.label}</span> <span class="rule-effect ${r.effect === "hard veto" ? "veto" : ""}">${r.effect}</span></div>`,
+          )
+          .join("");
+      }
+      document.getElementById("compileMandate").addEventListener("click", renderMandate);
+      renderMandate();
     </script>
   </body>
 </html>

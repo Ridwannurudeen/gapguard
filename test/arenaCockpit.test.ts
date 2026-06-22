@@ -63,7 +63,7 @@ describe("arena cockpit data", () => {
     });
   });
 
-  it("summarizes the licensed desk, rejected bot, and gated broker path", async () => {
+  it("summarizes the paper-only desk, rejected bot, and gated broker path", async () => {
     const proof: GapGuardProofSummary = {
       ok: true,
       count: 5,
@@ -93,7 +93,8 @@ describe("arena cockpit data", () => {
     );
 
     expect(data.status).toMatchObject({
-      licensedAgents: 1,
+      licensedAgents: 0,
+      paperOnlyAgents: 1,
       rejectedAgents: 1,
       paperEvidence: "missing",
       liveStatus: "gated",

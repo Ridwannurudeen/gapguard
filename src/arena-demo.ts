@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
   type AgentPassport,
@@ -14,11 +14,13 @@ import {
 } from "./arena-chain";
 import {
   buildArenaScenario,
+  buildArenaScenarioFromRwaMarket,
   type ArenaAgentDecision,
   type ArenaScenario,
 } from "./arenaScenario";
 import { type BrokerResult } from "./liveStockBroker";
 import { decideQuorum, type QuorumDecision } from "./quorum";
+import type { RwaMarketReport } from "./rwa-market";
 import { placeSimulatedFuturesOrder } from "./simBroker";
 
 const liveCap = Number(process.env.LIVE_MAX_NOTIONAL_USDT ?? "20");
@@ -35,6 +37,8 @@ export interface ArenaDemoArtifact {
     graduationStatus: string;
   };
   mandate: ArenaScenario["mandate"];
+  perception: ArenaScenario["perception"];
+  evidence: ArenaScenario["evidence"];
   quorumDecision: QuorumDecision;
   naiveDecision: ArenaAgentDecision;
   passports: AgentPassport[];
@@ -46,18 +50,64 @@ export interface ArenaDemoArtifact {
   };
 }
 
+function graduationStatus(
+  passports: AgentPassport[],
+  evidence: ArenaScenario["evidence"],
+): string {
+  const quorum =
+    passports.find((passport) => passport.agentId === "quorum-rwa-desk") ??
+    passports[0];
+
+  if (quorum?.grade === "LICENSED") {
+    return "licensed_waiting_explicit_approval";
+  }
+
+  if (evidence.backtest.alphaStatus === "positive") {
+    return quorum?.findings.some((finding) =>
+      finding.includes("fewer than 3 paper trades"),
+    )
+      ? "alpha_certified_waiting_paper_fill"
+      : "alpha_certified_paper_only";
+  }
+
+  return "sim_dry_run_only_alpha_unproven";
+}
+
 function sideFromQuorum(decision: ReturnType<typeof decideQuorum>) {
   if (decision.winningVote === "short") return "open_short";
   if (decision.winningVote === "long") return "open_long";
   throw new Error("flat quorum decision has no order side");
 }
 
-export function buildArenaPassports() {
-  const scenario = buildArenaScenario(
+function readRwaMarketForArena(): RwaMarketReport | null {
+  const path = resolve(
+    process.env.ARENA_RWA_MARKET_PATH ?? "public/rwa-market.json",
+  );
+  if (!existsSync(path)) return null;
+  return JSON.parse(readFileSync(path, "utf8")) as RwaMarketReport;
+}
+
+function buildScenarioForArena(): ArenaScenario {
+  const report = readRwaMarketForArena();
+  if (report) {
+    return buildArenaScenarioFromRwaMarket(
+      report,
+      process.env.ARENA_LIVE_SYMBOL ??
+        report.selectedLiveSymbol ??
+        report.defaultLiveSymbol,
+      referencePrice,
+      liveCap,
+    );
+  }
+  return buildArenaScenario(
     process.env.ARENA_LIVE_SYMBOL ?? "NVDAUSDT",
     referencePrice,
     liveCap,
   );
+}
+
+export function buildArenaPassports() {
+  const scenario = buildScenarioForArena();
   return rankPassports([
     issuePassport(scenario.quorumCandidate),
     issuePassport(scenario.naiveCandidate),
@@ -65,6 +115,8 @@ export function buildArenaPassports() {
 }
 
 export function buildDefaultQuorumDecision(symbol: string) {
+  const scenario = buildScenarioForArena();
+  if (scenario.symbol === symbol) return scenario.quorumDecision;
   return decideQuorum(
     symbol,
     buildArenaScenario(symbol, referencePrice, liveCap).quorumOpinions,
@@ -89,6 +141,7 @@ function buildArenaChainInputs(
       kind: "quorum_decision",
       agentId: scenario.quorumAgentDecision.agentId,
       payload: {
+        perception: scenario.perception,
         decision: scenario.quorumDecision,
         mandate: scenario.quorumAgentDecision,
       },
@@ -125,11 +178,7 @@ function buildArenaChainInputs(
 
 export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
   const ts = new Date().toISOString();
-  const scenario = buildArenaScenario(
-    process.env.ARENA_LIVE_SYMBOL ?? "NVDAUSDT",
-    referencePrice,
-    liveCap,
-  );
+  const scenario = buildScenarioForArena();
   const passports = rankPassports([
     issuePassport(scenario.quorumCandidate),
     issuePassport(scenario.naiveCandidate),
@@ -144,7 +193,7 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
       symbol: scenario.quorumDecision.symbol,
       side: sideFromQuorum(scenario.quorumDecision),
       size: orderSize,
-      referencePrice,
+      referencePrice: scenario.referencePrice,
     },
     {
       mode: "dry_run",
@@ -168,11 +217,13 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
     generatedAt: ts,
     arena: {
       thesis:
-        "The Arena does not trust autonomous agents by default; it makes them earn a passport before any real capital is unlocked.",
+        "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
       liveInstrument: graduationDryRun.plan.order.symbol,
-      graduationStatus: "sim_dry_run_ready",
+      graduationStatus: graduationStatus(passports, scenario.evidence),
     },
     mandate: scenario.mandate,
+    perception: scenario.perception,
+    evidence: scenario.evidence,
     quorumDecision: scenario.quorumDecision,
     naiveDecision: scenario.naiveAgentDecision,
     passports,

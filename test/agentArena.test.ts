@@ -18,6 +18,15 @@ const quorum: AgentCandidate = {
     debateRounds: 3,
     rejectedTrades: 2,
     backtestSharpe: 1.2,
+    backtest: {
+      source: "artifacts/example-positive.json",
+      variant: "gateDriven",
+      returnPct: 1.2,
+      sharpeAnnualized: 1.2,
+      totalTrades: 25,
+      alphaStatus: "positive",
+      note: "positive fixture for license test",
+    },
   },
   controls: {
     riskGovernor: true,
@@ -52,6 +61,29 @@ describe("agent arena passports", () => {
     expect(passport.grade).toBe("PAPER_ONLY");
     expect(passport.license.liveTradingAllowed).toBe(false);
     expect(passport.findings).toContain("no live read-only Bitget evidence");
+  });
+
+  it("keeps a controlled agent paper-only when alpha is not live-certified", () => {
+    const passport = issuePassport({
+      ...quorum,
+      evidence: {
+        ...quorum.evidence,
+        backtestSharpe: -1.45,
+        backtest: {
+          source: "artifacts/aaplusdt-news-aware-backtest.json",
+          variant: "gateDriven",
+          returnPct: -2.165,
+          sharpeAnnualized: -1.45,
+          totalTrades: 13,
+          alphaStatus: "negative",
+          note: "gate-driven AI path is negative",
+        },
+      },
+    });
+
+    expect(passport.grade).toBe("PAPER_ONLY");
+    expect(passport.license.liveTradingAllowed).toBe(false);
+    expect(passport.findings.join(" | ")).toContain("alpha not live-certified");
   });
 
   it("rejects a narrative bot with no risk governor or hash chain", () => {
