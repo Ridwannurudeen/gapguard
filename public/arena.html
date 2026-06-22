@@ -1675,16 +1675,38 @@
         });
       }
 
+      // The chain auto-verifies on load, so a re-verify often yields an identical
+      // result. Give an explicit on-click signal so the button never feels dead.
+      async function runVerify(btn) {
+        const original = btn ? btn.textContent : null;
+        if (btn) {
+          btn.textContent = "Verifying…";
+          btn.disabled = true;
+        }
+        const el = document.getElementById("hashStatus");
+        if (el) {
+          el.textContent = "VERIFYING…";
+          el.className = "stat-value";
+        }
+        await new Promise((resolve) => setTimeout(resolve, 220));
+        await refreshChain();
+        if (btn && original !== null) {
+          btn.textContent = original;
+          btn.disabled = false;
+        }
+      }
+
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
         chainRecords = await loadJsonl("arena-chain.jsonl");
         render(data);
-        document
-          .getElementById("verifyButton")
-          .addEventListener("click", () => void refreshChain());
-        document
-          .getElementById("heroVerifyButton")
-          .addEventListener("click", () => void refreshChain());
+        const verifyButton = document.getElementById("verifyButton");
+        verifyButton.addEventListener("click", () => void runVerify(verifyButton));
+        const heroVerifyButton = document.getElementById("heroVerifyButton");
+        heroVerifyButton.addEventListener(
+          "click",
+          () => void runVerify(heroVerifyButton),
+        );
         bindTamper("tamperButton");
         bindTamper("heroTamperButton");
         await refreshChain();
