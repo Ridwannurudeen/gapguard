@@ -184,8 +184,9 @@ export function buildArenaCockpitData(
     status: {
       licensedAgents: artifact.passports.filter((p) => p.grade === "LICENSED")
         .length,
-      paperOnlyAgents: artifact.passports.filter((p) => p.grade === "PAPER_ONLY")
-        .length,
+      paperOnlyAgents: artifact.passports.filter(
+        (p) => p.grade === "PAPER_ONLY",
+      ).length,
       rejectedAgents: artifact.passports.filter((p) => p.grade === "REJECTED")
         .length,
       paperEvidence: paperTrade ? "proven" : "missing",
@@ -276,6 +277,39 @@ export async function runArenaCockpitCli(): Promise<void> {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify(data, null, 2)}\n`);
   console.log(`Agent Arena cockpit data: ${out}`);
+
+  // Publish the gate verdicts (real Finnhub news + NOISE/NEWS call + P&L per gap)
+  // for the cockpit's Agent News Desk + replay scrubber.
+  const verdictsSrc = resolve("data/aaplusdt-gate-verdicts.json");
+  if (existsSync(verdictsSrc)) {
+    const cache = JSON.parse(readFileSync(verdictsSrc, "utf8")) as {
+      asset?: string;
+      model?: string;
+      generatedAt?: string;
+      verdicts?: unknown[];
+      results?: unknown[];
+    };
+    const rows = (cache.verdicts ?? cache.results ?? []) as Array<
+      Record<string, unknown>
+    >;
+    const verdicts = rows.map((v) => ({
+      date: v.date,
+      fadeable: v.fadeable,
+      multiplier: v.multiplier,
+      returnPct: v.returnPct,
+      correct: v.correct,
+      newsSummary: v.newsSummary,
+      rationale: v.rationale,
+    }));
+    const newsOut = resolve("public/gate-verdicts.json");
+    writeFileSync(
+      newsOut,
+      `${JSON.stringify({ asset: cache.asset, model: cache.model, generatedAt: cache.generatedAt, verdicts }, null, 2)}\n`,
+    );
+    console.log(
+      `Agent News Desk data: ${newsOut} (${verdicts.length} verdicts)`,
+    );
+  }
 }
 
 if (process.argv[1]?.endsWith("arena-cockpit.ts")) {
