@@ -83,6 +83,12 @@ export interface AlphaCertificationReport {
   outOfSample: {
     alphaStatus: "positive" | "negative" | "unproven";
     metrics: BacktestMetrics;
+    riskAdjusted: {
+      sharpePerTrade: number;
+      portfolioDailySharpeAnnualized: number;
+      oosTradingDays: number;
+      note: string;
+    };
     vsAlwaysFadeReturnPct: number;
     selectedTrades: Trade[];
     rejectedCandidates: number;
@@ -131,7 +137,8 @@ function gapCandidates(
     if (Math.abs(gap) < GAP_THRESHOLD) continue;
 
     const fadeDirection: Direction = gap > 0 ? "short" : "long";
-    const followDirection: Direction = fadeDirection === "short" ? "long" : "short";
+    const followDirection: Direction =
+      fadeDirection === "short" ? "long" : "short";
     const grossFade =
       fadeDirection === "short"
         ? (today.openPrice - today.closePrice) / today.openPrice
@@ -153,7 +160,9 @@ function gapCandidates(
 }
 
 function outOfSampleStart(candidates: GapCandidate[]): string {
-  const dates = [...new Set(candidates.map((candidate) => candidate.date))].sort();
+  const dates = [
+    ...new Set(candidates.map((candidate) => candidate.date)),
+  ].sort();
   const index = Math.floor(dates.length * FORMATION_FRACTION);
   return dates[index] ?? dates[dates.length - 1] ?? "1970-01-01";
 }
@@ -181,9 +190,9 @@ function toTrade(
 
 function compoundBySymbol(
   candidates: GapCandidate[],
-  selector: (candidate: GapCandidate) =>
-    | { direction: Direction; returnPct: number }
-    | null,
+  selector: (
+    candidate: GapCandidate,
+  ) => { direction: Direction; returnPct: number } | null,
 ): Trade[] {
   const balances = new Map<string, number>();
   const trades: Trade[] = [];
@@ -203,7 +212,10 @@ function compoundBySymbol(
   return trades;
 }
 
-function summarizeOos(trades: Trade[], sessions: DaySession[]): BacktestMetrics {
+function summarizeOos(
+  trades: Trade[],
+  sessions: DaySession[],
+): BacktestMetrics {
   return summarize(trades, sessions, START_EQUITY);
 }
 
@@ -222,8 +234,40 @@ function portfolioMetrics(
     (symbolCount - endingBySymbol.size) * START_EQUITY;
   return {
     ...base,
-    totalReturnPct: +((endingEquity / (symbolCount * START_EQUITY) - 1) * 100).toFixed(3),
+    totalReturnPct: +(
+      (endingEquity / (symbolCount * START_EQUITY) - 1) *
+      100
+    ).toFixed(3),
     endingEquity: +endingEquity.toFixed(2),
+  };
+}
+
+/**
+ * Honest portfolio risk-adjusted stats. Same-day trades across symbols are correlated,
+ * parallel positions — not independent sequential bets — so we aggregate each day's
+ * trades into ONE equal-weight daily portfolio return and Sharpe-annualize by sqrt(252).
+ * This avoids the inflation of per-trade Sharpe x sqrt(trades-per-year), which treats
+ * ~6 parallel daily positions as 6 independent annual bets.
+ */
+function portfolioDailyStats(
+  trades: Trade[],
+  symbolCount: number,
+): { dailySharpeAnnualized: number; oosTradingDays: number } {
+  const byDate = new Map<string, number>();
+  for (const trade of trades) {
+    byDate.set(trade.ts, (byDate.get(trade.ts) ?? 0) + trade.returnPct / 100);
+  }
+  const daily = [...byDate.values()].map((sum) => sum / symbolCount);
+  const n = daily.length;
+  if (n < 2) return { dailySharpeAnnualized: 0, oosTradingDays: n };
+  const mean = daily.reduce((a, b) => a + b, 0) / n;
+  const sd = Math.sqrt(
+    daily.reduce((a, b) => a + (b - mean) ** 2, 0) / (n - 1),
+  );
+  const dailySharpe = sd ? mean / sd : 0;
+  return {
+    dailySharpeAnnualized: +(dailySharpe * Math.sqrt(252)).toFixed(3),
+    oosTradingDays: n,
   };
 }
 
@@ -267,9 +311,14 @@ export function buildAlphaCertificationReport(
         slippage.slippageBps,
       ),
     )
-    .sort((a, b) => a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol));
+    .sort(
+      (a, b) =>
+        a.date.localeCompare(b.date) || a.symbol.localeCompare(b.symbol),
+    );
   const oosStart = outOfSampleStart(candidates);
-  const oosCandidates = candidates.filter((candidate) => candidate.date >= oosStart);
+  const oosCandidates = candidates.filter(
+    (candidate) => candidate.date >= oosStart,
+  );
   const allSessions = bySymbol.flatMap((row) => row.sessions);
 
   const fullSampleAlwaysFade = buildMultiBacktestReport(fixtures, {
@@ -283,17 +332,25 @@ export function buildAlphaCertificationReport(
     direction: candidate.fadeDirection,
     returnPct: candidate.fadeReturnPct,
   }));
-  const oosAlwaysFollowTrades = compoundBySymbol(oosCandidates, (candidate) => ({
-    direction: candidate.followDirection,
-    returnPct: candidate.followReturnPct,
-  }));
+  const oosAlwaysFollowTrades = compoundBySymbol(
+    oosCandidates,
+    (candidate) => ({
+      direction: candidate.followDirection,
+      returnPct: candidate.followReturnPct,
+    }),
+  );
 
   let rejectedCandidates = 0;
   const selectedTrades = compoundBySymbol(oosCandidates, (candidate) => {
-    const index = candidates.indexOf(candidate);
+    // Strictly-earlier dates only: same-date trades (other symbols) resolve at the same
+    // session close, so their outcomes are unknown at this entry — including them in the
+    // trailing signal would leak look-ahead.
     const prior = candidates
-      .slice(0, index)
-      .filter((row) => row.fadeDirection === candidate.fadeDirection)
+      .filter(
+        (row) =>
+          row.date < candidate.date &&
+          row.fadeDirection === candidate.fadeDirection,
+      )
       .slice(-LOOKBACK_TRADES);
     if (prior.length < MIN_PRIOR_TRADES) {
       rejectedCandidates += 1;
@@ -329,6 +386,7 @@ export function buildAlphaCertificationReport(
     allSessions,
     fixtures.length,
   );
+  const selectedDaily = portfolioDailyStats(selectedTrades, fixtures.length);
   const alphaStatus = certifyAlpha(selectedMetrics, oosAlwaysFade);
   const source = outPath.replaceAll("\\", "/");
 
@@ -341,13 +399,20 @@ export function buildAlphaCertificationReport(
     data: {
       manifestPath: manifestPath.replaceAll("\\", "/"),
       source:
-        manifest.source ??
-        "public Bitget /api/v2/mix/market/history-candles",
-      granularity: manifest.granularity ?? fixtures[0]?.granularity ?? "unknown",
+        manifest.source ?? "public Bitget /api/v2/mix/market/history-candles",
+      granularity:
+        manifest.granularity ?? fixtures[0]?.granularity ?? "unknown",
       symbols: fixtures.map((fixture) => fixture.symbol),
       window: {
-        from: manifest.symbols.map((row) => row.from).filter(Boolean).sort()[0],
-        to: manifest.symbols.map((row) => row.to).filter(Boolean).sort().at(-1),
+        from: manifest.symbols
+          .map((row) => row.from)
+          .filter(Boolean)
+          .sort()[0],
+        to: manifest.symbols
+          .map((row) => row.to)
+          .filter(Boolean)
+          .sort()
+          .at(-1),
       },
       inputHash: inputHash(manifest),
     },
@@ -376,6 +441,12 @@ export function buildAlphaCertificationReport(
     outOfSample: {
       alphaStatus,
       metrics: selectedMetrics,
+      riskAdjusted: {
+        sharpePerTrade: selectedMetrics.sharpePerTrade,
+        portfolioDailySharpeAnnualized: selectedDaily.dailySharpeAnnualized,
+        oosTradingDays: selectedDaily.oosTradingDays,
+        note: "Honest risk-adjusted view. BOTH annualized Sharpes are unreliable here — only this many OOS trading days. metrics.sharpeAnnualized is the worst (it annualizes per-trade Sharpe by trade frequency, treating same-day correlated positions as independent sequential bets); portfolioDailySharpeAnnualized aggregates each day into one return but is still noisy at this sample. Lean on the raw OOS return vs always-fade, win rate, and profit factor — not a Sharpe.",
+      },
       vsAlwaysFadeReturnPct: +(
         selectedMetrics.totalReturnPct - oosAlwaysFade.totalReturnPct
       ).toFixed(3),
@@ -386,7 +457,7 @@ export function buildAlphaCertificationReport(
       source,
       variant: "walkForwardRwaFollow",
       returnPct: selectedMetrics.totalReturnPct,
-      sharpeAnnualized: selectedMetrics.sharpeAnnualized,
+      sharpeAnnualized: selectedDaily.dailySharpeAnnualized,
       totalTrades: selectedMetrics.totalTrades,
       alphaStatus,
       note:
@@ -395,9 +466,10 @@ export function buildAlphaCertificationReport(
           : "walk-forward RWA certification did not clear positive alpha requirements; live capital remains disabled",
     },
     limitations: [
-      "83-day public Bitget RWA sample only",
+      `Tiny out-of-sample window: ${selectedDaily.oosTradingDays} OOS trading days (full data ~83 days)`,
+      "metrics.sharpeAnnualized is trade-frequency-annualized and OVERSTATES risk-adjusted return; use portfolioDailySharpeAnnualized — same-day trades are parallel correlated positions, not independent sequential bets",
       "Tokenized RWA futures candles, not underlying-equity exchange candles",
-      "Rule is locked and walk-forward, but still needs more future data before sizing real capital beyond the capped demo",
+      "Rule constants are hardcoded and walk-forward, but not independently proven free of researcher parameter-selection bias; treat as a hypothesis, not a live edge",
       "Live stock-perp fill remains approval-gated and separate from this backtest artifact",
     ],
   };
@@ -416,23 +488,25 @@ export async function runAlphaCertificationCli(): Promise<void> {
   const out = process.argv[3] ?? "artifacts/rwa-alpha-certification.json";
   const report = buildAlphaCertificationReport(manifestPath, out);
   writeAlphaCertificationReport(report, out);
+  const ra = report.outOfSample.riskAdjusted;
   console.log(
-    `RWA alpha certification — ${report.outOfSample.alphaStatus}, ${report.outOfSample.metrics.totalTrades} OOS trades, return ${report.outOfSample.metrics.totalReturnPct}%, Sharpe ${report.outOfSample.metrics.sharpeAnnualized}`,
+    `RWA alpha certification — ${report.outOfSample.alphaStatus}, ${report.outOfSample.metrics.totalTrades} OOS trades over ${ra.oosTradingDays} trading days, return ${report.outOfSample.metrics.totalReturnPct}%, portfolio-daily Sharpe ${ra.portfolioDailySharpeAnnualized} (per-trade ${ra.sharpePerTrade})`,
   );
   console.table({
     selected: {
       "return %": report.outOfSample.metrics.totalReturnPct,
-      "sharpe ann.": report.outOfSample.metrics.sharpeAnnualized,
-      "trades": report.outOfSample.metrics.totalTrades,
+      "daily sharpe": ra.portfolioDailySharpeAnnualized,
+      "per-trade sharpe": ra.sharpePerTrade,
+      trades: report.outOfSample.metrics.totalTrades,
       "win %": report.outOfSample.metrics.winRatePct,
-      "PF": report.outOfSample.metrics.profitFactor,
+      PF: report.outOfSample.metrics.profitFactor,
     },
     "OOS always-fade": {
       "return %": report.baselines.outOfSampleAlwaysFade.totalReturnPct,
       "sharpe ann.": report.baselines.outOfSampleAlwaysFade.sharpeAnnualized,
-      "trades": report.baselines.outOfSampleAlwaysFade.totalTrades,
+      trades: report.baselines.outOfSampleAlwaysFade.totalTrades,
       "win %": report.baselines.outOfSampleAlwaysFade.winRatePct,
-      "PF": report.baselines.outOfSampleAlwaysFade.profitFactor,
+      PF: report.baselines.outOfSampleAlwaysFade.profitFactor,
     },
   });
   console.log(`saved: ${resolve(out)}`);

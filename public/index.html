@@ -651,8 +651,8 @@
             <div class="l">RWA sample trades · 20 symbols</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">+3.785%</div>
-            <div class="l">walk-forward RWA alpha cert</div>
+            <div class="v cyan">+2.62%</div>
+            <div class="l">walk-forward RWA cert · 16 OOS days</div>
           </div>
           <div class="metric reveal">
             <div class="v">Ed25519</div>
@@ -776,18 +776,18 @@
               </thead>
               <tbody>
                 <tr><td>AAPL always-fade</td><td class="down">−0.397%</td><td>15</td><td>40%</td></tr>
-                <tr><td>AAPL gate-driven</td><td class="down">−2.165%</td><td>13</td><td>38.5%</td></tr>
-                <tr class="row-hi"><td>AAPL label-aware</td><td>+1.793%</td><td>13</td><td>46%</td></tr>
+                <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td class="up">+1.346%</td><td>13</td><td>38.5%</td></tr>
+                <tr><td>AAPL label-aware</td><td>+1.793%</td><td>13</td><td>46%</td></tr>
                 <tr><td>20-symbol always-fade</td><td class="down">−8.233%</td><td>790</td><td>44%</td></tr>
-                <tr class="row-hi"><td>Walk-forward RWA cert</td><td>+3.785%</td><td>119</td><td>59.7%</td></tr>
+                <tr class="row-hi"><td>Walk-forward RWA cert (16 OOS days)</td><td class="up">+2.62%</td><td>116</td><td>54.3%</td></tr>
               </tbody>
             </table>
             <p class="note">
-              <strong>Honest caveat:</strong> the Qwen gate scored 14/15 but missed the key
-              WWDC stand-aside, so the true gate-driven row is negative. The +1.793%
-              row is a label-grounded catalyst baseline, not an AI edge claim. The
-              walk-forward row is the current passport alpha evidence and remains
-              bounded by an 83-day sample.
+              <strong>Honest caveat:</strong> on real blinded Finnhub news the Qwen gate scores
+              12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.346% —
+              driven mainly by that one catalyst, small sample. The +1.793% row is a
+              label-grounded baseline, not an AI edge. The walk-forward cert is on just 16 OOS
+              trading days — a hypothesis, not a live edge; we don't headline a Sharpe at that sample.
             </p>
           </div>
 

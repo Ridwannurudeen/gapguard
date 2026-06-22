@@ -1,9 +1,9 @@
 {
   "alg": "Ed25519",
-  "merkleRoot": "e4b145aecfd3fa54758246cd4b632d0044e81240a2ccc8cf292e0321ac06848c",
+  "merkleRoot": "bce2ad46a598c0f827c72ff8c23dd6a43851a51a12097057be51ee9885deee99",
   "recordCount": 11,
-  "signedAt": "2026-06-22T19:26:18.353Z",
+  "signedAt": "2026-06-22T20:46:20.288Z",
   "model": "qwen3.6-plus (desk) + deterministic (gap core)",
   "publicKeySpkiB64": "MCowBQYDK2VwAyEADoXqmETbHZAA02/142/+iCMSzn+Pfs4Rn0IiGNOXYRc=",
-  "signatureB64": "fOEX1owjUYHAI3GCwY3/D+VDDfHZHxM9kef/TRgOCpQKWsHM60d4U+SYjMpp1auJW6Mt7v3Xa9EiFaubW568AA=="
+  "signatureB64": "SV2wYS7rdXsheLYCOuis4j1Gb1IPzr7vvU97Qn/b39QSoHptGx8BL8dOa594NyQm92oZXK0Nz8uPJIQW0LQzBw=="
 }

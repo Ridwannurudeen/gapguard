@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-22T19:25:38.254Z",
+  "generatedAt": "2026-06-22T20:43:30.780Z",
   "strategy": "GapGuard walk-forward RWA gap-follow certification",
   "claim": "Walk-forward out-of-sample evidence for selective RWA gap-following after costs; not a live-fill claim.",
   "data": {
@@ -87,77 +87,23 @@
   "outOfSample": {
     "alphaStatus": "positive",
     "metrics": {
-      "totalReturnPct": 3.785,
-      "sharpePerTrade": 0.285,
-      "sharpeAnnualized": 6.511,
-      "maxDrawdownPct": 25.623,
-      "winRatePct": 59.7,
-      "totalTrades": 119,
-      "profitFactor": 2.2,
-      "endingEquity": 20757.07
+      "totalReturnPct": 2.62,
+      "sharpePerTrade": 0.197,
+      "sharpeAnnualized": 4.443,
+      "maxDrawdownPct": 25.444,
+      "winRatePct": 54.3,
+      "totalTrades": 116,
+      "profitFactor": 1.73,
+      "endingEquity": 20524.05
     },
-    "vsAlwaysFadeReturnPct": 9.256,
+    "riskAdjusted": {
+      "sharpePerTrade": 0.197,
+      "portfolioDailySharpeAnnualized": 4.41,
+      "oosTradingDays": 16,
+      "note": "Honest risk-adjusted view. BOTH annualized Sharpes are unreliable here — only this many OOS trading days. metrics.sharpeAnnualized is the worst (it annualizes per-trade Sharpe by trade frequency, treating same-day correlated positions as independent sequential bets); portfolioDailySharpeAnnualized aggregates each day into one return but is still noisy at this sample. Lean on the raw OOS return vs always-fade, win rate, and profit factor — not a Sharpe."
+    },
+    "vsAlwaysFadeReturnPct": 8.091,
     "selectedTrades": [
-      {
-        "ts": "2026-05-20",
-        "asset": "AVGOUSDT",
-        "direction": "long",
-        "gapPct": 0.731,
-        "entryPrice": 414.5,
-        "exitPrice": 417.95,
-        "qty": 2.4125,
-        "returnPct": 0.723,
-        "balanceBefore": 1000,
-        "balanceAfter": 1007.23
-      },
-      {
-        "ts": "2026-05-20",
-        "asset": "NVDAUSDT",
-        "direction": "long",
-        "gapPct": 0.561,
-        "entryPrice": 222.28,
-        "exitPrice": 223.7,
-        "qty": 4.4988,
-        "returnPct": 0.529,
-        "balanceBefore": 1000,
-        "balanceAfter": 1005.29
-      },
-      {
-        "ts": "2026-05-20",
-        "asset": "QQQUSDT",
-        "direction": "long",
-        "gapPct": 0.588,
-        "entryPrice": 706.01,
-        "exitPrice": 713.33,
-        "qty": 1.4164,
-        "returnPct": 0.927,
-        "balanceBefore": 1000,
-        "balanceAfter": 1009.27
-      },
-      {
-        "ts": "2026-05-20",
-        "asset": "TSLAUSDT",
-        "direction": "long",
-        "gapPct": 1.351,
-        "entryPrice": 410.36,
-        "exitPrice": 417.84,
-        "qty": 2.4369,
-        "returnPct": 1.713,
-        "balanceBefore": 1000,
-        "balanceAfter": 1017.13
-      },
-      {
-        "ts": "2026-05-20",
-        "asset": "TSMUSDT",
-        "direction": "long",
-        "gapPct": 1.381,
-        "entryPrice": 398.58,
-        "exitPrice": 402.64,
-        "qty": 2.5089,
-        "returnPct": 0.909,
-        "balanceBefore": 1000,
-        "balanceAfter": 1009.09
-      },
       {
         "ts": "2026-05-21",
         "asset": "ARMUSDT",
@@ -177,10 +123,10 @@
         "gapPct": 0.665,
         "entryPrice": 420.73,
         "exitPrice": 415.26,
-        "qty": 2.394,
+        "qty": 2.3768,
         "returnPct": -1.41,
-        "balanceBefore": 1007.23,
-        "balanceAfter": 993.03
+        "balanceBefore": 1000,
+        "balanceAfter": 985.9
       },
       {
         "ts": "2026-05-21",
@@ -189,10 +135,10 @@
         "gapPct": 1.192,
         "entryPrice": 407.44,
         "exitPrice": 408.19,
-        "qty": 2.4767,
+        "qty": 2.4543,
         "returnPct": 0.074,
-        "balanceBefore": 1009.09,
-        "balanceAfter": 1009.84
+        "balanceBefore": 1000,
+        "balanceAfter": 1000.74
       },
       {
         "ts": "2026-05-22",
@@ -261,10 +207,10 @@
         "gapPct": 0.698,
         "entryPrice": 719.63,
         "exitPrice": 717.69,
-        "qty": 1.4025,
+        "qty": 1.3896,
         "returnPct": -0.379,
-        "balanceBefore": 1009.27,
-        "balanceAfter": 1005.44
+        "balanceBefore": 1000,
+        "balanceAfter": 996.21
       },
       {
         "ts": "2026-05-22",
@@ -285,10 +231,10 @@
         "gapPct": 1.035,
         "entryPrice": 422.63,
         "exitPrice": 426.16,
-        "qty": 2.4067,
+        "qty": 2.3661,
         "returnPct": 0.726,
-        "balanceBefore": 1017.13,
-        "balanceAfter": 1024.51
+        "balanceBefore": 1000,
+        "balanceAfter": 1007.26
       },
       {
         "ts": "2026-05-22",
@@ -297,10 +243,10 @@
         "gapPct": 0.416,
         "entryPrice": 409.89,
         "exitPrice": 404.82,
-        "qty": 2.4637,
+        "qty": 2.4415,
         "returnPct": -1.347,
-        "balanceBefore": 1009.84,
-        "balanceAfter": 996.24
+        "balanceBefore": 1000.74,
+        "balanceAfter": 987.26
       },
       {
         "ts": "2026-05-26",
@@ -333,10 +279,10 @@
         "gapPct": 3.327,
         "entryPrice": 428.62,
         "exitPrice": 422.5,
-        "qty": 2.3168,
+        "qty": 2.3002,
         "returnPct": -1.537,
-        "balanceBefore": 993.03,
-        "balanceAfter": 977.77
+        "balanceBefore": 985.9,
+        "balanceAfter": 970.75
       },
       {
         "ts": "2026-05-26",
@@ -393,10 +339,10 @@
         "gapPct": 1.554,
         "entryPrice": 728.84,
         "exitPrice": 730.64,
-        "qty": 1.3795,
+        "qty": 1.3668,
         "returnPct": 0.137,
-        "balanceBefore": 1005.44,
-        "balanceAfter": 1006.82
+        "balanceBefore": 996.21,
+        "balanceAfter": 997.57
       },
       {
         "ts": "2026-05-26",
@@ -429,10 +375,10 @@
         "gapPct": 1.162,
         "entryPrice": 431.11,
         "exitPrice": 433.86,
-        "qty": 2.3764,
+        "qty": 2.3364,
         "returnPct": 0.528,
-        "balanceBefore": 1024.51,
-        "balanceAfter": 1029.92
+        "balanceBefore": 1007.26,
+        "balanceAfter": 1012.58
       },
       {
         "ts": "2026-05-26",
@@ -441,10 +387,10 @@
         "gapPct": 1.927,
         "entryPrice": 412.62,
         "exitPrice": 413.2,
-        "qty": 2.4144,
+        "qty": 2.3927,
         "returnPct": 0.031,
-        "balanceBefore": 996.24,
-        "balanceAfter": 996.55
+        "balanceBefore": 987.26,
+        "balanceAfter": 987.57
       },
       {
         "ts": "2026-05-27",
@@ -477,10 +423,34 @@
         "gapPct": 1.463,
         "entryPrice": 428.68,
         "exitPrice": 421.72,
-        "qty": 2.2809,
+        "qty": 2.2645,
         "returnPct": -1.733,
-        "balanceBefore": 977.77,
-        "balanceAfter": 960.83
+        "balanceBefore": 970.75,
+        "balanceAfter": 953.93
+      },
+      {
+        "ts": "2026-05-27",
+        "asset": "TSLAUSDT",
+        "direction": "long",
+        "gapPct": 1.703,
+        "entryPrice": 441.25,
+        "exitPrice": 441.02,
+        "qty": 2.2948,
+        "returnPct": -0.162,
+        "balanceBefore": 1012.58,
+        "balanceAfter": 1010.94
+      },
+      {
+        "ts": "2026-05-27",
+        "asset": "TSMUSDT",
+        "direction": "long",
+        "gapPct": 4.066,
+        "entryPrice": 430,
+        "exitPrice": 423.34,
+        "qty": 2.2967,
+        "returnPct": -1.658,
+        "balanceBefore": 987.57,
+        "balanceAfter": 971.2
       },
       {
         "ts": "2026-05-29",
@@ -493,6 +463,30 @@
         "returnPct": -1.177,
         "balanceBefore": 1019.99,
         "balanceAfter": 1007.98
+      },
+      {
+        "ts": "2026-05-29",
+        "asset": "ARMUSDT",
+        "direction": "long",
+        "gapPct": 5.258,
+        "entryPrice": 353.31,
+        "exitPrice": 352.85,
+        "qty": 3.056,
+        "returnPct": -0.24,
+        "balanceBefore": 1079.7,
+        "balanceAfter": 1077.11
+      },
+      {
+        "ts": "2026-05-29",
+        "asset": "AVGOUSDT",
+        "direction": "long",
+        "gapPct": 4.174,
+        "entryPrice": 444.78,
+        "exitPrice": 447.79,
+        "qty": 2.1447,
+        "returnPct": 0.567,
+        "balanceBefore": 953.93,
+        "balanceAfter": 959.34
       },
       {
         "ts": "2026-05-29",
@@ -525,10 +519,10 @@
         "gapPct": 1.422,
         "entryPrice": 217.56,
         "exitPrice": 211.62,
-        "qty": 4.6207,
+        "qty": 4.5964,
         "returnPct": -2.84,
-        "balanceBefore": 1005.29,
-        "balanceAfter": 976.74
+        "balanceBefore": 1000,
+        "balanceAfter": 971.6
       },
       {
         "ts": "2026-05-29",
@@ -549,10 +543,10 @@
         "gapPct": 0.813,
         "entryPrice": 741.44,
         "exitPrice": 738.47,
-        "qty": 1.3579,
+        "qty": 1.3454,
         "returnPct": -0.51,
-        "balanceBefore": 1006.82,
-        "balanceAfter": 1001.69
+        "balanceBefore": 997.57,
+        "balanceAfter": 992.48
       },
       {
         "ts": "2026-05-29",
@@ -573,10 +567,10 @@
         "gapPct": 0.88,
         "entryPrice": 428.94,
         "exitPrice": 419.49,
-        "qty": 2.3233,
+        "qty": 2.2642,
         "returnPct": -2.313,
-        "balanceBefore": 996.55,
-        "balanceAfter": 973.5
+        "balanceBefore": 971.2,
+        "balanceAfter": 948.74
       },
       {
         "ts": "2026-06-01",
@@ -585,10 +579,10 @@
         "gapPct": 9.559,
         "entryPrice": 386.58,
         "exitPrice": 409.27,
-        "qty": 2.793,
+        "qty": 2.7863,
         "returnPct": 5.76,
-        "balanceBefore": 1079.7,
-        "balanceAfter": 1141.89
+        "balanceBefore": 1077.11,
+        "balanceAfter": 1139.15
       },
       {
         "ts": "2026-06-01",
@@ -633,10 +627,10 @@
         "gapPct": 3.648,
         "entryPrice": 219.34,
         "exitPrice": 224.67,
-        "qty": 4.4531,
+        "qty": 4.4297,
         "returnPct": 2.32,
-        "balanceBefore": 976.74,
-        "balanceAfter": 999.4
+        "balanceBefore": 971.6,
+        "balanceAfter": 994.14
       },
       {
         "ts": "2026-06-01",
@@ -657,10 +651,10 @@
         "gapPct": 3.011,
         "entryPrice": 432.12,
         "exitPrice": 436.87,
-        "qty": 2.2528,
+        "qty": 2.1955,
         "returnPct": 0.99,
-        "balanceBefore": 973.5,
-        "balanceAfter": 983.14
+        "balanceBefore": 948.74,
+        "balanceAfter": 958.13
       },
       {
         "ts": "2026-06-02",
@@ -693,10 +687,10 @@
         "gapPct": 4.563,
         "entryPrice": 481.89,
         "exitPrice": 482.5,
-        "qty": 1.9939,
+        "qty": 1.9908,
         "returnPct": 0.017,
-        "balanceBefore": 960.83,
-        "balanceAfter": 960.99
+        "balanceBefore": 959.34,
+        "balanceAfter": 959.5
       },
       {
         "ts": "2026-06-02",
@@ -711,64 +705,40 @@
         "balanceAfter": 999.28
       },
       {
-        "ts": "2026-06-05",
-        "asset": "QQQUSDT",
-        "direction": "short",
-        "gapPct": -2.245,
-        "entryPrice": 724.29,
-        "exitPrice": 705.95,
-        "qty": 1.383,
-        "returnPct": 2.423,
-        "balanceBefore": 1001.69,
-        "balanceAfter": 1025.96
+        "ts": "2026-06-02",
+        "asset": "METAUSDT",
+        "direction": "long",
+        "gapPct": 0.793,
+        "entryPrice": 606.13,
+        "exitPrice": 598.74,
+        "qty": 1.6477,
+        "returnPct": -1.329,
+        "balanceBefore": 998.74,
+        "balanceAfter": 985.47
       },
       {
-        "ts": "2026-06-05",
-        "asset": "SP500USDT",
-        "direction": "short",
-        "gapPct": -1.231,
-        "entryPrice": 7495.2,
-        "exitPrice": 7390.6,
-        "qty": 0.133,
-        "returnPct": 1.286,
-        "balanceBefore": 996.66,
-        "balanceAfter": 1009.48
+        "ts": "2026-06-02",
+        "asset": "NVDAUSDT",
+        "direction": "long",
+        "gapPct": 3.205,
+        "entryPrice": 231.87,
+        "exitPrice": 223.09,
+        "qty": 4.2875,
+        "returnPct": -3.896,
+        "balanceBefore": 994.14,
+        "balanceAfter": 955.41
       },
       {
-        "ts": "2026-06-05",
-        "asset": "SPYUSDT",
-        "direction": "short",
-        "gapPct": -1.161,
-        "entryPrice": 748.38,
-        "exitPrice": 737.14,
-        "qty": 1.3273,
-        "returnPct": 1.392,
-        "balanceBefore": 993.32,
-        "balanceAfter": 1007.15
-      },
-      {
-        "ts": "2026-06-05",
-        "asset": "TSLAUSDT",
-        "direction": "short",
-        "gapPct": -2.159,
-        "entryPrice": 410.08,
-        "exitPrice": 391.02,
-        "qty": 2.5115,
-        "returnPct": 4.538,
-        "balanceBefore": 1029.92,
-        "balanceAfter": 1076.66
-      },
-      {
-        "ts": "2026-06-05",
+        "ts": "2026-06-02",
         "asset": "TSMUSDT",
-        "direction": "short",
-        "gapPct": -4.109,
-        "entryPrice": 427.01,
-        "exitPrice": 416,
-        "qty": 2.3024,
-        "returnPct": 2.469,
-        "balanceBefore": 983.14,
-        "balanceAfter": 1007.41
+        "direction": "long",
+        "gapPct": 1.779,
+        "entryPrice": 444.64,
+        "exitPrice": 447.58,
+        "qty": 2.1548,
+        "returnPct": 0.552,
+        "balanceBefore": 958.13,
+        "balanceAfter": 963.42
       },
       {
         "ts": "2026-06-08",
@@ -789,10 +759,10 @@
         "gapPct": -0.698,
         "entryPrice": 589.37,
         "exitPrice": 585.81,
-        "qty": 1.6946,
+        "qty": 1.6721,
         "returnPct": 0.494,
-        "balanceBefore": 998.74,
-        "balanceAfter": 1003.67
+        "balanceBefore": 985.47,
+        "balanceAfter": 990.34
       },
       {
         "ts": "2026-06-08",
@@ -825,10 +795,10 @@
         "gapPct": -0.401,
         "entryPrice": 345.34,
         "exitPrice": 325.36,
-        "qty": 3.3066,
+        "qty": 3.2986,
         "returnPct": 5.676,
-        "balanceBefore": 1141.89,
-        "balanceAfter": 1206.7
+        "balanceBefore": 1139.15,
+        "balanceAfter": 1203.81
       },
       {
         "ts": "2026-06-09",
@@ -897,10 +867,10 @@
         "gapPct": -0.464,
         "entryPrice": 323.85,
         "exitPrice": 307.51,
-        "qty": 3.7261,
+        "qty": 3.7172,
         "returnPct": 4.936,
-        "balanceBefore": 1206.7,
-        "balanceAfter": 1266.26
+        "balanceBefore": 1203.81,
+        "balanceAfter": 1263.23
       },
       {
         "ts": "2026-06-10",
@@ -909,10 +879,10 @@
         "gapPct": -5.098,
         "entryPrice": 373.04,
         "exitPrice": 372.15,
-        "qty": 2.5761,
+        "qty": 2.5721,
         "returnPct": 0.129,
-        "balanceBefore": 960.99,
-        "balanceAfter": 962.23
+        "balanceBefore": 959.5,
+        "balanceAfter": 960.74
       },
       {
         "ts": "2026-06-10",
@@ -933,10 +903,10 @@
         "gapPct": -1.411,
         "entryPrice": 205.35,
         "exitPrice": 200.67,
-        "qty": 4.8668,
+        "qty": 4.6526,
         "returnPct": 2.169,
-        "balanceBefore": 999.4,
-        "balanceAfter": 1021.08
+        "balanceBefore": 955.41,
+        "balanceAfter": 976.13
       },
       {
         "ts": "2026-06-10",
@@ -945,10 +915,10 @@
         "gapPct": -1.216,
         "entryPrice": 392.28,
         "exitPrice": 381.93,
-        "qty": 2.7446,
+        "qty": 2.5771,
         "returnPct": 2.529,
-        "balanceBefore": 1076.66,
-        "balanceAfter": 1103.89
+        "balanceBefore": 1010.94,
+        "balanceAfter": 1036.51
       },
       {
         "ts": "2026-06-10",
@@ -957,10 +927,10 @@
         "gapPct": -2.563,
         "entryPrice": 417.41,
         "exitPrice": 409.55,
-        "qty": 2.4135,
+        "qty": 2.3081,
         "returnPct": 1.773,
-        "balanceBefore": 1007.41,
-        "balanceAfter": 1025.27
+        "balanceBefore": 963.42,
+        "balanceAfter": 980.5
       },
       {
         "ts": "2026-06-11",
@@ -993,10 +963,10 @@
         "gapPct": -1.267,
         "entryPrice": 564.36,
         "exitPrice": 569.21,
-        "qty": 1.7784,
+        "qty": 1.7548,
         "returnPct": -0.969,
-        "balanceBefore": 1003.67,
-        "balanceAfter": 993.94
+        "balanceBefore": 990.34,
+        "balanceAfter": 980.74
       },
       {
         "ts": "2026-06-11",
@@ -1053,10 +1023,10 @@
         "gapPct": -1.345,
         "entryPrice": 380.67,
         "exitPrice": 382.38,
-        "qty": 2.5277,
+        "qty": 2.5238,
         "returnPct": -0.559,
-        "balanceBefore": 962.23,
-        "balanceAfter": 956.85
+        "balanceBefore": 960.74,
+        "balanceAfter": 955.37
       },
       {
         "ts": "2026-06-12",
@@ -1089,10 +1059,10 @@
         "gapPct": -0.764,
         "entryPrice": 564.86,
         "exitPrice": 567.88,
-        "qty": 1.7596,
+        "qty": 1.7363,
         "returnPct": -0.644,
-        "balanceBefore": 993.94,
-        "balanceAfter": 987.54
+        "balanceBefore": 980.74,
+        "balanceAfter": 974.42
       },
       {
         "ts": "2026-06-12",
@@ -1137,10 +1107,10 @@
         "gapPct": -0.424,
         "entryPrice": 204.3,
         "exitPrice": 205.37,
-        "qty": 4.9979,
+        "qty": 4.7779,
         "returnPct": -0.633,
-        "balanceBefore": 1021.08,
-        "balanceAfter": 1014.62
+        "balanceBefore": 976.13,
+        "balanceAfter": 969.95
       },
       {
         "ts": "2026-06-12",
@@ -1161,10 +1131,10 @@
         "gapPct": -1.144,
         "entryPrice": 394.75,
         "exitPrice": 406.08,
-        "qty": 2.7964,
+        "qty": 2.6257,
         "returnPct": -2.98,
-        "balanceBefore": 1103.89,
-        "balanceAfter": 1070.99
+        "balanceBefore": 1036.51,
+        "balanceAfter": 1005.62
       },
       {
         "ts": "2026-06-16",
@@ -1185,10 +1155,10 @@
         "gapPct": -1.816,
         "entryPrice": 387.21,
         "exitPrice": 377.12,
-        "qty": 2.4711,
+        "qty": 2.4673,
         "returnPct": 2.496,
-        "balanceBefore": 956.85,
-        "balanceAfter": 980.73
+        "balanceBefore": 955.37,
+        "balanceAfter": 979.22
       },
       {
         "ts": "2026-06-16",
@@ -1245,10 +1215,10 @@
         "gapPct": -1.707,
         "entryPrice": 209.01,
         "exitPrice": 207.77,
-        "qty": 4.8544,
+        "qty": 4.6407,
         "returnPct": 0.484,
-        "balanceBefore": 1014.62,
-        "balanceAfter": 1019.53
+        "balanceBefore": 969.95,
+        "balanceAfter": 974.64
       },
       {
         "ts": "2026-06-16",
@@ -1269,10 +1239,10 @@
         "gapPct": -0.696,
         "entryPrice": 438.04,
         "exitPrice": 426.41,
-        "qty": 2.3406,
+        "qty": 2.2384,
         "returnPct": 2.545,
-        "balanceBefore": 1025.27,
-        "balanceAfter": 1051.36
+        "balanceBefore": 980.5,
+        "balanceAfter": 1005.45
       },
       {
         "ts": "2026-06-17",
@@ -1317,10 +1287,10 @@
         "gapPct": -2.547,
         "entryPrice": 585.87,
         "exitPrice": 568.31,
-        "qty": 1.6856,
+        "qty": 1.6632,
         "returnPct": 2.888,
-        "balanceBefore": 987.54,
-        "balanceAfter": 1016.06
+        "balanceBefore": 974.42,
+        "balanceAfter": 1002.56
       },
       {
         "ts": "2026-06-17",
@@ -1353,10 +1323,10 @@
         "gapPct": -1.539,
         "entryPrice": 398.51,
         "exitPrice": 396.04,
-        "qty": 2.6875,
+        "qty": 2.5234,
         "returnPct": 0.51,
-        "balanceBefore": 1070.99,
-        "balanceAfter": 1076.45
+        "balanceBefore": 1005.62,
+        "balanceAfter": 1010.75
       },
       {
         "ts": "2026-06-18",
@@ -1425,10 +1395,10 @@
         "gapPct": -1.805,
         "entryPrice": 388.89,
         "exitPrice": 400.42,
-        "qty": 2.768,
+        "qty": 2.5991,
         "returnPct": -3.074,
-        "balanceBefore": 1076.45,
-        "balanceAfter": 1043.36
+        "balanceBefore": 1010.75,
+        "balanceAfter": 979.68
       },
       {
         "ts": "2026-06-22",
@@ -1449,10 +1419,10 @@
         "gapPct": -4.246,
         "entryPrice": 421.49,
         "exitPrice": 407.51,
-        "qty": 3.0042,
+        "qty": 2.9971,
         "returnPct": 3.207,
-        "balanceBefore": 1266.26,
-        "balanceAfter": 1306.87
+        "balanceBefore": 1263.23,
+        "balanceAfter": 1303.74
       },
       {
         "ts": "2026-06-22",
@@ -1461,10 +1431,10 @@
         "gapPct": -2.489,
         "entryPrice": 401.6,
         "exitPrice": 398.3,
-        "qty": 2.4421,
+        "qty": 2.4383,
         "returnPct": 0.712,
-        "balanceBefore": 980.73,
-        "balanceAfter": 987.71
+        "balanceBefore": 979.22,
+        "balanceAfter": 986.19
       },
       {
         "ts": "2026-06-22",
@@ -1497,10 +1467,10 @@
         "gapPct": -0.471,
         "entryPrice": 575.12,
         "exitPrice": 563.31,
-        "qty": 1.7667,
+        "qty": 1.7432,
         "returnPct": 1.944,
-        "balanceBefore": 1016.06,
-        "balanceAfter": 1035.81
+        "balanceBefore": 1002.56,
+        "balanceAfter": 1022.05
       },
       {
         "ts": "2026-06-22",
@@ -1527,21 +1497,22 @@
         "balanceAfter": 1075.44
       }
     ],
-    "rejectedCandidates": 222
+    "rejectedCandidates": 225
   },
   "passportEvidence": {
     "source": "artifacts/rwa-alpha-certification.json",
     "variant": "walkForwardRwaFollow",
-    "returnPct": 3.785,
-    "sharpeAnnualized": 6.511,
-    "totalTrades": 119,
+    "returnPct": 2.62,
+    "sharpeAnnualized": 4.41,
+    "totalTrades": 116,
     "alphaStatus": "positive",
     "note": "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
   },
   "limitations": [
-    "83-day public Bitget RWA sample only",
+    "Tiny out-of-sample window: 16 OOS trading days (full data ~83 days)",
+    "metrics.sharpeAnnualized is trade-frequency-annualized and OVERSTATES risk-adjusted return; use portfolioDailySharpeAnnualized — same-day trades are parallel correlated positions, not independent sequential bets",
     "Tokenized RWA futures candles, not underlying-equity exchange candles",
-    "Rule is locked and walk-forward, but still needs more future data before sizing real capital beyond the capped demo",
+    "Rule constants are hardcoded and walk-forward, but not independently proven free of researcher parameter-selection bias; treat as a hypothesis, not a live edge",
     "Live stock-perp fill remains approval-gated and separate from this backtest artifact"
   ]
 }
