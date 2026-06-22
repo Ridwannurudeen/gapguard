@@ -798,18 +798,19 @@
                 <tr><th>Session</th><th>Verdict</th></tr>
               </thead>
               <tbody>
-                <tr><td>Prompt input</td><td>news summary only</td></tr>
-                <tr class="row-hi"><td>Holdout labels</td><td>separate file</td></tr>
-                <tr><td>Coverage</td><td class="up">15/15 gaps scored</td></tr>
-                <tr><td>Accuracy</td><td class="up">14/15 Qwen verdicts</td></tr>
-                <tr><td>Gate result</td><td class="down">−2.165% replay</td></tr>
+                <tr><td>Prompt input</td><td>real Finnhub headlines (blinded)</td></tr>
+                <tr><td>Holdout labels</td><td>separate file</td></tr>
+                <tr><td>Accuracy</td><td class="up">12/15 (80%)</td></tr>
+                <tr class="row-hi"><td>WWDC call</td><td class="up">stood aside ✓</td></tr>
+                <tr><td>Gate-driven</td><td class="up">+1.346% vs −0.475%</td></tr>
               </tbody>
             </table>
             <p class="note">
-              The audit no longer feeds Qwen the answer key. It uses blinded overnight
-              summaries, scores every AAPL gap after the model returns, and writes a
-              verdict cache that <span class="mono">backtest:news</span> replays honestly.
-              The current AAPL Qwen replay is negative because Qwen missed WWDC.
+              The audit no longer feeds Qwen the answer key. On <strong style="color:var(--ink)">real,
+              blinded Finnhub headlines</strong> it scores every AAPL gap after the model returns,
+              and writes a verdict cache that <span class="mono">backtest:news</span> replays
+              honestly. On real news Qwen scores 12/15 and <strong style="color:var(--ink)">correctly
+              stands aside on WWDC</strong>, turning the −0.475% always-fade baseline into +1.346%.
             </p>
             <p class="note" style="margin-top:10px">
               <strong>Certified:</strong> a Bitget Playbook managed run
@@ -857,7 +858,7 @@
               <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
               <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA alpha certification</li>
               <li><span class="mono">npm run backtest:news</span> — label baseline + gate cache replay</li>
-              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache; AAPL replay is negative</li>
+              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache on real Finnhub news; +1.346% gate-driven, WWDC correct</li>
               <li><span class="mono">npm run arena:cockpit</span> — rebuild the signed chain</li>
               <li>Open <span class="mono">arena.html</span> → Verify chain, then Simulate tampering</li>
             </ul>
