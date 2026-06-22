@@ -2,8 +2,10 @@ import { webcrypto } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import { GENESIS_HASH } from "../src/glassbox";
 import {
+  attestChain,
   sealArenaRecords,
   verifyArenaRecords,
+  verifyAttestation,
   type ArenaRecord,
 } from "../src/arena-chain";
 
@@ -84,5 +86,55 @@ describe("arena chain", () => {
     ]);
 
     await expect(browserStyleHash(record)).resolves.toBe(record.hash);
+  });
+});
+
+describe("arena attestation (Merkle + Ed25519)", () => {
+  const records = sealArenaRecords([
+    {
+      ts: "2026-06-22T00:00:00.000Z",
+      kind: "quorum_decision",
+      agentId: "quorum",
+      payload: { vote: "long", multiplier: 0.5 },
+    },
+    {
+      ts: "2026-06-22T00:00:00.000Z",
+      kind: "broker_order",
+      agentId: "quorum",
+      payload: { symbol: "AAPLUSDT", size: "0.03" },
+    },
+  ]);
+
+  it("signs a Merkle root and verifies it", () => {
+    const att = attestChain(records, {
+      signedAt: "2026-06-22T00:00:00.000Z",
+      model: "qwen3.6-plus",
+    });
+    expect(att.alg).toBe("Ed25519");
+    expect(att.recordCount).toBe(2);
+    expect(verifyAttestation(records, att)).toEqual({
+      ok: true,
+      merkleRootOk: true,
+      signatureOk: true,
+    });
+  });
+
+  it("detects a tampered ledger via Merkle-root mismatch", () => {
+    const att = attestChain(records, { signedAt: "2026-06-22T00:00:00.000Z" });
+    const tampered = [{ ...records[0], hash: "0".repeat(64) }, records[1]];
+    const result = verifyAttestation(tampered, att);
+    expect(result.merkleRootOk).toBe(false);
+    expect(result.ok).toBe(false);
+  });
+
+  it("rejects a forged signature", () => {
+    const att = attestChain(records, { signedAt: "2026-06-22T00:00:00.000Z" });
+    const forged = {
+      ...att,
+      signatureB64: Buffer.from("not-a-real-signature").toString("base64"),
+    };
+    const result = verifyAttestation(records, forged);
+    expect(result.signatureOk).toBe(false);
+    expect(result.ok).toBe(false);
   });
 });

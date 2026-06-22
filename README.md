@@ -19,14 +19,16 @@ GapGuard is now the flagship exhibit inside the Arena. Quorum, an adversarial de
 | `src/riskGovernor.ts`                    | Sizes by confidence/vol, caps off-hours exposure, realizes into reopen, and halts on drawdown.                                                                | built + tested                     |
 | `src/glassbox.ts`                        | Hash-chained JSONL audit trail for tamper-evident decision records.                                                                                           | built + tested                     |
 | `src/convergenceGate.ts` + `src/qwen.ts` | Qwen gate for fadeable gap vs justified repricing.                                                                                                            | built + tested                     |
-| `src/quorum.ts`                          | Five-role adversarial desk: narrative, positioning, market intel, bear, and risk opinions become consensus, veto status, and a position multiplier.           | built + tested                     |
+| `src/quorum.ts`                          | Five-role adversarial desk: narrative, positioning, market intel, bear, and risk opinions become **evidence-weighted** consensus (well-cited views count more), veto status, and a position multiplier. | built + tested                     |
 | `src/agentArena.ts`                      | Passport issuer. Grades candidates as `LICENSED`, `PAPER_ONLY`, or `REJECTED` from recorded evidence and controls.                                            | built + tested                     |
-| `src/arena-chain.ts`                     | Arena-native JSONL hash chain for mandate rules, Quorum decisions, naive breaches, passports, and broker records.                                             | built + tested                     |
+| `src/arena-chain.ts`                     | Arena-native JSONL hash chain for mandate rules, Quorum decisions, naive breaches, passports, and broker records, plus a **Merkle root signed with Ed25519** (`attestChain`/`verifyAttestation`) for regulator-grade, attributable, re-verifiable audit. | built + tested                     |
 | `src/mandate.ts`                         | Deterministic natural-language risk mandate compiler for loss, position, and conflicting-evidence vetoes.                                                     | built + tested                     |
 | `src/simBroker.ts`                       | Offline broker compatible with the live broker plan shape; fills against a deterministic price path for local Arena runs.                                     | built + tested                     |
 | `src/liveStockBroker.ts`                 | Agent Hub broker wrapper. Defaults to dry-run, supports paper trading, and blocks live orders unless licensed, confirmed, isolated, low-leverage, and capped. | built + tested                     |
 | `src/rwa-market.ts`                      | Public Bitget USDT-Futures contract/ticker recheck for RWA status, spread, volume, and minimum live order size.                                               | built + tested                     |
+| `src/gapEngine.ts`                       | Shared deterministic gap-reversion engine (session collapse, gap trades with an optional stand-aside predicate, metrics) used by both backtests.              | built + tested                     |
 | `src/backtest.ts`                        | Deterministic off-hours gap-reversion backtest on real public Bitget `AAPLUSDT` candles (no key); emits metrics + a per-trade log. No LLM in this path.       | built                              |
+| `src/newsBacktest.ts`                    | News-aware variant: stands aside on verified scheduled catalysts (`data/aaplusdt-catalysts.json`) instead of fading them; compares always-fade vs catalyst-aware. | built                              |
 | `src/arena-demo.ts`                      | Generates the Arena artifact with Quorum's passport, Naive's recorded mandate breach, the Quorum decision, sim broker fill, and Arena chain.                  | built + tested                     |
 | `src/arena-cockpit.ts`                   | Builds sanitized public cockpit data from the Arena artifact, paper-trade evidence, Arena chain, and GapGuard proof summary.                                  | built + tested                     |
 | `src/bitgetWalletApi.ts`                 | Bitget Wallet API signer/client using the documented HMAC flow.                                                                                               | built + tested                     |
@@ -48,6 +50,7 @@ npm install
 npm test
 npm run typecheck
 npm run backtest    # real AAPLUSDT off-hours gap-reversion backtest (no key) -> artifacts/aaplusdt-backtest.json
+npm run backtest:news  # news-aware variant: stand aside on verified catalysts -> artifacts/aaplusdt-news-aware-backtest.json
 npm run demo        # replay data/tslax-replay.json and write glassbox-demo.jsonl + public/dashboard-data.json
 npm run verify-log  # verify the hash chain in glassbox-demo.jsonl
 npm run arena:demo  # write artifacts/agent-arena-demo.json

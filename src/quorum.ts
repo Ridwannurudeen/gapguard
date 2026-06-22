@@ -30,6 +30,21 @@ function assertConfidence(value: number): void {
   }
 }
 
+const EVIDENCE_CAP = 3;
+const EVIDENCE_BASE = 0.5;
+
+/**
+ * Evidence-grounding weight (selective-consensus, TrustTrade-style): a well-cited
+ * opinion counts more, a hand-wavy one is discounted, so a lone weakly-grounded
+ * vote can't sway the desk and a well-evidenced dissent (e.g. the Bear) gets
+ * proportional teeth. Ranges from EVIDENCE_BASE (no evidence) to 1.0 (>= cap).
+ */
+function evidenceWeight(opinion: DeskOpinion): number {
+  const grounded =
+    Math.min(opinion.evidence.length, EVIDENCE_CAP) / EVIDENCE_CAP;
+  return EVIDENCE_BASE + (1 - EVIDENCE_BASE) * grounded;
+}
+
 function winningVote(opinions: DeskOpinion[]): {
   vote: Exclude<DeskVote, "veto">;
   score: number;
@@ -43,7 +58,7 @@ function winningVote(opinions: DeskOpinion[]): {
 
   for (const opinion of opinions) {
     if (opinion.vote === "veto") continue;
-    scores[opinion.vote] += opinion.confidence;
+    scores[opinion.vote] += opinion.confidence * evidenceWeight(opinion);
   }
 
   const entries = Object.entries(scores) as [
@@ -68,7 +83,8 @@ export function decideQuorum(
   opinions: DeskOpinion[],
 ): QuorumDecision {
   if (!symbol) throw new Error("symbol is required");
-  if (opinions.length < 3) throw new Error("at least 3 desk opinions are required");
+  if (opinions.length < 3)
+    throw new Error("at least 3 desk opinions are required");
 
   const seen = new Set<DeskRole>();
   for (const opinion of opinions) {
@@ -77,7 +93,8 @@ export function decideQuorum(
     }
     seen.add(opinion.role);
     assertConfidence(opinion.confidence);
-    if (!opinion.rationale) throw new Error(`${opinion.role} rationale is required`);
+    if (!opinion.rationale)
+      throw new Error(`${opinion.role} rationale is required`);
   }
 
   const vetoed = opinions.some(
@@ -91,7 +108,9 @@ export function decideQuorum(
   const dissenters = opinions.filter(
     (opinion) => opinion.vote !== winner.vote && opinion.vote !== "veto",
   ).length;
-  const vetoText = vetoed ? "hard veto present; no order allowed" : "no hard veto";
+  const vetoText = vetoed
+    ? "hard veto present; no order allowed"
+    : "no hard veto";
   const sizeText =
     positionMultiplier === 0
       ? "stand down"
@@ -103,7 +122,7 @@ export function decideQuorum(
     consensusScore,
     vetoed,
     positionMultiplier,
-    rationale: `${winner.vote} won ${(consensusScore * 100).toFixed(0)}% weighted consensus with ${dissenters} dissenters; ${vetoText}; ${sizeText}`,
+    rationale: `${winner.vote} won ${(consensusScore * 100).toFixed(0)}% evidence-weighted consensus with ${dissenters} dissenters; ${vetoText}; ${sizeText}`,
     opinions: opinions.map((opinion) => ({
       ...opinion,
       evidence: [...opinion.evidence],

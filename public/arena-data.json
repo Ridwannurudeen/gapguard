@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T12:32:08.823Z",
+  "generatedAt": "2026-06-22T14:26:12.388Z",
   "arena": {
     "thesis": "The Arena does not trust autonomous agents by default; it makes them earn a passport before any real capital is unlocked.",
     "liveInstrument": "NVDAUSDT",
@@ -100,10 +100,10 @@
   "quorum": {
     "symbol": "NVDAUSDT",
     "winningVote": "long",
-    "consensusScore": 0.7500000000000001,
+    "consensusScore": 0.75,
     "vetoed": false,
     "positionMultiplier": 0.5,
-    "rationale": "long won 75% weighted consensus with 2 dissenters; no hard veto; size at 50% of risk budget",
+    "rationale": "long won 75% evidence-weighted consensus with 2 dissenters; no hard veto; size at 50% of risk budget",
     "opinions": [
       {
         "role": "narrative",
@@ -557,7 +557,7 @@
     "path": "public/arena-chain.jsonl",
     "ok": true,
     "count": 11,
-    "finalHash": "02b10c40ac68fd97d33eabe640d82ba92c55f73ab98cbc794e1c99837b6b26eb",
+    "finalHash": "34e6ccb4cda10aabce155b20074b8edd8cdb708b2172a2e0365c6f06ae28a646",
     "errors": []
   },
   "gapguardProof": {

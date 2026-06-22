@@ -19,6 +19,7 @@
     "broker:balance": "tsx src/broker-balance.ts",
     "playbook:run": "node scripts/playbook-run.mjs",
     "backtest": "tsx src/backtest.ts",
+    "backtest:news": "tsx src/newsBacktest.ts",
     "backtest:fetch": "node scripts/fetch-aaplusdt.mjs"
   },
   "devDependencies": {

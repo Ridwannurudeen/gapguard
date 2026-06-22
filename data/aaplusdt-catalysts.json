@@ -1,0 +1,47 @@
+{
+  "asset": "AAPLUSDT",
+  "underlying": "AAPL",
+  "note": "Verified, dated overnight catalysts in the backtest window (2026-05-12 -> 2026-06-18). A gap is tagged to the session whose overnight move (prior US close -> this US open) reflects the catalyst's reaction. 'aapl_event' = Apple-specific; 'macro' = market-wide. Used to demonstrate a news-aware agent that stands aside on justified repricing instead of blindly fading it. Sources are real and were verified before labeling.",
+  "catalysts": [
+    {
+      "date": "2026-05-18",
+      "type": "aapl_event",
+      "weight": "minor",
+      "description": "Apple announces the WWDC 2026 lineup (scheduling news, not the keynote itself).",
+      "confidence": "confirmed",
+      "source": "https://www.apple.com/newsroom/2026/05/apple-kicks-off-worldwide-developers-conference-on-june-8/"
+    },
+    {
+      "date": "2026-06-01",
+      "type": "macro",
+      "weight": "minor",
+      "description": "May ISM Manufacturing print (54, above consensus) + tech-sector rally; macro/sector spillover, not Apple-specific.",
+      "confidence": "confirmed",
+      "source": "https://www.cnbc.com/2026/05/31/stock-market-today-live-updates.html"
+    },
+    {
+      "date": "2026-06-05",
+      "type": "macro",
+      "weight": "major",
+      "description": "May 2026 Employment Situation (jobs report), 8:30am ET pre-open (first-Friday convention).",
+      "confidence": "likely",
+      "source": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "date": "2026-06-09",
+      "type": "aapl_event",
+      "weight": "major",
+      "description": "Overnight reaction to the WWDC 2026 keynote (Mon Jun 8, 1:00pm ET). Apple-specific, justified repricing.",
+      "confidence": "confirmed",
+      "source": "https://www.apple.com/newsroom/2026/05/apple-kicks-off-worldwide-developers-conference-on-june-8/"
+    },
+    {
+      "date": "2026-06-18",
+      "type": "macro",
+      "weight": "major",
+      "description": "Overnight reaction to the June FOMC decision (Jun 16-17, statement ~2pm ET Jun 17).",
+      "confidence": "confirmed",
+      "source": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260617.htm"
+    }
+  ]
+}

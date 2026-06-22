@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaDemo, type ArenaDemoArtifact } from "./arena-demo";
-import { writeArenaChain } from "./arena-chain";
+import { attestChain, verifyAttestation, writeArenaChain } from "./arena-chain";
 import type { AgentPassport } from "./agentArena";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
 import type { DeskOpinion, QuorumDecision } from "./quorum";
@@ -219,8 +219,24 @@ export async function runArenaCockpitCli(): Promise<void> {
   const rwaPath = resolve(
     process.env.ARENA_RWA_MARKET_PATH ?? "public/rwa-market.json",
   );
+  const attestOut = resolve(process.argv[6] ?? "public/arena-attestation.json");
   const artifact = await buildArenaDemo();
   writeArenaChain(chainOut, artifact.arenaChain.records);
+
+  const attestation = attestChain(artifact.arenaChain.records, {
+    signedAt: new Date().toISOString(),
+    model: "qwen3.6-plus (desk) + deterministic (gap core)",
+  });
+  mkdirSync(dirname(attestOut), { recursive: true });
+  writeFileSync(attestOut, `${JSON.stringify(attestation, null, 2)}\n`);
+  const attestationCheck = verifyAttestation(
+    artifact.arenaChain.records,
+    attestation,
+  );
+  console.log(
+    `Arena attestation (Ed25519 over Merkle root ${attestation.merkleRoot.slice(0, 12)}…): ${attestOut} — self-verify ${attestationCheck.ok ? "OK" : "FAILED"}`,
+  );
+
   const data = buildArenaCockpitData(
     artifact,
     readLatestPaperTrade(paperPath),

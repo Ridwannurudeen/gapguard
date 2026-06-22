@@ -27,7 +27,8 @@ const bullishDesk: DeskOpinion[] = [
     role: "bear",
     vote: "flat",
     confidence: 0.35,
-    rationale: "Liquidity is acceptable but not deep enough for full confidence.",
+    rationale:
+      "Liquidity is acceptable but not deep enough for full confidence.",
     evidence: ["ticker: spread below 1bp"],
   },
   {
@@ -71,6 +72,40 @@ describe("quorum", () => {
       { ...bullishDesk[2], vote: "flat", confidence: 0.5 },
     ]);
     expect(decision.consensusScore).toBeLessThan(0.55);
+    expect(decision.winningVote).toBe("flat");
+    expect(decision.positionMultiplier).toBe(0);
+  });
+
+  it("lets a well-evidenced dissent outweigh weakly-grounded votes", () => {
+    // Two longs with NO cited evidence vs a Bear flat backed by 3 sources.
+    // Unweighted, long (1.2) would beat flat (0.7); evidence-weighting flips it.
+    const decision = decideQuorum("AAPLUSDT", [
+      {
+        role: "narrative",
+        vote: "long",
+        confidence: 0.6,
+        rationale: "vibes",
+        evidence: [],
+      },
+      {
+        role: "positioning",
+        vote: "long",
+        confidence: 0.6,
+        rationale: "vibes",
+        evidence: [],
+      },
+      {
+        role: "bear",
+        vote: "flat",
+        confidence: 0.7,
+        rationale: "Grounded disconfirming evidence on the overnight move.",
+        evidence: [
+          "news-briefing: real earnings catalyst",
+          "market-intel: whale distribution",
+          "sentiment-analyst: funding extreme",
+        ],
+      },
+    ]);
     expect(decision.winningVote).toBe("flat");
     expect(decision.positionMultiplier).toBe(0);
   });

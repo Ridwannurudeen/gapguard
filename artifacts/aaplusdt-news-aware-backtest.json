@@ -1,0 +1,119 @@
+{
+  "strategy": "GapGuard news-aware gap reversion",
+  "asset": "AAPLUSDT",
+  "interval": "1H",
+  "window": {
+    "from": "2026-05-12",
+    "to": "2026-06-18",
+    "sessions": 27
+  },
+  "catalysts": [
+    {
+      "date": "2026-05-18",
+      "type": "aapl_event",
+      "weight": "minor",
+      "description": "Apple announces the WWDC 2026 lineup (scheduling news, not the keynote itself).",
+      "confidence": "confirmed",
+      "source": "https://www.apple.com/newsroom/2026/05/apple-kicks-off-worldwide-developers-conference-on-june-8/"
+    },
+    {
+      "date": "2026-06-01",
+      "type": "macro",
+      "weight": "minor",
+      "description": "May ISM Manufacturing print (54, above consensus) + tech-sector rally; macro/sector spillover, not Apple-specific.",
+      "confidence": "confirmed",
+      "source": "https://www.cnbc.com/2026/05/31/stock-market-today-live-updates.html"
+    },
+    {
+      "date": "2026-06-05",
+      "type": "macro",
+      "weight": "major",
+      "description": "May 2026 Employment Situation (jobs report), 8:30am ET pre-open (first-Friday convention).",
+      "confidence": "likely",
+      "source": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "date": "2026-06-09",
+      "type": "aapl_event",
+      "weight": "major",
+      "description": "Overnight reaction to the WWDC 2026 keynote (Mon Jun 8, 1:00pm ET). Apple-specific, justified repricing.",
+      "confidence": "confirmed",
+      "source": "https://www.apple.com/newsroom/2026/05/apple-kicks-off-worldwide-developers-conference-on-june-8/"
+    },
+    {
+      "date": "2026-06-18",
+      "type": "macro",
+      "weight": "major",
+      "description": "Overnight reaction to the June FOMC decision (Jun 16-17, statement ~2pm ET Jun 17).",
+      "confidence": "confirmed",
+      "source": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260617.htm"
+    }
+  ],
+  "variants": {
+    "alwaysFade": {
+      "totalReturnPct": -0.308,
+      "sharpePerTrade": -0.01,
+      "sharpeAnnualized": -0.124,
+      "maxDrawdownPct": 3.289,
+      "winRatePct": 40,
+      "totalTrades": 15,
+      "profitFactor": 0.97,
+      "endingEquity": 996.92
+    },
+    "aaplNewsAware": {
+      "totalReturnPct": 1.872,
+      "sharpePerTrade": 0.121,
+      "sharpeAnnualized": 1.37,
+      "maxDrawdownPct": 3.289,
+      "winRatePct": 46.2,
+      "totalTrades": 13,
+      "profitFactor": 1.48,
+      "endingEquity": 1018.72
+    },
+    "allCatalystAware": {
+      "totalReturnPct": 1.369,
+      "sharpePerTrade": 0.117,
+      "sharpeAnnualized": 1.16,
+      "maxDrawdownPct": 2.016,
+      "winRatePct": 50,
+      "totalTrades": 10,
+      "profitFactor": 1.51,
+      "endingEquity": 1013.69
+    }
+  },
+  "skippedOnCatalyst": {
+    "aapl": [
+      {
+        "date": "2026-05-18",
+        "returnPct": -0.18
+      },
+      {
+        "date": "2026-06-09",
+        "returnPct": -1.963
+      }
+    ],
+    "all": [
+      {
+        "date": "2026-05-18",
+        "returnPct": -0.18
+      },
+      {
+        "date": "2026-06-01",
+        "returnPct": -1.299
+      },
+      {
+        "date": "2026-06-05",
+        "returnPct": 1.832
+      },
+      {
+        "date": "2026-06-09",
+        "returnPct": -1.963
+      },
+      {
+        "date": "2026-06-18",
+        "returnPct": -0.013
+      }
+    ]
+  },
+  "honesty": "n=15 trades over ~6 weeks; the news-aware lift is driven mainly by standing aside on the WWDC keynote reaction (2026-06-09). Illustrative of the mechanism, not statistically significant. Labels are verified scheduled catalysts; the live agent produces these calls with the Qwen convergence gate."
+}
