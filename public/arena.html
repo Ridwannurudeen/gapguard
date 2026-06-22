@@ -8,6 +8,12 @@
       rel="icon"
       href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%23080907"/><path d="M7 23V9h6.8c4.5 0 7.2 2.8 7.2 7s-2.7 7-7.2 7H7zm4-3.4h2.5c2.3 0 3.5-1.3 3.5-3.6s-1.2-3.6-3.5-3.6H11v7.2zM23 9h3v14h-3z" fill="%23D7FF6A"/></svg>'
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
         --ink: #f4f4ec;
@@ -50,11 +56,10 @@
           100% 100%;
         color: var(--ink);
         font-family:
-          "Aptos",
-          "Segoe UI",
+          "Inter",
           system-ui,
           -apple-system,
-          BlinkMacSystemFont,
+          "Segoe UI",
           sans-serif;
         font-size: 14px;
         line-height: 1.5;
@@ -78,7 +83,7 @@
         color: var(--ink);
         cursor: pointer;
         font:
-          800 11px/1 ui-monospace,
+          800 11px/1 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -140,12 +145,20 @@
         line-height: 1.25;
       }
 
+      h1,
+      h2,
+      h3,
+      .brand-title {
+        font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+        letter-spacing: -0.01em;
+      }
+
       .mono,
       .eyebrow,
       .num,
       .tag,
       .grade {
-        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
         font-variant-numeric: tabular-nums;
       }
 
@@ -191,7 +204,7 @@
         background: #0f130d;
         color: var(--lime);
         font:
-          900 12px/1 ui-monospace,
+          900 12px/1 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -405,7 +418,7 @@
       .receipt-value {
         color: var(--lime);
         font:
-          820 44px/0.92 ui-monospace,
+          820 44px/0.92 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -487,7 +500,7 @@
       .display {
         color: var(--lime);
         font:
-          820 72px/0.95 ui-monospace,
+          820 72px/0.95 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -497,7 +510,7 @@
         margin-top: 12px;
         color: var(--ink);
         font:
-          760 23px/1 ui-monospace,
+          760 23px/1 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -643,7 +656,7 @@
         overflow-wrap: anywhere;
         color: var(--muted);
         font:
-          11px/1.45 ui-monospace,
+          11px/1.45 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -813,7 +826,7 @@
   <body>
     <main class="shell">
       <header class="topbar">
-        <a class="brand" href="#" aria-label="GapGuard Agent Arena">
+        <a class="brand" href="index.html" aria-label="GapGuard home">
           <div class="mark">GG</div>
           <div>
             <div class="brand-title">GapGuard Agent Arena</div>
