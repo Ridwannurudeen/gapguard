@@ -8,3 +8,4 @@ glassbox-*.jsonl
 .DS_Store
 artifacts/
 .pbkey
+.qwenkey
