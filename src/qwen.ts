@@ -5,10 +5,16 @@ export interface ChatMessage {
   content: string;
 }
 
+export type QwenModelRole = "deep" | "quick";
+
 export interface QwenConfig {
   apiKey: string;
   baseUrl?: string;
+  /** Legacy/global override. When set, it wins over role-specific models. */
   model?: string;
+  deepModel?: string;
+  quickModel?: string;
+  modelRole?: QwenModelRole;
   maxTokens?: number;
   maxResponseChars?: number;
   retries?: number;
@@ -16,8 +22,16 @@ export interface QwenConfig {
   jsonMode?: boolean;
 }
 
+export interface QwenEnvConfig {
+  apiKey?: string;
+  model?: string;
+  deepModel?: string;
+  quickModel?: string;
+}
+
 const DEFAULT_BASE = "https://hackathon.bitgetops.com/v1";
-const DEFAULT_MODEL = "qwen3.6-plus";
+export const DEFAULT_QWEN_DEEP_MODEL = "qwen3.6-plus";
+export const DEFAULT_QWEN_QUICK_MODEL = "qwen3.6-flash";
 const DEFAULT_MAX_TOKENS = 512;
 const DEFAULT_MAX_RESPONSE_CHARS = 16_384;
 const DEFAULT_RETRIES = 1;
@@ -27,13 +41,38 @@ interface ChatCompletion {
   choices: { message: { content: string } }[];
 }
 
+function envValue(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
+export function qwenConfigFromEnv(
+  env: NodeJS.ProcessEnv = process.env,
+): QwenEnvConfig {
+  return {
+    apiKey: envValue(env.BITGET_QWEN_API_KEY),
+    model: envValue(env.BITGET_QWEN_MODEL),
+    deepModel: envValue(env.BITGET_QWEN_DEEP_MODEL),
+    quickModel: envValue(env.BITGET_QWEN_QUICK_MODEL),
+  };
+}
+
+export function qwenModelForRole(
+  cfg: Pick<QwenConfig, "model" | "deepModel" | "quickModel" | "modelRole">,
+): string {
+  if (cfg.model) return cfg.model;
+  return (cfg.modelRole ?? "deep") === "quick"
+    ? (cfg.quickModel ?? DEFAULT_QWEN_QUICK_MODEL)
+    : (cfg.deepModel ?? DEFAULT_QWEN_DEEP_MODEL);
+}
+
 function requestBody(
   messages: ChatMessage[],
   cfg: QwenConfig,
   jsonMode: boolean,
 ): string {
   return JSON.stringify({
-    model: cfg.model ?? DEFAULT_MODEL,
+    model: qwenModelForRole(cfg),
     messages,
     temperature: 0,
     max_tokens: cfg.maxTokens ?? DEFAULT_MAX_TOKENS,

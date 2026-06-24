@@ -12,7 +12,7 @@
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { qwenChat } from "./qwen";
+import { qwenChat, qwenConfigFromEnv, qwenModelForRole } from "./qwen";
 import {
   loadGateLabels,
   loadNewsContexts,
@@ -20,14 +20,16 @@ import {
 } from "./gateVerdicts";
 import { runGateAudit } from "./gateAuditRunner";
 
-const apiKey = process.env.BITGET_QWEN_API_KEY;
+const qwenConfig = qwenConfigFromEnv();
+const apiKey = qwenConfig.apiKey;
 if (!apiKey) {
   console.error(
     "Set BITGET_QWEN_API_KEY in your environment (Bitget hackathon Qwen subsidy key).",
   );
   process.exit(1);
 }
-const model = process.env.BITGET_QWEN_MODEL ?? "qwen3.6-plus";
+const modelRole = "deep";
+const model = qwenModelForRole({ ...qwenConfig, modelRole });
 
 const backtest = JSON.parse(
   readFileSync(resolve("artifacts/aaplusdt-backtest.json"), "utf8"),
@@ -42,7 +44,12 @@ const report = await runGateAudit({
   trades: backtest.trades,
   contexts,
   labels,
-  chat: (messages) => qwenChat(messages, { apiKey, model }),
+  chat: (messages) =>
+    qwenChat(messages, {
+      ...qwenConfig,
+      apiKey,
+      modelRole,
+    }),
   model,
   generatedAt: new Date().toISOString(),
   contextsSource: contextsPath,
