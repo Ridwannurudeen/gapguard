@@ -8,6 +8,26 @@
       name="description"
       content="GapGuard evaluates the off-hours gap on tokenized US stocks with deterministic Quorum evidence, an explicit Qwen gate audit, and a tamper-evident signed trail. Bitget AI Hackathon S1, Track 3."
     />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GapGuard" />
+    <meta property="og:url" content="https://gapguard.gudman.xyz/" />
+    <meta
+      property="og:title"
+      content="GapGuard — AI abstention & risk engine for tokenized US stocks"
+    />
+    <meta
+      property="og:description"
+      content="Decides whether an off-hours gap is liquidity noise to trade or news-driven repricing to respect — and proves every decision with a signed, browser-verifiable audit trail. Bitget AI Hackathon, Track 3."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="GapGuard — AI that knows when not to trade"
+    />
+    <meta
+      name="twitter:description"
+      content="Off-hours tokenized-stock gap engine: Qwen catalyst gate + deterministic risk governor + tamper-evident signed audit you can verify in the browser."
+    />
     <link
       rel="icon"
       href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%23080907"/><path d="M7 23V9h6.8c4.5 0 7.2 2.8 7.2 7s-2.7 7-7.2 7H7zm4-3.4h2.5c2.3 0 3.5-1.3 3.5-3.6s-1.2-3.6-3.5-3.6H11v7.2zM23 9h3v14h-3z" fill="%23D7FF6A"/></svg>'
@@ -780,16 +800,19 @@
                 <tr><td>AAPL always-fade</td><td id="metricAaplFadeReturn" class="down">−0.397%</td><td id="metricAaplFadeTrades">15</td><td>40%</td></tr>
                 <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td id="metricGateReturn" class="up">+1.418%</td><td id="metricGateTrades">13</td><td>38.5%</td></tr>
                 <tr><td>AAPL label-aware baseline</td><td id="metricLabelReturn">+1.797%</td><td>13</td><td>46.2%</td></tr>
-                <tr><td>20-symbol always-fade</td><td id="metricBasketReturn" class="down">−8.233%</td><td>790</td><td>44.1%</td></tr>
+                <tr><td>20-symbol always-fade (governed)</td><td id="metricBasketReturn" class="down">−0.015%</td><td>747</td><td>44.1%</td></tr>
                 <tr class="row-hi"><td>Positive pilot OOS (16 trading days)</td><td id="metricPilotTableReturn" class="up">+2.648%</td><td>116</td><td>54.3%</td></tr>
               </tbody>
             </table>
             <p class="note">
               <strong>Honest caveat:</strong> on real blinded Finnhub news the Qwen gate scores
               12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.418% —
-              driven mainly by that one catalyst, small sample. The +1.787% row is a
-              label-grounded baseline, not an AI edge. The walk-forward pilot is on just 16 OOS
-              trading days — a hypothesis, not proven profitable alpha; we don't headline a Sharpe at that sample.
+              driven mainly by that one catalyst, small sample. The +1.797% row is a
+              label-grounded baseline, not an AI edge. The 20-symbol always-fade row is near-flat
+              (−0.015%) because it is sized by the risk governor (gross exposure ~0.19%, max DD
+              0.019%) — naive fading shows no edge, and the governor stops a no-edge strategy from
+              compounding losses. The walk-forward pilot is on just 16 OOS trading days — a
+              hypothesis, not proven profitable alpha; we don't headline a Sharpe at that sample.
             </p>
           </div>
 
