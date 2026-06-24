@@ -27,6 +27,7 @@
     "gate:holdout": "tsx src/gateHoldoutReport.ts",
     "holdout:news": "tsx src/fetchHoldoutNews.ts",
     "holdout:score": "tsx src/holdoutGateScoring.ts",
+    "operator": "tsx src/operatorConsole.ts",
     "arena:demo": "tsx src/arena-demo.ts",
     "arena:cockpit": "tsx src/arena-cockpit.ts",
     "arena:keygen": "node scripts/arena-keygen.mjs",
