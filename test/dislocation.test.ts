@@ -44,4 +44,72 @@ describe("estimateDislocation", () => {
     expect(r.fairValue).toBeCloseTo(102, 6);
     expect(r.direction).toBe("fair");
   });
+
+  it("logs premium/discount bps against a sourced point-in-time NAV reference", () => {
+    const r = estimateDislocation({
+      tokenPrice: 101,
+      referencePrice: 99,
+      decisionTimestamp: "2026-06-24T01:05:00.000Z",
+      navReference: {
+        price: 100,
+        source: "Pyth off-hours equity NAV",
+        asOf: "2026-06-24T01:00:00.000Z",
+        maxAgeMs: 10 * 60_000,
+      },
+      volatility: 0.01,
+    });
+
+    expect(r.fairValue).toBeCloseTo(100, 6);
+    expect(r.premiumDiscountBps).toBeCloseTo(100, 6);
+    expect(r.reference?.source).toBe("Pyth off-hours equity NAV");
+    expect(r.reference?.stale).toBe(false);
+    expect(r.reference?.fallback).toBe(false);
+  });
+
+  it("marks a stale NAV/oracle reference without hiding the bps calculation", () => {
+    const r = estimateDislocation({
+      tokenPrice: 98,
+      referencePrice: 100,
+      decisionTimestamp: "2026-06-24T01:45:00.000Z",
+      navReference: {
+        price: 100,
+        source: "RedStone Live equity NAV",
+        asOf: "2026-06-24T01:00:00.000Z",
+        maxAgeMs: 30 * 60_000,
+      },
+      volatility: 0.01,
+    });
+
+    expect(r.premiumDiscountBps).toBeCloseTo(-200, 6);
+    expect(r.reference?.stale).toBe(true);
+    expect(r.reference?.ageMs).toBe(45 * 60_000);
+  });
+
+  it("rejects NAV/oracle references from after the decision timestamp", () => {
+    expect(() =>
+      estimateDislocation({
+        tokenPrice: 101,
+        referencePrice: 100,
+        decisionTimestamp: "2026-06-24T01:00:00.000Z",
+        navReference: {
+          price: 100,
+          source: "Chainlink off-hours equity NAV",
+          asOf: "2026-06-24T01:01:00.000Z",
+          maxAgeMs: 30 * 60_000,
+        },
+        volatility: 0.01,
+      }),
+    ).toThrow(/after decision/);
+  });
+
+  it("labels legacy referencePrice as a fallback when no NAV/oracle is supplied", () => {
+    const r = estimateDislocation({
+      tokenPrice: 101,
+      referencePrice: 100,
+      volatility: 0.01,
+    });
+
+    expect(r.reference?.fallback).toBe(true);
+    expect(r.reference?.label).toContain("fallback");
+  });
 });
