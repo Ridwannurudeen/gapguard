@@ -1,19 +1,25 @@
+import type { NavReferenceStatus } from "./dislocation";
+import type { OffHoursLiquiditySignal } from "./proxyReturn";
 import type { MarketSession } from "./types";
 
 export interface RiskInput {
   /** Dislocation direction from the estimator. */
   direction: "rich" | "cheap" | "fair";
-  /** Dislocation confidence, 0–1. */
+  /** Dislocation confidence, 0-1. */
   confidence: number;
   /** Recent volatility (decimal). */
   volatility: number;
   /** Current market session. */
   session: MarketSession;
+  /** Point-in-time NAV/oracle reference used to compute the dislocation. */
+  reference?: NavReferenceStatus;
+  /** Point-in-time off-hours order-book/volume depth context. */
+  liquidity?: OffHoursLiquiditySignal;
   /** Whether the underlying market is open (price discovery live). */
   underlyingOpen: boolean;
   /** Account equity in quote currency. */
   equity: number;
-  /** Signed notional currently held (+ long token, − short token). */
+  /** Signed notional currently held (+ long token, - short token). */
   currentExposure: number;
   /** Current peak-to-trough drawdown (decimal, 0.05 = 5%). */
   drawdownPct: number;
@@ -58,8 +64,9 @@ function decideAction(
 ): RiskDecision["action"] {
   if (target === 0) return current === 0 ? "hold" : "flatten";
   if (current === 0) return target > 0 ? "enter_long" : "enter_short";
-  if (Math.sign(target) !== Math.sign(current))
+  if (Math.sign(target) !== Math.sign(current)) {
     return target > 0 ? "enter_long" : "enter_short";
+  }
   if (Math.abs(target - current) < minDelta) return "hold";
   return Math.abs(target) > Math.abs(current)
     ? target > 0
@@ -70,8 +77,23 @@ function decideAction(
 
 const pct = (x: number): string => `${(x * 100).toFixed(1)}%`;
 
+function duration(ms: number | null): string {
+  if (ms === null) return "n/a";
+  const minutes = ms / 60_000;
+  return minutes < 120
+    ? `${minutes.toFixed(1)}m`
+    : `${(minutes / 60).toFixed(1)}h`;
+}
+
+function flatOrHold(inp: RiskInput): Pick<RiskDecision, "action" | "targetNotional"> {
+  return {
+    action: inp.currentExposure === 0 ? "hold" : "flatten",
+    targetNotional: 0,
+  };
+}
+
 /**
- * The risk governor — GapGuard's differentiator. Convergence edge exists only while the
+ * The risk governor - GapGuard's differentiator. Convergence edge exists only while the
  * underlying is closed, so it sizes by confidence/volatility under a tighter off-hours cap,
  * realizes into the reopen, and halts on a hard drawdown breaker. Directly counters the
  * documented failure mode of LLM traders ignoring risk and position sizing.
@@ -84,7 +106,23 @@ export function governRisk(
     return {
       action: inp.currentExposure === 0 ? "hold" : "flatten",
       targetNotional: 0,
-      reason: `Drawdown ${pct(inp.drawdownPct)} ≥ halt ${pct(cfg.drawdownHaltPct)} — circuit breaker`,
+      reason: `Drawdown ${pct(inp.drawdownPct)} >= halt ${pct(cfg.drawdownHaltPct)} - circuit breaker`,
+    };
+  }
+
+  if (inp.reference?.stale) {
+    return {
+      ...flatOrHold(inp),
+      reason:
+        `Stale NAV/oracle reference from ${inp.reference.source} ` +
+        `(asOf ${inp.reference.asOf ?? "n/a"}, age ${duration(inp.reference.ageMs)} > max ${duration(inp.reference.maxAgeMs)}) - refusing trade`,
+    };
+  }
+
+  if (inp.liquidity?.gateBias === "stand_aside") {
+    return {
+      ...flatOrHold(inp),
+      reason: `Off-hours liquidity/depth indicates real repricing - ${inp.liquidity.reason}`,
     };
   }
 
@@ -93,13 +131,13 @@ export function governRisk(
       return {
         action: "flatten",
         targetNotional: 0,
-        reason: "Underlying open — convergence realized, flattening",
+        reason: "Underlying open - convergence realized, flattening",
       };
     }
     return {
       action: "hold",
       targetNotional: 0,
-      reason: "Underlying open — no off-hours edge, standing aside",
+      reason: "Underlying open - no off-hours edge, standing aside",
     };
   }
 
@@ -108,13 +146,13 @@ export function governRisk(
       return {
         action: "flatten",
         targetNotional: 0,
-        reason: "Dislocation closed — flattening",
+        reason: "Dislocation closed - flattening",
       };
     }
     return {
       action: "hold",
       targetNotional: 0,
-      reason: "No dislocation — hold",
+      reason: "No dislocation - hold",
     };
   }
 
@@ -136,10 +174,13 @@ export function governRisk(
   const target = action === "hold" ? inp.currentExposure : desired;
   const window = inp.underlyingOpen ? "regular" : "off-hours";
   const side = inp.direction === "rich" ? "Short" : "Long";
+  const liquidityContext = inp.liquidity
+    ? `; liquidity: ${inp.liquidity.reason}`
+    : "";
 
   return {
     action,
     targetNotional: target,
-    reason: `${side} convergence — conf ${pct(inp.confidence)}, size ${size.toFixed(2)} (cap ${cap.toFixed(2)}, ${window})`,
+    reason: `${side} convergence - conf ${pct(inp.confidence)}, size ${size.toFixed(2)} (cap ${cap.toFixed(2)}, ${window})${liquidityContext}`,
   };
 }

@@ -1,4 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Candle } from "../src/gapEngine";
 import type { ChatFn } from "../src/convergenceGate";
 import {
@@ -8,6 +11,7 @@ import {
 } from "../src/gateHoldoutReport";
 import {
   buildHoldoutGateContext,
+  runScoreHoldoutCli,
   scoreHoldoutCandidates,
 } from "../src/holdoutGateScoring";
 import {
@@ -33,6 +37,11 @@ const candidates: HoldoutCandidate[] = [
     oracleAction: "FOLLOW",
   },
 ];
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
 
 function session(day: number, open: number, close: number): Candle {
   return {
@@ -96,6 +105,105 @@ describe("holdout gate scoring", () => {
     });
     expect(verdict.action).toBe("STAND_ASIDE");
     expect(verdict.parseError).toContain("boom");
+  });
+
+  it("uses the deep Qwen role when the CLI scores holdout candidates", async () => {
+    const dir = mkdtempSync(join(tmpdir(), "gapguard-holdout-qwen-"));
+    const fixturePath = join(dir, "fixture.json");
+    const manifestPath = join(dir, "manifest.json");
+    const newsPath = join(dir, "missing-news.json");
+    const outPath = join(dir, "cache.json");
+    const originalArgv = process.argv;
+    const originalEnv = {
+      BITGET_QWEN_API_KEY: process.env.BITGET_QWEN_API_KEY,
+      BITGET_QWEN_MODEL: process.env.BITGET_QWEN_MODEL,
+      BITGET_QWEN_DEEP_MODEL: process.env.BITGET_QWEN_DEEP_MODEL,
+      BITGET_QWEN_QUICK_MODEL: process.env.BITGET_QWEN_QUICK_MODEL,
+    };
+    const fetchMock = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            choices: [
+              {
+                message: {
+                  content:
+                    '{"action":"FADE","confidenceMultiplier":0.8,"evidenceIds":[],"rationale":"noise"}',
+                },
+              },
+            ],
+          }),
+          { status: 200, statusText: "OK" },
+        ),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+    vi.spyOn(console, "log").mockImplementation(() => undefined);
+
+    try {
+      writeFileSync(
+        fixturePath,
+        `${JSON.stringify({
+          symbol: "AAPLUSDT",
+          granularity: "1h",
+          candles: [
+            session(1, 100, 100),
+            session(2, 102, 101),
+            session(3, 99, 100),
+          ],
+        })}\n`,
+      );
+      writeFileSync(
+        manifestPath,
+        `${JSON.stringify({ symbols: [{ file: fixturePath }] })}\n`,
+      );
+      process.env.BITGET_QWEN_API_KEY = "test-key";
+      delete process.env.BITGET_QWEN_MODEL;
+      process.env.BITGET_QWEN_DEEP_MODEL = "qwen3.6-plus-test";
+      process.env.BITGET_QWEN_QUICK_MODEL = "qwen3.6-flash-test";
+      process.argv = [
+        "node",
+        "src/holdoutGateScoring.ts",
+        manifestPath,
+        newsPath,
+        outPath,
+      ];
+
+      await runScoreHoldoutCli();
+
+      const call = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+      const body = JSON.parse(String(call[1].body)) as { model: string };
+      const cache = JSON.parse(readFileSync(outPath, "utf8")) as {
+        model: string;
+        verdicts: unknown[];
+      };
+      expect(body.model).toBe("qwen3.6-plus-test");
+      expect(cache.model).toBe("qwen3.6-plus-test");
+      expect(cache.verdicts).toHaveLength(1);
+    } finally {
+      process.argv = originalArgv;
+      if (originalEnv.BITGET_QWEN_API_KEY === undefined) {
+        delete process.env.BITGET_QWEN_API_KEY;
+      } else {
+        process.env.BITGET_QWEN_API_KEY = originalEnv.BITGET_QWEN_API_KEY;
+      }
+      if (originalEnv.BITGET_QWEN_MODEL === undefined) {
+        delete process.env.BITGET_QWEN_MODEL;
+      } else {
+        process.env.BITGET_QWEN_MODEL = originalEnv.BITGET_QWEN_MODEL;
+      }
+      if (originalEnv.BITGET_QWEN_DEEP_MODEL === undefined) {
+        delete process.env.BITGET_QWEN_DEEP_MODEL;
+      } else {
+        process.env.BITGET_QWEN_DEEP_MODEL = originalEnv.BITGET_QWEN_DEEP_MODEL;
+      }
+      if (originalEnv.BITGET_QWEN_QUICK_MODEL === undefined) {
+        delete process.env.BITGET_QWEN_QUICK_MODEL;
+      } else {
+        process.env.BITGET_QWEN_QUICK_MODEL =
+          originalEnv.BITGET_QWEN_QUICK_MODEL;
+      }
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   it("round-trips a verdict cache into a predictor map", () => {

@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { estimateProxyReturn, type ProxySignal } from "../src/proxyReturn";
+import {
+  estimateOffHoursLiquidity,
+  estimateProxyReturn,
+  type ProxySignal,
+} from "../src/proxyReturn";
 
 describe("estimateProxyReturn", () => {
   it("returns a neutral estimate when no signals are active", () => {
@@ -38,5 +42,65 @@ describe("estimateProxyReturn", () => {
     ]);
     expect(conflict.confidence).toBeLessThan(agree.confidence);
     expect(conflict.proxyReturn).toBeCloseTo(0, 6);
+  });
+});
+
+describe("estimateOffHoursLiquidity", () => {
+  it("classifies wide-spread low-volume books as fadeable noise context", () => {
+    const signal = estimateOffHoursLiquidity({
+      source: "Bitget public order book",
+      asOf: "2026-06-24T01:00:00.000Z",
+      decisionTimestamp: "2026-06-24T01:01:00.000Z",
+      bidPrice: 99,
+      askPrice: 101,
+      offHoursVolume: 100,
+      typicalOffHoursVolume: 10_000,
+    });
+
+    expect(signal.spreadBps).toBeCloseTo(200, 6);
+    expect(signal.volumeRatio).toBeCloseTo(0.01, 6);
+    expect(signal.depth).toBe("thin");
+    expect(signal.gateBias).toBe("fade_noise");
+    expect(signal.reason).toContain("fadeable noise");
+  });
+
+  it("classifies tight high-volume books as real repricing context", () => {
+    const signal = estimateOffHoursLiquidity({
+      source: "Bitget public order book",
+      asOf: "2026-06-24T01:00:00.000Z",
+      decisionTimestamp: "2026-06-24T01:01:00.000Z",
+      spreadBps: 4,
+      offHoursVolume: 3_000,
+      typicalOffHoursVolume: 1_000,
+    });
+
+    expect(signal.depth).toBe("deep");
+    expect(signal.gateBias).toBe("stand_aside");
+    expect(signal.reason).toContain("real repricing");
+  });
+
+  it("rejects liquidity observations from after the decision timestamp", () => {
+    expect(() =>
+      estimateOffHoursLiquidity({
+        source: "Bitget public order book",
+        asOf: "2026-06-24T01:02:00.000Z",
+        decisionTimestamp: "2026-06-24T01:01:00.000Z",
+        spreadBps: 4,
+        offHoursVolume: 3_000,
+        typicalOffHoursVolume: 1_000,
+      }),
+    ).toThrow(/after decision/);
+  });
+
+  it("labels fallback liquidity explicitly", () => {
+    const signal = estimateOffHoursLiquidity({
+      source: "committed execution-assumption fallback",
+      asOf: "2026-06-24T01:00:00.000Z",
+      offHoursVolume: 0,
+      fallback: true,
+    });
+
+    expect(signal.fallback).toBe(true);
+    expect(signal.reason).toContain("fallback labeled");
   });
 });

@@ -1,4 +1,4 @@
-import { qwenChat } from "./qwen";
+import { qwenChat, qwenConfigFromEnv } from "./qwen";
 import { buildOperationalCatalystBundle } from "./catalystBundle";
 import {
   assessConvergence,
@@ -7,7 +7,8 @@ import {
 } from "./convergenceGate";
 import { loadNewsFeed } from "./newsFeed";
 
-const apiKey = process.env.BITGET_QWEN_API_KEY;
+const qwenConfig = qwenConfigFromEnv();
+const apiKey = qwenConfig.apiKey;
 if (!apiKey) {
   console.error(
     "Set BITGET_QWEN_API_KEY in your environment (Bitget hackathon Qwen subsidy key).",
@@ -52,7 +53,11 @@ for (const ctx of cases) {
       }
     : ctx;
   const verdict = await assessConvergence(liveContext, (m) =>
-    qwenChat(m, { apiKey }),
+    qwenChat(m, {
+      ...qwenConfig,
+      apiKey,
+      modelRole: "deep",
+    }),
   );
   console.log(
     `\n${ctx.symbol}  (${ctx.direction} ${(ctx.dislocationPct * 100).toFixed(1)}%, ${ctx.sessionLabel})`,

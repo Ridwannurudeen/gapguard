@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "d733f3d0a253f482b500cd8b333ae1631a575857",
+  "commit": "a7685b5319f4a77e95ebf66550070a0431433775",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -25,12 +25,12 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "85d537b83b564e077d85026fc2ed5c51f33c62b1a6adb0e16f039b6dabf15140",
-      "bytes": 52785
+      "sha256": "bcf85a1696f1ed3bc540b2a5bd7c7cb84b5ee546d1e3dfb653ebaf8632b144ef",
+      "bytes": 67922
     },
     {
       "path": "public/news.html",
-      "sha256": "de367627467cdaf55f85d6e728e47bd0b5e9cf76970d0d9396e88cc4073f18c4",
+      "sha256": "43659f6157c27332da6f32f032fb87b095efbed751a1d21dd923773eabeeef4c",
       "bytes": 19974
     },
     {
@@ -40,8 +40,8 @@
     },
     {
       "path": "public/arena.html",
-      "sha256": "ea6e184b0d82d4f569644f1cada6082dd0a5032262436812979c054579ed3899",
-      "bytes": 62469
+      "sha256": "ebee80ad586c86da66f386ab4aeccf640068b209f1689aa6f6112731f367782d",
+      "bytes": 71214
     },
     {
       "path": "public/arena-data.json",
@@ -70,13 +70,13 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "4e45cafda3774232517be1e54aa2fb9e89899da84813b2f0ce74267c7df17a2a",
-      "bytes": 6284
+      "sha256": "22a0168a68b2987efd17c331f5a2454532ddcf02f9628a47b8ccd2162fe46db4",
+      "bytes": 8256
     },
     {
       "path": "glassbox-demo.jsonl",
-      "sha256": "fd70ba13016e84463d84074c3336c9120f53543297ced3f96ee3c8260f46858f",
-      "bytes": 4159
+      "sha256": "c037411bcd68f9bb0e5e193f9e5b4f3cbe4b72072dab8874cf726b86b3e82dd7",
+      "bytes": 5446
     },
     {
       "path": "artifacts/stock-paper-journal.jsonl",
