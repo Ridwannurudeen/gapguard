@@ -16,18 +16,18 @@
     />
     <style>
       :root {
-        --ink: #f4f4ec;
-        --muted: #aab0a0;
-        --dim: #737a6b;
-        --ground: #080907;
-        --floor: #10130f;
-        --line: rgba(224, 231, 204, 0.14);
+        --ink: #f5f5f3;
+        --muted: #9a9ca2;
+        --dim: #66676d;
+        --ground: #0a0a0c;
+        --floor: #15151a;
+        --line: rgba(255, 255, 255, 0.14);
         --line-strong: rgba(215, 255, 106, 0.4);
         --lime: #d7ff6a;
-        --mint: #2fe6a2;
-        --amber: #efb758;
-        --red: #ff6270;
-        --cyan: #66d9ef;
+        --mint: #34e3a4;
+        --amber: #f3b64e;
+        --red: #ff5e6e;
+        --cyan: #5fd4f0;
       }
 
       * {
@@ -42,13 +42,13 @@
         min-width: 320px;
         margin: 0;
         background:
-          linear-gradient(rgba(224, 231, 204, 0.035) 1px, transparent 1px),
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
           linear-gradient(
             90deg,
-            rgba(224, 231, 204, 0.032) 1px,
+            rgba(255, 255, 255, 0.032) 1px,
             transparent 1px
           ),
-          linear-gradient(180deg, #0b0d0a 0%, #080907 58%, #0d100c 100%);
+          linear-gradient(180deg, #0b0d0a 0%, #0a0a0c 58%, #0d100c 100%);
         background-size:
           38px 38px,
           38px 38px,
@@ -226,7 +226,7 @@
       .proof-cell {
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(16, 19, 15, 0.88);
+        background: rgba(26, 26, 33, 0.88);
       }
 
       .hero {
@@ -294,7 +294,7 @@
         overflow: hidden;
         background:
           linear-gradient(180deg, rgba(47, 230, 162, 0.08), transparent 42%),
-          rgba(16, 19, 15, 0.9);
+          rgba(26, 26, 33, 0.9);
       }
 
       .panel-head,
@@ -502,7 +502,7 @@
         margin-top: 7px;
         overflow: hidden;
         border-radius: 4px;
-        background: rgba(224, 231, 204, 0.1);
+        background: rgba(255, 255, 255, 0.1);
       }
 
       .progress span {
@@ -683,7 +683,7 @@
               <polyline
                 id="fairLine"
                 fill="none"
-                stroke="#737a6b"
+                stroke="#66676d"
                 stroke-width="2"
               />
               <polyline
@@ -953,7 +953,7 @@
         chartGrid.innerHTML = [0, 1, 2, 3]
           .map((n) => {
             const yy = 42 + n * 48;
-            return `<line x1="20" y1="${yy}" x2="700" y2="${yy}" stroke="rgba(224,231,204,0.09)" stroke-dasharray="4 6" />`;
+            return `<line x1="20" y1="${yy}" x2="700" y2="${yy}" stroke="rgba(255, 255, 255,0.09)" stroke-dasharray="4 6" />`;
           })
           .join("");
         chartPoints.innerHTML = records

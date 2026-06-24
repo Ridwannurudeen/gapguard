@@ -44,21 +44,21 @@
     />
     <style>
       :root {
-        --ground: #080907;
-        --floor: #0c0f0b;
-        --surface: #10130f;
-        --card: #161a15;
-        --raised: #1b201a;
-        --line: rgba(224, 231, 204, 0.12);
-        --line-strong: rgba(215, 255, 106, 0.4);
-        --ink: #f4f4ec;
-        --muted: #aab0a0;
-        --dim: #737a6b;
+        --ground: #0a0a0c;
+        --floor: #101013;
+        --surface: #15151a;
+        --card: #1a1a21;
+        --raised: #232329;
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(215, 255, 106, 0.42);
+        --ink: #f5f5f3;
+        --muted: #9a9ca2;
+        --dim: #66676d;
         --lime: #d7ff6a;
-        --cyan: #66d9ef;
-        --mint: #2fe6a2;
-        --amber: #efb758;
-        --red: #ff6270;
+        --cyan: #5fd4f0;
+        --mint: #34e3a4;
+        --amber: #f3b64e;
+        --red: #ff5e6e;
         --sans:
           "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
         --display:
@@ -84,9 +84,9 @@
         font-size: 16px;
         line-height: 1.55;
         background:
-          linear-gradient(rgba(224, 231, 204, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(224, 231, 204, 0.028) 1px, transparent 1px),
-          linear-gradient(180deg, #0b0d0a 0%, #080907 60%, #0c0f0b 100%);
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+          linear-gradient(180deg, #0b0d0a 0%, #0a0a0c 60%, #101013 100%);
         background-size:
           40px 40px,
           40px 40px,
@@ -165,13 +165,12 @@
       .nav-links .pill {
         color: var(--ground);
         background: var(--lime);
-        padding: 8px 14px;
+        padding: 9px 15px;
         border-radius: 7px;
-        font-family: var(--mono);
-        font-weight: 700;
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0;
         transition: box-shadow 160ms ease, transform 160ms ease;
       }
       .nav-links .pill:hover {
@@ -248,10 +247,7 @@
         max-width: 880px;
       }
       h1.title .grad {
-        background: linear-gradient(120deg, var(--lime), var(--cyan));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+        color: var(--lime);
       }
       .sub {
         margin-top: 22px;
@@ -273,11 +269,10 @@
         height: 46px;
         padding: 0 20px;
         border-radius: 9px;
-        font-family: var(--mono);
-        font-weight: 700;
-        font-size: 13px;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0;
         cursor: pointer;
         transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease;
       }
@@ -296,7 +291,7 @@
         border: 1px solid var(--line);
       }
       .btn.ghost:hover {
-        border-color: var(--cyan);
+        border-color: rgba(255, 255, 255, 0.18);
         color: var(--ink);
         transform: translateY(-2px);
       }
@@ -479,7 +474,7 @@
         margin-top: 14px;
         border: 1px solid var(--line);
         border-radius: 10px;
-        background: #0a0c08;
+        background: #101013;
         padding: 14px 16px;
         font-family: var(--mono);
         font-size: 12.5px;
@@ -685,7 +680,7 @@
             <div class="l">signed Merkle audit · verify in-browser</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">109 / 0</div>
+            <div class="v cyan">182 / 0</div>
             <div class="l">tests passing · typecheck clean</div>
           </div>
         </div>
@@ -883,7 +878,7 @@
           <div class="panel reveal">
             <h3>What you can run yourself</h3>
             <ul class="checks">
-              <li><span class="mono">npm test</span> — 109 tests, typecheck clean</li>
+              <li><span class="mono">npm test</span> — 182 tests, typecheck clean</li>
               <li><span class="mono">npm run backtest</span> — real AAPLUSDT gap backtest, no key</li>
               <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
               <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA pilot artifact</li>
@@ -968,7 +963,7 @@
       .scrub-btn:hover { border-color: var(--cyan); }
       .desk-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 20px; }
       @media (max-width: 820px) { .desk-grid { grid-template-columns: 1fr; } }
-      .desk-news { white-space: pre-wrap; font-size: 12px; line-height: 1.65; color: var(--muted); max-height: 240px; overflow: auto; margin: 8px 0 0; background: #0a0c08; border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+      .desk-news { white-space: pre-wrap; font-size: 12px; line-height: 1.65; color: var(--muted); max-height: 240px; overflow: auto; margin: 8px 0 0; background: #101013; border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
       .desk-rationale { margin-top: 8px; color: var(--ink); font-size: 15px; line-height: 1.5; }
       .desk-stats { display: flex; gap: 26px; margin-top: 18px; }
       .desk-stats .lab { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -979,11 +974,38 @@
       .catalyst-card h4 { margin: 0 0 7px; color: var(--cyan); font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; }
       .catalyst-card ul { display: grid; gap: 7px; list-style: none; padding: 0; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
       .catalyst-card li { overflow-wrap: anywhere; }
-      .mandate-input { width: 100%; box-sizing: border-box; background: #0a0c08; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 12px; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; resize: vertical; }
-      .mandate-rules { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-      .rule-chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line-strong); background: rgba(215, 255, 106, 0.06); border-radius: 8px; padding: 8px 12px; font-size: 13px; }
-      .rule-effect { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--dim); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; }
-      .rule-effect.veto { color: var(--red); border-color: rgba(255, 98, 112, 0.4); }
+      .mandate-input { width: 100%; box-sizing: border-box; background: #101013; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 12px; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; resize: vertical; }
+      .mandate-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+      .preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+      .preset-btn { border: 1px solid var(--line); background: rgba(244,244,236,0.04); color: var(--muted); border-radius: 7px; padding: 7px 10px; font-family: var(--mono); font-size: 11px; cursor: pointer; }
+      .preset-btn:hover, .preset-btn.active { color: var(--ink); border-color: var(--line-strong); background: rgba(215,255,106,0.08); }
+      .mandate-workbench { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr); gap: 18px; margin-top: 18px; }
+      @media (max-width: 860px) { .mandate-workbench { grid-template-columns: 1fr; } }
+      .mandate-tree { display: grid; gap: 12px; }
+      .rule-node { position: relative; border: 1px solid var(--line); border-radius: 8px; background: rgba(8,9,7,0.52); padding: 13px 14px; transition: border-color 160ms ease, background 160ms ease; }
+      .rule-node::before { content: ""; position: absolute; left: 18px; top: -12px; width: 1px; height: 12px; background: var(--line); }
+      .rule-node:first-child::before { display: none; }
+      .rule-node.ok { border-color: rgba(47,230,162,0.45); background: rgba(47,230,162,0.05); }
+      .rule-node.breached { border-color: rgba(255,98,112,0.55); background: rgba(255,98,112,0.08); }
+      .rule-source { color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+      .rule-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 9px 0; }
+      .rule-effect { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--cyan); border: 1px solid rgba(102,217,239,0.38); border-radius: 4px; padding: 2px 6px; }
+      .rule-effect.veto { color: var(--red); border-color: rgba(255,98,112,0.44); }
+      .rule-limit { color: var(--ink); font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+      .rule-state { margin-left: auto; font-family: var(--mono); font-size: 10px; text-transform: uppercase; color: var(--mint); }
+      .rule-node.breached .rule-state { color: var(--red); }
+      .sim-panel { border: 1px solid var(--line); border-radius: 8px; background: rgba(8,9,7,0.42); padding: 14px; }
+      .sim-grid { display: grid; gap: 14px; margin-top: 12px; }
+      .sim-control label { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 12px; margin-bottom: 7px; }
+      .sim-control output { color: var(--ink); font-family: var(--mono); font-variant-numeric: tabular-nums; }
+      .sim-control input[type="range"] { width: 100%; accent-color: var(--lime); }
+      .sim-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 12px; }
+      .sim-toggle input { width: 18px; height: 18px; accent-color: var(--red); }
+      .veto-box { margin-top: 14px; border: 1px solid var(--line); border-radius: 7px; padding: 10px; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+      .veto-box.breached { border-color: rgba(255,98,112,0.45); color: var(--red); background: rgba(255,98,112,0.06); }
+      .mandate-artifact { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; background: #101013; padding: 12px; }
+      .artifact-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+      .artifact-hash { color: var(--lime); font-family: var(--mono); font-size: 12px; text-transform: none; letter-spacing: 0; overflow-wrap: anywhere; }
     </style>
 
     <!-- 06 AGENT NEWS DESK + REPLAY -->
@@ -1037,8 +1059,48 @@
         </p>
         <div class="panel reveal">
           <textarea id="mandateInput" class="mandate-input" rows="3" spellcheck="false">Never lose >2% overnight. Max 10% position. Stay flat when evidence conflicts.</textarea>
-          <button id="compileMandate" class="btn primary" type="button" style="margin-top:12px">Compile mandate →</button>
-          <div id="mandateRules" class="mandate-rules"></div>
+          <div class="mandate-actions">
+            <button id="compileMandate" class="btn primary" type="button">Compile mandate →</button>
+            <button id="copyMandateJson" class="btn ghost" type="button">Copy mandate JSON</button>
+            <button id="copyMandateLink" class="btn ghost" type="button">Copy share link</button>
+          </div>
+          <div class="preset-row" aria-label="Mandate library">
+            <button class="preset-btn active" type="button" data-preset="conservative">Conservative</button>
+            <button class="preset-btn" type="button" data-preset="balanced">Balanced</button>
+            <button class="preset-btn" type="button" data-preset="aggressive">Aggressive</button>
+            <button class="preset-btn" type="button" data-preset="evidenceStrict">Evidence-strict</button>
+          </div>
+          <div class="mandate-workbench">
+            <div>
+              <div class="eyebrow" style="color:var(--dim);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.06em">Compiled rule tree</div>
+              <div id="mandateRules" class="mandate-tree"></div>
+              <div class="mandate-artifact">
+                <div class="artifact-row">
+                  <span>Canonical artifact hash</span>
+                  <span id="mandateHash" class="artifact-hash">pending</span>
+                </div>
+              </div>
+            </div>
+            <div class="sim-panel">
+              <div class="eyebrow" style="color:var(--dim);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.06em">Live breach simulation</div>
+              <div class="sim-grid">
+                <div class="sim-control">
+                  <label for="simOvernightLoss"><span>Overnight loss</span><output id="simOvernightLossOut">1.0%</output></label>
+                  <input id="simOvernightLoss" type="range" min="0" max="5" step="0.1" value="1" />
+                </div>
+                <div class="sim-control">
+                  <label for="simPosition"><span>Position size</span><output id="simPositionOut">8.0%</output></label>
+                  <input id="simPosition" type="range" min="0" max="30" step="0.5" value="8" />
+                </div>
+                <label class="sim-toggle" for="simEvidenceConflict">
+                  <span>Evidence conflict</span>
+                  <input id="simEvidenceConflict" type="checkbox" />
+                </label>
+              </div>
+              <div id="mandateVerdict" class="veto-box">Simulation ready.</div>
+            </div>
+          </div>
+          <p class="note" style="margin-top:16px">Composer decides what to buy; GapGuard decides what the agent is <strong>forbidden</strong> to do — signed and re-verifiable.</p>
         </div>
       </div>
     </section>
@@ -1252,34 +1314,264 @@
         })
         .catch(() => {});
 
-      // --- Risk mandate editor (#5) — ports src/mandate.ts compileMandate ---
-      function compileMandate(text) {
-        const lower = text.toLowerCase();
-        const rules = [];
-        const ovn = lower.match(/(?:never\s+)?lose\s*>\s*(\d+(?:\.\d+)?)%\s*overnight/);
-        const pos = lower.match(/max\s*(\d+(?:\.\d+)?)%\s*position/);
-        if (ovn) rules.push({ label: `overnight loss ≤ ${ovn[1]}%`, effect: "hard veto" });
-        if (pos) rules.push({ label: `position ≤ ${pos[1]}%`, effect: "risk config" });
-        if (lower.includes("evidence conflicts"))
-          rules.push({ label: "stay flat when evidence conflicts", effect: "hard veto" });
-        return rules;
+      // --- Risk mandate editor — browser port of src/mandate.ts compileMandate/check ---
+      const mandatePresets = {
+        conservative:
+          "Never lose >1.5% overnight. Max 8% position. Stay flat when evidence conflicts.",
+        balanced:
+          "Never lose >2% overnight. Max 10% position. Stay flat when evidence conflicts.",
+        aggressive:
+          "Never lose >3% overnight. Max 18% position. Stay flat when evidence conflicts.",
+        evidenceStrict:
+          "Never lose >1% overnight. Max 6% position. Stay flat when evidence conflicts.",
+      };
+      const mandateState = {
+        compiled: null,
+        artifact: null,
+        hash: "",
+      };
+      function readPercent(match) {
+        if (!match) return null;
+        const value = match.slice(1).find((part) => part !== undefined);
+        const parsed = Number(value);
+        return Number.isFinite(parsed) ? parsed / 100 : null;
       }
-      function renderMandate() {
-        const rules = compileMandate(document.getElementById("mandateInput").value);
-        const out = document.getElementById("mandateRules");
-        if (!rules.length) {
-          out.innerHTML =
-            '<p class="note">No supported rule found. Try: "never lose &gt;2% overnight", "max 10% position", "stay flat when evidence conflicts".</p>';
-          return;
+      function mandatePct(value) {
+        return `${(value * 100).toFixed(1)}%`;
+      }
+      function compileMandate(text) {
+        const source = text.trim();
+        if (!source) throw new Error("mandate text is required");
+        const lower = source.toLowerCase();
+        const riskConfig = {
+          maxExposurePct: 0.5,
+          offHoursExposureCapPct: 0.2,
+          riskPerTradePct: 0.01,
+          drawdownHaltPct: 0.1,
+          forceFlatBeforeOpen: true,
+          rebalanceBandPct: 0.02,
+        };
+        const rules = [];
+        const overnightLimit = readPercent(
+          lower.match(/(?:never\s+)?lose\s*>\s*(\d+(?:\.\d+)?)%\s*overnight/),
+        );
+        const positionLimit = readPercent(
+          lower.match(/max\s*(\d+(?:\.\d+)?)%\s*position/),
+        );
+        if (overnightLimit !== null) {
+          riskConfig.drawdownHaltPct = Math.min(
+            riskConfig.drawdownHaltPct,
+            overnightLimit,
+          );
+          rules.push({
+            id: "overnight_loss_limit",
+            label: `overnight loss <= ${mandatePct(overnightLimit)}`,
+            sourceText: source,
+            effect: "hard_veto",
+            limitPct: overnightLimit,
+          });
         }
-        out.innerHTML = rules
-          .map(
-            (r) =>
-              `<div class="rule-chip"><span class="mono">${r.label}</span> <span class="rule-effect ${r.effect === "hard veto" ? "veto" : ""}">${r.effect}</span></div>`,
-          )
+        if (positionLimit !== null) {
+          riskConfig.maxExposurePct = positionLimit;
+          riskConfig.offHoursExposureCapPct = Math.min(
+            riskConfig.offHoursExposureCapPct,
+            positionLimit,
+          );
+          rules.push({
+            id: "max_position",
+            label: `position <= ${mandatePct(positionLimit)}`,
+            sourceText: source,
+            effect: "risk_config",
+            limitPct: positionLimit,
+          });
+        }
+        if (lower.includes("evidence conflicts")) {
+          rules.push({
+            id: "evidence_conflict_flat",
+            label: "stay flat when evidence conflicts",
+            sourceText: source,
+            effect: "hard_veto",
+          });
+        }
+        if (!rules.length) {
+          throw new Error("mandate did not contain a supported risk rule");
+        }
+        return {
+          source,
+          riskConfig,
+          rules,
+          check(state) {
+            const breachedRules = rules.filter((rule) => {
+              if (rule.id === "overnight_loss_limit") {
+                return state.overnightLossPct > rule.limitPct;
+              }
+              if (rule.id === "max_position") {
+                return state.positionPct > rule.limitPct;
+              }
+              return state.evidenceConflict;
+            });
+            return {
+              ok: breachedRules.length === 0,
+              appliedRules: rules,
+              breachedRules,
+              vetoReasons: breachedRules.map((rule) => rule.label),
+            };
+          },
+        };
+      }
+      function canonicalJson(value) {
+        if (value === null) return "null";
+        if (typeof value === "string") return JSON.stringify(value);
+        if (typeof value === "number") return JSON.stringify(value);
+        if (typeof value === "boolean") return value ? "true" : "false";
+        if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+        if (typeof value === "object") {
+          return `{${Object.keys(value)
+            .sort()
+            .filter((key) => value[key] !== undefined)
+            .map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`)
+            .join(",")}}`;
+        }
+        throw new Error(`cannot canonicalize ${typeof value}`);
+      }
+      async function sha256Hex(text) {
+        const digest = await crypto.subtle.digest(
+          "SHA-256",
+          new TextEncoder().encode(text),
+        );
+        return [...new Uint8Array(digest)]
+          .map((byte) => byte.toString(16).padStart(2, "0"))
           .join("");
       }
+      function publicMandateArtifact(compiled) {
+        return {
+          source: compiled.source,
+          riskConfig: compiled.riskConfig,
+          rules: compiled.rules,
+        };
+      }
+      function currentMandateState() {
+        return {
+          overnightLossPct:
+            Number(document.getElementById("simOvernightLoss").value) / 100,
+          positionPct: Number(document.getElementById("simPosition").value) / 100,
+          evidenceConflict: document.getElementById("simEvidenceConflict").checked,
+          drawdownPct:
+            Number(document.getElementById("simOvernightLoss").value) / 100,
+        };
+      }
+      function ruleLimit(rule) {
+        if (typeof rule.limitPct === "number") return `${rule.id} -> ${mandatePct(rule.limitPct)}`;
+        return `${rule.id} -> boolean`;
+      }
+      function renderSimulation() {
+        const compiled = mandateState.compiled;
+        if (!compiled) return;
+        const state = currentMandateState();
+        document.getElementById("simOvernightLossOut").textContent = mandatePct(
+          state.overnightLossPct,
+        );
+        document.getElementById("simPositionOut").textContent = mandatePct(
+          state.positionPct,
+        );
+        const check = compiled.check(state);
+        const breached = new Set(check.breachedRules.map((rule) => rule.id));
+        document.querySelectorAll("[data-rule-id]").forEach((node) => {
+          const isBreached = breached.has(node.dataset.ruleId);
+          node.classList.toggle("breached", isBreached);
+          node.classList.toggle("ok", !isBreached);
+          const stateEl = node.querySelector(".rule-state");
+          if (stateEl) stateEl.textContent = isBreached ? "breached" : "enforced";
+        });
+        const verdict = document.getElementById("mandateVerdict");
+        verdict.classList.toggle("breached", !check.ok);
+        verdict.textContent = check.ok
+          ? "All compiled rules are currently enforced. No veto fires."
+          : `VETO: ${check.vetoReasons.join(" | ")}`;
+      }
+      async function renderMandate() {
+        const out = document.getElementById("mandateRules");
+        try {
+          const compiled = compileMandate(document.getElementById("mandateInput").value);
+          const artifact = publicMandateArtifact(compiled);
+          const hash = await sha256Hex(canonicalJson(artifact));
+          mandateState.compiled = compiled;
+          mandateState.artifact = artifact;
+          mandateState.hash = hash;
+          document.getElementById("mandateHash").textContent =
+            `sha256:${hash.slice(0, 16)}...${hash.slice(-8)}`;
+          out.innerHTML = compiled.rules
+            .map(
+              (rule) => `<article class="rule-node ok" data-rule-id="${escapeHtml(rule.id)}">
+                <div class="rule-source">${escapeHtml(rule.sourceText)}</div>
+                <div class="rule-meta">
+                  <span class="rule-effect ${rule.effect === "hard_veto" ? "veto" : ""}">${escapeHtml(rule.effect === "hard_veto" ? "HARD VETO" : "RISK CONFIG")}</span>
+                  <span class="rule-limit">${escapeHtml(ruleLimit(rule))}</span>
+                  <span class="rule-state">enforced</span>
+                </div>
+                <div class="mono" style="font-size:12px;color:var(--ink)">${escapeHtml(rule.label)}</div>
+              </article>`,
+            )
+            .join("");
+          renderSimulation();
+        } catch (err) {
+          mandateState.compiled = null;
+          mandateState.artifact = null;
+          mandateState.hash = "";
+          document.getElementById("mandateHash").textContent = "invalid";
+          out.innerHTML = `<p class="note">No supported rule found. Try: "never lose &gt;2% overnight", "max 10% position", "stay flat when evidence conflicts".</p>`;
+          const verdict = document.getElementById("mandateVerdict");
+          verdict.classList.add("breached");
+          verdict.textContent = err instanceof Error ? err.message : "Invalid mandate";
+        }
+      }
+      function encodedMandateLink() {
+        const url = new URL(location.href);
+        url.hash = `mandate=${encodeURIComponent(
+          btoa(unescape(encodeURIComponent(document.getElementById("mandateInput").value))),
+        )}`;
+        return url.toString();
+      }
+      function loadMandateFromHash() {
+        const match = location.hash.match(/mandate=([^&]+)/);
+        if (!match) return;
+        try {
+          document.getElementById("mandateInput").value = decodeURIComponent(
+            escape(atob(decodeURIComponent(match[1]))),
+          );
+        } catch {
+          // Ignore malformed shared links; the default mandate remains visible.
+        }
+      }
+      function copyText(text, button) {
+        navigator.clipboard?.writeText(text).then(() => {
+          const old = button.textContent;
+          button.textContent = "Copied";
+          setTimeout(() => {
+            button.textContent = old;
+          }, 1200);
+        });
+      }
       document.getElementById("compileMandate").addEventListener("click", renderMandate);
+      document.getElementById("copyMandateJson").addEventListener("click", (event) => {
+        if (!mandateState.artifact) return;
+        copyText(JSON.stringify(mandateState.artifact, null, 2), event.currentTarget);
+      });
+      document.getElementById("copyMandateLink").addEventListener("click", (event) => {
+        copyText(encodedMandateLink(), event.currentTarget);
+      });
+      document.querySelectorAll("[data-preset]").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll("[data-preset]").forEach((el) => el.classList.remove("active"));
+          button.classList.add("active");
+          document.getElementById("mandateInput").value = mandatePresets[button.dataset.preset];
+          renderMandate();
+        });
+      });
+      ["simOvernightLoss", "simPosition", "simEvidenceConflict"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", renderSimulation);
+      });
+      loadMandateFromHash();
       renderMandate();
     </script>
   </body>
