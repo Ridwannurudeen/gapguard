@@ -111,6 +111,35 @@ describe("arena chain", () => {
 
     await expect(browserStyleHash(record)).resolves.toBe(record.hash);
   });
+
+  it("accepts append-only reflection records as signed Arena chain rows", () => {
+    const records = sealArenaRecords([
+      {
+        ts: "2026-06-22T00:00:00.000Z",
+        kind: "agent_decision",
+        agentId: "quorum",
+        payload: { symbol: "AAPLUSDT", action: "enter_long" },
+      },
+      {
+        ts: "2026-06-23T00:00:00.000Z",
+        kind: "reflection",
+        agentId: "reflection-memory",
+        payload: {
+          resolvedDecisionHash: "a".repeat(64),
+          alphaPct: 1.25,
+          label: "LLM_REFLECTION",
+          lesson: "Quiet rich gaps reverted after no catalyst.",
+        },
+      },
+    ]);
+
+    expect(records[1].prevHash).toBe(records[0].hash);
+    expect(verifyArenaRecords(records)).toMatchObject({
+      ok: true,
+      count: 2,
+      errors: [],
+    });
+  });
 });
 
 describe("arena attestation (Merkle + Ed25519)", () => {

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "a451dbc26107e3b4c90e77149e473107575e0c37",
+  "commit": "d733f3d0a253f482b500cd8b333ae1631a575857",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
-  "promptHash": "1c7bef897db9a8670f4b41b4ed4ae5436e5ddc5a62478333ef3ef7e96c19bb0e",
+  "promptHash": "78432be24500f9b1723d7bf9fa0583956811e5056f1c20f60098a8891c1ff03f",
   "publicKeyFingerprint": "88f0da408cefee09788a9a725e1c39e0f105279de492fcbedf10f10babd64561",
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "b0c9b65ddf3d1b28a132d1b6048c160adde421318c613657ded380f9c52ef3d6",
-      "bytes": 5918
+      "sha256": "c7df3f2771bcff4696bb0bd1b6b42cb528f5cb561ac3368f1afd9f75f58da651",
+      "bytes": 5947
     },
     {
       "path": "docs/SUBMISSION.md",
@@ -25,38 +25,38 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "33e50d92668d6bc7cb9e73cadbfda5cc605d313e357a055fa649b9cb3a1d2ba9",
-      "bytes": 51175
+      "sha256": "85d537b83b564e077d85026fc2ed5c51f33c62b1a6adb0e16f039b6dabf15140",
+      "bytes": 52785
     },
     {
       "path": "public/news.html",
-      "sha256": "3cd2e9399a6157e09531e4b1d4e10a6e5267ba2c5eb013e35328d0fa31e3e4fb",
-      "bytes": 19296
+      "sha256": "de367627467cdaf55f85d6e728e47bd0b5e9cf76970d0d9396e88cc4073f18c4",
+      "bytes": 19974
     },
     {
       "path": "public/news-feed.json",
-      "sha256": "6f0589b3e24d7d53b57f01a0f237d32e88368b9e48336b0bb4b3b16d24e0ae7f",
-      "bytes": 55660
+      "sha256": "6941ce81f9426ab2116ecf7cca4f5a1a1c004639d6f97354ce5a1ee2823f9a65",
+      "bytes": 56550
     },
     {
       "path": "public/arena.html",
-      "sha256": "0f323218c07688722814ecef5ae9e9d083c1fe8ab5145c597d8a03d0af30f5f5",
-      "bytes": 62465
+      "sha256": "ea6e184b0d82d4f569644f1cada6082dd0a5032262436812979c054579ed3899",
+      "bytes": 62469
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "9c3248c72b41da833a6443b4538f622b4e773e50d982e661a398cbe6fb776d43",
-      "bytes": 19025
+      "sha256": "43795d7b2cd7bca50328d95bcee7d479df9814db2e623e21f5d9358edd7c2023",
+      "bytes": 19646
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "dc313829a97012708dbffc85c2e78d2c87a245a7fb8d657756dc78cbd6790c07",
-      "bytes": 11303
+      "sha256": "7ade299e98d1cb1cf017c62fc51db238e19f88197a35fa4197c85247d3f8e906",
+      "bytes": 11314
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "50ddcc9f197d1e9f60737da219b931c89485327ef6e7c6e894a807a48547c4e7",
-      "bytes": 422
+      "sha256": "1879eb781e49a1603e253ef2a372101d258970740f37d39e77b0d2eea42f1e83",
+      "bytes": 431
     },
     {
       "path": "public/arena-pubkey.pem",
@@ -70,8 +70,8 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "df359a443611d06ea5a4525f593bf98ca83cb0e680f20d13c80c65b56827e207",
-      "bytes": 6482
+      "sha256": "4e45cafda3774232517be1e54aa2fb9e89899da84813b2f0ce74267c7df17a2a",
+      "bytes": 6284
     },
     {
       "path": "glassbox-demo.jsonl",
@@ -80,13 +80,13 @@
     },
     {
       "path": "artifacts/stock-paper-journal.jsonl",
-      "sha256": "8c58441a4ff540df339b650a23ebe8512e5e3d22b2f346461233379f7f7b001d",
-      "bytes": 35337
+      "sha256": "773631ebc260c0b97ea02553674f692e69a6159732522d0b2f8312f30b2dd189",
+      "bytes": 35395
     },
     {
       "path": "artifacts/stock-paper-journal.csv",
-      "sha256": "cf4fbc168e6bd316905c1648a26abf5abe7083ccaa1f26b2311fd5db44a6f999",
-      "bytes": 18822
+      "sha256": "0427d3a24f02a9e6801eb979e0e46e386ad1493bbe27f85360ef6c3760776d96",
+      "bytes": 18881
     },
     {
       "path": "artifacts/aaplusdt-news-aware-backtest.json",
@@ -120,8 +120,8 @@
     },
     {
       "path": "data/macro-calendar.json",
-      "sha256": "f182338d1eb18cd97c166ed41f15d6c0640fc2bb7dc620a2d2c36596fc4a8993",
-      "bytes": 927
+      "sha256": "208d0970a8c8a444c0fa4eba57c7e38acc3a4cf54689cb74d86f3eecbb2f9ce3",
+      "bytes": 955
     }
   ],
   "generationCommands": [

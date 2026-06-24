@@ -24,7 +24,8 @@ export type ArenaRecordKind =
   | "agent_decision"
   | "mandate_breach"
   | "passport_issued"
-  | "broker_order";
+  | "broker_order"
+  | "reflection";
 
 export interface ArenaRecordInput {
   ts: string;
@@ -66,7 +67,8 @@ function isArenaRecordKind(value: unknown): value is ArenaRecordKind {
     value === "agent_decision" ||
     value === "mandate_breach" ||
     value === "passport_issued" ||
-    value === "broker_order"
+    value === "broker_order" ||
+    value === "reflection"
   );
 }
 
