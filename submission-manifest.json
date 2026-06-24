@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "40716c053fdcfd143e14062a9afe6af87d9e916a",
+  "commit": "8926d8198f305dfb6c3758504bf662fced87170b",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -25,13 +25,13 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "c10e395a8109d75a929cd100e945556f4c1ec5d70728600d8c8325786e24d8aa",
-      "bytes": 66344
+      "sha256": "bcf85a1696f1ed3bc540b2a5bd7c7cb84b5ee546d1e3dfb653ebaf8632b144ef",
+      "bytes": 67922
     },
     {
       "path": "public/news.html",
-      "sha256": "8dd993197f6a2f8c69e9811a658431c17c4cd5969291df1f7e724fc1f6b554ad",
-      "bytes": 19296
+      "sha256": "43659f6157c27332da6f32f032fb87b095efbed751a1d21dd923773eabeeef4c",
+      "bytes": 19974
     },
     {
       "path": "public/news-feed.json",
@@ -40,8 +40,8 @@
     },
     {
       "path": "public/arena.html",
-      "sha256": "1e7a5e6069906a34a7cd6d470cdf9d298737ba0cd11ee31f6880d3be4d35b4a1",
-      "bytes": 68976
+      "sha256": "ebee80ad586c86da66f386ab4aeccf640068b209f1689aa6f6112731f367782d",
+      "bytes": 71214
     },
     {
       "path": "public/arena-data.json",
@@ -70,8 +70,8 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "df359a443611d06ea5a4525f593bf98ca83cb0e680f20d13c80c65b56827e207",
-      "bytes": 6482
+      "sha256": "08116578dfaead121d790e783de4fbd8dbb4c9cdd1ac0c94badc9543ba692966",
+      "bytes": 6284
     },
     {
       "path": "glassbox-demo.jsonl",
@@ -80,13 +80,13 @@
     },
     {
       "path": "artifacts/stock-paper-journal.jsonl",
-      "sha256": "8c58441a4ff540df339b650a23ebe8512e5e3d22b2f346461233379f7f7b001d",
-      "bytes": 35337
+      "sha256": "773631ebc260c0b97ea02553674f692e69a6159732522d0b2f8312f30b2dd189",
+      "bytes": 35395
     },
     {
       "path": "artifacts/stock-paper-journal.csv",
-      "sha256": "cf4fbc168e6bd316905c1648a26abf5abe7083ccaa1f26b2311fd5db44a6f999",
-      "bytes": 18822
+      "sha256": "0427d3a24f02a9e6801eb979e0e46e386ad1493bbe27f85360ef6c3760776d96",
+      "bytes": 18881
     },
     {
       "path": "artifacts/aaplusdt-news-aware-backtest.json",
