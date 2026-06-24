@@ -401,12 +401,53 @@
         background: var(--lime);
       }
 
+      /* signature motion: the verify/tamper heartbeat */
+      .gg-node {
+        border-radius: 12px;
+        transition: box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .gg-node[data-state="verified"] {
+        box-shadow:
+          0 0 0 1px rgba(215, 255, 106, 0.42),
+          0 0 34px -8px rgba(215, 255, 106, 0.32);
+      }
+      .gg-node[data-state="tampered"] {
+        box-shadow:
+          0 0 0 1px var(--red),
+          0 0 34px -10px rgba(255, 94, 110, 0.42);
+        animation: gg-break 500ms cubic-bezier(0.3, 0, 1, 1);
+      }
+      @keyframes gg-break {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-3px);
+        }
+        40% {
+          transform: translateX(3px);
+        }
+        60% {
+          transform: translateX(-2px);
+        }
+        80% {
+          transform: translateX(2px);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .gg-node[data-state="tampered"] {
+          animation: none;
+        }
+      }
+
       .receipt-panel {
         display: grid;
         grid-template-rows: auto auto 1fr;
         gap: 12px;
         padding: 16px;
         background: rgba(8, 9, 7, 0.5);
+        border-radius: 12px;
       }
 
       .receipt-meter {
