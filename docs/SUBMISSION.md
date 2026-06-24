@@ -10,6 +10,8 @@ GapGuard is an AI abstention and risk engine for tokenized US stocks: it decides
 
 Tokenized US stocks on Bitget, such as `AAPLUSDT` and `NVDAUSDT`, trade 24/7 while the underlying US market has a regular weekday session. Off-hours gaps can be liquidity noise, but they can also be real repricing from news or macro catalysts. GapGuard's edge is not blindly fading every gap. The product is the decision boundary: trade only when the evidence says noise, stand aside when evidence says news, size under a mandate, and leave a receipt.
 
+For an ordinary trader, that boundary ships as a **non-custodial advisory assistant** (`public/app.html`): plain-English live gap calls, AI fadeable/stand-aside verdicts, an editable personal risk mandate, and a one-tap handoff to the trader's own Bitget account. GapGuard never holds keys or places orders — it gives the call, shows the exact order, and the trader acts on their own exchange. This is the "solve a real problem around the US stock trading experience" half of Track 3: most tools tell you when to buy; GapGuard tells a normal person when *not* to trade, with the reasoning and their own guardrails.
+
 ## System
 
 - Perception: read-only Bitget RWA futures contract/ticker data, US-session clock, spread/funding/min-size checks, and deterministic dislocation estimates.
@@ -18,6 +20,7 @@ Tokenized US stocks on Bitget, such as `AAPLUSDT` and `NVDAUSDT`, trade 24/7 whi
 - Risk: a natural-language mandate compiles to hard vetoes for drawdown, position size, and conflicting evidence.
 - Execution: deterministic RWA sim broker for stock paper evidence; Bitget Agent Hub path proven separately with BTCUSDT Demo paper trading.
 - Trust: signed tamper-evident audit trail inspired by regulated-market recordkeeping. This is a cryptographic integrity proof, not regulatory certification.
+- Assistant: a non-custodial consumer front-end (`public/app.html`) — live off-hours gap cards from real Bitget index-vs-last data, AI fadeable/stand-aside verdicts, an editable plain-English risk mandate stored in the browser, and a one-tap handoff to the trader's own Bitget pair. No keys in the browser; GapGuard never places the order.
 
 ## Evidence
 
@@ -40,13 +43,13 @@ The 2026-06-09 WWDC case is the hero example: the Qwen catalyst gate correctly s
 
 ## Track 3 Materials
 
-| Required material | Provided artifact |
+| Official Track 3 requirement | Provided |
 | --- | --- |
-| Public GitHub repo + README | Repo README with install, quickstart, and evidence links |
-| Login-free demo | `public/arena.html` with browser chain verification and tamper toggle |
-| Paper trading log | `artifacts/stock-paper-journal.jsonl` and `artifacts/stock-paper-journal.csv` for AAPLUSDT/NVDAUSDT stock paper rows |
-| Backtest report | `artifacts/aaplusdt-backtest.json`, `artifacts/aaplusdt-news-aware-backtest.json`, `artifacts/rwa-multi-backtest.json`, `artifacts/rwa-alpha-certification.json`, and `playbook/aaplusdt-backtest-result.json` |
-| Exchange integration evidence | `artifacts/paper-btc-smoke.jsonl`, explicitly labeled as Bitget Demo crypto integration smoke |
+| Project description (four-part, clear thesis) | This doc + `README.md` — problem, system, evidence, honest limits |
+| Public GitHub repo + README, **or** login-free demo | Both: public repo with a runnable README, **and** login-free demos — `public/app.html` (consumer assistant) and `public/arena.html` (cockpit with browser chain verification) |
+| Live/paper trading log: timestamp · asset · direction · price · quantity · balance change | `artifacts/stock-paper-journal.jsonl` / `.csv` — all six required fields, AAPLUSDT, plus PnL and a naive counterfactual |
+| Backtest report **with code** (not screenshots) | `artifacts/aaplusdt-backtest.json`, `aaplusdt-news-aware-backtest.json`, `rwa-multi-backtest.json`, `rwa-alpha-certification.json`, `playbook/aaplusdt-backtest-result.json` — all reproducible via `npm run backtest*` / `alpha:certify`, code in `src/` |
+| Exchange integration (supplementary) | `artifacts/paper-btc-smoke.jsonl` — Bitget Demo crypto integration smoke; the AAPLUSDT managed Playbook backtest also completed |
 
 ## Reproduce
 
@@ -68,12 +71,12 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit
 
 | Time | Visual | Narration |
 | --- | --- | --- |
-| 0:00-0:20 | `public/arena.html` hero | "GapGuard decides whether a tokenized-stock gap is noise to trade or news to respect." |
-| 0:20-0:50 | WWDC gate case | "On the WWDC gap, the Qwen catalyst gate stood aside instead of blindly fading the move." |
-| 0:50-1:20 | Quorum desk | "The five-role deterministic adversarial desk turns evidence and dissent into a size or veto." |
-| 1:20-1:50 | Naive bot rejected | "The naive bot breaches the mandate and is barred from capital." |
-| 1:50-2:20 | Chain verify + tamper | "The browser recomputes every hash. One changed row turns the chain red." |
-| 2:20-3:00 | Evidence boundary | "Stock evidence is backtest/paper; BTCUSDT Demo proves the exchange path. Live RWA capital remains approval-gated." |
+| 0:00-0:25 | `public/app.html` — a live gap call | "GapGuard reads the overnight gap on a tokenized US stock and tells an ordinary trader, in plain English, whether to fade it or stand aside." |
+| 0:25-0:50 | app.html — a Stand-aside call + the recorded WWDC row | "Its edge is knowing when *not* to trade — like the day it stood aside before the WWDC repricing, avoiding a 1.97% loss." |
+| 0:50-1:15 | app.html — My Rules + the one-tap Bitget handoff | "You set your own risk rules; GapGuard shows the exact order — fade equals sell or buy — and hands off to your own Bitget. It never holds your keys or places the trade." |
+| 1:15-1:45 | `public/arena.html` — Quorum desk + Verify chain | "Under the hood, a five-role deterministic desk turns evidence and dissent into a size or veto, and every decision is signed — your browser recomputes every hash." |
+| 1:45-2:15 | arena.html — Simulate tampering | "Change one row and the chain turns red. Tamper-evident, browser-verifiable." |
+| 2:15-3:00 | Operator console (brief) + evidence boundary | "The same engine also executes autonomously under hard risk gates, keys server-side. Stock evidence is backtest/paper; the BTCUSDT Demo fill proves the exchange path; live RWA capital stays approval-gated." |
 
 ## Honest Limitations
 

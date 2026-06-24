@@ -19,7 +19,6 @@ const DEFAULT_ARTIFACTS = [
   "public/arena-pubkey.pem",
   "public/metrics.json",
   "public/dashboard-data.json",
-  "glassbox-demo.jsonl",
   "artifacts/stock-paper-journal.jsonl",
   "artifacts/stock-paper-journal.csv",
   "artifacts/aaplusdt-news-aware-backtest.json",
@@ -63,7 +62,9 @@ export interface SubmissionManifest {
 }
 
 function sha256File(path: string): string {
-  return createHash("sha256").update(readFileSync(resolve(path))).digest("hex");
+  return createHash("sha256")
+    .update(readFileSync(resolve(path)))
+    .digest("hex");
 }
 
 function fileSize(path: string): number {
@@ -94,7 +95,9 @@ export function buildSubmissionManifest(
 ): SubmissionManifest {
   const missing = artifactPaths.filter((path) => !existsSync(resolve(path)));
   if (missing.length > 0) {
-    throw new Error(`submission manifest missing artifacts: ${missing.join(", ")}`);
+    throw new Error(
+      `submission manifest missing artifacts: ${missing.join(", ")}`,
+    );
   }
   const status = git(["status", "--porcelain"]);
   return {

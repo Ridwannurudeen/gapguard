@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "a7685b5319f4a77e95ebf66550070a0431433775",
+  "commit": "6289f20353c8e6f26b3a56eb4ec8de920087a95e",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
-  "promptHash": "78432be24500f9b1723d7bf9fa0583956811e5056f1c20f60098a8891c1ff03f",
+  "promptHash": "fc941e0f102ae28ebffdade600455fc781cd870680de41024abd3264a27656e9",
   "publicKeyFingerprint": "88f0da408cefee09788a9a725e1c39e0f105279de492fcbedf10f10babd64561",
   "artifacts": [
     {
@@ -15,8 +15,8 @@
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "3c007204a2ef524fba68a87c8487d24f196f93d803bd10338061555ecaf6cc67",
-      "bytes": 5745
+      "sha256": "e5e9c5514ad0da39bd4abcffa59b30fef0bac81709e389c1cbe93af084df9d06",
+      "bytes": 7611
     },
     {
       "path": "docs/METRICS.md",
@@ -25,13 +25,13 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "bcf85a1696f1ed3bc540b2a5bd7c7cb84b5ee546d1e3dfb653ebaf8632b144ef",
-      "bytes": 67922
+      "sha256": "90f237aa921278f58a3bdf44c9c10ab9ea8d14f3f961a9bde693428be648d3b9",
+      "bytes": 67982
     },
     {
       "path": "public/news.html",
-      "sha256": "43659f6157c27332da6f32f032fb87b095efbed751a1d21dd923773eabeeef4c",
-      "bytes": 19974
+      "sha256": "3c267ed3c640feeb05e49c1974bdcad72c68f739f906198dda6d9855cf2f5c01",
+      "bytes": 20038
     },
     {
       "path": "public/news-feed.json",
@@ -40,8 +40,8 @@
     },
     {
       "path": "public/arena.html",
-      "sha256": "ebee80ad586c86da66f386ab4aeccf640068b209f1689aa6f6112731f367782d",
-      "bytes": 71214
+      "sha256": "74d23eeaabf680f24582924d6585072aedc3c70340f647d5054cbb9189ab021c",
+      "bytes": 71278
     },
     {
       "path": "public/arena-data.json",
@@ -70,23 +70,18 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "22a0168a68b2987efd17c331f5a2454532ddcf02f9628a47b8ccd2162fe46db4",
-      "bytes": 8256
-    },
-    {
-      "path": "glassbox-demo.jsonl",
-      "sha256": "c037411bcd68f9bb0e5e193f9e5b4f3cbe4b72072dab8874cf726b86b3e82dd7",
-      "bytes": 5446
+      "sha256": "3f9f7924d5209a420e59f150cb2e7701674709f8e882690a3964c7cb97165866",
+      "bytes": 8514
     },
     {
       "path": "artifacts/stock-paper-journal.jsonl",
-      "sha256": "773631ebc260c0b97ea02553674f692e69a6159732522d0b2f8312f30b2dd189",
-      "bytes": 35395
+      "sha256": "8c58441a4ff540df339b650a23ebe8512e5e3d22b2f346461233379f7f7b001d",
+      "bytes": 35337
     },
     {
       "path": "artifacts/stock-paper-journal.csv",
-      "sha256": "0427d3a24f02a9e6801eb979e0e46e386ad1493bbe27f85360ef6c3760776d96",
-      "bytes": 18881
+      "sha256": "cf4fbc168e6bd316905c1648a26abf5abe7083ccaa1f26b2311fd5db44a6f999",
+      "bytes": 18822
     },
     {
       "path": "artifacts/aaplusdt-news-aware-backtest.json",
