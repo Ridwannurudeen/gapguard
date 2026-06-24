@@ -39,6 +39,7 @@ export interface NewsBacktestReport {
   };
   variants: {
     alwaysFade: BacktestMetrics;
+    alwaysFollow: BacktestMetrics;
     gateDriven: BacktestMetrics | null;
     aaplNewsAware: BacktestMetrics;
     allCatalystAware: BacktestMetrics;
@@ -50,6 +51,7 @@ export interface NewsBacktestReport {
         promptSource: string | undefined;
         generatedAt: string | undefined;
         standAsideDates: string[];
+        followDates: string[];
       }
     | {
         path: string;
@@ -61,6 +63,30 @@ export interface NewsBacktestReport {
     gate: { date: string; returnPct: number }[];
   };
   honesty: string;
+}
+
+function oppositeDirection(direction: Trade["direction"]): Trade["direction"] {
+  return direction === "long" ? "short" : "long";
+}
+
+function followReturnPct(trade: Trade, costPerSide: number, slippageBps: number): number {
+  const totalCostPct = 2 * (costPerSide + slippageBps / 10_000) * 100;
+  return +(-trade.returnPct - 2 * totalCostPct).toFixed(3);
+}
+
+function applyReturns(trades: Trade[], startEquity: number): Trade[] {
+  let balance = startEquity;
+  return trades.map((trade) => {
+    const balanceBefore = +balance.toFixed(2);
+    balance *= 1 + trade.returnPct / 100;
+    const balanceAfter = +balance.toFixed(2);
+    return {
+      ...trade,
+      balanceBefore,
+      balanceAfter,
+      qty: +(balanceBefore / trade.entryPrice).toFixed(4),
+    };
+  });
 }
 
 export function buildNewsBacktestReport(params: {
@@ -85,6 +111,9 @@ export function buildNewsBacktestReport(params: {
   const gateStandAside = params.gateCache
     ? gateStandAsideDates(params.gateCache)
     : null;
+  const gateActionByDate = params.gateCache
+    ? new Map(params.gateCache.verdicts.map((v) => [v.date, v.action]))
+    : null;
 
   const sessions = collapseSessions(params.candles);
   const run = (skip?: (d: string) => boolean) => {
@@ -102,10 +131,52 @@ export function buildNewsBacktestReport(params: {
   };
 
   const baseline = run();
+  const alwaysFollowTrades = applyReturns(
+    baseline.trades.map((trade) => ({
+      ...trade,
+      direction: oppositeDirection(trade.direction),
+      returnPct: followReturnPct(
+        trade,
+        params.costPerSide,
+        params.slippageBps,
+      ),
+    })),
+    params.startEquity,
+  );
+  const alwaysFollow = {
+    trades: alwaysFollowTrades,
+    metrics: summarize(alwaysFollowTrades, sessions, params.startEquity),
+  };
   const aaplAware = run((d) => aaplDates.has(d));
   const allAware = run((d) => allDates.has(d));
-  const gateDriven = gateStandAside
-    ? run((d) => gateStandAside.has(d))
+  const gateDriven = gateActionByDate
+    ? (() => {
+        const selected = applyReturns(
+          baseline.trades
+            .map((trade) => {
+              const action = gateActionByDate.get(trade.ts) ?? "FADE";
+              if (action === "STAND_ASIDE") return null;
+              if (action === "FOLLOW") {
+                return {
+                  ...trade,
+                  direction: oppositeDirection(trade.direction),
+                  returnPct: followReturnPct(
+                    trade,
+                    params.costPerSide,
+                    params.slippageBps,
+                  ),
+                };
+              }
+              return trade;
+            })
+            .filter((trade): trade is Trade => trade !== null),
+          params.startEquity,
+        );
+        return {
+          trades: selected,
+          metrics: summarize(selected, sessions, params.startEquity),
+        };
+      })()
     : null;
   const skipped = (trades: Trade[]) =>
     trades.map((t) => ({ date: t.ts, returnPct: t.returnPct }));
@@ -116,6 +187,12 @@ export function buildNewsBacktestReport(params: {
     : [];
   const gateStandAsideDatesSorted = gateStandAside
     ? [...gateStandAside].sort()
+    : [];
+  const gateFollowDatesSorted = params.gateCache
+    ? params.gateCache.verdicts
+        .filter((v) => v.action === "FOLLOW")
+        .map((v) => v.date)
+        .sort()
     : [];
 
   return {
@@ -137,6 +214,7 @@ export function buildNewsBacktestReport(params: {
     },
     variants: {
       alwaysFade: baseline.metrics,
+      alwaysFollow: alwaysFollow.metrics,
       gateDriven: gateDriven?.metrics ?? null,
       aaplNewsAware: aaplAware.metrics,
       allCatalystAware: allAware.metrics,
@@ -148,6 +226,7 @@ export function buildNewsBacktestReport(params: {
           promptSource: params.gateCache.promptSource,
           generatedAt: params.gateCache.generatedAt,
           standAsideDates: gateStandAsideDatesSorted,
+          followDates: gateFollowDatesSorted,
         }
       : {
           path: params.gateVerdictPath,

@@ -1,10 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import {
-  type AgentPassport,
-  issuePassport,
-  rankPassports,
-} from "./agentArena";
+import { type AgentPassport, issuePassport, rankPassports } from "./agentArena";
 import {
   sealArenaRecords,
   verifyArenaRecords,
@@ -66,8 +62,8 @@ function graduationStatus(
     return quorum?.findings.some((finding) =>
       finding.includes("fewer than 3 paper trades"),
     )
-      ? "alpha_certified_waiting_paper_fill"
-      : "alpha_certified_paper_only";
+      ? "positive_pilot_waiting_paper_fill"
+      : "positive_pilot_paper_only";
   }
 
   return "sim_dry_run_only_alpha_unproven";
@@ -217,7 +213,7 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
     generatedAt: ts,
     arena: {
       thesis:
-        "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
+        "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the approval gate.",
       liveInstrument: graduationDryRun.plan.order.symbol,
       graduationStatus: graduationStatus(passports, scenario.evidence),
     },

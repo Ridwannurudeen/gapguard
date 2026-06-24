@@ -40,4 +40,17 @@ describe("classifySession", () => {
     expect(s.nextOpenUtc).toBe("2026-06-08T13:30:00.000Z");
     expect(s.msToNextOpen).toBeGreaterThan(0);
   });
+
+  it("uses generated closures beyond 2026", () => {
+    const s = classifySession(new Date("2027-07-05T15:00:00Z"));
+    expect(s.session).toBe("holiday");
+    expect(s.underlyingOpen).toBe(false);
+    expect(s.nextOpenUtc).toBe("2027-07-06T13:30:00.000Z");
+  });
+
+  it("uses generated early closes beyond 2026", () => {
+    const s = classifySession(new Date("2027-11-26T19:00:00Z"));
+    expect(s.session).toBe("post");
+    expect(s.underlyingOpen).toBe(false);
+  });
 });

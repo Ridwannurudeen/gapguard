@@ -1,0 +1,4639 @@
+{
+  "generatedAt": "2026-06-24T04:53:12.853Z",
+  "model": "qwen3.6-plus",
+  "symbols": [
+    "AAPLUSDT",
+    "AMDUSDT",
+    "AMZNUSDT",
+    "ARMUSDT",
+    "AVGOUSDT",
+    "BABAUSDT",
+    "GOOGLUSDT",
+    "MSFTUSDT",
+    "NFLXUSDT",
+    "NVDAUSDT",
+    "QQQUSDT",
+    "SPYUSDT",
+    "TSLAUSDT",
+    "TSMUSDT",
+    "COINUSDT",
+    "METAUSDT",
+    "MSTRUSDT",
+    "NDX100USDT",
+    "PLTRUSDT",
+    "SP500USDT"
+  ],
+  "newsSource": "C:/Users/gudma/OneDrive/Desktop/GITHUB-FILES/gapguard/data/holdout-news-contexts.json",
+  "verdicts": [
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "0.42% overnight premium lacks any fundamental, macro, or cross-asset catalyst; classified as off-hours liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts explain the -3.68% overnight drop; likely thin-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -1.66% overnight gap likely reflects thin liquidity/noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "1.36% overnight premium lacks any fundamental, macro, or broad-market catalyst; likely thin off-hours liquidity/sentiment that will revert at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "No fundamental, macro, or broad-market catalysts support the -2.49% overnight drop; likely low-liquidity noise or sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-19-2",
+        "company-2026-05-19-4"
+      ],
+      "rationale": "Overnight 2.18% premium lacks fundamental catalyst; driven by thin liquidity and CNBC TV mention. Valuation analysis flags stock as pricey, supporting mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "-1.46% overnight drop lacks any fundamental, macro, or cross-asset catalysts, indicating thin liquidity or sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "1.23% overnight premium lacks any company, macro, futures, or cross-asset catalyst; likely thin-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "1.56% overnight premium lacks any fundamental, macro, or broad-market catalyst; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "No fundamental, macro, or broad-market catalysts present. The -0.65% overnight discount is likely liquidity-driven noise expected to mean-revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "No fundamental or macro catalysts support the -0.56% overnight dip; likely thin liquidity/noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "Overnight -0.44% discount lacks any macro, futures, or cross-asset catalyst; expect noise-driven mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-19-summary",
+        "macro-2026-05-19-none",
+        "index-futures-2026-05-19",
+        "cross-asset-2026-05-19"
+      ],
+      "rationale": "Overnight -2.67% drop lacks any company, macro, futures, or cross-asset catalysts, indicating low-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-19",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-05-19-2",
+        "company-2026-05-19-3"
+      ],
+      "rationale": "Mixed insider flows and generic AI sector headlines lack fundamental catalyst weight; the modest -1.24% overnight discount is likely sentiment noise that will revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "4.79% overnight premium lacks any fundamental, macro, or broad-market catalyst; likely driven by thin off-hours liquidity and sentiment noise, favoring a reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "0.91% overnight premium lacks fundamental, macro, or broad-market catalysts; likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.9,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "11.95% premium lacks any fundamental, macro, or cross-asset catalysts, indicating off-hours sentiment or liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "0.73% premium lacks any fundamental, macro, or broad-market catalyst; likely overnight noise/sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-05-20-2",
+        "company-2026-05-20-3"
+      ],
+      "rationale": "Overnight -1.88% drop contradicts strongly positive AI chip/LLM catalysts and analyst coverage, indicating thin-liquidity noise or sentiment overreaction likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "Overnight -1.15% decline occurs with zero company, macro, futures, or cross-asset catalysts, indicating low-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "No fundamental, macro, or broad-market catalysts detected; -1.12% overnight gap likely reflects thin liquidity/noise and should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts support the -1.13% overnight dip; likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "0.56% overnight premium lacks any company, macro, futures, or cross-asset catalysts, indicating pure noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "0.59% overnight premium lacks any supporting macro, futures, cross-asset, or company catalysts, indicating thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-20-summary",
+        "macro-2026-05-20-none",
+        "index-futures-2026-05-20",
+        "cross-asset-2026-05-20"
+      ],
+      "rationale": "1.35% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-20",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-20-1",
+        "company-2026-05-20-2",
+        "company-2026-05-20-4",
+        "company-2026-05-20-6"
+      ],
+      "rationale": "Overnight 1.38% premium driven by broad AI/semiconductor sentiment and technical headlines rather than TSMC-specific fundamental catalysts; likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -1.44% overnight gap likely reflects low-liquidity noise or sentiment drift that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No fundamental, macro, or broad-market catalysts support the -0.47% overnight decline; move is likely low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "Token is up ~9% overnight with zero reported company news, macro events, futures shocks, or cross-asset catalysts. The move is likely driven by thin off-hours liquidity or sentiment noise, making a fade at the open appropriate.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; 0.67% off-hours premium is likely noise/sentiment expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-21-3",
+        "company-2026-05-21-4"
+      ],
+      "rationale": "Positive AI catalysts and analyst coverage contrast with the -3.60% overnight discount, indicating a sentiment-driven gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No company, macro, index, or cross-asset catalysts detected; -0.80% overnight drift is typical low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "Overnight -0.76% decline lacks any company, macro, futures, or cross-asset catalysts, indicating low-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -1.54% overnight discount reflects low-liquidity noise likely to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -0.68% overnight move is likely liquidity-driven noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "Minimal -0.53% overnight gap with zero company, macro, futures, or cross-asset catalysts indicates pure noise/sentiment drift; expect mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-21-summary",
+        "macro-2026-05-21-none",
+        "index-futures-2026-05-21",
+        "cross-asset-2026-05-21"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -0.49% overnight discount is likely low-liquidity noise expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-21",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-21-2",
+        "company-2026-05-21-4",
+        "company-2026-05-21-5"
+      ],
+      "rationale": "Overnight 1.19% premium lacks material TSMC-specific catalyst; driven by broad semi sentiment and geopolitical noise that typically reverts at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "1.28% premium lacks any fundamental, macro, or broad-market catalyst; likely liquidity-driven noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "3.82% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-22-3",
+        "company-2026-05-22-6"
+      ],
+      "rationale": "1.08% overnight premium driven by generic analyst headlines and retrospective sentiment pieces without hard catalysts; typical noise likely to revert at cash open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-05-22-3",
+        "company-2026-05-22-4",
+        "index-futures-2026-05-22"
+      ],
+      "rationale": "No fresh negative catalyst supports the -1.31% overnight drop; headlines are generic or fundamentally bullish, and macro/futures are neutral, pointing to thin off-hours noise that typically reverts at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -0.49% overnight discount is likely off-hours noise/sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "Uncatalyzed -0.43% overnight drift with neutral macro, futures, and cross-asset context indicates low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "0.45% premium lacks any fundamental, macro, or broad-market catalyst; likely overnight noise/sentiment to fade at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "0.40% overnight premium lacks any fundamental, macro, or broad-market catalyst; typical thin-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "Overnight -0.62% drop lacks any company news, macro catalyst, or broad-market shock, indicating noise/sentiment likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.4,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "Uncatalyzed -0.69% overnight drift with neutral macro, futures, and cross-asset context; likely low-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "0.70% premium lacks any macro, futures, or cross-asset catalysts; likely thin overnight liquidity or sentiment noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "0.58% overnight premium lacks supporting macro, futures, or cross-asset catalysts; likely low-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-22-summary",
+        "macro-2026-05-22-none",
+        "index-futures-2026-05-22",
+        "cross-asset-2026-05-22"
+      ],
+      "rationale": "1.03% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-22",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-05-22-3",
+        "company-2026-05-22-5"
+      ],
+      "rationale": "0.42% premium lacks fundamental support; headlines note AI trade diversifying away from TSM and Ark selling into the spike, pointing to overnight sentiment noise that should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "0.60% premium lacks fundamental, macro, or broad-market catalyst support; indicates off-hours noise/liquidity gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "5.62% overnight premium lacks any fundamental, macro, or broad-market catalyst; gap likely driven by thin off-hours liquidity/sentiment and expected to revert at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "3.33% premium lacks any fundamental, macro, or broad-market catalyst; likely driven by thin overnight liquidity and sentiment noise, favoring mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.3,
+      "evidenceIds": [
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "Minimal -0.64% overnight gap lacks BABA-specific catalysts and shows neutral macro/futures context, indicating typical off-hours noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-26-1",
+        "company-2026-05-26-2",
+        "company-2026-05-26-3",
+        "company-2026-05-26-4"
+      ],
+      "rationale": "0.41% premium driven by CEO commentary and broad crypto sentiment lacks concrete fundamental catalysts; overnight narrative drift typically reverts at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "0.84% premium lacks identifiable catalyst; likely thin-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "Token is 2.28% rich overnight with zero company news, macro events, futures shocks, or cross-asset moves to justify the premium. Gap is likely driven by thin off-hours liquidity/sentiment and expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "1.29% overnight premium lacks any supporting macro, futures, or cross-asset catalysts; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "Absence of company, macro, futures, or cross-asset catalysts indicates the -0.65% overnight discount is likely low-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts support the -1.64% overnight gap; likely low-liquidity noise or sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "1.55% overnight premium lacks fundamental, macro, or futures catalysts; likely thin-liquidity noise that will revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "0.74% overnight premium lacks any supporting macro, futures, cross-asset, or company catalysts; indicates thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "0.69% premium is unsupported by any macro, futures, or cross-asset catalysts; indicates thin overnight liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-26-summary",
+        "macro-2026-05-26-none",
+        "index-futures-2026-05-26",
+        "cross-asset-2026-05-26"
+      ],
+      "rationale": "1.16% overnight premium lacks any fundamental, macro, or broad-market catalyst; typical off-hours noise/liquidity gap expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-26",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-26-1",
+        "company-2026-05-26-2",
+        "company-2026-05-26-4"
+      ],
+      "rationale": "Premium driven by indirect AI/Nvidia sentiment and broad Taiwan market headlines lacks direct TSMC catalyst; overnight token premiums of this magnitude typically revert at the US open as liquidity normalizes.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "1.25% overnight premium lacks any supporting company, macro, futures, or cross-asset catalysts; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "1.15% overnight premium lacks any fundamental, macro, or cross-asset catalyst; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-27-1",
+        "company-2026-05-27-2",
+        "company-2026-05-27-3",
+        "company-2026-05-27-4",
+        "company-2026-05-27-5",
+        "company-2026-05-27-6"
+      ],
+      "rationale": "Token trades -3.06% overnight despite uniformly bullish ARM and semiconductor catalysts. The negative gap contradicts strong positive sentiment and sector momentum, indicating a liquidity-driven divergence likely to revert upward at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "1.46% overnight premium lacks any company, macro, futures, or cross-asset catalysts, indicating thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.5,
+      "evidenceIds": [
+        "company-2026-05-27-1"
+      ],
+      "rationale": "No direct BABA catalyst; -1.86% gap likely reflects thin overnight liquidity and tangential PDD sector sentiment. Expect mean reversion at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-27-4",
+        "company-2026-05-27-5",
+        "company-2026-05-27-6"
+      ],
+      "rationale": "-1.00% overnight discount lacks a material fundamental catalyst; headlines consist of analyst opinion pieces and a non-impactful SpaceX BTC holding comparison, indicating sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "No fundamental or macro catalysts reported; overnight -1.10% move likely reflects thin liquidity/noise that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "No company news, macro events, futures shocks, or cross-asset catalysts detected; overnight -2.19% discount likely reflects thin liquidity/noise and should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts explain the -1.57% overnight drop, indicating noise/sentiment likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "Overnight -2.63% discount lacks any fundamental, macro, or broad-market catalysts, indicating low-liquidity noise or sentiment drift that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-27",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-27-summary",
+        "macro-2026-05-27-none",
+        "index-futures-2026-05-27",
+        "cross-asset-2026-05-27"
+      ],
+      "rationale": "1.70% overnight premium lacks any company, macro, futures, or cross-asset catalyst; likely thin-liquidity noise/sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-27",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-05-27-1",
+        "company-2026-05-27-2",
+        "company-2026-05-27-3",
+        "company-2026-05-27-5"
+      ],
+      "rationale": "Overnight 4.07% premium aligns with strong, coherent fundamental catalysts: Nvidia's $150B Taiwan investment pledge, TSMC hitting 52-week highs, and CEO commentary on soaring AI profits. No conflicting macro or cross-asset signals. Catalyst supports sustained upside into the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -1.03% overnight gap likely reflects thin liquidity/noise and should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-05-28-5",
+        "company-2026-05-28-4",
+        "company-2026-05-28-3"
+      ],
+      "rationale": "6.43% overnight premium driven by retail sentiment and a single analyst PT raise without fundamental earnings or macro catalysts; typical off-hours noise prone to mean-reversion at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-28-2",
+        "company-2026-05-28-4",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28"
+      ],
+      "rationale": "No BABA-specific catalyst; overnight drop likely noise or spillover from unrelated China tech headlines. Neutral macro and futures context supports mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "0.65% overnight premium lacks any company, macro, futures, or cross-asset catalysts; likely thin-liquidity noise that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "2.82% overnight premium lacks any company, macro, futures, or cross-asset catalyst; likely thin-liquidity noise that will revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "No company news, macro events, futures shocks, or cross-asset catalysts explain the -5.17% overnight discount; likely low-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "No macro, company, futures, or cross-asset catalysts detected; -0.43% overnight drift is likely low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -0.79% overnight drop likely reflects low-liquidity noise or sentiment drift that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-28-summary",
+        "macro-2026-05-28-none",
+        "index-futures-2026-05-28",
+        "cross-asset-2026-05-28"
+      ],
+      "rationale": "4.08% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-28",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-28-2",
+        "company-2026-05-28-3",
+        "company-2026-05-28-6"
+      ],
+      "rationale": "Overnight -1.36% discount lacks fundamental catalyst; headlines reflect generic commentary, long-term AI themes, and valuation notes rather than immediate price drivers. Thin liquidity likely caused noise drift, favoring mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "0.69% overnight premium lacks any company, macro, or broad-market catalyst; likely sentiment noise that will revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-05-29-5",
+        "company-2026-05-29-2",
+        "company-2026-05-29-6"
+      ],
+      "rationale": "5.26% overnight premium driven by broad AI sector sentiment, Dell earnings spillover, and macro truce headlines rather than ARM-specific fundamentals; analyst calls and diffuse sentiment typically revert at cash open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "4.17% premium lacks any supporting company, macro, futures, or cross-asset catalysts, indicating thin liquidity or sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.35,
+      "evidenceIds": [],
+      "rationale": "No BABA-specific catalysts present; -1.35% off-hours discount likely reflects thin liquidity or unrelated sector noise, favoring mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "No fundamental, macro, or broad-market catalysts detected; overnight -1.27% gap is likely low-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "Overnight -1.16% drop lacks any company, macro, futures, or cross-asset catalysts, indicating low-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "3.34% overnight premium lacks any supporting company, macro, futures, or cross-asset catalysts, indicating thin-liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "0.45% overnight premium lacks supporting macro, futures, cross-asset, or company catalysts; likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "1.42% overnight premium lacks any fundamental, macro, or cross-asset catalyst; typical thin-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "7.17% overnight premium lacks any supporting company, macro, or broad-market catalysts, indicating thin-liquidity noise/sentiment likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "0.81% overnight premium lacks fundamental, macro, or futures catalysts; indicates thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "0.42% overnight premium lacks any supporting macro, futures, cross-asset, or company catalysts; indicates low-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-05-29-summary",
+        "macro-2026-05-29-none",
+        "index-futures-2026-05-29",
+        "cross-asset-2026-05-29"
+      ],
+      "rationale": "No fundamental or macro catalysts support the -1.18% overnight dip; likely low-liquidity noise that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-29",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-05-29-1",
+        "company-2026-05-29-2",
+        "company-2026-05-29-3",
+        "company-2026-05-29-4",
+        "company-2026-05-29-5",
+        "company-2026-05-29-6"
+      ],
+      "rationale": "0.88% overnight premium lacks concrete TSMC-specific catalysts; headlines consist of generic AI/semi commentary and analyst comparisons, indicating thin liquidity/sentiment drift likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "-0.67% overnight gap lacks any company, macro, futures, or cross-asset catalysts, indicating noise/sentiment likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "Unexplained 5.34% overnight drop with zero company news, macro events, futures shocks, or cross-asset catalysts points to liquidity/sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts support the -2.35% overnight drop; likely thin-liquidity noise or sentiment gap that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-01",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-01-1",
+        "company-2026-06-01-3",
+        "company-2026-06-01-4"
+      ],
+      "rationale": "Corroborated fundamental catalyst from Nvidia's new AI PC chip announcement directly benefits ARM architecture, reinforced by Wells Fargo PT hike; gap reflects justified re-rating.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-06-01-3",
+        "company-2026-06-01-2"
+      ],
+      "rationale": "Token trades 0.56% rich despite explicit negative headlines citing Alibaba's plunge and fading China AI sentiment; expect mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-01-4",
+        "company-2026-06-01-1"
+      ],
+      "rationale": "Gap driven by speculative pundit commentary on legislative odds rather than concrete regulatory action; broader market optimism and absence of hard catalysts suggest idiosyncratic sentiment overreaction likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "Overnight gap lacks company, macro, or cross-asset catalysts; likely low-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts support the -2.54% overnight drop, indicating low-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "3.34% overnight premium occurs in a complete catalyst vacuum, indicating thin liquidity or sentiment noise highly likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts detected; the -6.57% overnight discount reflects thin off-hours liquidity and sentiment noise, favoring mean reversion at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-01-1",
+        "company-2026-06-01-4"
+      ],
+      "rationale": "1.49% overnight premium driven by soft PR and licensing announcements rather than hard financial catalysts; sentiment-driven gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "3.65% overnight premium lacks any supporting company, macro, futures, or cross-asset catalysts, indicating sentiment/liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "1.83% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-01-summary",
+        "macro-2026-06-01-none",
+        "index-futures-2026-06-01",
+        "cross-asset-2026-06-01"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts support the -2.80% overnight drop; move is likely low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-01",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-01-3",
+        "company-2026-06-01-4",
+        "company-2026-06-01-6"
+      ],
+      "rationale": "3.01% premium driven by soft AI ecosystem sentiment and vague geopolitical commentary without hard fundamental catalysts or macro/futures confirmation; typical overnight noise likely to revert at cash open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "0.94% overnight premium lacks any supporting company, macro, futures, or cross-asset catalysts; move is likely thin-liquidity noise expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "1.85% premium lacks any fundamental, macro, or cross-asset catalysts; likely off-hours noise or thin liquidity that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "-2.10% off-hours drop lacks company, macro, futures, or cross-asset catalysts, indicating liquidity-driven noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-02-1",
+        "company-2026-06-02-2",
+        "company-2026-06-02-3",
+        "company-2026-06-02-4",
+        "company-2026-06-02-5",
+        "company-2026-06-02-6"
+      ],
+      "rationale": "Bullish analyst coverage and CEO comments on China export restrictions contrast with the -4.01% overnight drop, indicating the decline is likely sentiment-driven noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "4.56% overnight premium lacks any supporting company news, macro data, or broad-market shocks, indicating off-hours sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-02-1",
+        "company-2026-06-02-6"
+      ],
+      "rationale": "Token rich 4.5% without positive catalyst; news flow is generic or bearish on Chinese tech, indicating sentiment-driven gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-02-2"
+      ],
+      "rationale": "Overnight drop tracks broad crypto weakness and geopolitical risk-off sentiment rather than COIN-specific fundamentals; sentiment-driven gaps in tokenized crypto proxies typically revert at the US equity open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -3.24% off-hours drop likely reflects thin liquidity/noise and should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "Overnight 0.79% premium lacks any supporting company news, macro events, futures shock, or cross-asset movement. Gap is likely driven by thin off-hours liquidity/sentiment and expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "3.30% overnight drop lacks any company, macro, futures, or cross-asset catalysts, indicating thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "No fundamental or macro catalysts support the -7.66% overnight discount; gap likely reflects thin off-hours liquidity and sentiment noise that typically reverts at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-3",
+        "company-2026-06-02-4",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02"
+      ],
+      "rationale": "No material negative catalysts for NFLX; -2.74% off-hours drop lacks fundamental backing and aligns with neutral macro/futures context, indicating sentiment/liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "Token is +3.21% rich with zero company, macro, futures, or cross-asset catalysts; off-hours move likely reflects thin liquidity/sentiment noise and should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-02-summary",
+        "macro-2026-06-02-none",
+        "index-futures-2026-06-02",
+        "cross-asset-2026-06-02"
+      ],
+      "rationale": "4.66% overnight drop lacks any company, macro, or broad-market catalyst, indicating thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-02",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-02-1",
+        "company-2026-06-02-4",
+        "company-2026-06-02-5"
+      ],
+      "rationale": "1.78% overnight premium lacks a concrete near-term catalyst; driven by soft structural commentary and generic headlines typical of sentiment drift that usually reverts at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.78,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "1.59% overnight premium lacks any supporting company news, macro data, index futures movement, or cross-asset shocks; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts support the -0.46% overnight drift; expect mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-03",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-03-1"
+      ],
+      "rationale": "FTC probe into core licensing model and AI growth presents a fundamental negative catalyst justifying the -4.53% gap; trend likely to persist into open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Small -0.57% overnight gap with zero company, macro, futures, or cross-asset catalysts; likely low-liquidity noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-03-6",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Overnight -2.70% discount lacks a fundamental BABA catalyst or broad-market/macro shock; the only BABA headline is a generic inquiry, indicating thin-liquidity noise or sentiment likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-03",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-03-2",
+        "company-2026-06-03-5"
+      ],
+      "rationale": "Downside gap reflects genuine crypto market stress and BTC sell-off; COIN's high correlation to digital asset sentiment supports following the move.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "0.73% overnight premium lacks any fundamental, macro, or cross-asset catalyst; typical thin-liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "2.35% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Token is down 2.23% overnight with zero company, macro, futures, or cross-asset catalysts, indicating a liquidity-driven or sentiment gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "No macro, futures, cross-asset, or company catalysts detected; -0.62% overnight drift is likely low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-03-6"
+      ],
+      "rationale": "Overnight dip driven by routine insider sale and non-catalyst opinion pieces; lack of fundamental or macro shocks suggests noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Token down 2.48% overnight with zero reported company, macro, futures, or cross-asset catalysts. Move likely reflects thin off-hours liquidity or sentiment noise, favoring a reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Significant -4.84% overnight discount lacks any supporting company, macro, or cross-asset catalysts, indicating off-hours liquidity/sentiment noise likely to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Overnight -0.45% discount occurs in a complete catalyst vacuum (no macro, futures, cross-asset, or company news), pointing to thin liquidity or sentiment noise that should revert to fair value at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-03-summary",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Modest -0.46% overnight gap lacks macro, futures, or cross-asset catalysts; likely low-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-03",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-06-03-3",
+        "macro-2026-06-03-none",
+        "index-futures-2026-06-03",
+        "cross-asset-2026-06-03"
+      ],
+      "rationale": "Overnight -1.74% drop lacks a fundamental negative catalyst; macro, futures, and cross-asset contexts are neutral. Intel's 'trusted partner' remark is mildly supportive, indicating the move is likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "Overnight 0.63% premium lacks any supporting company news, macro data, futures shock, or cross-asset driver. Move is likely sentiment/noise and expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "7.20% overnight drop lacks any fundamental, macro, or cross-asset catalyst, indicating a liquidity-driven or sentiment gap highly likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "1.77% overnight premium lacks any company, macro, index, or cross-asset catalyst; gap is likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-04",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-04-1",
+        "company-2026-06-04-2",
+        "company-2026-06-04-5"
+      ],
+      "rationale": "Broadcom earnings miss triggered a sector-wide semiconductor sell-off, directly impacting ARM's peer group and AI capex narrative; the -9.8% overnight gap reflects a fundamental catalyst rather than transient liquidity noise.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "Significant -15.65% overnight drop occurs with zero company, macro, or cross-asset catalysts, indicating thin off-hours liquidity and sentiment noise primed for mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "1.87% overnight premium lacks any fundamental, macro, or broad-market catalyst, indicating thin liquidity/noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "Token is +2.58% rich overnight with zero company news, macro events, futures shocks, or cross-asset catalysts. The gap is likely driven by thin off-hours liquidity or sentiment noise and should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "1.10% overnight premium lacks any company, macro, futures, or cross-asset catalyst; likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "1.97% premium lacks any fundamental, macro, or broad-market catalyst; typical off-hours noise/liquidity gap expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "Overnight -1.13% discount lacks any fundamental, macro, or cross-asset catalyst; likely low-liquidity noise expected to mean-revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-04",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-04-3"
+      ],
+      "rationale": "Overnight +1.91% premium is driven by concrete regulatory relief (dodged Canadian streaming levies), a material fundamental catalyst likely to persist at the open rather than revert as noise.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "Unexplained -1.21% overnight drop with zero company news, macro events, futures shocks, or cross-asset volatility indicates low-liquidity noise or sentiment drift, favoring a mean-reversion fade at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "2.16% premium lacks any supporting company, macro, or broad-market catalysts, indicating thin overnight liquidity/sentiment likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-04-summary",
+        "macro-2026-06-04-none",
+        "index-futures-2026-06-04",
+        "cross-asset-2026-06-04"
+      ],
+      "rationale": "Absence of macro, futures, cross-asset, or company catalysts indicates the -1.28% overnight discount is likely liquidity-driven noise, favoring a mean-reversion fade at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-04",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-04-6",
+        "company-2026-06-04-1"
+      ],
+      "rationale": "Positive sector catalysts and bullish CEO commentary on TSM's competitive moat contradict the -1.36% overnight dip, suggesting a sentiment-driven gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No AAPL-specific news; overnight premium likely reflects macro positioning ahead of scheduled employment report. Cross-asset guidance explicitly advises standing aside without dominant company catalysts.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary",
+        "index-futures-2026-06-05"
+      ],
+      "rationale": "No company-specific catalyst; overnight drop reflects pre-jobs report macro repricing risk. Cross-asset and futures flags explicitly advise standing aside until open confirms direction.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No company catalyst; overnight gap likely macro-driven ahead of scheduled jobs report. Cross-asset context explicitly advises standing aside without dominant company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-2",
+        "company-2026-06-05-3"
+      ],
+      "rationale": "Gap driven by broad tech/chip sector weakness and macro repricing risk (scheduled jobs report, geopolitical tension) rather than company-specific fundamentals. Cross-asset guidance explicitly advises standing aside without dominant company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No company-specific catalyst; overnight gap reflects macro repricing ahead of scheduled US jobs report. Cross-asset context explicitly advises standing aside without dominant company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-2"
+      ],
+      "rationale": "Macro-sensitive open (jobs report, cross-asset flags) outweighs weak/aged company flow; gap likely reflects broad macro repricing rather than idiosyncratic catalyst.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-05",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-05-3",
+        "company-2026-06-05-1",
+        "macro-2026-06-05-jobs"
+      ],
+      "rationale": "Baird downgrade and Q2 revenue miss expectations justify the -6.72% gap; macro event risk limits confidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary",
+        "index-futures-2026-06-05"
+      ],
+      "rationale": "No company-specific catalyst; overnight move likely reflects macro repricing ahead of scheduled employment report. Cross-asset context explicitly advises standing aside without dominant company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No company-specific catalyst; overnight move likely reflects macro repricing ahead of scheduled US employment report. Cross-asset context explicitly advises standing aside without dominant company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary",
+        "index-futures-2026-06-05"
+      ],
+      "rationale": "Overnight gap lacks company-specific catalysts and coincides with a scheduled US employment report. Macro repricing risk dominates, warranting a stand-aside until open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No company-specific catalyst; overnight gap likely reflects pre-jobs report macro positioning. Cross-asset context explicitly flags macro repricing risk and advises standing aside until the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "index-futures-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "Overnight -2.36% gap lacks company catalysts and precedes a scheduled US employment report. Cross-asset and futures contexts explicitly flag macro repricing risk and advise standing aside. Move likely reflects thin liquidity/macro positioning that will resolve at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-3",
+        "company-2026-06-05-6"
+      ],
+      "rationale": "Overnight +1.35% premium lacks hard company catalyst; pending jobs report and macro-sensitive cross-asset flags create high open-risk. Strategic AI headlines are insufficient to dominate macro repricing, so stand aside.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary",
+        "index-futures-2026-06-05"
+      ],
+      "rationale": "No company-specific catalysts explain the -3.05% gap; macro repricing risk from the scheduled US employment report dominates. Event-linked futures and cross-asset sensitivity warrant standing aside until open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No company-specific catalyst; overnight move likely driven by macro repricing ahead of scheduled US employment report. Cross-asset context explicitly advises standing aside without dominant company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary",
+        "index-futures-2026-06-05"
+      ],
+      "rationale": "Overnight -2.25% discount aligns with scheduled US employment report and macro-sensitive cross-asset flags. Absence of company-specific catalysts and high pre-open macro repricing risk warrant avoiding directional exposure until live open confirms price discovery.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "index-futures-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "Overnight discount reflects macro repricing risk ahead of scheduled US jobs report; explicit cross-asset and futures warnings advise standing aside absent dominant company catalysts, which are confirmed absent.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "index-futures-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "Overnight -1.16% gap reflects macro anticipation ahead of scheduled US employment report. Cross-asset and futures contexts explicitly flag macro repricing risk and advise standing aside. Absence of company-specific catalysts precludes fading or following the move pre-open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "company-2026-06-05-summary"
+      ],
+      "rationale": "No company-specific catalyst; overnight gap reflects macro repricing risk ahead of scheduled US jobs report. Cross-asset and futures context explicitly flagged as event-sensitive, warranting stand-aside until open confirms direction.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-05",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-05-jobs",
+        "cross-asset-2026-06-05",
+        "index-futures-2026-06-05",
+        "company-2026-06-05-5"
+      ],
+      "rationale": "Overnight gap coincides with scheduled US jobs report and broad index futures repricing; TSM-specific headlines lack concrete catalysts, indicating macro-driven volatility that is too conflicted to trade safely pre-open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts support the 1.15% overnight premium; gap likely reflects thin off-hours liquidity/sentiment and should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "Token is +2.48% rich with zero company, macro, futures, or cross-asset catalysts to justify the premium; expect mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "0.44% premium lacks any company, macro, futures, or cross-asset catalyst; off-hours drift is likely noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-08-2",
+        "company-2026-06-08-4",
+        "company-2026-06-08-6"
+      ],
+      "rationale": "Token is +0.82% rich despite broadly negative AI/semiconductor sentiment and sector rout headlines. No ARM-specific positive catalyst justifies the premium; expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "1.56% premium lacks fundamental, macro, or broad-market catalysts; likely thin overnight liquidity/sentiment noise that should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-08-1",
+        "company-2026-06-08-2",
+        "company-2026-06-08-5",
+        "company-2026-06-08-6"
+      ],
+      "rationale": "2.99% premium driven by broad crypto sentiment and dip-buying headlines rather than COIN-specific catalyst; overnight tokenized premiums on general sentiment typically revert at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "Token down 1.68% with zero company news, macro events, futures shocks, or cross-asset drivers; gap likely reflects off-hours liquidity drift/noise and should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "No fundamental or macro catalysts present; -0.70% overnight drift is typical thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts explain the -1.06% overnight drop; move is likely low-liquidity noise or sentiment that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "3.70% premium lacks any fundamental, macro, or broad-market catalyst; indicates off-hours sentiment/liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "0.80% premium lacks any supporting macro, futures, or cross-asset catalyst; likely off-hours noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-08",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-08-1",
+        "company-2026-06-08-4",
+        "company-2026-06-08-6"
+      ],
+      "rationale": "0.40% premium driven by thin, conflicted editorial listicles and generic commentary without concrete fundamental catalysts or macro shocks; gap represents normal overnight noise.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "0.57% overnight premium lacks any company, macro, futures, or cross-asset catalyst; typical off-hours noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-08-2",
+        "company-2026-06-08-5",
+        "company-2026-06-08-6"
+      ],
+      "rationale": "Soft sentiment and CEO commentary lack hard fundamental catalysts; 1% overnight premium is likely noise that reverts at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "1.18% overnight premium lacks any supporting macro, futures, cross-asset, or company catalysts; indicates thin-liquidity sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "0.63% overnight premium lacks fundamental, macro, or futures catalysts; thin off-hours liquidity and neutral cross-asset context favor mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "0.47% overnight premium lacks fundamental catalysts (no macro, futures, or cross-asset shocks), indicating thin liquidity/noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-08-summary",
+        "macro-2026-06-08-none",
+        "index-futures-2026-06-08",
+        "cross-asset-2026-06-08"
+      ],
+      "rationale": "2.62% overnight premium lacks fundamental or macro catalysts; likely thin-liquidity noise that will revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-08",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-08-1",
+        "company-2026-06-08-5",
+        "company-2026-06-08-6"
+      ],
+      "rationale": "2.64% premium driven by broad semiconductor/AI sentiment and geopolitical optimism rather than TSMC-specific catalysts. Neutral macro/futures and lack of direct company news suggest overnight noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "Overnight -1.76% drop lacks any company, macro, futures, or cross-asset catalysts, indicating low-liquidity noise or sentiment drift likely to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "1.52% premium lacks any supporting company, macro, or cross-asset catalysts; indicates thin overnight liquidity or sentiment noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.4,
+      "evidenceIds": [
+        "company-2026-06-09-1",
+        "company-2026-06-09-2",
+        "company-2026-06-09-5"
+      ],
+      "rationale": "Minimal -0.40% overnight gap driven by generic AI sector sentiment and technical headlines; lacks concrete company-specific catalyst, indicating noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "0.58% premium lacks any fundamental, macro, or broad-market catalyst; typical off-hours noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-09-4",
+        "company-2026-06-09-1"
+      ],
+      "rationale": "Token is 1.02% rich despite direct negative regulatory catalyst (Pentagon blacklist targeting Alibaba). Gap likely reflects sentiment or secondary data-center headlines, but fundamental overhang favors mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.55,
+      "evidenceIds": [
+        "company-2026-06-09-3",
+        "company-2026-06-09-4",
+        "company-2026-06-09-5",
+        "company-2026-06-09-6"
+      ],
+      "rationale": "Small 1.39% overnight premium driven by thin liquidity and mixed crypto sentiment (BTC sell-off vs bullish exec commentary) without a hard COIN-specific catalyst; expect mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "1.64% overnight premium lacks any fundamental, macro, or broad-market catalyst; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "1.82% overnight premium lacks any supporting company, macro, futures, or cross-asset catalysts; indicates thin liquidity/sentiment noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-09-1",
+        "company-2026-06-09-3",
+        "company-2026-06-09-4"
+      ],
+      "rationale": "Overnight decline tracks broad BTC consolidation rather than MSTR-specific catalysts; trading below fair value indicates sentiment-driven noise likely to mean-revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "0.88% overnight premium lacks fundamental support; all macro, futures, cross-asset, and company catalyst feeds report neutral/no-shock conditions, indicating thin off-hours liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-09-1",
+        "company-2026-06-09-5"
+      ],
+      "rationale": "Minor -0.52% overnight discount lacks fundamental catalyst; driven by screen/listicle noise and unverified M&A rumor, favoring mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-09-1",
+        "company-2026-06-09-5",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09"
+      ],
+      "rationale": "-0.47% deviation is typical overnight liquidity noise; news bundle contains only generic AI commentary and routine UK review with neutral macro/futures context. Expect reversion to fair value at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "0.81% premium lacks fundamental catalyst support across macro, futures, and cross-asset feeds; likely thin overnight liquidity/sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "0.65% overnight premium lacks fundamental, macro, futures, or cross-asset catalysts; indicates thin-liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "0.63% overnight premium lacks supporting macro, futures, cross-asset, or company catalysts; indicates thin-liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-09-summary",
+        "macro-2026-06-09-none",
+        "index-futures-2026-06-09",
+        "cross-asset-2026-06-09"
+      ],
+      "rationale": "No company news, macro events, or cross-asset shocks detected; 0.64% overnight premium is likely noise/sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-09",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-09-3",
+        "company-2026-06-09-4",
+        "company-2026-06-09-6"
+      ],
+      "rationale": "1.42% overnight premium driven by sentiment and valuation milestone rather than concrete fundamental catalyst; mixed signals from potential export curbs favor mean reversion at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; -1.75% overnight gap likely reflects thin liquidity or sentiment noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts detected; overnight -1.16% drift likely reflects low-liquidity noise or sentiment that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-10",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-10-3",
+        "company-2026-06-10-5",
+        "company-2026-06-10-6"
+      ],
+      "rationale": "Minor -0.46% dip reflects broad tech/chip sector sentiment and punditry rather than a fundamental ARM catalyst; gap is too thin and conflicted for directional exposure.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "5.10% overnight discount lacks fundamental, macro, or cross-asset catalysts; indicates liquidity or sentiment noise expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-10",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-10-5"
+      ],
+      "rationale": "Direct negative catalyst regarding Pentagon blacklist expansion targeting Alibaba justifies the overnight discount; downside momentum likely to persist into the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-06-10-1",
+        "company-2026-06-10-2",
+        "company-2026-06-10-4",
+        "company-2026-06-10-5"
+      ],
+      "rationale": "Overnight premium driven by generic, mixed crypto sentiment headlines lacking direct COIN catalysts; expect mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "0.53% premium lacks fundamental or macro catalyst support; likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "0.56% overnight premium lacks any supporting company news, macro data, or broad-market catalysts; likely noise/sentiment to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-10-2",
+        "company-2026-06-10-3",
+        "company-2026-06-10-6"
+      ],
+      "rationale": "Token trades at a 2.03% premium despite explicit bearish BTC/MSTR headlines (BTC slump, Saylor sale). Expect premium to compress at open as underlying NAV adjusts to crypto weakness.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.7,
+      "evidenceIds": [
+        "company-2026-06-10-1",
+        "company-2026-06-10-2",
+        "company-2026-06-10-5",
+        "company-2026-06-10-6"
+      ],
+      "rationale": "Overnight premium driven by retrospective fluff and competitor M&A noise; lacks fundamental catalyst to sustain move, expect mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "Overnight -1.41% drop lacks any supporting company news, macro data, futures shock, or cross-asset volatility, indicating low-liquidity noise or sentiment likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-10-summary",
+        "macro-2026-06-10-none",
+        "index-futures-2026-06-10",
+        "cross-asset-2026-06-10"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts explain the -1.22% overnight drop; likely low-liquidity noise or sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-10",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-10-2",
+        "company-2026-06-10-5"
+      ],
+      "rationale": "Overnight -2.56% drop contradicts direct bullish catalysts (May sales +30% on AI demand, momentum upgrade) with no offsetting macro/sector shock; expect reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "5.46% premium lacks any fundamental, macro, or broad-market catalyst; likely off-hours liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-11",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-11-1",
+        "company-2026-06-11-3",
+        "company-2026-06-11-4"
+      ],
+      "rationale": "Multiple analyst PT raises and AI-driven upgrade wave provide fundamental support for the 7.38% premium; catalyst is specific, corroborated, and lacks offsetting macro shocks.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "Overnight 1.95% premium lacks any fundamental, macro, or broad-market catalyst; indicates thin-liquidity noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-11",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-11-1",
+        "company-2026-06-11-2",
+        "company-2026-06-11-3"
+      ],
+      "rationale": "Regulatory warnings on e-commerce pricing and Pentagon listing risks present fundamental downside catalysts likely to persist at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-11",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-11-1",
+        "company-2026-06-11-5"
+      ],
+      "rationale": "Specific positive catalysts regarding AI agent integration and Mastercard partnership support the 2.37% overnight premium.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "No fundamental, macro, or broad-market catalysts reported; off-hours -2.41% gap likely driven by thin liquidity/noise and expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "Token is down 1.27% with zero company news, macro events, futures shocks, or cross-asset volatility; the move is likely low-liquidity noise or sentiment drift that should revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts explain the -1.43% overnight drop; likely thin-liquidity noise expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-11",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-11-1",
+        "company-2026-06-11-2",
+        "company-2026-06-11-3",
+        "company-2026-06-11-4",
+        "company-2026-06-11-5",
+        "company-2026-06-11-6"
+      ],
+      "rationale": "Overnight premium lacks a hard catalyst and is contradicted by mixed analytical commentary; bearish BTC buying trends clash with bullish options flow and management reassurance, creating a conflicted setup unsuitable for directional execution.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "1.28% overnight premium lacks supporting macro, futures, cross-asset, or company catalysts; thin off-hours liquidity likely drove the move, favoring mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-2",
+        "company-2026-06-11-3",
+        "company-2026-06-11-6"
+      ],
+      "rationale": "Overnight -1.01% gap down contradicts positive fundamental catalysts (subscriber growth forecast, strategic FIFA/gaming deals, bullish analyst sentiment) and neutral macro/futures context. Likely liquidity-driven noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "1.19% overnight premium lacks any company, macro, futures, or cross-asset catalyst; likely thin-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-11-1",
+        "company-2026-06-11-4",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "1.26% overnight premium lacks futures or macro confirmation. Conflicted retail sentiment headlines indicate thin liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "0.55% overnight premium lacks fundamental, macro, or futures catalysts, indicating thin liquidity or sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "0.54% premium lacks supporting macro, futures, or cross-asset catalysts; likely overnight noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-11",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-11-summary",
+        "macro-2026-06-11-none",
+        "index-futures-2026-06-11",
+        "cross-asset-2026-06-11"
+      ],
+      "rationale": "1.66% overnight premium lacks any fundamental, macro, or broad-market catalyst; indicates thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-11",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-11-6",
+        "company-2026-06-11-3"
+      ],
+      "rationale": "2.60% premium driven by confirmed 30% May sales surge and sustained AI demand; fundamental catalyst supports gap continuation rather than mean reversion.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "No fundamental, macro, or cross-asset catalysts detected; overnight -1.46% discount is likely low-liquidity noise/sentiment expected to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "4.22% overnight premium lacks fundamental, macro, or market catalysts; indicates thin-liquidity sentiment likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "Overnight -2.93% drop lacks any company news, macro data, futures shock, or cross-asset catalyst. Move is likely low-liquidity noise/sentiment and expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-12",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-12-2",
+        "company-2026-06-12-3",
+        "company-2026-06-12-5"
+      ],
+      "rationale": "Conflicting overnight signals: explicit FTC regulatory probe vs. bullish analyst nod and sector hype. No macro/futures confirmation for the 5.75% premium, indicating thin/conflicted sentiment best left untraded until open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-12-2",
+        "company-2026-06-12-4",
+        "company-2026-06-12-5"
+      ],
+      "rationale": "Overnight -1.34% discount contradicts positive fundamental catalysts (earnings beat, analyst upgrades, buy-the-dip calls); likely sentiment-driven noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-12",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-12-4",
+        "company-2026-06-12-5",
+        "company-2026-06-12-6"
+      ],
+      "rationale": "Overnight discount aligns with concrete negative catalysts: Beijing regulatory warnings on e-commerce pricing and US Pentagon listing, indicating a fundamental repricing rather than transient noise.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-12-3"
+      ],
+      "rationale": "Token down 1.79% despite positive COIN-specific AI agent launch news and neutral macro/futures context; overnight gap likely reflects thin liquidity noise and should revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "No fundamental, macro, or market catalysts present; overnight -0.76% move is likely low-liquidity noise that should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "No company, macro, futures, or cross-asset catalysts explain the -1.61% overnight drop; likely low-liquidity noise or sentiment that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-12-2",
+        "company-2026-06-12-5",
+        "company-2026-06-12-6"
+      ],
+      "rationale": "Token trades 1.5% below fair value despite positive BTC momentum and reports of MSTR shares soaring; the dip likely reflects transient sentiment around a minor BTC sale and should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-12-1",
+        "company-2026-06-12-3",
+        "company-2026-06-12-4"
+      ],
+      "rationale": "Unexplained overnight drop lacks material negative catalyst; SeekingAlpha frames dip as buying opportunity and board change is strategically neutral/positive. Sentiment-driven gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "No fundamental catalysts or macro shocks detected; -0.42% overnight drift is likely noise/sentiment expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-12-2",
+        "company-2026-06-12-3"
+      ],
+      "rationale": "Overnight -2.26% drop contradicts bullish catalysts (new enterprise AI deals, Loeb endorsement), indicating noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-12",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-12-summary",
+        "macro-2026-06-12-none",
+        "index-futures-2026-06-12",
+        "cross-asset-2026-06-12"
+      ],
+      "rationale": "Token is down 1.14% overnight with zero company news, macro events, index futures shocks, or cross-asset volatility. The move is likely low-liquidity noise or sentiment drift, favoring a reversion fade at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "1.44% overnight premium lacks any supporting company, macro, futures, or cross-asset catalysts, indicating thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-1",
+        "company-2026-06-15-6",
+        "index-futures-2026-06-15"
+      ],
+      "rationale": "7.44% premium driven by speculative opinion headlines without concrete fundamental catalysts or broad-market futures support; typical off-hours sentiment gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "3.77% overnight premium lacks any fundamental, macro, or broad-market catalyst; thin off-hours liquidity likely drove sentiment gap, favoring mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-15-1",
+        "company-2026-06-15-2",
+        "company-2026-06-15-6"
+      ],
+      "rationale": "Overnight premium driven by broad market sentiment and speculative opinion pieces rather than a concrete company-specific catalyst; likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [],
+      "rationale": "0.66% off-hours premium lacks BABA-specific catalyst; neutral macro/futures context and generic headlines indicate noise drift likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-15",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-15-2",
+        "company-2026-06-15-4"
+      ],
+      "rationale": "Direct catalyst from Bitcoin breaking key levels driving crypto equities higher, justifying the 7.39% overnight premium.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "2.66% overnight premium lacks any company, macro, or broad-market catalyst; likely liquidity/sentiment noise expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "4.37% overnight premium lacks any fundamental, macro, or broad-market catalyst support. Likely thin-liquidity noise or sentiment drift that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.9,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "Token is +1.98% rich overnight with zero company news, macro events, futures shocks, or cross-asset volatility. The unsupported move indicates thin liquidity or sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-15",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-15-1",
+        "company-2026-06-15-4",
+        "company-2026-06-15-5"
+      ],
+      "rationale": "Overnight premium driven by sustained Bitcoin rally above $65k and confirmed $100M MSTR BTC purchase; crypto-correlated momentum outweighs dilution concerns in off-hours session.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "2.75% overnight premium lacks supporting macro, futures, or cross-asset catalysts; indicates thin-liquidity sentiment likely to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-15-3"
+      ],
+      "rationale": "Minor podcast partnership expansion lacks fundamental weight to sustain a 1.46% overnight premium; expect sentiment-driven gap to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "Token is rich by 1.78% overnight with zero company news, macro events, futures shocks, or cross-asset moves to justify the premium. The move is likely off-hours noise/sentiment and expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-15-1",
+        "company-2026-06-15-6"
+      ],
+      "rationale": "2.90% overnight premium lacks a substantive positive catalyst; headlines are generic fluff while a specific Swiss court defeat highlights contract risks, indicating sentiment-driven noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-15-2",
+        "company-2026-06-15-1",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15"
+      ],
+      "rationale": "2.65% premium reflects off-hours sentiment from geopolitical relief and oil drop, but lacks hard macro/futures confirmation and conflicts with rising inflation data; likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "1.80% overnight premium lacks any supporting macro, futures, cross-asset, or company catalysts; indicates liquidity-driven noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-15",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-15-1",
+        "company-2026-06-15-2",
+        "index-futures-2026-06-15"
+      ],
+      "rationale": "Bullish ceasefire headline conflicts with bearish inflation PMI data; explicit lack of confirmed pre-open futures shock indicates the 1.58% overnight premium is driven by thin liquidity and mixed sentiment rather than a validated broad-market catalyst.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-15-summary",
+        "macro-2026-06-15-none",
+        "index-futures-2026-06-15",
+        "cross-asset-2026-06-15"
+      ],
+      "rationale": "Overnight 1.32% premium lacks any supporting company, macro, index, or cross-asset catalysts. Gap is likely driven by thin off-hours liquidity/sentiment and expected to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-15",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-15-1",
+        "company-2026-06-15-2",
+        "index-futures-2026-06-15"
+      ],
+      "rationale": "Overnight 1.96% premium driven by broad geopolitical headlines and technical chatter without TSMC-specific fundamental catalyst; neutral cross-asset and futures context suggest sentiment-driven gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-2",
+        "company-2026-06-16-5",
+        "company-2026-06-16-6"
+      ],
+      "rationale": "Token is down -1.38% despite positive AI sector momentum and a specific Rackspace-AMD partnership catalyst. The overnight dip likely reflects thin-liquidity noise and should revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-16-summary",
+        "macro-2026-06-16-none",
+        "index-futures-2026-06-16",
+        "cross-asset-2026-06-16"
+      ],
+      "rationale": "0.49% premium lacks fundamental, macro, or cross-asset catalyst support; likely off-hours sentiment noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-16-4",
+        "company-2026-06-16-5",
+        "company-2026-06-16-6"
+      ],
+      "rationale": "Premium driven by broad geopolitical optimism and generic semiconductor sector momentum rather than ARM-specific fundamentals; overnight sentiment gaps typically revert at the cash open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "index-futures-2026-06-16",
+        "cross-asset-2026-06-16"
+      ],
+      "rationale": "No AVGO-specific negative catalyst; -1.82% drop reflects general overnight noise. Neutral macro/futures context and AI dip-buying narrative support mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-2",
+        "company-2026-06-16-4"
+      ],
+      "rationale": "Off-hours 2.29% discount lacks a negative catalyst; news flow is neutral-to-positive (AI rollout, acquisition rumors), indicating thin-liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-16",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-2",
+        "company-2026-06-16-3"
+      ],
+      "rationale": "Overnight premium aligns with a strong crypto rally (ETH +10%) and COIN-specific positive sentiment/product news. The ~1% gap is modest relative to the underlying catalyst, suggesting momentum is likely to persist into the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-16-summary",
+        "macro-2026-06-16-none",
+        "index-futures-2026-06-16",
+        "cross-asset-2026-06-16"
+      ],
+      "rationale": "1.52% overnight premium lacks any company, macro, index, or cross-asset catalysts; likely thin-liquidity noise or sentiment that will revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-4"
+      ],
+      "rationale": "The -1.18% overnight discount lacks a fundamental negative catalyst; available headlines are routine product updates and unrelated market-cap commentary, pointing to off-hours noise that typically reverts at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.55,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-6"
+      ],
+      "rationale": "Minimal -0.60% overnight gap driven by mixed commentary and routine BTC purchase; lack of macro shock or negative fundamentals indicates noise likely to revert to fair value at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-2",
+        "company-2026-06-16-3",
+        "company-2026-06-16-4"
+      ],
+      "rationale": "Token dip driven by denied M&A rumor regarding Roku; lack of fundamental catalyst suggests sentiment-driven gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-16-summary",
+        "macro-2026-06-16-none",
+        "index-futures-2026-06-16",
+        "cross-asset-2026-06-16"
+      ],
+      "rationale": "Overnight -1.71% drop occurs with zero company, macro, futures, or cross-asset catalysts, indicating off-hours liquidity noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-16",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-2",
+        "company-2026-06-16-6"
+      ],
+      "rationale": "Mixed catalysts: negative French intel contract loss offset by neutral Wolfe upgrade to Peer Perform. Small -1.28% gap lacks clear directional conviction; off-hours liquidity thin.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-16",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-16-1",
+        "company-2026-06-16-2",
+        "company-2026-06-16-5",
+        "company-2026-06-16-6"
+      ],
+      "rationale": "Token down 0.70% despite multiple bullish catalysts (insider purchase, major Amkor partnership, bullish technicals, positive market futures). Gap contradicts news flow and likely reflects off-hours liquidity drift; expect reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.8,
+      "evidenceIds": [
+        "company-2026-06-17-summary",
+        "macro-2026-06-17-none",
+        "index-futures-2026-06-17",
+        "cross-asset-2026-06-17"
+      ],
+      "rationale": "Overnight -1.54% decline occurs with zero company news, macro events, futures shocks, or cross-asset volatility, indicating low-liquidity noise or sentiment drift that typically reverts at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-17-1",
+        "company-2026-06-17-3",
+        "company-2026-06-17-4",
+        "company-2026-06-17-6"
+      ],
+      "rationale": "Overnight 2.09% premium driven by broad analyst sentiment and sector tailwinds rather than hard catalysts; typical sentiment-driven drift likely to revert at US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-17",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-17-6"
+      ],
+      "rationale": "Analyst commentary highlighting Broadcom's robust AI pipeline and multi-year growth validates the 3.69% overnight premium; expect momentum to persist into the cash open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-17-2",
+        "company-2026-06-17-4",
+        "macro-2026-06-17-none",
+        "index-futures-2026-06-17"
+      ],
+      "rationale": "Token is down 1.09% despite positive/neutral catalysts (Qwen-Robot launch, Pupu M&A rumors) and no macro/futures downside pressure, indicating overnight noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-17-summary",
+        "macro-2026-06-17-none",
+        "index-futures-2026-06-17",
+        "cross-asset-2026-06-17"
+      ],
+      "rationale": "Overnight -1.87% gap lacks any company, macro, futures, or cross-asset catalysts; likely low-liquidity noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-17-4",
+        "company-2026-06-17-6"
+      ],
+      "rationale": "No META-specific catalyst; gap driven by unrelated sector noise and historical trivia, expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-17-4",
+        "company-2026-06-17-6"
+      ],
+      "rationale": "Modest -1.11% overnight dip lacks fundamental negative catalysts; news reflects analyst divergence and routine AI strategy evaluation, indicating sentiment noise likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-17-3",
+        "company-2026-06-17-4",
+        "company-2026-06-17-6"
+      ],
+      "rationale": "Small overnight gap driven by mixed technical/sentiment headlines without concrete fundamental catalyst; likely noise that reverts at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-17-2",
+        "company-2026-06-17-4"
+      ],
+      "rationale": "Small 1.06% overnight premium lacks macro/futures support. Mixed sentiment features a concrete rating downgrade against speculative bullish headlines, suggesting noise that will likely revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-17-1"
+      ],
+      "rationale": "Bullish Goldman Q2 delivery forecast upgrade contrasts with -1.54% overnight discount, indicating sentiment-driven dip likely to revert at the US open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-17",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-17-5",
+        "macro-2026-06-17-none",
+        "index-futures-2026-06-17",
+        "cross-asset-2026-06-17"
+      ],
+      "rationale": "1.84% premium lacks fundamental catalyst; TSM ranking headline is non-fundamental noise, macro/futures/cross-asset are neutral, suggesting overnight sentiment/liquidity gap likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-3",
+        "company-2026-06-18-5",
+        "cross-asset-2026-06-18"
+      ],
+      "rationale": "Conflicting company signals (Apple-Intel partnership vs. chip cost inflation and potential iPhone price hikes) offset the modest +0.76% premium. Cross-asset context explicitly flags macro sensitivity and advises standing aside absent dominant company catalysts.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-18",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-18-2",
+        "company-2026-06-18-4",
+        "company-2026-06-18-5"
+      ],
+      "rationale": "Gap is sentiment-driven by competitor Intel-Apple news and broad chip sector rotation, lacking AMD-specific catalysts. UBS chip warning and macro sensitivity suggest the 3.55% premium will likely revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "cross-asset-2026-06-18",
+        "company-2026-06-18-summary",
+        "macro-2026-06-18-fomc"
+      ],
+      "rationale": "Overnight gap is purely macro-driven (FOMC digestion) with no AMZN-specific catalysts; cross-asset context explicitly advises standing aside without company evidence.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-1",
+        "company-2026-06-18-2",
+        "company-2026-06-18-3",
+        "cross-asset-2026-06-18"
+      ],
+      "rationale": "Conflicting signals between a fresh downgrade and broad market rally/product news. Cross-asset context explicitly advises standing aside unless company evidence dominates, which it does not. The 5.19% premium likely reflects thin overnight liquidity and macro noise rather than a sustainable catalyst.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "cross-asset-2026-06-18",
+        "index-futures-2026-06-18",
+        "company-2026-06-18-5",
+        "company-2026-06-18-6"
+      ],
+      "rationale": "4.15% premium driven by broad futures rally and vague analyst notes; lacks dominant company catalyst, triggering cross-asset stand-aside directive.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "cross-asset-2026-06-18",
+        "macro-2026-06-18-fomc",
+        "index-futures-2026-06-18"
+      ],
+      "rationale": "Macro-driven gap with no dominant company catalyst; cross-asset context flags macro sensitivity and advises standing aside.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-summary",
+        "macro-2026-06-18-fomc",
+        "index-futures-2026-06-18",
+        "cross-asset-2026-06-18"
+      ],
+      "rationale": "No idiosyncratic GOOGL catalyst; overnight -1.12% move is macro/FOMC-driven. Cross-asset context explicitly advises standing aside without company evidence. Gap reflects broad market beta likely to resolve at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18"
+      ],
+      "rationale": "No MSFT-specific catalysts present; -0.68% gap reflects broad FOMC digestion and macro-sensitive cross-asset context. Per guidance, stand aside when macro dominates and company evidence is absent.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-1",
+        "company-2026-06-18-5",
+        "company-2026-06-18-6",
+        "cross-asset-2026-06-18",
+        "macro-2026-06-18-fomc"
+      ],
+      "rationale": "Conflicting headlines on MSTR vs BTC price action, combined with FOMC digestion and explicit cross-asset macro sensitivity flags, make the overnight gap too noisy and conflicted to trade reliably.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18",
+        "company-2026-06-18-summary"
+      ],
+      "rationale": "FOMC digestion drives event-linked macro volatility; cross-asset context explicitly advises standing aside without dominant company catalysts, which are absent.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-18-fomc",
+        "index-futures-2026-06-18",
+        "cross-asset-2026-06-18",
+        "company-2026-06-18-summary"
+      ],
+      "rationale": "Overnight gap is macro-driven by FOMC digestion with zero company-specific catalysts; cross-asset context explicitly flags macro-sensitivity and advises standing aside unless company evidence dominates.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-2",
+        "company-2026-06-18-3",
+        "company-2026-06-18-5",
+        "company-2026-06-18-6",
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18"
+      ],
+      "rationale": "Gap lacks PLTR-specific catalyst; mixed bullish opinions conflict with FOMC digestion and explicit cross-asset macro sensitivity warning, creating a conflicted setup.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18",
+        "company-2026-06-18-2",
+        "company-2026-06-18-3",
+        "company-2026-06-18-4"
+      ],
+      "rationale": "Mixed sentiment headlines and explicit macro-sensitive cross-asset warning advise caution; FOMC digestion creates event-driven uncertainty without a dominant directional catalyst to justify fading or following the 1.59% gap.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18",
+        "index-futures-2026-06-18"
+      ],
+      "rationale": "FOMC digestion drives macro-sensitive repricing; cross-asset context explicitly advises standing aside absent dominant company catalysts, which are absent.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-18",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-2",
+        "company-2026-06-18-3",
+        "company-2026-06-18-4",
+        "index-futures-2026-06-18"
+      ],
+      "rationale": "Gap driven by concrete geopolitical de-escalation (US-Iran interim deal) and lower oil prices, corroborated by broad index futures strength. Macro catalyst is fundamental and likely to sustain risk-on momentum into the cash open rather than fade.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18",
+        "company-2026-06-18-4"
+      ],
+      "rationale": "Macro-sensitive environment explicitly flags stand-aside; company catalysts are mixed/soft (FSD regulatory friction, routine option exercise) and do not clearly dominate. Gap likely reflects broad macro digestion or thin overnight liquidity rather than a high-conviction idiosyncratic move.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-18",
+      "action": "STAND_ASIDE",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-18-5",
+        "macro-2026-06-18-fomc",
+        "cross-asset-2026-06-18"
+      ],
+      "rationale": "Gap reflects broad semiconductor sentiment and FOMC digestion rather than a direct TSMC catalyst; cross-asset context explicitly advises standing aside without clear company dominance.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-22",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-22-2"
+      ],
+      "rationale": "Positive legal catalyst (Siri litigation dismissed) justifies the 1.14% overnight premium; other headlines are unrelated noise.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-22",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-22-3",
+        "company-2026-06-22-1"
+      ],
+      "rationale": "Concrete Rackspace AI infrastructure deal and positive sector rotation justify the 4% premium; specific catalyst likely to sustain into the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-22-4",
+        "company-2026-06-22-6",
+        "index-futures-2026-06-22"
+      ],
+      "rationale": "Token down 2.08% without AMZN-specific negative catalyst; Prime Day coverage is positive/neutral and index futures are flat, indicating overnight drop is likely sentiment/noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-2",
+        "company-2026-06-22-4"
+      ],
+      "rationale": "Overnight -4.25% drop contradicts strong bullish Bernstein PT upgrade and positive geopolitical/macro backdrop, indicating a thin-liquidity gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-4"
+      ],
+      "rationale": "Overnight -2.49% dip appears driven by unverified Google-related rumors and broad AI sector skepticism. J.P. Morgan's explicit defense against the rumors indicates sentiment-driven noise likely to revert at the open, with no fundamental or macro catalysts supporting the move.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.6,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-4",
+        "company-2026-06-22-5"
+      ],
+      "rationale": "Modest -1.63% gap driven by mixed sentiment and geopolitical headlines without a concrete fundamental catalyst; likely overnight noise that reverts at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-5",
+        "company-2026-06-22-6"
+      ],
+      "rationale": "7.62% overnight premium lacks a commensurate fundamental catalyst; product expansion news combined with dropping CLARITY Act approval odds points to off-hours sentiment/liquidity gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-6"
+      ],
+      "rationale": "Positive AI capex and CEO revenue commentary contradict the -3.73% overnight drop, indicating a sentiment/liquidity gap likely to revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-22-4",
+        "company-2026-06-22-5",
+        "company-2026-06-22-6"
+      ],
+      "rationale": "Small -0.47% overnight dip lacks META-specific negative catalysts; driven by routine corporate news and broad tech sentiment drag from peers. High probability of mean reversion at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-22-4",
+        "company-2026-06-22-6"
+      ],
+      "rationale": "Overnight +5.59% premium lacks fundamental support; news of a 2/3 reduction in weekly BTC purchases and a pivot to cash reserves typically compresses MSTR's NAV premium, favoring a reversion to fair value at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.85,
+      "evidenceIds": [
+        "company-2026-06-22-summary",
+        "macro-2026-06-22-none",
+        "index-futures-2026-06-22",
+        "cross-asset-2026-06-22"
+      ],
+      "rationale": "0.75% premium lacks any supporting macro, futures, or cross-asset catalysts; likely thin overnight liquidity or sentiment noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-3",
+        "company-2026-06-22-4"
+      ],
+      "rationale": "Overnight -0.79% dip lacks a fundamental negative catalyst; news flow is neutral-to-positive. Move likely reflects thin off-hours liquidity and sentiment noise, expected to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-22-2"
+      ],
+      "rationale": "1.36% premium contradicts direct competitive headwind (Google AI chip push against Nvidia). Off-hours upside likely driven by unrelated sector spillover and thin liquidity, favoring mean reversion at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-22",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-22-2"
+      ],
+      "rationale": "Reuters reports French intelligence replacing PLTR with a local rival, providing a fundamental negative catalyst that aligns with the -0.61% overnight gap and is likely to persist into the regular session.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.65,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-4",
+        "index-futures-2026-06-22",
+        "cross-asset-2026-06-22"
+      ],
+      "rationale": "Token is +0.59% rich despite bearish tech headlines and neutral macro/futures context. Lack of supporting catalysts indicates overnight premium is likely thin liquidity or noise that will revert at the open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-22",
+      "action": "FADE",
+      "multiplier": 0.75,
+      "evidenceIds": [
+        "company-2026-06-22-1",
+        "company-2026-06-22-4",
+        "company-2026-06-22-6"
+      ],
+      "rationale": "1.57% overnight premium lacks concrete fundamental catalyst; headlines are speculative/editorial noise likely to revert at open.",
+      "hasCompanyNews": true
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-22",
+      "action": "FOLLOW",
+      "multiplier": 0,
+      "evidenceIds": [
+        "company-2026-06-22-6"
+      ],
+      "rationale": "Direct rating upgrade and supportive AI/chip sector narrative justify the 1.55% premium; gap reflects fundamental catalyst rather than transient noise.",
+      "hasCompanyNews": true
+    }
+  ]
+}

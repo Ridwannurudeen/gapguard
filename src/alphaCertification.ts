@@ -9,8 +9,16 @@ import {
   type DaySession,
   type Trade,
 } from "./gapEngine";
-import { buildMultiBacktestReport, type CandleFixture } from "./multiBacktest";
-import { resolveBacktestSlippage } from "./slippage";
+import {
+  buildMultiBacktestReport,
+  loadCandleFixture,
+  loadRwaSampleManifest,
+  type RwaSampleManifest,
+} from "./multiBacktest";
+import {
+  resolveExecutionAssumptions,
+  type ExecutionAssumption,
+} from "./slippage";
 
 const GAP_THRESHOLD = Number(process.env.ALPHA_GAP_THRESHOLD ?? "0.004");
 const COST_PER_SIDE = Number(process.env.BT_COST ?? "0.0005");
@@ -23,13 +31,6 @@ const MIN_PRIOR_MEAN = 0;
 const MIN_OOS_TRADES = 30;
 
 type Direction = "long" | "short";
-
-interface Manifest {
-  generatedAt?: string;
-  source?: string;
-  granularity?: string;
-  symbols: { symbol: string; file: string; from?: string; to?: string }[];
-}
 
 interface GapCandidate {
   symbol: string;
@@ -105,11 +106,7 @@ export interface AlphaCertificationReport {
   limitations: string[];
 }
 
-function readManifest(path: string): Manifest {
-  return JSON.parse(readFileSync(path, "utf8")) as Manifest;
-}
-
-function inputHash(manifest: Manifest): string {
+function inputHash(manifest: RwaSampleManifest): string {
   const hash = createHash("sha256");
   hash.update(JSON.stringify(manifest));
   for (const row of manifest.symbols) {
@@ -118,18 +115,16 @@ function inputHash(manifest: Manifest): string {
   return hash.digest("hex");
 }
 
-function fixtureFromManifest(row: { file: string }): CandleFixture {
-  return JSON.parse(readFileSync(resolve(row.file), "utf8")) as CandleFixture;
-}
-
 function gapCandidates(
   symbol: string,
   sessions: DaySession[],
   costPerSide: number,
-  slippageBps: number,
+  execution: ExecutionAssumption,
 ): GapCandidate[] {
   const out: GapCandidate[] = [];
-  const totalCost = 2 * (costPerSide + slippageBps / 10_000);
+  const totalCost =
+    2 * (costPerSide + execution.slippageBps / 10_000) +
+    Math.abs(execution.fundingRate);
   for (let i = 1; i < sessions.length; i += 1) {
     const prior = sessions[i - 1];
     const today = sessions[i];
@@ -293,11 +288,22 @@ export function buildAlphaCertificationReport(
   outPath = "artifacts/rwa-alpha-certification.json",
   generatedAt = new Date().toISOString(),
 ): AlphaCertificationReport {
-  const manifest = readManifest(manifestPath);
-  const fixtures = manifest.symbols.map(fixtureFromManifest);
-  const slippage = resolveBacktestSlippage(
+  const manifest = loadRwaSampleManifest(manifestPath);
+  const fixtures = manifest.symbols.map((row) =>
+    loadCandleFixture(resolve(row.file)),
+  );
+  const executionAssumptions = resolveExecutionAssumptions(
     fixtures.map((fixture) => fixture.symbol),
   );
+  const averageSlippage = fixtures.length
+    ? fixtures.reduce(
+        (sum, fixture) =>
+          sum +
+          (executionAssumptions.bySymbol[fixture.symbol] ??
+            executionAssumptions.fallback).slippageBps,
+        0,
+      ) / fixtures.length
+    : 0;
   const bySymbol = fixtures.map((fixture) => ({
     fixture,
     sessions: collapseSessions(fixture.candles as Candle[]),
@@ -308,7 +314,8 @@ export function buildAlphaCertificationReport(
         fixture.symbol,
         sessions,
         COST_PER_SIDE,
-        slippage.slippageBps,
+        executionAssumptions.bySymbol[fixture.symbol] ??
+          executionAssumptions.fallback,
       ),
     )
     .sort(
@@ -324,8 +331,7 @@ export function buildAlphaCertificationReport(
   const fullSampleAlwaysFade = buildMultiBacktestReport(fixtures, {
     gapThreshold: GAP_THRESHOLD,
     costPerSide: COST_PER_SIDE,
-    slippageBps: slippage.slippageBps,
-    slippageSource: slippage.source,
+    executionAssumptions,
     startEquity: START_EQUITY,
   }).aggregate;
   const oosAlwaysFadeTrades = compoundBySymbol(oosCandidates, (candidate) => ({
@@ -393,7 +399,7 @@ export function buildAlphaCertificationReport(
   return {
     schemaVersion: 1,
     generatedAt,
-    strategy: "GapGuard walk-forward RWA gap-follow certification",
+    strategy: "GapGuard walk-forward RWA gap-follow pilot",
     claim:
       "Walk-forward out-of-sample evidence for selective RWA gap-following after costs; not a live-fill claim.",
     data: {
@@ -420,7 +426,7 @@ export function buildAlphaCertificationReport(
       selectionRule:
         "Out-of-sample gap-follow trade is allowed only when the last 80 same-direction RWA gap-follow outcomes have at least 40 observations, positive mean return, and at least 55% wins.",
       splitMethod:
-        "First 60% of unique gap dates are formation history; later dates are out-of-sample certification.",
+        "First 60% of unique gap dates are formation history; later dates are the out-of-sample pilot window.",
       outOfSampleStart: oosStart,
       gapThresholdPct: GAP_THRESHOLD * 100,
       lookbackTrades: LOOKBACK_TRADES,
@@ -430,8 +436,8 @@ export function buildAlphaCertificationReport(
       minPriorWinRatePct: MIN_PRIOR_WIN_RATE * 100,
       minOosTrades: MIN_OOS_TRADES,
       costPerSidePct: COST_PER_SIDE * 100,
-      slippagePerSideBps: slippage.slippageBps,
-      slippageSource: slippage.source,
+      slippagePerSideBps: +averageSlippage.toFixed(3),
+      slippageSource: executionAssumptions.source,
     },
     baselines: {
       fullSampleAlwaysFade,
@@ -462,8 +468,8 @@ export function buildAlphaCertificationReport(
       alphaStatus,
       note:
         alphaStatus === "positive"
-          ? "walk-forward RWA certification is positive after costs on the current out-of-sample window; still not a live-fill claim"
-          : "walk-forward RWA certification did not clear positive alpha requirements; live capital remains disabled",
+          ? "walk-forward RWA pilot is positive after costs on the current out-of-sample window; still not a live-fill claim"
+          : "walk-forward RWA pilot did not clear positive evidence requirements; live capital remains disabled",
     },
     limitations: [
       `Tiny out-of-sample window: ${selectedDaily.oosTradingDays} OOS trading days (full data ~83 days)`,
@@ -490,7 +496,7 @@ export async function runAlphaCertificationCli(): Promise<void> {
   writeAlphaCertificationReport(report, out);
   const ra = report.outOfSample.riskAdjusted;
   console.log(
-    `RWA alpha certification — ${report.outOfSample.alphaStatus}, ${report.outOfSample.metrics.totalTrades} OOS trades over ${ra.oosTradingDays} trading days, return ${report.outOfSample.metrics.totalReturnPct}%, portfolio-daily Sharpe ${ra.portfolioDailySharpeAnnualized} (per-trade ${ra.sharpePerTrade})`,
+    `RWA walk-forward pilot — ${report.outOfSample.alphaStatus}, ${report.outOfSample.metrics.totalTrades} OOS trades over ${ra.oosTradingDays} trading days, return ${report.outOfSample.metrics.totalReturnPct}%, portfolio-daily Sharpe ${ra.portfolioDailySharpeAnnualized} (per-trade ${ra.sharpePerTrade})`,
   );
   console.table({
     selected: {

@@ -91,6 +91,15 @@ function defaultReferencePrice(
   );
 }
 
+function optionalNonNegativeInt(value: string | undefined, field: string): number | undefined {
+  if (value === undefined) return undefined;
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 0) {
+    throw new Error(`${field} must be a non-negative integer`);
+  }
+  return parsed;
+}
+
 export function parseBrokerCliArgs(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -192,9 +201,22 @@ export async function runBrokerCli(): Promise<void> {
       confirmLive: args.confirmLive,
       marginMode: "isolated",
       leverage: 1,
+      timeoutMs: optionalNonNegativeInt(
+        process.env.BITGET_BROKER_TIMEOUT_MS,
+        "BITGET_BROKER_TIMEOUT_MS",
+      ),
+      pollAttempts: optionalNonNegativeInt(
+        process.env.BITGET_BROKER_POLL_ATTEMPTS,
+        "BITGET_BROKER_POLL_ATTEMPTS",
+      ),
+      pollIntervalMs: optionalNonNegativeInt(
+        process.env.BITGET_BROKER_POLL_INTERVAL_MS,
+        "BITGET_BROKER_POLL_INTERVAL_MS",
+      ),
     },
   );
-  const orderId = result.stdout ? extractOrderId(result.stdout) : null;
+  const orderId =
+    result.receipt?.orderId ?? (result.stdout ? extractOrderId(result.stdout) : null);
   const balanceAfter =
     args.mode === "dry_run" ? null : await readFuturesAvailable(args.mode);
   const balanceDelta =
@@ -212,7 +234,9 @@ export async function runBrokerCli(): Promise<void> {
       size: args.size,
       referencePrice: args.referencePrice,
       mode: args.mode,
+      clientOid: result.plan.order.clientOid,
       orderId,
+      receipt: result.receipt,
       balanceBefore,
       balanceAfter,
       balanceDelta,

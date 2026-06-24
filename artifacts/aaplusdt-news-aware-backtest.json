@@ -52,103 +52,114 @@
   "params": {
     "gapThresholdPct": 0.4,
     "costPerSidePct": 0.05,
-    "slippagePerSideBps": 0.5599,
+    "slippagePerSideBps": 0.2851,
     "slippageSource": "median half-spread from public/rwa-market.json RWA basket fallback",
     "startEquity": 1000
   },
   "variants": {
     "alwaysFade": {
-      "totalReturnPct": -0.475,
-      "sharpePerTrade": -0.019,
-      "sharpeAnnualized": -0.232,
-      "maxDrawdownPct": 3.312,
+      "totalReturnPct": -0.393,
+      "sharpePerTrade": -0.015,
+      "sharpeAnnualized": -0.18,
+      "maxDrawdownPct": 3.301,
       "winRatePct": 40,
       "totalTrades": 15,
-      "profitFactor": 0.94,
-      "endingEquity": 995.25
+      "profitFactor": 0.96,
+      "endingEquity": 996.07
+    },
+    "alwaysFollow": {
+      "totalReturnPct": -2.955,
+      "sharpePerTrade": -0.151,
+      "sharpeAnnualized": -1.84,
+      "maxDrawdownPct": 5.511,
+      "winRatePct": 26.7,
+      "totalTrades": 15,
+      "profitFactor": 0.63,
+      "endingEquity": 970.45
     },
     "gateDriven": {
-      "totalReturnPct": 1.346,
-      "sharpePerTrade": 0.089,
-      "sharpeAnnualized": 1.003,
-      "maxDrawdownPct": 3.312,
+      "totalReturnPct": 1.418,
+      "sharpePerTrade": 0.093,
+      "sharpeAnnualized": 1.053,
+      "maxDrawdownPct": 3.301,
       "winRatePct": 38.5,
       "totalTrades": 13,
-      "profitFactor": 1.33,
-      "endingEquity": 1013.46
+      "profitFactor": 1.35,
+      "endingEquity": 1014.18
     },
     "aaplNewsAware": {
-      "totalReturnPct": 1.724,
-      "sharpePerTrade": 0.112,
-      "sharpeAnnualized": 1.267,
-      "maxDrawdownPct": 3.311,
+      "totalReturnPct": 1.797,
+      "sharpePerTrade": 0.116,
+      "sharpeAnnualized": 1.317,
+      "maxDrawdownPct": 3.3,
       "winRatePct": 46.2,
       "totalTrades": 13,
-      "profitFactor": 1.43,
-      "endingEquity": 1017.24
+      "profitFactor": 1.45,
+      "endingEquity": 1017.97
     },
     "allCatalystAware": {
-      "totalReturnPct": 1.256,
-      "sharpePerTrade": 0.107,
-      "sharpeAnnualized": 1.068,
-      "maxDrawdownPct": 2.028,
+      "totalReturnPct": 1.311,
+      "sharpePerTrade": 0.112,
+      "sharpeAnnualized": 1.113,
+      "maxDrawdownPct": 2.022,
       "winRatePct": 50,
       "totalTrades": 10,
-      "profitFactor": 1.46,
-      "endingEquity": 1012.56
+      "profitFactor": 1.49,
+      "endingEquity": 1013.11
     }
   },
   "gateVerdictCache": {
-    "path": "C:\\Users\\gudma\\OneDrive\\Desktop\\GITHUB-FILES\\gapguard\\data\\aaplusdt-gate-verdicts.json",
+    "path": "data/aaplusdt-gate-verdicts.json",
     "model": "qwen3.6-plus",
     "promptSource": "blinded overnight summaries; no fade/stand-aside labels in prompt",
     "generatedAt": "2026-06-22T19:09:52.866Z",
     "standAsideDates": [
       "2026-05-27",
       "2026-06-09"
-    ]
+    ],
+    "followDates": []
   },
   "skippedOnCatalyst": {
     "aapl": [
       {
         "date": "2026-05-18",
-        "returnPct": -0.192
+        "returnPct": -0.186
       },
       {
         "date": "2026-06-09",
-        "returnPct": -1.974
+        "returnPct": -1.969
       }
     ],
     "all": [
       {
         "date": "2026-05-18",
-        "returnPct": -0.192
+        "returnPct": -0.186
       },
       {
         "date": "2026-06-01",
-        "returnPct": -1.31
+        "returnPct": -1.305
       },
       {
         "date": "2026-06-05",
-        "returnPct": 1.821
+        "returnPct": 1.826
       },
       {
         "date": "2026-06-09",
-        "returnPct": -1.974
+        "returnPct": -1.969
       },
       {
         "date": "2026-06-18",
-        "returnPct": -0.024
+        "returnPct": -0.019
       }
     ],
     "gate": [
       {
         "date": "2026-05-27",
-        "returnPct": 0.18
+        "returnPct": 0.186
       },
       {
         "date": "2026-06-09",
-        "returnPct": -1.974
+        "returnPct": -1.969
       }
     ]
   },

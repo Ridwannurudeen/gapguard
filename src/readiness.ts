@@ -2,6 +2,10 @@ import { existsSync, readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
 import { assessRwaMarketFreshness } from "./evidence";
+import {
+  readSubmissionManifest,
+  verifySubmissionManifest,
+} from "./submissionManifest";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -36,6 +40,9 @@ const REQUIRED_LOCAL_EVIDENCE = [
   "artifacts/rwa-alpha-certification.json",
   "artifacts/paper-btc-smoke.jsonl",
   "playbook/aaplusdt-backtest-result.json",
+  "submission-manifest.json",
+  "SECURITY.md",
+  ".env.example",
 ];
 
 function asRecord(value: unknown): UnknownRecord {
@@ -184,6 +191,30 @@ function rwaFreshnessChecks(): ReadinessCheck[] {
   ];
 }
 
+function submissionManifestChecks(): ReadinessCheck[] {
+  const path = "submission-manifest.json";
+  if (!existsSync(resolve(path))) {
+    return [
+      {
+        id: "submission-manifest",
+        status: "fail",
+        detail: `${path} is missing`,
+      },
+    ];
+  }
+  const errors = verifySubmissionManifest(readSubmissionManifest(path));
+  return [
+    {
+      id: "submission-manifest",
+      status: errors.length === 0 ? "pass" : "fail",
+      detail:
+        errors.length === 0
+          ? "artifact hashes and signing-key fingerprint match"
+          : errors.join("; "),
+    },
+  ];
+}
+
 export function buildReadinessReport(
   generatedAt = new Date().toISOString(),
 ): ReadinessReport {
@@ -192,6 +223,7 @@ export function buildReadinessReport(
     ...arenaEvidenceChecks(),
     ...brokerBoundaryChecks(),
     ...rwaFreshnessChecks(),
+    ...submissionManifestChecks(),
   ];
   return {
     ok: checks.every((check) => check.status !== "fail"),

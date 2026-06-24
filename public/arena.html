@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GapGuard Agent Arena</title>
+    <title>GapGuard Cockpit</title>
     <link
       rel="icon"
       href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%23080907"/><path d="M7 23V9h6.8c4.5 0 7.2 2.8 7.2 7s-2.7 7-7.2 7H7zm4-3.4h2.5c2.3 0 3.5-1.3 3.5-3.6s-1.2-3.6-3.5-3.6H11v7.2zM23 9h3v14h-3z" fill="%23D7FF6A"/></svg>'
@@ -829,7 +829,7 @@
         <a class="brand" href="index.html" aria-label="GapGuard home">
           <div class="mark">GG</div>
           <div>
-            <div class="brand-title">GapGuard Agent Arena</div>
+            <div class="brand-title">GapGuard Cockpit</div>
             <div class="eyebrow">Bitget AI Base Camp S1</div>
           </div>
         </a>
@@ -844,13 +844,13 @@
         <div class="hero-copy">
           <div class="hero-lead">
             <div class="eyebrow">RWA trading scenario, receipt first</div>
-            <h1>GapGuard Agent Arena</h1>
+            <h1>GapGuard Cockpit</h1>
             <p>
-              Autonomous trading agents do not get capital by sounding smart.
-              In this public artifact, Quorum earns a deterministic dry-run
-              passport by debating the same market, surviving the risk
-              constitution, and leaving a receipt chain the judge can break in
-              the browser.
+              GapGuard decides whether an off-hours tokenized-stock gap is
+              liquidity noise to trade or news-driven repricing to respect.
+              Quorum is the five-role deterministic adversarial desk inside
+              that engine, and every decision leaves a receipt chain the judge
+              can verify or break in the browser.
             </p>
           </div>
 
@@ -936,9 +936,9 @@
             <div id="licensedDisplay" class="display num">0/0</div>
           </div>
           <p class="muted">
-            Quorum has positive walk-forward alpha evidence, but the live
-            license still waits for the third Demo paper fill plus explicit
-            approval.
+            Quorum has positive pilot OOS evidence and three Demo paper fills,
+            but any real RWA stock order remains approval-gated. Current stock
+            evidence is backtest/paper.
           </p>
         </div>
         <div class="stat">
@@ -992,7 +992,7 @@
         <div class="panel-head">
           <div>
             <div class="eyebrow">Quorum desk</div>
-            <h2>Five agents, one risk budget</h2>
+            <h2>Five-role deterministic adversarial desk</h2>
           </div>
           <span id="deskSummary" class="tag ok">pending</span>
         </div>
@@ -1026,9 +1026,9 @@
       {
         "generatedAt": "pending",
         "arena": {
-          "thesis": "The Arena does not trust autonomous agents by default; it makes them earn evidence before capital is unlocked.",
+          "thesis": "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the approval gate.",
           "liveInstrument": "NVDAUSDT",
-          "graduationStatus": "alpha_certified_waiting_paper_fill"
+          "graduationStatus": "positive_pilot_waiting_paper_fill"
         },
         "status": {
           "licensedAgents": 0,
@@ -1212,11 +1212,11 @@
         const paperOnly = firstAgentByGrade(data, "PAPER_ONLY");
         const rejected = firstAgentByGrade(data, "REJECTED");
         const items = [
-          `LIVE LICENSED ${data.status.licensedAgents}`,
+          `APPROVAL-GATED ${data.status.licensedAgents}`,
           `PAPER ONLY ${data.status.paperOnlyAgents ?? 0}`,
           `REJECTED ${data.status.rejectedAgents}`,
           licensed
-            ? `${licensed.name.toUpperCase()} LIVE SCORE ${licensed.score}`
+            ? `${licensed.name.toUpperCase()} GATED SCORE ${licensed.score}`
             : paperOnly
               ? `${paperOnly.name.toUpperCase()} PAPER SCORE ${paperOnly.score}`
               : "QUORUM WAITING",
@@ -1323,7 +1323,7 @@
             label: "Arena",
             value: data.status.paperOnlyAgents
               ? `${data.status.paperOnlyAgents} paper-only`
-              : `${data.status.licensedAgents} live-licensed`,
+              : `${data.status.licensedAgents} approval-gated`,
             body: `Deterministic Quorum scenario: ${boundaryCopy(data.quorum.rationale)}`,
           },
           {
@@ -1497,8 +1497,8 @@
           },
           {
             label: "Qwen gate",
-            value: "-2.165%",
-            detail: "14/15 blinded; missed WWDC stand-aside",
+            value: "+1.409%",
+            detail: "12/15 blinded; WWDC stood aside",
           },
           {
             label: "Crypto Demo paper",
@@ -1563,13 +1563,36 @@
           .replace(/\s+/g, "");
       }
 
+      function canonicalJson(value) {
+        if (value === null) return "null";
+        if (typeof value === "string") return JSON.stringify(value);
+        if (typeof value === "boolean") return value ? "true" : "false";
+        if (typeof value === "number") {
+          if (!Number.isFinite(value)) {
+            throw new Error("canonical JSON cannot encode non-finite numbers");
+          }
+          return JSON.stringify(value);
+        }
+        if (Array.isArray(value)) {
+          return `[${value.map((item) => canonicalJson(item)).join(",")}]`;
+        }
+        if (typeof value === "object") {
+          return `{${Object.keys(value)
+            .sort()
+            .filter((key) => value[key] !== undefined)
+            .map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`)
+            .join(",")}}`;
+        }
+        throw new Error(`canonical JSON cannot encode ${typeof value}`);
+      }
+
       async function computeMerkleRoot(records) {
         if (records.length === 0) return genesis;
         let layer = await Promise.all(
           records.map((record) => {
             const payload = { ...record };
             delete payload.hash;
-            return sha256(JSON.stringify(payload));
+            return sha256(canonicalJson(payload));
           }),
         );
         while (layer.length > 1) {
@@ -1654,7 +1677,7 @@
 
           const payload = { ...record };
           delete payload.hash;
-          const expectedHash = await sha256(JSON.stringify(payload));
+          const expectedHash = await sha256(canonicalJson(payload));
           if (record.hash !== expectedHash) {
             errors.push(`line ${row}: hash mismatch`);
             brokenRows.add(row);

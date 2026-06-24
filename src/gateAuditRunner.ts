@@ -45,19 +45,28 @@ export async function runGateAudit(params: {
       params.asset,
       trade,
       news.newsSummary,
+      news.catalystBundle,
     );
     const verdict = await assessConvergence(ctx, params.chat);
-    const correct = verdict.fadeable === label.expectedFadeable;
+    const expectedAction =
+      label.expectedAction ??
+      (label.expectedFadeable ? "FADE" : "STAND_ASIDE");
+    const correct = verdict.action === expectedAction;
     verdicts.push({
       date: trade.ts,
       newsSummary: news.newsSummary,
+      action: verdict.action,
       fadeable: verdict.fadeable,
       multiplier: effectiveMultiplier(verdict),
+      evidenceIds: verdict.evidenceIds,
+      catalystBundle: news.catalystBundle,
       expectedFadeable: label.expectedFadeable,
+      expectedAction,
       correct,
       returnPct: trade.returnPct,
       rationale: verdict.rationale,
       labelRationale: label.labelRationale,
+      parseError: verdict.parseError,
     });
   }
 
@@ -66,7 +75,8 @@ export async function runGateAudit(params: {
     asset: params.asset,
     model: params.model,
     generatedAt: params.generatedAt,
-    promptSource: "blinded overnight summaries; no fade/stand-aside labels in prompt",
+    promptSource:
+      "blinded overnight summaries; no fade/stand-aside labels in prompt",
     contextsSource: params.contextsSource,
     labelsSource: params.labelsSource,
     accuracyPct: +accuracy.accuracyPct.toFixed(1),

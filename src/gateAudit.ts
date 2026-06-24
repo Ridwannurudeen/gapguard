@@ -32,10 +32,10 @@ const model = process.env.BITGET_QWEN_MODEL ?? "qwen3.6-plus";
 const backtest = JSON.parse(
   readFileSync(resolve("artifacts/aaplusdt-backtest.json"), "utf8"),
 ) as { asset: string; trades: GateBacktestTrade[] };
-const contextsPath = resolve("data/aaplusdt-news-contexts.json");
-const labelsPath = resolve("data/aaplusdt-gate-labels.json");
-const contexts = loadNewsContexts(contextsPath);
-const labels = loadGateLabels(labelsPath);
+const contextsPath = "data/aaplusdt-news-contexts.json";
+const labelsPath = "data/aaplusdt-gate-labels.json";
+const contexts = loadNewsContexts(resolve(contextsPath));
+const labels = loadGateLabels(resolve(labelsPath));
 
 const report = await runGateAudit({
   asset: backtest.asset,
@@ -52,7 +52,7 @@ const report = await runGateAudit({
 for (const verdict of report.verdicts) {
   const mark = verdict.correct ? "ok" : "miss";
   console.log(
-    `${verdict.date} fadeable=${verdict.fadeable} x${verdict.multiplier.toFixed(2)} ${mark}`,
+    `${verdict.date} action=${verdict.action} x${verdict.multiplier.toFixed(2)} ${mark}`,
   );
 }
 

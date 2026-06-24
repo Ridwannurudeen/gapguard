@@ -66,12 +66,9 @@ function scoreEvidence(evidence: AgentEvidence): number {
   const paperScore = Math.min(evidence.paperTrades, 10) * 4;
   const debateScore = Math.min(evidence.debateRounds, 5) * 6;
   const restraintScore = Math.min(evidence.rejectedTrades, 5) * 4;
-  const sharpe =
-    evidence.backtest?.sharpeAnnualized ?? evidence.backtestSharpe;
+  const sharpe = evidence.backtest?.sharpeAnnualized ?? evidence.backtestSharpe;
   const backtestScore =
-    typeof sharpe === "number"
-      ? Math.max(0, Math.min(sharpe, 3)) * 5
-      : 0;
+    typeof sharpe === "number" ? Math.max(0, Math.min(sharpe, 3)) * 5 : 0;
   const drawdownPenalty = Math.min(evidence.maxDrawdownPct, 0.25) * 120;
   const violationPenalty = evidence.ruleViolations * 30;
   return Math.max(
@@ -111,7 +108,7 @@ function licensedBlockers(candidate: AgentCandidate): string[] {
   if (!evidence.backtest) {
     blockers.push("no gate-driven backtest evidence");
   } else if (evidence.backtest.alphaStatus !== "positive") {
-    blockers.push(`alpha not live-certified: ${evidence.backtest.note}`);
+    blockers.push(`pilot evidence not positive: ${evidence.backtest.note}`);
   }
   if (evidence.ruleViolations > 0) {
     const detail = evidence.mandateBreaches?.length
@@ -180,7 +177,10 @@ export function issuePassport(candidate: AgentCandidate): AgentPassport {
   );
   const maxNotionalUSDT =
     grade === "LICENSED"
-      ? Math.min(candidate.controls.liveNotionalCapUSDT, LIVE_NOTIONAL_CEILING_USDT)
+      ? Math.min(
+          candidate.controls.liveNotionalCapUSDT,
+          LIVE_NOTIONAL_CEILING_USDT,
+        )
       : 0;
 
   return {
@@ -200,7 +200,12 @@ export function issuePassport(candidate: AgentCandidate): AgentPassport {
           ? Math.min(candidate.controls.maxLeverage, MAX_LICENSED_LEVERAGE)
           : 0,
     },
-    findings: grade === "LICENSED" ? ["licensed for one capped supervised fill"] : licensedFindings,
+    findings:
+      grade === "LICENSED"
+        ? [
+            "approval-gated for one capped supervised path; current stock evidence is backtest/paper",
+          ]
+        : licensedFindings,
   };
 }
 

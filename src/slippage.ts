@@ -7,6 +7,22 @@ export interface SlippageConfig {
   source: string;
 }
 
+export interface ExecutionAssumption {
+  symbol: string;
+  slippageBps: number;
+  fundingRate: number;
+  minTradeNum: number;
+  sizeMultiplier: number;
+  minNotionalUSDT: number;
+  source: string;
+}
+
+export interface ExecutionAssumptionSet {
+  bySymbol: Record<string, ExecutionAssumption>;
+  fallback: ExecutionAssumption;
+  source: string;
+}
+
 function readNumber(value: string | undefined): number | null {
   if (value === undefined || value.length === 0) return null;
   const parsed = Number(value);
@@ -25,6 +41,36 @@ function spreadRows(report: RwaMarketReport): RwaMarketRow[] {
   return report.rows.filter(
     (row) => row.spreadBps !== null && Number.isFinite(row.spreadBps),
   );
+}
+
+function defaultExecutionAssumption(symbol: string, source: string): ExecutionAssumption {
+  return {
+    symbol,
+    slippageBps: 0,
+    fundingRate: 0,
+    minTradeNum: 0,
+    sizeMultiplier: 0.01,
+    minNotionalUSDT: 0,
+    source,
+  };
+}
+
+function assumptionFromRow(row: RwaMarketRow, marketPath: string): ExecutionAssumption {
+  return {
+    symbol: row.symbol,
+    slippageBps:
+      row.spreadBps !== null && Number.isFinite(row.spreadBps)
+        ? +(row.spreadBps / 2).toFixed(4)
+        : 0,
+    fundingRate:
+      row.fundingRate !== null && Number.isFinite(row.fundingRate)
+        ? row.fundingRate
+        : 0,
+    minTradeNum: row.minTradeNum,
+    sizeMultiplier: row.sizeMultiplier,
+    minNotionalUSDT: row.suggestedNotionalUSDT ?? row.minTradeUSDT,
+    source: `${marketPath} row ${row.symbol}`,
+  };
 }
 
 export function resolveBacktestSlippage(
@@ -69,5 +115,69 @@ export function resolveBacktestSlippage(
       matched.length > 0
         ? `median half-spread from ${marketPath} for ${matched.map((row) => row.symbol).join(", ")}`
         : `median half-spread from ${marketPath} RWA basket fallback`,
+  };
+}
+
+export function resolveExecutionAssumptions(
+  symbols: string[],
+  env: NodeJS.ProcessEnv = process.env,
+  marketPath = env.RWA_MARKET_PATH ?? "public/rwa-market.json",
+): ExecutionAssumptionSet {
+  const override = readNumber(env.BT_SLIPPAGE_BPS);
+  const path = resolve(marketPath);
+  if (!existsSync(path)) {
+    const fallback = defaultExecutionAssumption(
+      "FALLBACK",
+      "no RWA market spread report found",
+    );
+    return {
+      fallback,
+      bySymbol: Object.fromEntries(
+        symbols.map((symbol) => [
+          symbol,
+          { ...fallback, symbol, source: fallback.source },
+        ]),
+      ),
+      source: fallback.source,
+    };
+  }
+
+  const report = JSON.parse(readFileSync(path, "utf8")) as RwaMarketReport;
+  const rows = spreadRows(report);
+  const fallbackSlippage =
+    override ??
+    (rows.length
+      ? +median(rows.map((row) => (row.spreadBps as number) / 2)).toFixed(4)
+      : 0);
+  const fallback = {
+    ...defaultExecutionAssumption(
+      "FALLBACK",
+      `${marketPath} RWA basket fallback`,
+    ),
+    slippageBps: fallbackSlippage,
+  };
+  const rowBySymbol = new Map(
+    report.rows.map((row) => [row.symbol, assumptionFromRow(row, marketPath)]),
+  );
+  const bySymbol: Record<string, ExecutionAssumption> = {};
+  for (const symbol of symbols) {
+    const assumption = rowBySymbol.get(symbol);
+    bySymbol[symbol] = assumption
+      ? {
+          ...assumption,
+          slippageBps: override ?? assumption.slippageBps,
+          source: override
+            ? `BT_SLIPPAGE_BPS override + ${assumption.source}`
+            : assumption.source,
+        }
+      : { ...fallback, symbol };
+  }
+
+  return {
+    bySymbol,
+    fallback,
+    source: override
+      ? `BT_SLIPPAGE_BPS override with funding/min-size from ${marketPath}`
+      : `symbol-specific half-spread, funding, and min-size from ${marketPath}`,
   };
 }

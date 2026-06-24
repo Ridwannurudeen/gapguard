@@ -57,11 +57,7 @@ export function loadGateDrivenBacktestEvidence(
   const sharpeAnnualized = readNumber(gateDriven.sharpeAnnualized);
   const totalTrades = readNumber(gateDriven.totalTrades);
 
-  if (
-    returnPct === null ||
-    sharpeAnnualized === null ||
-    totalTrades === null
-  ) {
+  if (returnPct === null || sharpeAnnualized === null || totalTrades === null) {
     return {
       source: path,
       variant: "gateDriven",
@@ -84,7 +80,7 @@ export function loadGateDrivenBacktestEvidence(
     note:
       status === "positive"
         ? "gate-driven AI path is positive on the current evidence set"
-        : "gate-driven AI path is negative on the current evidence set; passport is safety-only, not alpha certification",
+        : "gate-driven AI path is negative on the current evidence set; passport is safety-only, not proof of alpha",
   };
 }
 
@@ -119,7 +115,7 @@ export function loadWalkForwardAlphaEvidence(
     alphaStatus: status,
     note:
       note ??
-      "walk-forward RWA certification artifact loaded; inspect source for details",
+      "walk-forward RWA pilot artifact loaded; inspect source for details",
   };
 }
 

@@ -1,4 +1,8 @@
 import { createHmac } from "node:crypto";
+import { canonicalJson } from "./canonicalJson";
+import { fetchTextWithRetry } from "./http";
+
+export { canonicalJson };
 
 export const BITGET_WALLET_BASE_URL = "https://bopenapi.bgwapi.io";
 
@@ -11,27 +15,15 @@ export interface BitgetRequestConfig {
   baseUrl?: string;
   auth?: BitgetAuth;
   nowMs?: () => number;
+  timeoutMs?: number;
+  retries?: number;
+  maxResponseChars?: number;
 }
 
 export interface BitgetHttpResponse {
   statusCode: number;
   bodyText: string;
   json?: unknown;
-}
-
-export function canonicalJson(value: unknown): string {
-  return JSON.stringify(sortJson(value));
-}
-
-function sortJson(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(sortJson);
-  if (value === null || typeof value !== "object") return value;
-
-  const sorted: Record<string, unknown> = {};
-  for (const key of Object.keys(value).sort()) {
-    sorted[key] = sortJson((value as Record<string, unknown>)[key]);
-  }
-  return sorted;
 }
 
 export function buildSignaturePayload(
@@ -97,12 +89,20 @@ export async function postBitget<TBody extends object>(
     );
   }
 
-  const res = await fetch(`${cfg.baseUrl ?? BITGET_WALLET_BASE_URL}${path}`, {
-    method: "POST",
-    headers,
-    body: bodyText,
-  });
-  const text = await res.text();
+  const res = await fetchTextWithRetry(
+    `${cfg.baseUrl ?? BITGET_WALLET_BASE_URL}${path}`,
+    {
+      method: "POST",
+      headers,
+      body: bodyText,
+    },
+    {
+      timeoutMs: cfg.timeoutMs,
+      retries: cfg.retries,
+      maxResponseChars: cfg.maxResponseChars,
+    },
+  );
+  const text = res.text;
   let json: unknown;
   try {
     json = text ? JSON.parse(text) : undefined;

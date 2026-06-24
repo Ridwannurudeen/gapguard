@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { spawn } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import type { AgentPassport } from "./agentArena";
 
 export type BrokerMode = "dry_run" | "paper" | "live";
@@ -15,6 +16,7 @@ export interface FuturesOrderIntent {
   side: FuturesSide;
   size: number;
   referencePrice: number;
+  clientOid?: string;
 }
 
 export interface BrokerConfig {
@@ -26,6 +28,9 @@ export interface BrokerConfig {
   leverage: 1 | 2;
   command?: string;
   env?: NodeJS.ProcessEnv;
+  timeoutMs?: number;
+  pollAttempts?: number;
+  pollIntervalMs?: number;
 }
 
 export interface BgcFuturesOrder {
@@ -36,6 +41,7 @@ export interface BgcFuturesOrder {
   size: string;
   side: "buy" | "sell";
   tradeSide: "open" | "close";
+  clientOid: string;
   orderType: "market";
 }
 
@@ -53,9 +59,36 @@ export interface CommandResult {
   stderr: string;
 }
 
+export interface CommandRunnerOptions {
+  env?: NodeJS.ProcessEnv;
+  timeoutMs?: number;
+}
+
+export interface BrokerStateTransition {
+  ts: string;
+  status: "submitted" | "filled" | "cancelled" | "timeout";
+  orderId: string | null;
+  rawStatus: string | null;
+  avgFillPrice: number | null;
+  executedQty: number | null;
+}
+
+export interface BrokerFillReceipt {
+  clientOid: string;
+  orderId: string | null;
+  status: "dry_run" | "submitted" | "filled" | "cancelled" | "timeout";
+  executedQty: number | null;
+  avgFillPrice: number | null;
+  feeUSDT: number | null;
+  realizedPnlUSDT: number | null;
+  balanceDelta: number | null;
+  transitions: BrokerStateTransition[];
+}
+
 export interface BrokerResult {
-  status: "dry_run" | "submitted";
+  status: "dry_run" | "submitted" | "filled" | "cancelled" | "timeout";
   plan: FuturesOrderPlan;
+  receipt?: BrokerFillReceipt;
   stdout?: string;
   stderr?: string;
 }
@@ -63,6 +96,7 @@ export interface BrokerResult {
 export type CommandRunner = (
   command: string,
   args: string[],
+  options?: CommandRunnerOptions,
 ) => Promise<CommandResult>;
 
 function formatSize(size: number): string {
@@ -73,6 +107,10 @@ function assertFinitePositive(value: number, field: string): void {
   if (!Number.isFinite(value) || value <= 0) {
     throw new Error(`${field} must be a positive finite number`);
   }
+}
+
+function clientOid(symbol: string): string {
+  return `gg-${symbol.toLowerCase()}-${randomUUID()}`;
 }
 
 export function defaultBgcInvocation(): {
@@ -115,6 +153,7 @@ export function buildFuturesOrder(intent: FuturesOrderIntent): BgcFuturesOrder {
     size: formatSize(intent.size),
     side: direction,
     tradeSide,
+    clientOid: intent.clientOid ?? clientOid(intent.symbol),
     orderType: "market",
   };
 }
@@ -176,11 +215,35 @@ export function buildFuturesOrderPlan(
 export async function runCommand(
   command: string,
   args: string[],
+  options: CommandRunnerOptions = {},
 ): Promise<CommandResult> {
   return await new Promise((resolve) => {
-    const child = spawn(command, args, { shell: false });
+    let settled = false;
+    const child = spawn(command, args, {
+      shell: false,
+      env: options.env ? { ...process.env, ...options.env } : process.env,
+    });
     let stdout = "";
     let stderr = "";
+    const timeout =
+      options.timeoutMs && options.timeoutMs > 0
+        ? setTimeout(() => {
+            if (settled) return;
+            settled = true;
+            child.kill();
+            resolve({
+              exitCode: 1,
+              stdout,
+              stderr: `${stderr}child process timed out after ${options.timeoutMs}ms`,
+            });
+          }, options.timeoutMs)
+        : null;
+    const finish = (result: CommandResult) => {
+      if (settled) return;
+      settled = true;
+      if (timeout) clearTimeout(timeout);
+      resolve(result);
+    };
     child.stdout.on("data", (chunk: Buffer) => {
       stdout += chunk.toString("utf8");
     });
@@ -188,10 +251,10 @@ export async function runCommand(
       stderr += chunk.toString("utf8");
     });
     child.on("error", (err) => {
-      resolve({ exitCode: 1, stdout, stderr: err.message });
+      finish({ exitCode: 1, stdout, stderr: err.message });
     });
     child.on("close", (code) => {
-      resolve({ exitCode: code ?? 1, stdout, stderr });
+      finish({ exitCode: code ?? 1, stdout, stderr });
     });
   });
 }
@@ -216,6 +279,193 @@ export function interpretBitgetResponse(
 export function extractOrderId(stdout: string): string | null {
   const match = stdout.match(/"orderId"\s*:\s*"?([0-9]+)"?/);
   return match ? match[1] : null;
+}
+
+function extractStringField(stdout: string, fields: string[]): string | null {
+  for (const field of fields) {
+    const match = stdout.match(new RegExp(`"${field}"\\s*:\\s*"([^"]+)"`));
+    if (match) return match[1];
+  }
+  return null;
+}
+
+function readNumericField(stdout: string, field: string): number | null {
+  const match = stdout.match(new RegExp(`"${field}"\\s*:\\s*"?(-?\\d+(?:\\.\\d+)?)"?`));
+  if (!match) return null;
+  const parsed = Number(match[1]);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function buildSubmittedReceipt(
+  plan: FuturesOrderPlan,
+  stdout: string,
+): BrokerFillReceipt {
+  const orderId = extractOrderId(stdout);
+  return {
+    clientOid: plan.order.clientOid,
+    orderId,
+    status: "submitted",
+    executedQty: readNumericField(stdout, "executedQty"),
+    avgFillPrice: readNumericField(stdout, "avgPrice"),
+    feeUSDT: readNumericField(stdout, "fee"),
+    realizedPnlUSDT: readNumericField(stdout, "realizedPnl"),
+    balanceDelta: null,
+    transitions: [
+      {
+        ts: new Date().toISOString(),
+        status: "submitted",
+        orderId,
+        rawStatus: "submitted",
+        avgFillPrice: readNumericField(stdout, "avgPrice"),
+        executedQty: readNumericField(stdout, "executedQty"),
+      },
+    ],
+  };
+}
+
+function commandPrefix(plan: FuturesOrderPlan): string[] {
+  const futuresIndex = plan.args.indexOf("futures");
+  return futuresIndex === -1 ? [] : plan.args.slice(0, futuresIndex);
+}
+
+function buildOrderDetailArgs(plan: FuturesOrderPlan, orderId: string): string[] {
+  return [
+    ...commandPrefix(plan),
+    "futures",
+    "futures_get_orders",
+    "--productType",
+    "USDT-FUTURES",
+    "--symbol",
+    plan.order.symbol,
+    "--orderId",
+    orderId,
+  ];
+}
+
+function buildOrderFillsArgs(plan: FuturesOrderPlan, orderId: string): string[] {
+  return [
+    ...commandPrefix(plan),
+    "futures",
+    "futures_get_fills",
+    "--productType",
+    "USDT-FUTURES",
+    "--symbol",
+    plan.order.symbol,
+    "--orderId",
+    orderId,
+  ];
+}
+
+function normalizeOrderStatus(raw: string | null): BrokerStateTransition["status"] {
+  const status = raw?.toLowerCase() ?? "";
+  if (status.includes("full") || status.includes("filled")) return "filled";
+  if (status.includes("cancel")) return "cancelled";
+  return "submitted";
+}
+
+function mergeFillFields(
+  receipt: BrokerFillReceipt,
+  stdout: string,
+): BrokerFillReceipt {
+  const executedQty =
+    readNumericField(stdout, "baseVolume") ??
+    readNumericField(stdout, "size") ??
+    readNumericField(stdout, "fillQuantity") ??
+    receipt.executedQty;
+  const avgFillPrice =
+    readNumericField(stdout, "priceAvg") ??
+    readNumericField(stdout, "price") ??
+    readNumericField(stdout, "fillPrice") ??
+    receipt.avgFillPrice;
+  return {
+    ...receipt,
+    executedQty,
+    avgFillPrice,
+    feeUSDT: readNumericField(stdout, "fee") ?? receipt.feeUSDT,
+    realizedPnlUSDT:
+      readNumericField(stdout, "profit") ??
+      readNumericField(stdout, "realizedPnl") ??
+      receipt.realizedPnlUSDT,
+  };
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function pollFuturesOrderReceipt(
+  plan: FuturesOrderPlan,
+  submitted: BrokerFillReceipt,
+  cfg: BrokerConfig,
+  runner: CommandRunner,
+): Promise<BrokerFillReceipt> {
+  const attempts = cfg.pollAttempts ?? 0;
+  if (!submitted.orderId || attempts <= 0) return submitted;
+
+  let receipt = submitted;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    if (attempt > 0 && cfg.pollIntervalMs && cfg.pollIntervalMs > 0) {
+      await sleep(cfg.pollIntervalMs);
+    }
+    const detail = await runner(
+      plan.command,
+      buildOrderDetailArgs(plan, submitted.orderId),
+      { env: cfg.env, timeoutMs: cfg.timeoutMs },
+    );
+    if (detail.exitCode !== 0) {
+      continue;
+    }
+    const rawStatus = extractStringField(detail.stdout, [
+      "status",
+      "state",
+      "orderStatus",
+    ]);
+    const status = normalizeOrderStatus(rawStatus);
+    receipt = {
+      ...receipt,
+      status,
+      avgFillPrice: readNumericField(detail.stdout, "priceAvg") ?? receipt.avgFillPrice,
+      executedQty: readNumericField(detail.stdout, "baseVolume") ?? receipt.executedQty,
+      transitions: [
+        ...receipt.transitions,
+        {
+          ts: new Date().toISOString(),
+          status,
+          orderId: submitted.orderId,
+          rawStatus,
+          avgFillPrice:
+            readNumericField(detail.stdout, "priceAvg") ?? receipt.avgFillPrice,
+          executedQty:
+            readNumericField(detail.stdout, "baseVolume") ?? receipt.executedQty,
+        },
+      ],
+    };
+    if (status === "cancelled") return receipt;
+    if (status === "filled") {
+      const fills = await runner(
+        plan.command,
+        buildOrderFillsArgs(plan, submitted.orderId),
+        { env: cfg.env, timeoutMs: cfg.timeoutMs },
+      );
+      return fills.exitCode === 0 ? mergeFillFields(receipt, fills.stdout) : receipt;
+    }
+  }
+
+  return {
+    ...receipt,
+    status: "timeout",
+    transitions: [
+      ...receipt.transitions,
+      {
+        ts: new Date().toISOString(),
+        status: "timeout",
+        orderId: submitted.orderId,
+        rawStatus: "poll_timeout",
+        avgFillPrice: receipt.avgFillPrice,
+        executedQty: receipt.executedQty,
+      },
+    ],
+  };
 }
 
 function bitgetRejectionHint(msg: string, mode: BrokerMode): string {
@@ -246,7 +496,10 @@ export async function placeFuturesOrder(
     );
   }
 
-  const result = await runner(plan.command, plan.args);
+  const result = await runner(plan.command, plan.args, {
+    env: cfg.env,
+    timeoutMs: cfg.timeoutMs,
+  });
   if (result.exitCode !== 0) {
     throw new Error(
       `bgc exited ${result.exitCode}: ${result.stderr.slice(0, 240)}`,
@@ -262,9 +515,17 @@ export async function placeFuturesOrder(
     );
   }
 
-  return {
-    status: "submitted",
+  const receipt = await pollFuturesOrderReceipt(
     plan,
+    buildSubmittedReceipt(plan, result.stdout),
+    cfg,
+    runner,
+  );
+
+  return {
+    status: receipt.status,
+    plan,
+    receipt,
     stdout: result.stdout,
     stderr: result.stderr,
   };

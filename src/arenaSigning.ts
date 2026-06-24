@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
+  createHash,
   createPrivateKey,
   createPublicKey,
   type KeyObject,
@@ -30,4 +31,10 @@ export function readArenaPublicKey(path = DEFAULT_PUBLIC_KEY_FILE): KeyObject {
 
 export function publicKeySpkiB64(publicKey: KeyObject): string {
   return publicKey.export({ format: "der", type: "spki" }).toString("base64");
+}
+
+export function publicKeyFingerprint(publicKey: KeyObject): string {
+  return createHash("sha256")
+    .update(publicKey.export({ format: "der", type: "spki" }))
+    .digest("hex");
 }

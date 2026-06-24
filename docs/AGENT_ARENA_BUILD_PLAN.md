@@ -2,13 +2,13 @@
 
 ## Product Thesis
 
-Agent Arena turns GapGuard into a Track 2 trading-infrastructure project: autonomous agents do not get trusted by default. They compete for a passport, and only a passport graded `LICENSED` can graduate from simulation into one capped, supervised RWA perp fill.
+GapGuard is the Track 3 product. Agent Arena is its trust and execution-control layer: agents do not get trusted by default, and a passport only unlocks an approval-gated path beyond simulation.
 
-Quorum is the flagship agent inside the Arena. It earns the license by combining GapGuard's deterministic risk governor, adversarial debate, paper-trade evidence, read-only Bitget perception, and an Arena-native hash-chained record. A naive single-signal momentum bot is structurally barred from real money because its own recorded decision breaches the mandate.
+Quorum is the internal five-role deterministic adversarial desk. It earns approval-gated status by combining GapGuard's deterministic risk governor, adversarial debate, paper-trade evidence, read-only Bitget perception, and an Arena-native hash-chained record. A naive single-signal momentum bot is structurally barred from real money because its own recorded decision breaches the mandate.
 
 ## Evidence Stack
 
-1. Real-funds fill on a liquid RWA USDT perp after dry-run, explicit approval, and `--confirm-live`.
+1. Approval-gated future real-funds path on a liquid RWA USDT perp after dry-run, explicit approval, and `--confirm-live`; no live stock fill is claimed by current artifacts.
 2. Bitget Demo Trading paper-trade log through Agent Hub's `--paper-trading` mode.
 3. Playbook backtest package for the `AAPLUSDT` RWA perp managed-kline path.
 4. Tamper-evident Arena ledger plus the existing GapGuard glass-box replay.
@@ -77,4 +77,4 @@ Current default live-fill candidate: `NVDAUSDT`. The liquidity-first backup is `
 - Existing GapGuard hash-chain dashboard and verifier.
 - Interactive Arena cockpit.
 - `AAPLUSDT` RWA perp Playbook package with probe record and local validation.
-- README/submission copy reframed as Agent Arena with GapGuard as the flagship exhibit.
+- README/submission copy framed as GapGuard first; Quorum is the internal desk and Agent Arena/Passport is the trust gate.

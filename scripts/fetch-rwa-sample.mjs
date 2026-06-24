@@ -8,6 +8,7 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fetchTextWithRetry } from "./http.mjs";
 
 const DEFAULT_SYMBOLS = [
   "AAPLUSDT",
@@ -60,8 +61,15 @@ async function fetchChunk(symbol, granularity, startTime, endTime) {
   url.searchParams.set("endTime", String(endTime));
   url.searchParams.set("limit", String(ROW_LIMIT));
 
-  const res = await fetch(url);
-  const body = await res.json();
+  const res = await fetchTextWithRetry(url.toString(), undefined, {
+    timeoutMs: 20_000,
+    retries: 2,
+    maxResponseChars: 1_000_000,
+  });
+  if (!res.ok) {
+    throw new Error(`${symbol} fetch failed: HTTP ${res.status}`);
+  }
+  const body = JSON.parse(res.text);
   if (body.code !== "00000" || !Array.isArray(body.data)) {
     throw new Error(`${symbol} fetch failed: ${JSON.stringify(body).slice(0, 300)}`);
   }

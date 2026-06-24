@@ -16,7 +16,7 @@ describe("arena behavioral scenario", () => {
     // The 3rd Bitget Demo paper fill cleared the "fewer than 3 paper trades" blocker.
     expect(quorum?.grade).toBe("LICENSED");
     expect(quorum?.findings.join(" | ")).toContain(
-      "licensed for one capped supervised fill",
+      "approval-gated for one capped supervised path",
     );
     expect(naive?.grade).toBe("REJECTED");
     expect(naive?.findings.join(" | ")).toContain("overnight loss <= 1.5%");

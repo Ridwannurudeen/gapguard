@@ -35,7 +35,7 @@
 **Before deadline?** PARTIAL — at least wire one live path; full live desk may not finish.
 
 ### P1-2. The "signed" attestation uses an ephemeral key (no identity)
-**Problem:** `src/arena-cockpit.ts:226` calls `attestChain(...)` with **no `privateKey`**, so `src/arena-chain.ts:126` generates a **fresh Ed25519 keypair every run**. The signature proves a run self-signed itself, but there's no stable identity — re-signing tampered data with a new key would also "verify." The MiFID/SEC-CAT framing oversells this.
+**Problem:** `src/arena-cockpit.ts:226` calls `attestChain(...)` with **no `privateKey`**, so `src/arena-chain.ts:126` generates a **fresh Ed25519 keypair every run**. The signature proves a run self-signed itself, but there's no stable identity — re-signing tampered data with a new key would also "verify." Any regulatory-certification framing oversells this; use the boundary line "cryptographic integrity proof, not regulatory certification."
 **Fix:** load a **persistent** signing key from env (`ARENA_SIGNING_KEY`) and **commit the public key** (`public/arena-pubkey.pem`) so verifiers check against a known identity. Update the cockpit caller + the in-browser/Node verify to check against the published pubkey. Document the threat model honestly (the hash chain is the tamper-evidence; the signature is attribution).
 **Before deadline?** YES — small, self-contained.
 
@@ -52,7 +52,7 @@
 The only real on-exchange fill is **BTCUSDT** (crypto, demo) — `artifacts/paper-btc-smoke.jsonl`. Bitget Demo has no RWA stock perps; a live stock fill needs real funds + a live key (approval-gated). **DISCLOSE** unless the user provides a funded live RWA key. Do not fabricate.
 
 ### P2-2. The strategy is flat-to-negative
-Certified managed run (`playbook/aaplusdt-backtest-result.json`): **return −0.018%, Sharpe −1.05, win 42%, 38 trades**. A negative Sharpe is a losing risk-adjusted result. Can't be manufactured — either P0-1/P0-3 surface a real edge, or keep framing the value as *system + verifiability + honesty*, not returns. **DISCLOSE.**
+Managed Playbook run (`playbook/aaplusdt-backtest-result.json`): **return −0.018%, Sharpe −1.05, win 42%, 38 trades**. A negative Sharpe is a losing risk-adjusted result. Can't be manufactured — either P0-1/P0-3 surface a real edge, or keep framing the value as *system + verifiability + honesty*, not returns. **DISCLOSE.**
 
 ### P2-3. The thesis premise is half-verified
 "Off-hours reversion is a documented edge" rests on an SSRN paper whose **full body could not be loaded (403)** — we have the abstract only. Either obtain the paper and confirm the exact claim, or stop citing it as proof and call it a hypothesis.

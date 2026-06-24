@@ -5,13 +5,18 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fetchTextWithRetry } from "./http.mjs";
 
 const granularity = process.argv[2] ?? "1H";
 const limit = process.argv[3] ?? "1000";
 const url = `https://api.bitget.com/api/v2/mix/market/candles?symbol=AAPLUSDT&productType=USDT-FUTURES&granularity=${granularity}&limit=${limit}`;
 
-const res = await fetch(url);
-const body = await res.json();
+const res = await fetchTextWithRetry(url, undefined, {
+  timeoutMs: 20_000,
+  retries: 2,
+  maxResponseChars: 1_000_000,
+});
+const body = res.ok ? JSON.parse(res.text) : { code: `HTTP ${res.status}` };
 if (body.code !== "00000" || !Array.isArray(body.data) || body.data.length === 0) {
   console.error(`fetch failed: ${JSON.stringify(body).slice(0, 300)}`);
   process.exitCode = 1;

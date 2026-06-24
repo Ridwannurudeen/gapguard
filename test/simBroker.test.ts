@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { issuePassport, type AgentCandidate } from "../src/agentArena";
-import { placeSimulatedFuturesOrder } from "../src/simBroker";
+import { placeSimulatedFuturesOrder, simulateKillSwitch } from "../src/simBroker";
 
 const candidate: AgentCandidate = {
   agentId: "quorum",
@@ -67,6 +67,15 @@ describe("sim broker", () => {
       balanceBefore: 10_000,
     });
     expect(result.fill.balanceDelta).toBeCloseTo(-0.1566);
+    expect(result.fill.executedQty).toBe(0.03);
+    expect(result.fill.avgFillPrice).toBe(209.62);
+    expect(result.fill.feeUSDT).toBe(0);
+    expect(result.receipt).toMatchObject({
+      status: "dry_run",
+      executedQty: 0.03,
+      avgFillPrice: 209.62,
+    });
+    expect(result.receipt?.realizedPnlUSDT).toBeCloseTo(-0.1566);
     expect(result.fill.orderId).toMatch(/^SIM-[a-f0-9]{16}$/);
   });
 
@@ -90,5 +99,29 @@ describe("sim broker", () => {
         { pricePath: [209.62, 204.4] },
       ),
     ).rejects.toThrow("exceeds cap");
+  });
+
+  it("cancels open orders and flattens position in the offline kill-switch", () => {
+    const result = simulateKillSwitch({
+      openOrders: [
+        { orderId: "SIM-open-1", symbol: "NVDAUSDT" },
+        { orderId: "SIM-open-2", symbol: "NVDAUSDT" },
+      ],
+      positionSize: 0.03,
+      entryPrice: 209.62,
+      markPrice: 204.4,
+      balanceUSDT: 10_000,
+    });
+
+    expect(result.cancelledOrderIds).toEqual(["SIM-open-1", "SIM-open-2"]);
+    expect(result.flattenOrder).toMatchObject({
+      symbol: "NVDAUSDT",
+      side: "sell",
+      executedQty: 0.03,
+      avgFillPrice: 204.4,
+    });
+    expect(result.flattenOrder?.realizedPnlUSDT).toBeCloseTo(-0.1566);
+    expect(result.finalPositionSize).toBe(0);
+    expect(result.finalBalanceUSDT).toBeCloseTo(9999.8434);
   });
 });
