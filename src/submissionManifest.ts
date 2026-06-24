@@ -10,6 +10,8 @@ const DEFAULT_ARTIFACTS = [
   "docs/SUBMISSION.md",
   "docs/METRICS.md",
   "public/index.html",
+  "public/news.html",
+  "public/news-feed.json",
   "public/arena.html",
   "public/arena-data.json",
   "public/arena-chain.jsonl",
@@ -26,6 +28,7 @@ const DEFAULT_ARTIFACTS = [
   "artifacts/rwa-multi-backtest.json",
   "artifacts/rwa-alpha-certification.json",
   "artifacts/paper-btc-smoke.jsonl",
+  "data/macro-calendar.json",
 ];
 
 const GENERATION_COMMANDS = [
@@ -35,6 +38,7 @@ const GENERATION_COMMANDS = [
   "npm run gate:holdout",
   "npm run alpha:certify",
   "npm run arena:cockpit",
+  "npm run news:feed",
   "npm run evidence",
   "npm run manifest",
 ];

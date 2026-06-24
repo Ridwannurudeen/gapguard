@@ -621,6 +621,8 @@
           <a class="hide-sm" href="#how">How it works</a>
           <a class="hide-sm" href="#proof">Proof</a>
           <a class="hide-sm" href="#field">vs the field</a>
+          <a class="hide-sm" href="news.html">News</a>
+          <a class="hide-sm" href="#newsdesk">News Desk</a>
           <a class="hide-sm" href="#modes">Modes</a>
           <a class="pill" href="arena.html">Arena cockpit →</a>
         </nav>
@@ -944,6 +946,12 @@
       .desk-stats { display: flex; gap: 26px; margin-top: 18px; }
       .desk-stats .lab { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
       .desk-stats .mono { font-size: 16px; }
+      .catalyst-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+      @media (max-width: 620px) { .catalyst-grid { grid-template-columns: 1fr; } }
+      .catalyst-card { border: 1px solid var(--line); border-radius: 8px; background: rgba(8, 9, 7, 0.52); padding: 10px; }
+      .catalyst-card h4 { margin: 0 0 7px; color: var(--cyan); font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+      .catalyst-card ul { display: grid; gap: 7px; list-style: none; padding: 0; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+      .catalyst-card li { overflow-wrap: anywhere; }
       .mandate-input { width: 100%; box-sizing: border-box; background: #0a0c08; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 12px; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; resize: vertical; }
       .mandate-rules { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
       .rule-chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line-strong); background: rgba(215, 255, 106, 0.06); border-radius: 8px; padding: 8px 12px; font-size: 13px; }
@@ -982,9 +990,10 @@
                 <div><span class="mono" id="deskPnl">—</span><br /><span class="lab">if faded</span></div>
                 <div><span class="mono" id="deskCorrect">—</span><br /><span class="lab">vs holdout</span></div>
               </div>
+              <div id="deskCatalysts" class="catalyst-grid"></div>
             </div>
           </div>
-          <p class="note" style="margin-top:16px">Data: <span class="mono">gate-verdicts.json</span> — produced by <span class="mono">npm run gate:audit</span> on real Finnhub news. 12/15 correct; WWDC correctly stood aside.</p>
+          <p class="note" style="margin-top:16px">Data: <span class="mono">gate-verdicts.json</span> — produced by <span class="mono">npm run gate:audit</span> on real Finnhub news. 12/15 correct; WWDC correctly stood aside. Current operational feed: <a href="news.html">News tab</a>.</p>
         </div>
       </div>
     </section>
@@ -1122,6 +1131,15 @@
         return (value > 0 ? "+" : "") + value.toFixed(digits) + "%";
       }
 
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
       function setMetric(id, value) {
         const el = document.getElementById(id);
         if (el) el.textContent = value;
@@ -1153,6 +1171,34 @@
           const wwdc = v.findIndex((x) => x.date === "2026-06-09");
           let i = wwdc >= 0 ? wwdc : v.length - 1; // open on the headline case
           const $ = (id) => document.getElementById(id);
+          const sectionLabels = {
+            companyNews: "Company news",
+            scheduledMacro: "Scheduled macro",
+            indexFutures: "Index context",
+            crossAsset: "Cross-asset",
+          };
+          function renderCatalysts(bundle) {
+            if (!bundle) {
+              $("deskCatalysts").innerHTML =
+                '<div class="catalyst-card"><h4>Catalyst bundle</h4><ul><li>No catalyst bundle published for this verdict.</li></ul></div>';
+              return;
+            }
+            $("deskCatalysts").innerHTML = Object.entries(sectionLabels)
+              .map(([key, label]) => {
+                const rows = Array.isArray(bundle[key]) ? bundle[key] : [];
+                const items = rows.length
+                  ? rows
+                      .slice(0, 3)
+                      .map(
+                        (item) =>
+                          `<li><span class="mono">${escapeHtml(item.timestamp?.slice(0, 10) || "n/a")}</span> ${escapeHtml(item.source || "source")} — ${escapeHtml(item.text || "")}</li>`,
+                      )
+                      .join("")
+                  : "<li>No pre-decision item in this section.</li>";
+                return `<div class="catalyst-card"><h4>${escapeHtml(label)}</h4><ul>${items}</ul></div>`;
+              })
+              .join("");
+          }
           function render() {
             const g = v[i];
             const isNews = !g.fadeable;
@@ -1171,6 +1217,7 @@
             const okEl = $("deskCorrect");
             okEl.textContent = g.correct ? "✓ correct" : "✗ miss";
             okEl.className = "mono " + (g.correct ? "up" : "down");
+            renderCatalysts(g.catalystBundle);
           }
           $("prevGap").addEventListener("click", () => { i = (i - 1 + v.length) % v.length; render(); });
           $("nextGap").addEventListener("click", () => { i = (i + 1) % v.length; render(); });

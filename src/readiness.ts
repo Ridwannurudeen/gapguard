@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
 import { assessRwaMarketFreshness } from "./evidence";
+import { assessNewsFeedFreshness } from "./newsFeed";
 import {
   readSubmissionManifest,
   verifySubmissionManifest,
@@ -30,9 +31,12 @@ const REQUIRED_LOCAL_EVIDENCE = [
   "public/arena-attestation.json",
   "public/arena-pubkey.pem",
   "public/rwa-market.json",
+  "public/news.html",
+  "public/news-feed.json",
   "data/aaplusdt-gate-verdicts.json",
   "data/aaplusdt-news-contexts.json",
   "data/aaplusdt-gate-labels.json",
+  "data/macro-calendar.json",
   "artifacts/aaplusdt-backtest.json",
   "artifacts/aaplusdt-news-aware-backtest.json",
   "artifacts/aaplusdt-gate-audit.json",
@@ -217,6 +221,25 @@ function rwaFreshnessChecks(): ReadinessCheck[] {
   ];
 }
 
+function newsFeedFreshnessChecks(): ReadinessCheck[] {
+  const freshness = assessNewsFeedFreshness();
+  return [
+    {
+      id: "news-feed-freshness",
+      status:
+        freshness.status === "fresh"
+          ? "pass"
+          : freshness.status === "invalid"
+            ? "fail"
+            : "warn",
+      detail:
+        freshness.ageMinutes === null
+          ? `status=${freshness.status}`
+          : `status=${freshness.status}, age=${freshness.ageMinutes}m, max=${freshness.maxAgeMinutes}m`,
+    },
+  ];
+}
+
 function submissionManifestChecks(): ReadinessCheck[] {
   const path = "submission-manifest.json";
   if (!existsSync(resolve(path))) {
@@ -249,6 +272,7 @@ export function buildReadinessReport(
     ...arenaEvidenceChecks(),
     ...brokerBoundaryChecks(),
     ...rwaFreshnessChecks(),
+    ...newsFeedFreshnessChecks(),
     ...submissionManifestChecks(),
   ];
   return {

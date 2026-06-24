@@ -18,6 +18,12 @@ GapGuard is a hackathon prototype for tokenized-US-stock decision gating. The tr
 - Credential leakage: keys must stay in environment variables or ignored local files only.
 - Overclaiming evidence: public copy must distinguish simulated, paper, cached-Qwen, and backtest evidence.
 
+## Live News Feed (read plane)
+
+The News tab (`public/news.html`) reads only static `public/news-feed.json`. Finnhub access happens server-side in `npm run news:feed`; `FINNHUB_API_KEY` must live in the refresh host environment or an ignored local key file such as `.finnhubkey`. Do not add keys to browser HTML, checked-in JSON, logs, screenshots, issues, or PR text.
+
+`Macro & Policy` is a filtered view of Finnhub general market news by policy, Fed, rates, inflation, jobs, tariff, election, regulatory, sanctions, and geopolitics keywords. It is not a curated political-news desk. If the Finnhub economic-calendar endpoint is unavailable for the key tier, the fetcher writes the committed scheduled calendar fallback and labels that source explicitly.
+
 ## Operator Console (write plane)
 
 The public site is read-only. The order-placing path is the operator console (`src/operatorConsole.ts`, `npm run operator`), held separate under these controls:

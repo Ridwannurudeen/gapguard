@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "createdAt": "2026-06-24T11:42:11.241Z",
-  "commit": "ef5fe563750fee839b3d6a14643ef49180590090",
+  "createdAt": "2026-06-24T14:26:37.214Z",
+  "commit": "a451dbc26107e3b4c90e77149e473107575e0c37",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -10,8 +10,8 @@
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "58de9ec2e0f472e3272a0474db5203c527585bd8d3a46082423552b6f6eec2ea",
-      "bytes": 4964
+      "sha256": "b0c9b65ddf3d1b28a132d1b6048c160adde421318c613657ded380f9c52ef3d6",
+      "bytes": 5918
     },
     {
       "path": "docs/SUBMISSION.md",
@@ -25,27 +25,37 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "af8ad8f3064609cb1c92fb6d1c4b1c45da8d64eaf581b6a3c959588840f5bd92",
-      "bytes": 48628
+      "sha256": "33e50d92668d6bc7cb9e73cadbfda5cc605d313e357a055fa649b9cb3a1d2ba9",
+      "bytes": 51175
+    },
+    {
+      "path": "public/news.html",
+      "sha256": "3cd2e9399a6157e09531e4b1d4e10a6e5267ba2c5eb013e35328d0fa31e3e4fb",
+      "bytes": 19296
+    },
+    {
+      "path": "public/news-feed.json",
+      "sha256": "6f0589b3e24d7d53b57f01a0f237d32e88368b9e48336b0bb4b3b16d24e0ae7f",
+      "bytes": 55660
     },
     {
       "path": "public/arena.html",
-      "sha256": "e9d2dd3a86f6268b5f4514ff75c91a649e20813b0fb5e98c670225adf139819b",
-      "bytes": 62307
+      "sha256": "0f323218c07688722814ecef5ae9e9d083c1fe8ab5145c597d8a03d0af30f5f5",
+      "bytes": 62465
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "2bb4d3dc40f55a0acc95f2f8ea4d356ea80b515d3a90d65cd44aaaa2e026fa46",
-      "bytes": 19086
+      "sha256": "9c3248c72b41da833a6443b4538f622b4e773e50d982e661a398cbe6fb776d43",
+      "bytes": 19025
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "4cdd8bd713011d1b9bc3f90696a6ad01f276221b3c732be9b0e84e8e58d0c6a8",
-      "bytes": 11324
+      "sha256": "dc313829a97012708dbffc85c2e78d2c87a245a7fb8d657756dc78cbd6790c07",
+      "bytes": 11303
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "9e1fac245404beeb79581de37c97a99accfba8687adc0a21c2a301c09649aa7e",
+      "sha256": "50ddcc9f197d1e9f60737da219b931c89485327ef6e7c6e894a807a48547c4e7",
       "bytes": 422
     },
     {
@@ -107,6 +117,11 @@
       "path": "artifacts/paper-btc-smoke.jsonl",
       "sha256": "b4e9b314fdd79a3ca791b8e0c91100421b265005709b1c87cf9b704f10def579",
       "bytes": 7082
+    },
+    {
+      "path": "data/macro-calendar.json",
+      "sha256": "f182338d1eb18cd97c166ed41f15d6c0640fc2bb7dc620a2d2c36596fc4a8993",
+      "bytes": 927
     }
   ],
   "generationCommands": [
@@ -116,6 +131,7 @@
     "npm run gate:holdout",
     "npm run alpha:certify",
     "npm run arena:cockpit",
+    "npm run news:feed",
     "npm run evidence",
     "npm run manifest"
   ]

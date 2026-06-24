@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
+import { mkdtempSync, writeFileSync } from "node:fs";
 import type { AddressInfo } from "node:net";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
   buildOperatorConfig,
   handleOperatorOrder,
@@ -49,6 +52,47 @@ function fakeResult(
   };
 }
 
+function withFreshRwaMarket<T>(run: () => T): T {
+  const dir = mkdtempSync(join(tmpdir(), "gapguard-rwa-"));
+  const path = join(dir, "rwa-market.json");
+  writeFileSync(
+    path,
+    `${JSON.stringify({
+      generatedAt: new Date().toISOString(),
+      defaultLiveSymbol: "NVDAUSDT",
+      selectedLiveSymbol: "NVDAUSDT",
+      liquidityLeader: "NVDAUSDT",
+      maxNotionalUSDT: 20,
+      rows: [
+        {
+          symbol: "NVDAUSDT",
+          isRwa: "YES",
+          symbolStatus: "normal",
+          lastPrice: 209.62,
+          markPrice: 209.62,
+          indexPrice: 209.62,
+          spreadBps: 0.5,
+          fundingRate: 0,
+          quoteVolumeUSDT: 1_000_000,
+          liveReady: true,
+          blockers: [],
+        },
+      ],
+    })}\n`,
+  );
+  const prior = process.env.ARENA_RWA_MARKET_PATH;
+  process.env.ARENA_RWA_MARKET_PATH = path;
+  try {
+    return run();
+  } finally {
+    if (prior === undefined) {
+      delete process.env.ARENA_RWA_MARKET_PATH;
+    } else {
+      process.env.ARENA_RWA_MARKET_PATH = prior;
+    }
+  }
+}
+
 describe("operator console", () => {
   it("parses a valid order request and defaults confirmLive to false", () => {
     const parsed = parseOrderRequest({ ...validReq, confirmLive: undefined });
@@ -65,9 +109,11 @@ describe("operator console", () => {
   });
 
   it("builds an isolated/1x config with a passport and plumbs confirmLive", () => {
-    const { intent, cfg } = buildOperatorConfig(
-      { ...validReq, mode: "live", confirmLive: true },
-      {},
+    const { intent, cfg } = withFreshRwaMarket(() =>
+      buildOperatorConfig(
+        { ...validReq, mode: "live", confirmLive: true },
+        {},
+      ),
     );
     expect(intent).toMatchObject({ symbol: "NVDAUSDT", side: "open_long" });
     expect(cfg.marginMode).toBe("isolated");
