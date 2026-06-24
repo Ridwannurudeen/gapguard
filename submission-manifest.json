@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "6289f20353c8e6f26b3a56eb4ec8de920087a95e",
+  "commit": "da2db76bb1f0e324097799141267cbb7ee30a89c",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
-  "promptHash": "fc941e0f102ae28ebffdade600455fc781cd870680de41024abd3264a27656e9",
+  "promptHash": "78432be24500f9b1723d7bf9fa0583956811e5056f1c20f60098a8891c1ff03f",
   "publicKeyFingerprint": "88f0da408cefee09788a9a725e1c39e0f105279de492fcbedf10f10babd64561",
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "c7df3f2771bcff4696bb0bd1b6b42cb528f5cb561ac3368f1afd9f75f58da651",
-      "bytes": 5947
+      "sha256": "c2ef7253bef7c21c4b0b72c7ca86c2cf9545ec3d04fd56e9502356e862c3832f",
+      "bytes": 5841
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "e5e9c5514ad0da39bd4abcffa59b30fef0bac81709e389c1cbe93af084df9d06",
-      "bytes": 7611
+      "sha256": "b5c14aa2e4b31a6830712219eab8a3919b4cbef9696cc9f106caecea59b3953b",
+      "bytes": 7526
     },
     {
       "path": "docs/METRICS.md",
@@ -25,43 +25,43 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "90f237aa921278f58a3bdf44c9c10ab9ea8d14f3f961a9bde693428be648d3b9",
-      "bytes": 67982
+      "sha256": "733979ddec99b4686e09c404cb92c13eecc90a9a04a21edd997bbf96bfcd33f0",
+      "bytes": 66403
     },
     {
       "path": "public/news.html",
-      "sha256": "3c267ed3c640feeb05e49c1974bdcad72c68f739f906198dda6d9855cf2f5c01",
-      "bytes": 20038
+      "sha256": "1fcdd5831e1a875ee4b833a718d18c27597bee5e3e0fa4a6d59d99aa23af6ac2",
+      "bytes": 19359
     },
     {
       "path": "public/news-feed.json",
-      "sha256": "6941ce81f9426ab2116ecf7cca4f5a1a1c004639d6f97354ce5a1ee2823f9a65",
-      "bytes": 56550
+      "sha256": "6f0589b3e24d7d53b57f01a0f237d32e88368b9e48336b0bb4b3b16d24e0ae7f",
+      "bytes": 55660
     },
     {
       "path": "public/arena.html",
-      "sha256": "74d23eeaabf680f24582924d6585072aedc3c70340f647d5054cbb9189ab021c",
-      "bytes": 71278
+      "sha256": "a05306272c4ba61f62685fa880ec600ffc4b44031d246f414d50adbedc1eb372",
+      "bytes": 69039
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "43795d7b2cd7bca50328d95bcee7d479df9814db2e623e21f5d9358edd7c2023",
-      "bytes": 19646
+      "sha256": "9c3248c72b41da833a6443b4538f622b4e773e50d982e661a398cbe6fb776d43",
+      "bytes": 19025
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "7ade299e98d1cb1cf017c62fc51db238e19f88197a35fa4197c85247d3f8e906",
-      "bytes": 11314
+      "sha256": "dc313829a97012708dbffc85c2e78d2c87a245a7fb8d657756dc78cbd6790c07",
+      "bytes": 11303
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "1879eb781e49a1603e253ef2a372101d258970740f37d39e77b0d2eea42f1e83",
-      "bytes": 431
+      "sha256": "50ddcc9f197d1e9f60737da219b931c89485327ef6e7c6e894a807a48547c4e7",
+      "bytes": 422
     },
     {
       "path": "public/arena-pubkey.pem",
-      "sha256": "5a2770914a95575c222ff576f4acb0dd3b688e5bbd9e3b18b1574afe27eb7b99",
-      "bytes": 116
+      "sha256": "ef777b3c75b0fe04e51dd6ea271cc9e5640ba93b792fe70de2f027927cb47bb4",
+      "bytes": 113
     },
     {
       "path": "public/metrics.json",
@@ -70,8 +70,8 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "3f9f7924d5209a420e59f150cb2e7701674709f8e882690a3964c7cb97165866",
-      "bytes": 8514
+      "sha256": "22a0168a68b2987efd17c331f5a2454532ddcf02f9628a47b8ccd2162fe46db4",
+      "bytes": 8256
     },
     {
       "path": "artifacts/stock-paper-journal.jsonl",
@@ -85,38 +85,38 @@
     },
     {
       "path": "artifacts/aaplusdt-news-aware-backtest.json",
-      "sha256": "3712ee7965bca323a98a2e49dfc3aceb33c174c7e1c7a6e553dfc16860181af4",
-      "bytes": 4906
+      "sha256": "410402ed4d61a4f56031bdd5a72d20f4d05ebf94319b0ccdb5378136d44727f0",
+      "bytes": 4739
     },
     {
       "path": "artifacts/aaplusdt-gate-audit.json",
-      "sha256": "1e52b9ae6608f397f40fbdaa096b6afa5fdf3bbc6417563d5013ea50c48f75fd",
-      "bytes": 19544
+      "sha256": "047fbe36e087c5bb3e32e338c33302f68022d2edd2edfed2cabc9ec220343c34",
+      "bytes": 19365
     },
     {
       "path": "artifacts/gate-holdout-report.json",
-      "sha256": "a993c5a5dea6faba24206af23212ee34384a9131fd35f1eff3fb02b458a32bef",
-      "bytes": 6810
+      "sha256": "5967d276f96bbc3e10aeecc6cb0301f7899e4dfcda4ae0ecc8d698dbb61d45b9",
+      "bytes": 6553
     },
     {
       "path": "artifacts/rwa-multi-backtest.json",
-      "sha256": "d9161c6f58aa5baea45e158d771114bceac06f5e029de2e929e2be6d9314c440",
-      "bytes": 270479
+      "sha256": "7762f6fd54a3eb390f83082963f30229d0e90faa0cfa7bc0614ceb510bdeae28",
+      "bytes": 260844
     },
     {
       "path": "artifacts/rwa-alpha-certification.json",
-      "sha256": "abd65e704970356d382b2def9d6d3e19b742153b9a2f57003c350bc12f4580a6",
-      "bytes": 41581
+      "sha256": "40e2157e3946c3bf85aa384e236e6bc6f5dd8f175f84ce79bcb79ad07d8a70f4",
+      "bytes": 40057
     },
     {
       "path": "artifacts/paper-btc-smoke.jsonl",
-      "sha256": "b4e9b314fdd79a3ca791b8e0c91100421b265005709b1c87cf9b704f10def579",
-      "bytes": 7082
+      "sha256": "032224b96e3c3d971a83c1abb822892b4b156aaa17f7357492743c8ce21582f6",
+      "bytes": 7079
     },
     {
       "path": "data/macro-calendar.json",
-      "sha256": "208d0970a8c8a444c0fa4eba57c7e38acc3a4cf54689cb74d86f3eecbb2f9ce3",
-      "bytes": 955
+      "sha256": "f182338d1eb18cd97c166ed41f15d6c0640fc2bb7dc620a2d2c36596fc4a8993",
+      "bytes": 927
     }
   ],
   "generationCommands": [

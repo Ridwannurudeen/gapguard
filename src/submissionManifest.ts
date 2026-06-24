@@ -61,14 +61,22 @@ export interface SubmissionManifest {
   generationCommands: string[];
 }
 
+// Normalize CRLF -> LF so manifest hashes are stable across OS / git autocrlf
+// settings (a Windows checkout produces CRLF; CI on Linux checks out LF). latin1
+// is a lossless byte round-trip, so this is safe for the text artifacts hashed here.
+function normalizedBytes(path: string): Buffer {
+  return Buffer.from(
+    readFileSync(resolve(path)).toString("latin1").replace(/\r\n/g, "\n"),
+    "latin1",
+  );
+}
+
 function sha256File(path: string): string {
-  return createHash("sha256")
-    .update(readFileSync(resolve(path)))
-    .digest("hex");
+  return createHash("sha256").update(normalizedBytes(path)).digest("hex");
 }
 
 function fileSize(path: string): number {
-  return readFileSync(resolve(path)).byteLength;
+  return normalizedBytes(path).byteLength;
 }
 
 function git(args: string[]): string {
