@@ -18,7 +18,12 @@ const types = new Map([
 ]);
 
 function publicPath(urlPath) {
-  const decoded = decodeURIComponent(urlPath.split("?")[0] ?? "/");
+  let decoded;
+  try {
+    decoded = decodeURIComponent(urlPath.split("?")[0] ?? "/");
+  } catch {
+    return null;
+  }
   const requested = decoded === "/" ? "/index.html" : decoded;
   const target = normalize(join(root, requested));
   if (target !== root && !target.startsWith(`${root}${sep}`)) return null;

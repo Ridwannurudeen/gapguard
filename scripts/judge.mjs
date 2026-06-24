@@ -4,10 +4,17 @@ const port = Number(process.env.JUDGE_PORT ?? "4173");
 const url = `http://127.0.0.1:${port}/arena.html`;
 
 function run(command, args) {
-  const result = spawnSync(command, args, {
+  const invocation =
+    command === "npm"
+      ? { command: process.execPath, args: [process.env.npm_execpath, ...args] }
+      : { command, args };
+  if (command === "npm" && !process.env.npm_execpath) {
+    throw new Error("npm_execpath is required; run judge via npm run judge");
+  }
+  const result = spawnSync(invocation.command, invocation.args, {
     cwd: process.cwd(),
     stdio: "inherit",
-    shell: process.platform === "win32",
+    shell: false,
   });
   if (result.error) throw result.error;
   if (result.status !== 0) {

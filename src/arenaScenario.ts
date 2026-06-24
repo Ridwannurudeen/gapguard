@@ -124,9 +124,9 @@ function defaultPerception(
     fundingRate: 0,
     quoteVolumeUSDT: 0,
     isRwa: "YES",
-    symbolStatus: "normal",
-    liveReady: true,
-    blockers: [],
+    symbolStatus: "missing",
+    liveReady: false,
+    blockers: ["public/rwa-market.json unavailable"],
     newsSummary:
       "fallback RWA narrative scenario used when public/rwa-market.json is unavailable",
     dislocation: estimateDislocation({
@@ -260,6 +260,7 @@ export function buildArenaScenario(
     evidenceInputs.paperTrades ?? countPaperEvidenceRows();
   const rwaFreshness =
     evidenceInputs.rwaFreshness ?? assessRwaMarketFreshness();
+  const liveReadOk = perception.liveReady && rwaFreshness.status === "fresh";
   const entryPrice = perception.tokenPrice;
   const pricePath = [
     entryPrice,
@@ -328,7 +329,7 @@ export function buildArenaScenario(
         "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
       evidence: {
         paperTrades,
-        liveReadOk: true,
+        liveReadOk,
         hashChainOk: true,
         maxDrawdownPct: quorumState.drawdownPct,
         ruleViolations: quorumMandateCheck.breachedRules.length,
@@ -354,7 +355,7 @@ export function buildArenaScenario(
       thesis: "Single-signal long chaser with no dissent layer.",
       evidence: {
         paperTrades: 1,
-        liveReadOk: true,
+        liveReadOk,
         hashChainOk: true,
         maxDrawdownPct: naiveState.drawdownPct,
         ruleViolations: naiveMandateCheck.breachedRules.length,

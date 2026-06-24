@@ -163,16 +163,42 @@ function brokerBoundaryChecks(path = "public/arena-chain.jsonl"): ReadinessCheck
     .split(/\r?\n/)
     .filter(Boolean)
     .map((line) => asRecord(JSON.parse(line)));
-  const broker = records.find((record) => record.kind === "broker_order");
-  const payload = asRecord(broker?.payload);
-  const plan = asRecord(payload.plan);
-  const mode = readString(plan.mode);
-  const status = readString(payload.status);
+  const brokers = records.filter((record) => record.kind === "broker_order");
+  if (brokers.length === 0) {
+    return [
+      {
+        id: "sim-broker-dry-run-boundary",
+        status: "fail",
+        detail: "no broker_order record found",
+      },
+    ];
+  }
+  const unsafe = brokers
+    .map((broker, index) => {
+      const payload = asRecord(broker.payload);
+      const plan = asRecord(payload.plan);
+      return {
+        index: index + 1,
+        mode: readString(plan.mode),
+        status: readString(payload.status),
+      };
+    })
+    .filter(
+      (broker) => broker.mode !== "dry_run" || broker.status !== "dry_run",
+    );
   return [
     {
       id: "sim-broker-dry-run-boundary",
-      status: mode === "dry_run" && status === "dry_run" ? "pass" : "fail",
-      detail: `broker mode=${mode ?? "missing"}, status=${status ?? "missing"}`,
+      status: unsafe.length === 0 ? "pass" : "fail",
+      detail:
+        unsafe.length === 0
+          ? `${brokers.length} broker record(s), all dry_run`
+          : `non-dry-run broker records: ${unsafe
+              .map(
+                (broker) =>
+                  `#${broker.index} mode=${broker.mode ?? "missing"} status=${broker.status ?? "missing"}`,
+              )
+              .join(", ")}`,
     },
   ];
 }
@@ -182,7 +208,7 @@ function rwaFreshnessChecks(): ReadinessCheck[] {
   return [
     {
       id: "rwa-market-freshness",
-      status: freshness.status === "fresh" ? "pass" : "warn",
+      status: freshness.status === "fresh" ? "pass" : "fail",
       detail:
         freshness.ageMinutes === null
           ? `status=${freshness.status}`

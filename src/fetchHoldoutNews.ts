@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fetchTextWithRetry } from "./http";
 import { buildHoldoutCandidates } from "./gateHoldoutReport";
 import { loadCandleFixture, loadRwaSampleManifest } from "./multiBacktest";
 
@@ -27,9 +28,13 @@ async function fetchSymbolNews(
   token: string,
 ): Promise<Headline[]> {
   const url = `${FINNHUB}?symbol=${underlying}&from=${from}&to=${to}&token=${token}`;
-  const res = await fetch(url);
+  const res = await fetchTextWithRetry(url, undefined, {
+    timeoutMs: 20_000,
+    retries: 2,
+    maxResponseChars: 1_000_000,
+  });
   if (!res.ok) return [];
-  const data = (await res.json()) as unknown;
+  const data = JSON.parse(res.text) as unknown;
   if (!Array.isArray(data)) return [];
   return data
     .filter(

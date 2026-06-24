@@ -3,9 +3,11 @@ dist/
 *.log
 .env
 .env.*
+!.env.example
 glassbox-*.jsonl
 *.tar.gz
 .DS_Store
+%SystemDrive%/
 artifacts/
 !artifacts/
 !artifacts/aaplusdt-backtest.json

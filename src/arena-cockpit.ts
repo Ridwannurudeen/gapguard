@@ -10,6 +10,7 @@ import {
 import type { AgentPassport } from "./agentArena";
 import { loadGateVerdicts } from "./gateVerdicts";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
+import { verifyRecords, type ChainRecord } from "./logVerifier";
 import type { DeskOpinion, QuorumDecision } from "./quorum";
 import type { RwaMarketReport } from "./rwa-market";
 
@@ -149,15 +150,28 @@ export function readGapGuardProof(path: string): GapGuardProofSummary | null {
   const dataset = asRecord(data.dataset);
   const summary = asRecord(data.summary);
   const verification = asRecord(summary.verification);
+  const records = Array.isArray(data.records)
+    ? (data.records as ChainRecord[])
+    : [];
+  const actual = verifyRecords(records);
   const ok = verification.ok;
   const count = readNumber(verification.count);
   const finalHash = readString(verification.finalHash);
   const proofScope = readString(dataset.proofScope);
 
-  if (typeof ok !== "boolean" || count === null || !finalHash || !proofScope) {
+  if (
+    typeof ok !== "boolean" ||
+    count === null ||
+    !finalHash ||
+    !proofScope ||
+    !actual.ok ||
+    ok !== actual.ok ||
+    count !== actual.count ||
+    finalHash !== actual.finalHash
+  ) {
     return null;
   }
-  return { ok, count, finalHash, proofScope };
+  return { ok: actual.ok, count: actual.count, finalHash: actual.finalHash, proofScope };
 }
 
 export function readRwaMarketReport(path: string): RwaMarketReport | null {

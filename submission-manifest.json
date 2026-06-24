@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
-  "createdAt": "2026-06-23T06:49:15.802Z",
-  "commit": "64a59501e0f3f4a240b850e366f22aeec6abe714",
+  "createdAt": "2026-06-24T11:42:11.241Z",
+  "commit": "ef5fe563750fee839b3d6a14643ef49180590090",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
-  "promptHash": "754464e4c8c2214ec348e7409353a338cc8d34ed55fee365ab265af32e7351e2",
+  "promptHash": "1c7bef897db9a8670f4b41b4ed4ae5436e5ddc5a62478333ef3ef7e96c19bb0e",
   "publicKeyFingerprint": "88f0da408cefee09788a9a725e1c39e0f105279de492fcbedf10f10babd64561",
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "c03ef5631f8fad4973e0094826a3e68990a8d700f05b8f49fb4e86cefc7e4ba1",
-      "bytes": 4879
+      "sha256": "58de9ec2e0f472e3272a0474db5203c527585bd8d3a46082423552b6f6eec2ea",
+      "bytes": 4964
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "9fd571bca3edc6b45830de4a3af5a0d1416c08766019d819c36c485a78322c3f",
-      "bytes": 5663
+      "sha256": "3c007204a2ef524fba68a87c8487d24f196f93d803bd10338061555ecaf6cc67",
+      "bytes": 5745
     },
     {
       "path": "docs/METRICS.md",
@@ -25,27 +25,27 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "146f377c780b35b23f8eb8af5a3b71d5291fe99713676c7ed9d9e4181c41a748",
-      "bytes": 44544
+      "sha256": "af8ad8f3064609cb1c92fb6d1c4b1c45da8d64eaf581b6a3c959588840f5bd92",
+      "bytes": 48628
     },
     {
       "path": "public/arena.html",
-      "sha256": "950d5c93adac9397754bdc5f14ceec858684c7471a12e9bb3351abb3162b9051",
-      "bytes": 60441
+      "sha256": "e9d2dd3a86f6268b5f4514ff75c91a649e20813b0fb5e98c670225adf139819b",
+      "bytes": 62307
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "20da138248e92216326c0cd361a73a95297d78c992b5c589f42a4f27a0e46e70",
-      "bytes": 18945
+      "sha256": "2bb4d3dc40f55a0acc95f2f8ea4d356ea80b515d3a90d65cd44aaaa2e026fa46",
+      "bytes": 19086
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "b58be7c2394d10640425a0a4055c986a347dd733f5740f2a5ea17cb71201ded1",
-      "bytes": 11297
+      "sha256": "4cdd8bd713011d1b9bc3f90696a6ad01f276221b3c732be9b0e84e8e58d0c6a8",
+      "bytes": 11324
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "3f9518c2d9ac31dff65d7a71ac8d888d3ec22ae5d712da92f51d699cd157720c",
+      "sha256": "9e1fac245404beeb79581de37c97a99accfba8687adc0a21c2a301c09649aa7e",
       "bytes": 422
     },
     {
@@ -60,8 +60,8 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "54e900771fc17a11f8dc37ae1f231d37eb197b0a508e9835b7719b1d82b305bf",
-      "bytes": 6284
+      "sha256": "df359a443611d06ea5a4525f593bf98ca83cb0e680f20d13c80c65b56827e207",
+      "bytes": 6482
     },
     {
       "path": "glassbox-demo.jsonl",
@@ -80,28 +80,28 @@
     },
     {
       "path": "artifacts/aaplusdt-news-aware-backtest.json",
-      "sha256": "410402ed4d61a4f56031bdd5a72d20f4d05ebf94319b0ccdb5378136d44727f0",
-      "bytes": 4739
+      "sha256": "3712ee7965bca323a98a2e49dfc3aceb33c174c7e1c7a6e553dfc16860181af4",
+      "bytes": 4906
     },
     {
       "path": "artifacts/aaplusdt-gate-audit.json",
-      "sha256": "0fad6238f4d2fadf7916e411479f6df6981c327df7a95fc43cc9543a8668f0f7",
-      "bytes": 19542
+      "sha256": "1e52b9ae6608f397f40fbdaa096b6afa5fdf3bbc6417563d5013ea50c48f75fd",
+      "bytes": 19544
     },
     {
       "path": "artifacts/gate-holdout-report.json",
-      "sha256": "5967d276f96bbc3e10aeecc6cb0301f7899e4dfcda4ae0ecc8d698dbb61d45b9",
-      "bytes": 6553
+      "sha256": "a993c5a5dea6faba24206af23212ee34384a9131fd35f1eff3fb02b458a32bef",
+      "bytes": 6810
     },
     {
       "path": "artifacts/rwa-multi-backtest.json",
-      "sha256": "7762f6fd54a3eb390f83082963f30229d0e90faa0cfa7bc0614ceb510bdeae28",
-      "bytes": 260844
+      "sha256": "d9161c6f58aa5baea45e158d771114bceac06f5e029de2e929e2be6d9314c440",
+      "bytes": 270479
     },
     {
       "path": "artifacts/rwa-alpha-certification.json",
-      "sha256": "40e2157e3946c3bf85aa384e236e6bc6f5dd8f175f84ce79bcb79ad07d8a70f4",
-      "bytes": 40057
+      "sha256": "abd65e704970356d382b2def9d6d3e19b742153b9a2f57003c350bc12f4580a6",
+      "bytes": 41581
     },
     {
       "path": "artifacts/paper-btc-smoke.jsonl",

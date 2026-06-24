@@ -130,11 +130,40 @@ export function countPaperEvidenceRows(
   for (const path of paths) {
     const fullPath = resolve(path);
     if (!existsSync(fullPath)) continue;
-    count += readFileSync(fullPath, "utf8")
-      .split(/\r?\n/)
-      .filter((line) => line.trim().length > 0).length;
+    for (const line of readFileSync(fullPath, "utf8").split(/\r?\n/)) {
+      if (!line.trim()) continue;
+      try {
+        if (isPaperTradeReceipt(JSON.parse(line) as unknown)) count += 1;
+      } catch {
+        // Malformed evidence rows do not count toward passport gates.
+      }
+    }
   }
   return count;
+}
+
+function isPaperTradeReceipt(value: unknown): boolean {
+  const row = asRecord(value);
+  const result = asRecord(row.result);
+  const plan = asRecord(result.plan);
+  const order = asRecord(plan.order);
+  const mode = readString(row.mode) ?? readString(plan.mode);
+  const status = readString(result.status) ?? readString(row.status);
+  const symbol = readString(row.symbol) ?? readString(order.symbol);
+  const size =
+    readNumber(row.size) ??
+    (typeof order.size === "string" ? Number(order.size) : null);
+
+  return (
+    mode === "paper" &&
+    Boolean(symbol) &&
+    size !== null &&
+    size > 0 &&
+    (status === "submitted" ||
+      status === "filled" ||
+      status === "cancelled" ||
+      status === "timeout")
+  );
 }
 
 export function assessRwaMarketFreshness(

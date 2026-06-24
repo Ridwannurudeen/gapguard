@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import {
   BITGET_WALLET_BASE_URL,
   authFromEnv,
+  isOfficialBitgetWalletBaseUrl,
   postBitget,
   type BitgetAuth,
 } from "./bitgetWalletApi";
@@ -155,6 +156,7 @@ export async function buildProbeReport(
   const auth = authFromEnv(env);
   const target = targetFromEnv(env);
   const baseUrl = env.BITGET_WALLET_API_BASE_URL ?? BITGET_WALLET_BASE_URL;
+  const baseUrlTrusted = isOfficialBitgetWalletBaseUrl(baseUrl);
 
   const endpoints: ProbeEndpointResult[] = [];
   endpoints.push(
@@ -207,12 +209,14 @@ export async function buildProbeReport(
   }
 
   const readChecks = endpoints.filter((e) => e.name !== "rwa-quote");
-  const liveReadOk = readChecks.every((e) => e.ok);
-  const proofStatus = liveReadOk
-    ? "live_bitget_verified"
-    : auth
-      ? "blocked_target_or_api"
-      : "blocked_missing_credentials";
+  const liveReadOk = baseUrlTrusted && readChecks.every((e) => e.ok);
+  const proofStatus = !baseUrlTrusted
+    ? "blocked_target_or_api"
+    : liveReadOk
+      ? "live_bitget_verified"
+      : auth
+        ? "blocked_target_or_api"
+        : "blocked_missing_credentials";
 
   return {
     generatedAt: new Date().toISOString(),
@@ -221,14 +225,18 @@ export async function buildProbeReport(
     target,
     endpoints,
     proofStatus,
-    conclusion: liveReadOk
-      ? "Bitget Wallet market data returned successfully for the target token."
-      : "Live Bitget tokenized-stock proof is not available from this run.",
+    conclusion: !baseUrlTrusted
+      ? "Bitget Wallet proof is blocked because the base URL is not the official Bitget Wallet origin."
+      : liveReadOk
+        ? "Bitget Wallet market data returned successfully for the target token."
+        : "Live Bitget tokenized-stock proof is not available from this run.",
     nextAction: liveReadOk
       ? "Use the returned K-line/session metrics as the source for a real replay."
-      : auth
-        ? "Check the target contract/chain or API entitlement, then rerun the probe."
-        : "Set BITGET_WALLET_API_KEY and BITGET_WALLET_API_SECRET, verify the target contract, then rerun npm run probe:bitget.",
+      : !baseUrlTrusted
+        ? "Remove BITGET_WALLET_API_BASE_URL overrides and rerun against the official Bitget Wallet API."
+        : auth
+          ? "Check the target contract/chain or API entitlement, then rerun the probe."
+          : "Set BITGET_WALLET_API_KEY and BITGET_WALLET_API_SECRET, verify the target contract, then rerun npm run probe:bitget.",
   };
 }
 

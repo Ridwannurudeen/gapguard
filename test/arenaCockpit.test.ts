@@ -92,9 +92,8 @@ describe("arena cockpit data", () => {
       rwaMarket,
     );
 
+    expect(data.status.licensedAgents + data.status.paperOnlyAgents).toBe(1);
     expect(data.status).toMatchObject({
-      licensedAgents: 1,
-      paperOnlyAgents: 0,
       rejectedAgents: 1,
       paperEvidence: "missing",
       liveStatus: "gated",

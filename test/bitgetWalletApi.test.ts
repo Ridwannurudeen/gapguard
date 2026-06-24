@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   buildSignaturePayload,
   canonicalJson,
+  isOfficialBitgetWalletBaseUrl,
+  postBitget,
   signBitgetRequest,
 } from "../src/bitgetWalletApi";
 
@@ -37,5 +39,30 @@ describe("bitgetWalletApi", () => {
         { key1: "val1", key2: "val2" },
       ),
     ).toBe("1cDOTjA9a7sPi6a4i3Dku4uMQItYILeBt2XJa7MGXxI=");
+  });
+
+  it("recognizes only the official Bitget Wallet API base URL as trusted", () => {
+    expect(
+      isOfficialBitgetWalletBaseUrl("https://bopenapi.bgwapi.io"),
+    ).toBe(true);
+    expect(
+      isOfficialBitgetWalletBaseUrl("https://bopenapi.bgwapi.io/"),
+    ).toBe(true);
+    expect(isOfficialBitgetWalletBaseUrl("http://127.0.0.1:9999")).toBe(
+      false,
+    );
+  });
+
+  it("refuses to send signed requests to non-official base URLs", async () => {
+    await expect(
+      postBitget(
+        "/test",
+        { body: "test" },
+        {
+          baseUrl: "http://127.0.0.1:9999",
+          auth: { apiKey: "key", apiSecret: "secret" },
+        },
+      ),
+    ).rejects.toThrow("non-official base URL");
   });
 });

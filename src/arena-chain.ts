@@ -59,8 +59,40 @@ export function formatArenaChain(records: ArenaRecord[]): string {
   return `${records.map((record) => canonicalJson(record)).join("\n")}\n`;
 }
 
+function isArenaRecordKind(value: unknown): value is ArenaRecordKind {
+  return (
+    value === "mandate_rule" ||
+    value === "quorum_decision" ||
+    value === "agent_decision" ||
+    value === "mandate_breach" ||
+    value === "passport_issued" ||
+    value === "broker_order"
+  );
+}
+
+function validateArenaRecord(record: ChainRecord, row: number): string[] {
+  const errors: string[] = [];
+  const candidate = record as Partial<ArenaRecord>;
+  if (typeof candidate.ts !== "string" || candidate.ts.length === 0) {
+    errors.push(`line ${row}: ts is required`);
+  }
+  if (!isArenaRecordKind(candidate.kind)) {
+    errors.push(`line ${row}: kind is not a valid Arena record kind`);
+  }
+  if (
+    typeof candidate.agentId !== "string" ||
+    candidate.agentId.length === 0
+  ) {
+    errors.push(`line ${row}: agentId is required`);
+  }
+  if (!("payload" in (record as unknown as Record<string, unknown>))) {
+    errors.push(`line ${row}: payload is required`);
+  }
+  return errors;
+}
+
 export function verifyArenaRecords(records: ArenaRecord[]): LogVerification {
-  return verifyRecords(records);
+  return verifyRecords(records, validateArenaRecord);
 }
 
 export function readArenaChain(path: string): ArenaRecord[] {
@@ -94,6 +126,8 @@ export interface AttestationVerification {
   merkleRootOk: boolean;
   signatureOk: boolean;
   publicKeyOk: boolean;
+  recordCountOk: boolean;
+  chainOk: boolean;
 }
 
 function sha256Hex(input: string): string {
@@ -141,16 +175,20 @@ export function attestChain(
     privateKey = pair.privateKey;
     publicKey = pair.publicKey;
   }
-  const signature = edSign(null, Buffer.from(merkleRoot, "hex"), privateKey);
-  return {
+  const attestation: Omit<ArenaAttestation, "signatureB64"> = {
     alg: "Ed25519",
     merkleRoot,
     recordCount: records.length,
     signedAt: opts.signedAt,
     ...(opts.model ? { model: opts.model } : {}),
     publicKeySpkiB64: publicKeySpkiB64(publicKey),
-    signatureB64: signature.toString("base64"),
   };
+  const signature = edSign(
+    null,
+    Buffer.from(canonicalJson(attestation)),
+    privateKey,
+  );
+  return { ...attestation, signatureB64: signature.toString("base64") };
 }
 
 export function verifyAttestation(
@@ -159,6 +197,8 @@ export function verifyAttestation(
   opts: { publicKey?: KeyObject } = {},
 ): AttestationVerification {
   const merkleRootOk = computeMerkleRoot(records) === attestation.merkleRoot;
+  const recordCountOk = attestation.recordCount === records.length;
+  const chainOk = verifyArenaRecords(records).ok;
   let signatureOk = false;
   let publicKeyOk = false;
   try {
@@ -170,9 +210,17 @@ export function verifyAttestation(
     publicKeyOk = opts.publicKey
       ? publicKeySpkiB64(opts.publicKey) === attestation.publicKeySpkiB64
       : true;
+    const signedEnvelope = {
+      alg: attestation.alg,
+      merkleRoot: attestation.merkleRoot,
+      recordCount: attestation.recordCount,
+      signedAt: attestation.signedAt,
+      ...(attestation.model ? { model: attestation.model } : {}),
+      publicKeySpkiB64: attestation.publicKeySpkiB64,
+    };
     signatureOk = edVerify(
       null,
-      Buffer.from(attestation.merkleRoot, "hex"),
+      Buffer.from(canonicalJson(signedEnvelope)),
       publicKey,
       Buffer.from(attestation.signatureB64, "base64"),
     );
@@ -181,9 +229,11 @@ export function verifyAttestation(
     publicKeyOk = false;
   }
   return {
-    ok: merkleRootOk && signatureOk && publicKeyOk,
+    ok: merkleRootOk && signatureOk && publicKeyOk && recordCountOk && chainOk,
     merkleRootOk,
     signatureOk,
     publicKeyOk,
+    recordCountOk,
+    chainOk,
   };
 }

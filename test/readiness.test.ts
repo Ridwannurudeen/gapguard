@@ -1,6 +1,10 @@
+import { mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { formatReadinessReport, type ReadinessReport } from "../src/readiness";
 import {
+  countPaperEvidenceRows,
   loadGateDrivenBacktestEvidence,
   loadWalkForwardAlphaEvidence,
 } from "../src/evidence";
@@ -23,6 +27,26 @@ describe("readiness evidence", () => {
 
     expect(evidence.variant).toBe("walkForwardRwaFollow");
     expect(evidence.totalTrades).toBeGreaterThan(0);
+  });
+
+  it("counts only valid paper receipt rows as paper evidence", () => {
+    const dir = mkdtempSync(join(tmpdir(), "gapguard-paper-"));
+    const path = join(dir, "paper.jsonl");
+    writeFileSync(
+      path,
+      [
+        JSON.stringify({
+          symbol: "BTCUSDT",
+          mode: "paper",
+          size: 0.0001,
+          result: { status: "submitted" },
+        }),
+        JSON.stringify({ this: "is not a paper receipt" }),
+        "not-json",
+      ].join("\n"),
+    );
+
+    expect(countPaperEvidenceRows([path])).toBe(1);
   });
 
   it("formats blocking readiness checks without hiding failures", () => {

@@ -46,6 +46,45 @@ async function fetchWithTimeout(
   }
 }
 
+async function readBoundedText(
+  response: Response,
+  maxResponseChars: number,
+): Promise<string> {
+  if (!response.body) {
+    const text = await response.text();
+    if (text.length > maxResponseChars) {
+      throw new Error(
+        `HTTP response exceeded ${maxResponseChars} characters; refusing to parse`,
+      );
+    }
+    return text;
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let text = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    text += decoder.decode(value, { stream: true });
+    if (text.length > maxResponseChars) {
+      await reader.cancel();
+      throw new Error(
+        `HTTP response exceeded ${maxResponseChars} characters; refusing to parse`,
+      );
+    }
+  }
+
+  text += decoder.decode();
+  if (text.length > maxResponseChars) {
+    throw new Error(
+      `HTTP response exceeded ${maxResponseChars} characters; refusing to parse`,
+    );
+  }
+  return text;
+}
+
 export async function fetchTextWithRetry(
   url: string,
   init: RequestInit = {},
@@ -61,12 +100,7 @@ export async function fetchTextWithRetry(
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
       const response = await fetchWithTimeout(url, init, timeoutMs);
-      const text = await response.text();
-      if (text.length > maxResponseChars) {
-        throw new Error(
-          `HTTP response exceeded ${maxResponseChars} characters; refusing to parse`,
-        );
-      }
+      const text = await readBoundedText(response, maxResponseChars);
       if (
         !response.ok &&
         attempt < retries &&
