@@ -43,7 +43,10 @@
     "backtest:fetch:rwa": "node scripts/fetch-rwa-sample.mjs",
     "backtest:fetch": "node scripts/fetch-aaplusdt.mjs",
     "news:fetch": "node scripts/fetch-news.mjs",
-    "news:bundle": "esbuild scripts/newsRefreshEntry.ts --bundle --platform=node --format=esm --outfile=dist/news-refresh.mjs"
+    "news:bundle": "esbuild scripts/newsRefreshEntry.ts --bundle --platform=node --format=esm --outfile=dist/news-refresh.mjs",
+    "rwa:bundle": "esbuild scripts/rwaRefreshEntry.ts --bundle --platform=node --format=esm --outfile=dist/rwa-refresh.mjs",
+    "live:calls": "tsx src/buildLiveCalls.ts",
+    "live:bundle": "esbuild scripts/liveCallsEntry.ts --bundle --platform=node --format=esm --outfile=dist/live-calls.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",

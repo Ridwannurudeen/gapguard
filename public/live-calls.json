@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-06-24T21:10:29.644Z",
+  "gateModel": "qwen3.6-plus",
+  "notableBps": 40,
+  "gated": false,
+  "calls": [
+    {
+      "symbol": "NVDAUSDT",
+      "ticker": "NVDA",
+      "name": "Nvidia",
+      "gapBps": 11,
+      "lastPrice": 200.5,
+      "indexPrice": 200.28585178630937,
+      "spreadBps": 0.4986909362917793,
+      "quoteVolumeUSDT": 9977683.0666,
+      "fundingRate": 0.000043,
+      "news": {
+        "headline": "The Crowd Is Dumping Joby Aviation. Here's Why I'd Be Buying It Down 30%.",
+        "url": "https://finnhub.io/api/news?id=2631baa2ede812624c682f5dd8e6af5f50bf8047959e8fc0fcb70086ed9cfdb0",
+        "ts": "2026-06-24T13:53:00.000Z"
+      },
+      "verdict": null,
+      "verdictNote": "near fair value — no gate run"
+    },
+    {
+      "symbol": "MUUSDT",
+      "ticker": "MU",
+      "name": "Micron",
+      "gapBps": -1,
+      "lastPrice": 1188.13,
+      "indexPrice": 1188.2941383505868,
+      "spreadBps": 1.0941333411895682,
+      "quoteVolumeUSDT": 236299450.1973,
+      "fundingRate": 0.000366,
+      "news": null,
+      "verdict": null,
+      "verdictNote": "near fair value — no gate run"
+    },
+    {
+      "symbol": "SNDKUSDT",
+      "ticker": "SNDK",
+      "name": "SanDisk",
+      "gapBps": -4,
+      "lastPrice": 2117.13,
+      "indexPrice": 2117.9228795046097,
+      "spreadBps": 1.3699374316527273,
+      "quoteVolumeUSDT": 147080725.30793,
+      "fundingRate": 0,
+      "news": null,
+      "verdict": null,
+      "verdictNote": "near fair value — no gate run"
+    },
+    {
+      "symbol": "SKHYNIXUSDT",
+      "ticker": "SKHYNIX",
+      "name": "SK Hynix",
+      "gapBps": 40,
+      "lastPrice": 1867.72,
+      "indexPrice": 1860.3221191089162,
+      "spreadBps": 1.4993627708222546,
+      "quoteVolumeUSDT": 186845393.1166,
+      "fundingRate": 0.002225,
+      "news": null,
+      "verdict": null,
+      "verdictNote": "gate key unavailable"
+    },
+    {
+      "symbol": "SOXLUSDT",
+      "ticker": "SOXL",
+      "name": "Semis 3x ETF",
+      "gapBps": -5,
+      "lastPrice": 257.95,
+      "indexPrice": 258.07456161790515,
+      "spreadBps": 0.7753440589254434,
+      "quoteVolumeUSDT": 399549814.7439,
+      "fundingRate": 0.00012,
+      "news": null,
+      "verdict": null,
+      "verdictNote": "near fair value — no gate run"
+    },
+    {
+      "symbol": "SPCXUSDT",
+      "ticker": "SPCX",
+      "name": "SpaceX",
+      "gapBps": 14,
+      "lastPrice": 154.8,
+      "indexPrice": 154.5794686698467,
+      "spreadBps": 0.6460156981827142,
+      "quoteVolumeUSDT": 649281123.2343,
+      "fundingRate": 0.000527,
+      "news": null,
+      "verdict": null,
+      "verdictNote": "near fair value — no gate run"
+    },
+    {
+      "symbol": "DRAMUSDT",
+      "ticker": "DRAM",
+      "name": "DRAM",
+      "gapBps": 15,
+      "lastPrice": 78.44,
+      "indexPrice": 78.32243843921637,
+      "spreadBps": 3.8253108065031736,
+      "quoteVolumeUSDT": 168918308.7798,
+      "fundingRate": 0.000831,
+      "news": null,
+      "verdict": null,
+      "verdictNote": "near fair value — no gate run"
+    }
+  ]
+}

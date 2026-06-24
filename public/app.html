@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GapGuard — your off-hours gap assistant</title>
+    <meta
+      name="description"
+      content="GapGuard reads the live off-hours gap on tokenized US stocks against your own rules, in plain English — and tells you when to stand aside. You decide; you trade on your own exchange."
+    />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%230a0a0c"/><path d="M7 23V9h6.8c4.5 0 7.2 2.8 7.2 7s-2.7 7-7.2 7H7zm4-3.4h2.5c2.3 0 3.5-1.3 3.5-3.6s-1.2-3.6-3.5-3.6H11v7.2zM23 9h3v14h-3z" fill="%23D7FF6A"/></svg>'
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ground: #0a0a0c; --floor: #101013; --surface: #15151a; --card: #1a1a21;
+        --raised: #232329; --line: rgba(255, 255, 255, 0.08); --line-strong: rgba(255, 255, 255, 0.16);
+        --ink: #f5f5f3; --muted: #9a9ca2; --dim: #66676d;
+        --lime: #d7ff6a; --mint: #34e3a4; --amber: #f3b64e; --red: #ff5e6e; --cyan: #5fd4f0;
+        --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --display: "Space Grotesk", "Inter", system-ui, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+      }
+      * { box-sizing: border-box; }
+      html { background: var(--ground); }
+      body {
+        margin: 0; min-width: 320px; color: var(--ink); font-family: var(--sans);
+        font-size: 16px; line-height: 1.55; background: var(--ground); -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; }
+      h1, h2, h3, p { margin: 0; }
+      .wrap { width: min(660px, calc(100% - 32px)); margin: 0 auto; }
+      header.top { border-bottom: 1px solid var(--line); }
+      .top-in { display: flex; align-items: center; justify-content: space-between; height: 58px; }
+      .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; letter-spacing: -0.01em; }
+      .brand .gg {
+        display: grid; place-items: center; width: 26px; height: 26px; border-radius: 6px;
+        background: rgba(215, 255, 106, 0.12); border: 1px solid rgba(215, 255, 106, 0.42);
+        color: var(--lime); font-family: var(--mono); font-size: 12px; font-weight: 700;
+      }
+      .top a.proof { font-size: 13px; color: var(--muted); text-decoration: none; }
+      .top a.proof:hover { color: var(--ink); }
+      .intro { padding: 28px 0 6px; }
+      .intro h1 { font-family: var(--display); font-weight: 700; font-size: clamp(23px, 5vw, 30px); line-height: 1.12; letter-spacing: -0.02em; }
+      .intro p { margin-top: 11px; color: var(--muted); font-size: 15px; }
+      .intro em { color: var(--ink); font-style: normal; }
+      .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 30px 0 12px; }
+      .section-head h2 { font-family: var(--display); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+      .freshness { font-family: var(--mono); font-size: 11.5px; color: var(--dim); display: inline-flex; align-items: center; gap: 7px; }
+      .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 0 rgba(52,227,164,.5); animation: ping 2.4s ease-out infinite; }
+      @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(52,227,164,.45); } 70% { box-shadow: 0 0 0 8px rgba(52,227,164,0); } 100% { box-shadow: 0 0 0 0 rgba(52,227,164,0); } }
+
+      .rules-bar { background: var(--floor); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+      .rules-bar .lines { font-size: 13px; color: var(--muted); line-height: 1.5; }
+      .rules-bar .lines b { color: var(--ink); font-weight: 600; }
+      .rules-bar button { flex: none; background: var(--surface); border: 1px solid var(--line); color: var(--ink); border-radius: 8px; padding: 8px 13px; font-size: 13px; font-family: var(--sans); cursor: pointer; }
+      .rules-bar button:hover { border-color: var(--line-strong); }
+      .editor { margin-top: 10px; display: none; }
+      .editor.open { display: block; }
+      .editor .row { display: flex; align-items: center; gap: 10px; margin: 11px 0; font-size: 14px; }
+      .editor label { color: var(--muted); flex: 1; }
+      .editor input[type="number"] { width: 92px; background: var(--ground); border: 1px solid var(--line); color: var(--ink); border-radius: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 13px; text-align: right; }
+      .editor .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+      .editor .seg button { background: var(--ground); border: 0; color: var(--muted); padding: 8px 12px; font-size: 12.5px; font-family: var(--sans); cursor: pointer; }
+      .editor .seg button.on { background: var(--surface); color: var(--ink); }
+      .editor .save { margin-top: 6px; width: 100%; background: var(--lime); color: var(--ground); border: 0; border-radius: 9px; padding: 11px; font-weight: 600; font-size: 14px; cursor: pointer; }
+
+      .gap { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin: 11px 0; }
+      .gap-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+      .gap-name { font-family: var(--display); font-weight: 600; font-size: 17px; }
+      .gap-name span { color: var(--dim); font-family: var(--mono); font-size: 12px; font-weight: 400; margin-left: 7px; }
+      .gap-val { font-family: var(--mono); font-size: 16px; font-weight: 500; }
+      .gap-val.rich { color: var(--amber); } .gap-val.cheap { color: var(--cyan); } .gap-val.flat { color: var(--muted); }
+      .verdict { display: inline-flex; align-items: center; gap: 8px; margin: 13px 0 2px; padding: 7px 12px; border-radius: 10px; font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+      .verdict.fade { background: rgba(52,227,164,.12); border: 1px solid rgba(52,227,164,.4); color: var(--mint); }
+      .verdict.aside { background: rgba(243,182,78,.12); border: 1px solid rgba(243,182,78,.45); color: var(--amber); }
+      .verdict svg, .hold svg { width: 16px; height: 16px; flex: none; }
+      .read { margin-top: 11px; font-size: 14.5px; line-height: 1.5; color: var(--ink); }
+      .read em { color: var(--muted); font-style: normal; }
+      .ctx { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+      .ctx .c { font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--floor); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+      .newsline { margin-top: 12px; font-size: 13px; color: var(--muted); line-height: 1.5; border-left: 2px solid var(--line-strong); padding-left: 11px; }
+      .newsline a { color: var(--lime); text-decoration: none; }
+      .fit { margin-top: 12px; font-size: 13px; padding: 9px 12px; border-radius: 9px; background: var(--floor); border: 1px solid var(--line); line-height: 1.5; }
+      .fit b { color: var(--ink); } .ok { color: var(--mint); } .bad { color: var(--red); }
+      .gap-action { margin-top: 13px; display: flex; gap: 9px; align-items: center; }
+      .gap-action a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 42px; padding: 0 16px; border-radius: 10px; font-weight: 600; font-size: 14px; text-decoration: none; background: var(--lime); color: var(--ground); }
+      .gap-action a:hover { box-shadow: 0 8px 22px -10px rgba(215,255,106,.5); }
+      .gap-action .copy { background: var(--surface); border: 1px solid var(--line); color: var(--muted); height: 42px; padding: 0 13px; border-radius: 10px; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+      .gap-action .copy:hover { color: var(--ink); }
+      .hold { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: 10px; background: rgba(243,182,78,.1); border: 1px solid rgba(243,182,78,.4); color: var(--amber); font-weight: 600; font-size: 14px; }
+
+      .tr { display: grid; grid-template-columns: auto auto 1fr auto; gap: 10px 12px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 6px 14px; margin: 11px 0; }
+      .tr .r { display: contents; }
+      .tr .r > * { padding: 9px 0; border-top: 1px solid var(--line); }
+      .tr .r:first-child > * { border-top: 0; }
+      .tr .d { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+      .tr .v { font-family: var(--mono); font-size: 11.5px; font-weight: 600; }
+      .tr .v.fade { color: var(--mint); } .tr .v.aside { color: var(--amber); }
+      .tr .t { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .tr .o { font-family: var(--mono); font-size: 12px; text-align: right; }
+      .disc { margin-top: 11px; font-size: 12px; color: var(--dim); line-height: 1.55; text-align: center; }
+      footer { border-top: 1px solid var(--line); padding: 22px 0 34px; margin-top: 30px; }
+      footer p { font-size: 11.5px; color: var(--dim); line-height: 1.6; }
+      .loading { color: var(--dim); font-size: 14px; padding: 8px 0; }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-in">
+        <div class="brand"><span class="gg">GG</span> GapGuard</div>
+        <a class="proof" href="arena.html">Proof &amp; audit →</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="intro">
+        <h1>Your off-hours gap assistant.</h1>
+        <p>
+          GapGuard watches the overnight gap on tokenized US stocks against <em>your</em>
+          rules, and tells you — in plain English — when there's something to do, and when
+          to stand aside. You decide and trade on your own exchange.
+        </p>
+        <div class="rules-bar">
+          <div class="lines" id="rulesLines">Loading your rules…</div>
+          <button id="editRules" type="button">Edit my rules</button>
+        </div>
+        <div class="editor" id="editor">
+          <div class="row">
+            <label for="maxPerIdea">Risk up to this much per idea</label>
+            <input id="maxPerIdea" type="number" min="0" step="50" />
+          </div>
+          <div class="row">
+            <label for="maxIdeas">Hold at most this many ideas at once</label>
+            <input id="maxIdeas" type="number" min="1" step="1" />
+          </div>
+          <div class="row">
+            <label>News-driven gaps</label>
+            <div class="seg" id="newsSeg">
+              <button type="button" data-v="strict">Stand aside</button>
+              <button type="button" data-v="cautious">Trade with caution</button>
+            </div>
+          </div>
+          <button class="save" id="saveRules" type="button">Save my rules</button>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Live off-hours gaps</h2>
+          <span class="freshness" id="liveFresh"><span class="live-dot"></span> loading…</span>
+        </div>
+        <div id="liveList"><div class="loading">Loading live market…</div></div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Recent AI calls</h2>
+          <span class="freshness" id="trFresh">recorded</span>
+        </div>
+        <p class="disc" style="text-align:left;margin:0 0 10px">
+          When a gap is big enough to matter, GapGuard's AI gate judges whether it's real
+          news or noise. These are its recorded calls — including the day it
+          <b>stood aside before the WWDC repricing</b>.
+        </p>
+        <div class="tr" id="trList"><div class="loading">Loading…</div></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          GapGuard is informational and educational — <b>not financial advice</b>. It never
+          holds your funds or places orders; you trade on your own exchange. Live gaps are
+          real Bitget market data (token price vs the underlying index). Tokenized US stocks
+          are not offered to US persons. Past results do not predict future performance.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s == null ? "" : s).replace(/</g, "&lt;");
+      const SHIELD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+      const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+      /* ---------- My Rules (localStorage) ---------- */
+      const DEFAULT_RULES = { maxPerIdea: 500, maxIdeas: 3, news: "strict" };
+      let rules = loadRules();
+      function loadRules() {
+        try {
+          const r = JSON.parse(localStorage.getItem("gg_rules") || "null");
+          if (r && typeof r.maxPerIdea === "number") return { ...DEFAULT_RULES, ...r };
+        } catch (e) {}
+        return { ...DEFAULT_RULES };
+      }
+      function saveRules() { localStorage.setItem("gg_rules", JSON.stringify(rules)); }
+      function rulesSentences() {
+        const news = rules.news === "strict"
+          ? "<b>Stand aside</b> on news-driven gaps."
+          : "Trade news-driven gaps <b>with extra caution</b>.";
+        return `Risk up to <b>$${rules.maxPerIdea}</b> per idea · hold at most <b>${rules.maxIdeas}</b> at once · ${news}`;
+      }
+      function renderRules() {
+        $("rulesLines").innerHTML = rulesSentences();
+        $("maxPerIdea").value = rules.maxPerIdea;
+        $("maxIdeas").value = rules.maxIdeas;
+        document.querySelectorAll("#newsSeg button").forEach((b) => b.classList.toggle("on", b.dataset.v === rules.news));
+      }
+      $("editRules").addEventListener("click", () => $("editor").classList.toggle("open"));
+      document.querySelectorAll("#newsSeg button").forEach((b) =>
+        b.addEventListener("click", () => {
+          rules.news = b.dataset.v;
+          document.querySelectorAll("#newsSeg button").forEach((x) => x.classList.toggle("on", x === b));
+        }),
+      );
+      $("saveRules").addEventListener("click", () => {
+        rules.maxPerIdea = Math.max(0, Number($("maxPerIdea").value) || 0);
+        rules.maxIdeas = Math.max(1, Math.round(Number($("maxIdeas").value) || 1));
+        saveRules(); renderRules(); $("editor").classList.remove("open"); renderLive();
+      });
+
+      /* ---------- live calls ---------- */
+      let report = null;
+      const NB = () => (report && report.notableBps) || 40;
+      function timeOnly(iso) {
+        try { return new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
+        catch (e) { return iso; }
+      }
+
+      function readText(c) {
+        const abs = Math.abs(c.gapBps);
+        const dir = c.gapBps > 0 ? "rich (above its index)" : "cheap (below its index)";
+        if (c.verdict) {
+          const lead = c.verdict.fadeable
+            ? `${c.name}'s ${abs} bps gap looks like <b>fadeable noise</b>.`
+            : `${c.name} — GapGuard is <b>standing aside</b> on this ${abs} bps gap.`;
+          return c.verdict.rationale ? `${lead} <em>${esc(c.verdict.rationale)}</em>` : lead;
+        }
+        if (abs < NB()) {
+          return `${c.name} is within <b>${abs} bps</b> of its index — <b>near fair value</b>. Nothing to act on; small, newsless drift like this is usually just noise.`;
+        }
+        const newsClause = c.news
+          ? ` There's recent news on it, so it could be a real catalyst — the AI gate weighs exactly this.`
+          : ` No fresh company news turned up.`;
+        return `${c.name} has a <b>${abs} bps</b> gap, ${dir}.${newsClause} <em>(AI verdict runs server-side when a gap clears ${NB()} bps.)</em>`;
+      }
+
+      function fitLine(c) {
+        const abs = Math.abs(c.gapBps);
+        if (c.verdict && !c.verdict.fadeable) {
+          return `<b>Your rules:</b> GapGuard says stand aside — nothing to size.`;
+        }
+        if (!c.verdict && abs < NB()) {
+          return `<b>Your rules:</b> nothing to size — no actionable gap right now.`;
+        }
+        if (c.news && rules.news === "strict" && (!c.verdict || !c.verdict.fadeable)) {
+          return `<b>Your rules:</b> you chose to <span class="bad">stand aside on news-driven gaps</span> — GapGuard would sit this out.`;
+        }
+        return `<b>Your rules:</b> up to <b>$${rules.maxPerIdea}</b> per idea — set your exact size on Bitget.`;
+      }
+
+      function gapCard(c) {
+        const abs = Math.abs(c.gapBps);
+        const calm = !c.verdict && abs < NB();
+        const standAside = c.verdict ? !c.verdict.fadeable : (c.news && rules.news === "strict" && abs >= NB());
+        const cls = abs < NB() ? "flat" : c.gapBps > 0 ? "rich" : "cheap";
+        const badge = c.verdict
+          ? (c.verdict.fadeable ? `<div class="verdict fade">${CHECK} Fadeable</div>` : `<div class="verdict aside">${SHIELD} Stand aside</div>`)
+          : "";
+        const ctx = [
+          `last ${c.lastPrice}`, `index ${Number(c.indexPrice).toFixed(2)}`,
+          c.spreadBps != null ? `spread ${c.spreadBps.toFixed(1)} bps` : null,
+          c.quoteVolumeUSDT ? `vol $${Math.round(c.quoteVolumeUSDT / 1e6)}M` : null,
+        ].filter(Boolean).map((x) => `<span class="c">${x}</span>`).join("");
+        const newsHtml = c.news
+          ? `<div class="newsline">Latest on ${c.ticker}: <a href="${c.news.url}" target="_blank" rel="noopener">${esc(c.news.headline)}</a></div>`
+          : "";
+        const action = standAside
+          ? `<div class="gap-action"><span class="hold">${SHIELD} Stand aside — sit this one out</span></div>`
+          : calm
+            ? ""
+            : `<div class="gap-action">
+                 <a href="https://www.bitget.com/spot/${c.symbol}" target="_blank" rel="noopener">Open ${c.ticker} on Bitget →</a>
+                 <button class="copy" data-sym="${c.symbol}" data-t="${c.ticker}" data-bps="${c.gapBps}" type="button">Copy</button>
+               </div>
+               <p class="disc" style="text-align:left">GapGuard won't place this — you will, on your own account.</p>`;
+        return `<div class="gap ${calm ? "calm" : ""}">
+            <div class="gap-top"><span class="gap-name">${c.name} <span>${c.ticker}</span></span><span class="gap-val ${cls}">${c.gapBps >= 0 ? "+" : ""}${c.gapBps} bps</span></div>
+            ${badge}
+            <p class="read">${readText(c)}</p>
+            <div class="ctx">${ctx}</div>
+            ${newsHtml}
+            <div class="fit">${fitLine(c)}</div>
+            ${action}
+          </div>`;
+      }
+
+      function renderLive() {
+        if (!report) return;
+        const calls = (report.calls || []).slice().sort((a, b) => Math.abs(b.gapBps) - Math.abs(a.gapBps));
+        $("liveList").innerHTML = calls.map(gapCard).join("") || '<div class="loading">No tracked markets available.</div>';
+        const maxBps = calls.length ? Math.abs(calls[0].gapBps) : 0;
+        const anyVerdict = calls.some((c) => c.verdict);
+        $("liveFresh").innerHTML = `<span class="live-dot"></span> live · as of ${timeOnly(report.generatedAt)}${report.gated ? " · AI on" : ""}`;
+        if (!anyVerdict && maxBps < NB()) {
+          $("liveList").insertAdjacentHTML("afterbegin",
+            `<div class="fit" style="margin:0 0 12px">Markets are <b>calm right now</b> — every tracked stock is near fair value (largest gap ${maxBps} bps). GapGuard surfaces an AI call here the moment a real gap opens${report.gated ? "" : " (live AI verdicts switch on once the model key is set)"}.</div>`);
+        }
+        document.querySelectorAll(".gap-action .copy").forEach((b) =>
+          b.addEventListener("click", () => {
+            navigator.clipboard?.writeText(
+              `GapGuard — ${b.dataset.t}: off-hours gap ${Number(b.dataset.bps) >= 0 ? "+" : ""}${b.dataset.bps} bps. Up to $${rules.maxPerIdea} per your rules. Set direction + size on your own exchange. Not financial advice.`,
+            );
+            b.textContent = "Copied";
+            setTimeout(() => (b.textContent = "Copy"), 1400);
+          }),
+        );
+      }
+
+      /* ---------- recorded AI track record ---------- */
+      function renderTrack(verdicts) {
+        $("trList").innerHTML = verdicts.slice().reverse().slice(0, 8).map((v) => {
+          const fade = v.fadeable;
+          const label = fade ? "FADEABLE" : "STAND ASIDE";
+          const oCls = v.returnPct >= 0 ? "ok" : "bad";
+          const outcome = !fade && v.returnPct < 0
+            ? `avoided ${Number(v.returnPct).toFixed(2)}%`
+            : `${v.returnPct >= 0 ? "+" : ""}${Number(v.returnPct).toFixed(2)}%`;
+          const star = v.date === "2026-06-09" ? " ★" : "";
+          return `<div class="r">
+            <span class="d">${v.date}${star}</span>
+            <span class="v ${fade ? "fade" : "aside"}">${label}</span>
+            <span class="t">AAPL · ${v.correct ? "called it right" : "missed"}</span>
+            <span class="o ${oCls}">${outcome}</span>
+          </div>`;
+        }).join("");
+      }
+
+      /* ---------- boot ---------- */
+      renderRules();
+      Promise.all([
+        fetch("live-calls.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+        fetch("gate-verdicts.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      ]).then(([lc, g]) => {
+        report = lc;
+        if (report && Array.isArray(report.calls)) renderLive();
+        else $("liveList").innerHTML = '<div class="loading">Live market unavailable right now.</div>';
+        if (g && Array.isArray(g.verdicts)) {
+          renderTrack(g.verdicts);
+          $("trFresh").textContent = `recorded · ${g.asset || "AAPL"}`;
+        } else {
+          $("trList").innerHTML = '<div class="loading">Track record unavailable.</div>';
+        }
+      });
+    </script>
+  </body>
+</html>
