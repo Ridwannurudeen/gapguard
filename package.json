@@ -42,7 +42,8 @@
     "backtest:multi": "tsx src/multiBacktest.ts",
     "backtest:fetch:rwa": "node scripts/fetch-rwa-sample.mjs",
     "backtest:fetch": "node scripts/fetch-aaplusdt.mjs",
-    "news:fetch": "node scripts/fetch-news.mjs"
+    "news:fetch": "node scripts/fetch-news.mjs",
+    "news:bundle": "esbuild scripts/newsRefreshEntry.ts --bundle --platform=node --format=esm --outfile=dist/news-refresh.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",
