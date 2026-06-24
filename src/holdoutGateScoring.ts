@@ -7,7 +7,7 @@ import {
   type ChatFn,
   type GateContext,
 } from "./convergenceGate";
-import { qwenChat } from "./qwen";
+import { qwenChat, qwenConfigFromEnv, qwenModelForRole } from "./qwen";
 import {
   buildHoldoutCandidates,
   type HoldoutCandidate,
@@ -126,12 +126,15 @@ export function loadHoldoutNews(path: string): Map<string, string> {
 }
 
 export async function runScoreHoldoutCli(): Promise<void> {
-  const apiKey = process.env.BITGET_QWEN_API_KEY;
+  const qwenConfig = qwenConfigFromEnv();
+  const apiKey = qwenConfig.apiKey;
   if (!apiKey) {
     throw new Error(
       "BITGET_QWEN_API_KEY is required to score the holdout with live Qwen",
     );
   }
+  const modelRole = "deep";
+  const model = qwenModelForRole({ ...qwenConfig, modelRole });
   const positional = process.argv
     .slice(2)
     .filter((arg) => !arg.startsWith("--"));
@@ -170,7 +173,13 @@ export async function runScoreHoldoutCli(): Promise<void> {
   );
 
   const chat: ChatFn = (messages) =>
-    qwenChat(messages, { apiKey, retries: 3, timeoutMs: 60_000 });
+    qwenChat(messages, {
+      ...qwenConfig,
+      apiKey,
+      modelRole,
+      retries: 3,
+      timeoutMs: 60_000,
+    });
   console.log(
     `scoring ${todo.length}/${holdout.length} holdout candidates (resume kept ${goodByKey.size}) with live Qwen + macro catalyst bundle...`,
   );
@@ -198,7 +207,7 @@ export async function runScoreHoldoutCli(): Promise<void> {
   const symbols = [...new Set(holdout.map((candidate) => candidate.symbol))];
   const cache: HoldoutGateCache = {
     generatedAt: new Date().toISOString(),
-    model: "qwen3.6-plus",
+    model,
     symbols,
     newsSource: news.size
       ? newsPath.replaceAll("\\", "/")
