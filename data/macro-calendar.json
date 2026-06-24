@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "source": "committed macro calendar fallback for blinded historical and no-key operational runs",
+  "events": [
+    {
+      "id": "macro-2026-06-05-jobs",
+      "date": "2026-06-05",
+      "timestamp": "2026-06-05T12:30:00.000Z",
+      "event": "US employment report",
+      "country": "US",
+      "text": "US employment report is scheduled before the US equity open; treat same-morning cross-asset moves as macro repricing risk.",
+      "actual": null,
+      "estimate": null,
+      "prior": null
+    },
+    {
+      "id": "macro-2026-06-18-fomc",
+      "date": "2026-06-18",
+      "timestamp": "2026-06-17T18:00:00.000Z",
+      "event": "FOMC decision digestion",
+      "country": "US",
+      "text": "Prior-session FOMC decision and press-conference digestion can drive broad overnight equity repricing into this open.",
+      "actual": null,
+      "estimate": null,
+      "prior": null
+    }
+  ]
+}

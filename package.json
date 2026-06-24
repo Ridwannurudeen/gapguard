@@ -26,6 +26,7 @@
     "gate:audit": "tsx src/gateAudit.ts",
     "gate:holdout": "tsx src/gateHoldoutReport.ts",
     "holdout:news": "tsx src/fetchHoldoutNews.ts",
+    "news:feed": "tsx src/fetchNewsFeed.ts",
     "holdout:score": "tsx src/holdoutGateScoring.ts",
     "operator": "tsx src/operatorConsole.ts",
     "arena:demo": "tsx src/arena-demo.ts",

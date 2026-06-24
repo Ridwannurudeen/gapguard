@@ -1,0 +1,890 @@
+{
+  "generatedAt": "2026-06-24T14:24:31.005Z",
+  "sources": [
+    "Finnhub /company-news?symbol=AAPL&from=2026-06-21&to=2026-06-24",
+    "Finnhub /company-news?symbol=NVDA&from=2026-06-21&to=2026-06-24",
+    "Finnhub /company-news?symbol=TSLA&from=2026-06-21&to=2026-06-24",
+    "Finnhub /company-news?symbol=MSFT&from=2026-06-21&to=2026-06-24",
+    "Finnhub /news?category=general",
+    "scheduled calendar (committed)"
+  ],
+  "notes": [
+    "Macro & Policy is filtered from Finnhub general market news by Fed, rates, inflation, jobs, tariff, election, regulatory, sanctions, and geopolitics keywords; it is not a curated political desk.",
+    "Finnhub economic calendar returned HTTP 403; using scheduled calendar (committed)."
+  ],
+  "dropped": {
+    "stock": 763,
+    "macroPolicy": 0,
+    "indexCrossAsset": 0,
+    "economicCalendar": 0
+  },
+  "categories": {
+    "stock": [
+      {
+        "id": "stock-945fec312ac81aab",
+        "headline": "Alphabet Stock in Focus as Google Parent Joins Dow, Replacing Verizon",
+        "summary": "Alphabet Lands Coveted Dow Slot, Replacing Verizon on June 29",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=4ad45eb5519bd937aee67c02b0e0032555e909f69e972d96edc367aed1fa9bbf",
+        "ts": "2026-06-24T13:54:44.000Z",
+        "symbols": [
+          "AAPL"
+        ]
+      },
+      {
+        "id": "stock-8d6db0993f278f4c",
+        "headline": "The Crowd Is Dumping Joby Aviation. Here's Why I'd Be Buying It Down 30%.",
+        "summary": "Joby Aviation is making regulatory headway. Should you buy the dip on this eVTOL developer?",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=2631baa2ede812624c682f5dd8e6af5f50bf8047959e8fc0fcb70086ed9cfdb0",
+        "ts": "2026-06-24T13:53:00.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-71047e4f194fc1ed",
+        "headline": "SpaceX vs Rocket Lab: What's the Better Buy Right Now?",
+        "summary": "These stocks are risky and unprofitable, but they also possess some compelling growth potential.",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=62c759434ba06b543ad85bb9a30db84444a02d4a0069817fc530dca1f24a385d",
+        "ts": "2026-06-24T13:50:00.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-3a3f74dd52d81b9e",
+        "headline": "Engram raises $98M to cut enterprise AI token costs",
+        "summary": "The 13-person company says its models can match frontier AI performance while using up to 100 times fewer tokens",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=9d567077bdf3daac13eb0d9cb5b137931b7909c08d3996dc3256fadd9b4868ef",
+        "ts": "2026-06-24T13:48:59.000Z",
+        "symbols": [
+          "MSFT"
+        ]
+      },
+      {
+        "id": "stock-138552423ce571de",
+        "headline": "Amazon (AMZN) BofA Sees Q2 Revenue Beat Despite Prime Day Timing Shift",
+        "summary": "Amazon (NASDAQ:AMZN) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. Despite shifts in Prime day expected to weigh on Q3 comparisons, one analyst firm expects Amazon to deliver a revenue beat in Q2. On June 18, BofA Securities analyst Justin Post reiterated a Buy rating on the stock with […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=0be4cd3d737473d2fe259ab9569f0bbdba0e58bac60c5fb7fb1b445b2f6013c6",
+        "ts": "2026-06-24T13:48:30.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-96c0d84e3b146b08",
+        "headline": "Microsoft (MSFT) Project Kilby Agreement Highlights Data Center Power Demand, Stifel Says",
+        "summary": "Microsoft Corporation (NASDAQ:MSFT) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 23, Stifel analyst Brad Reback reiterated a Hold rating on the stock with a $415.00 price target. The rating affirmation follows Microsoft’s recent announcement of a 20-year power agreement with Chevron, Project Kilby. While this long […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=7118cf62dbd50c442602b88938c6cd7ab8621aecb80cc7ba0f837d673cf2bf09",
+        "ts": "2026-06-24T13:48:22.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-1250d13249304e9d",
+        "headline": "NVIDIA (NVDA) Remains a Must-Own for Bernstein Despite Tech Sell-Off",
+        "summary": "NVIDIA Corporation (NASDAQ:NVDA) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 23, Bernstein reiterates Nvidia and Broadcom as outperform Bernstein says both stocks are a must-own. Own both NVDA and AVGO. We get the desire to play the bottlenecks instead, but they won’t ultimately work if these […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=51dcca0e8ba804c9f7f168fe2812928add1c6895dc55b0a31f8a3718656f0fe2",
+        "ts": "2026-06-24T13:48:15.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-e9fef4147d537f97",
+        "headline": "Alphabet (GOOGL) Keeps Market Outperform Rating as Citizens Flags AI Talent Retention Risk",
+        "summary": "Alphabet Inc. (NASDAQ:GOOGL) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. One of the leading AI stocks analysts are watching, analysts at Citizens have recently flagged Alphabet over renewed concerns related to the company’s ability to retain top AI talent. On June 22, Citizens analyst Andrew Boone reiterated a […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=b18db8eccfcd0764f7e406a0ce8a79757e33abbed8b1bbdc6b7a85bf5cf9369e",
+        "ts": "2026-06-24T13:48:08.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-0642249041b76e20",
+        "headline": "Apple (AAPL) BofA Stays Bullish as Price Increases Could Offset Higher Memory Costs",
+        "summary": "Apple (NASDAQ:AAPL) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. Recently, CEO Tim Cook confirmed that Apple Inc. is raising prices to offset rising memory costs. In response, on June 18, BofA Securities analyst Wamsi Mohan reiterated a Buy rating on the stock with a $380.00 price target. The […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=b322687173b8ec5ac36bbc6295241b1114bd097a51c3208111c767338e6e2451",
+        "ts": "2026-06-24T13:48:00.000Z",
+        "symbols": [
+          "AAPL"
+        ]
+      },
+      {
+        "id": "stock-e753adf2112ea4da",
+        "headline": "Cathie Wood Loads Up On Palantir, Cerebras, These Mag 7 Players",
+        "summary": "Cathie Wood and ARK Invest on Tuesday purchased $49 million of Amazon, Tesla, Alphabet, Palantir, CoreWeave and Cerebras.",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=a5087e9325add30d1a3f8b158d2875d4c6f65bdbc64a0258d48babd634731265",
+        "ts": "2026-06-24T13:47:51.000Z",
+        "symbols": [
+          "TSLA"
+        ]
+      },
+      {
+        "id": "stock-5f45fa609845a921",
+        "headline": "Micron Technology (MU) Higher Target Reflects Multi-Year Demand Visibility, Needham Says",
+        "summary": "Micron Technology, Inc. (NASDAQ:MU) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. With memory markets continuing to improve over the past three months, Wall Street is becoming more bullish on Micron Technology. On June 22, Needham analyst N. Quinn Bolton raised the price target on the stock to $1,550.00 […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=ea9ec0114d189289c2ad859ea45e8fb2e5c971102cbf98d3b22f1c7385ac376e",
+        "ts": "2026-06-24T13:47:47.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-e417db36bb90ee35",
+        "headline": "Tesla (TSLA) Seen Trading More Like a SpaceX Proxy as Merger Talk Grows",
+        "summary": "Tesla, Inc. (NASDAQ:TSLA) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 22, Jefferies reiterated the stock as hold and raised its price target to $375 per share from $350. The firm has cautioned that Tesla may begin trading more like a SpaceX proxy as merger speculation builds. […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=1cbef965d7ff9b6e74366ee655c2f169b5e5ab6b812c1e6ba5b5bb10a7dd7dbb",
+        "ts": "2026-06-24T13:47:32.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-991d967f6ebe680f",
+        "headline": "Intel (INTC) Advanced Packaging Could Support AI Data Center Growth, Mizuho Says",
+        "summary": "Intel (NASDAQ:INTC) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. Intel Corporation may benefit from tailwinds coming from advanced packaging technologies, which has led one firm to raise estimates and its price target for the stock. On June 22, Mizuho analyst Siti Panigrahi raised the price target on the […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=b2c53c17adffe159be5f46f4761a7edfa49c3cff87e787a9a961a4432c16fc34",
+        "ts": "2026-06-24T13:47:19.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-439d54a030871c30",
+        "headline": "Salesforce (CRM) Gets Buy Upgrade as AI Concerns Create Compelling Entry Point",
+        "summary": "Salesforce, Inc. (NYSE:CRM) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. One AI stock Wall Street is bullish on based on its depressed valuation, attractive margin profile, and robust cash flow is Salesforce, Inc. (NYSE:CRM). On June 18, Monness, Crespi, Hardt analyst Brian White upgraded the stock to “Buy” […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=5d67ebb0c1685784dbf74f9a7b9e58c1b62d39913c199210253d561a9850bc74",
+        "ts": "2026-06-24T13:47:10.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-e5fa66332f6db9d2",
+        "headline": "Constellation Energy (CEG) Seen as High-Quality Power Demand Play, but Goldman Flags Valuation",
+        "summary": "Constellation Energy Corporation (NASDAQ:CEG) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. While Constellation is a high-quality beneficiary of rising power demand, one investment firm believes much of the opportunity is already reflected in the stock’s valuation. On June 18, Goldman Sachs initiated coverage on the stock with a […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=03c711da013b1936e76b0a8cbdce8ded565e7f357392644ea6d464d2f65ea19b",
+        "ts": "2026-06-24T13:47:02.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-7bd1752db44b04fd",
+        "headline": "Credo Technology (CRDO) Starts With Outperform Rating as Optical AI Connectivity Opportunity Expands",
+        "summary": "Credo Tech (NASDAQ:CRDO) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 22, Evercore ISI analyst Mark Lipacis initiates coverage on Credo Tech (NASDAQ:CRDO) with an Outperform rating and a $325 price target. Analysts at the firm believe that Credo could increasingly benefit from growth in optical connectivity. […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=bb2fab41ba794e2abfa2b33d2c7492fa98248d62ccd84c679eb3fc6deca65779",
+        "ts": "2026-06-24T13:46:55.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-035da12137ca8133",
+        "headline": "International Business Machines (IBM) Upgraded by JPMorgan as Software Growth Boosts Outlook",
+        "summary": "International Business Machines Corporation (NYSE:IBM) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 23, JPMorgan upgraded International Business Machines Corporation (NYSE:IBM) to Overweight from neutral and hiked its price target to $291 from $270. The firm said it sees “software acceleration” for the stock and that there […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=6c510352edda261017718f6ab659893330e5e2d32b9221839a5730504b73fc11",
+        "ts": "2026-06-24T13:46:47.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-ae75f9f1cafddfc4",
+        "headline": "Enphase Energy (ENPH) Gains Upgrade as Solid-State Transformers Open AI Data Center Opportunity",
+        "summary": "Enphase Energy (NASDAQ:ENPH) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. The data center power market holds significant opportunity, and Enphase Energy is one name that could benefit from it. On June 18, Barclays analyst Christine Cho upgraded the stock from Underweight to Equal weight with a price target […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=c72d3f2d3856d080ce4a759c1c8ee7b80abcd1511d2f873f046cacf2ab49b54d",
+        "ts": "2026-06-24T13:46:38.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-302f12662ee09840",
+        "headline": "NICE (NICE) Upgraded to Buy by DA Davidson as AI Disruption Fears Ease",
+        "summary": "NICE Systems Ltd (NASDAQ:NICE) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 18, DA Davidson analyst Clark Wright upgraded NICE Systems Ltd (NASDAQ:NICE) to Buy from Neutral on Thursday, maintaining its price target of $110. The firm believes that investor concerns related to AI disruptions in the […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=6dec7d204135879fa75831f96bc8de4ec566ca0cbab796c6194da398cbe0d106",
+        "ts": "2026-06-24T13:46:32.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-41602406c6e11495",
+        "headline": "SpaceX (SPCX) Lands Reflection AI Deal While KeyBanc Flags Starship Risks",
+        "summary": "SpaceX (NASDAQ:SPCX) is one of the 15 AI Stocks Analysts Are Watching: Microsoft, Nvidia, and More. On June 22, KeyBanc initiated the stock as Sector Weight; noting that it is fairly valued and that it doesn’t see a clear reason to buy or sell the stock at current levels. SPCX possesses significant disruptive growth avenues, […]",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=db99314f9ad2ebf0a06dc9a92a3647b8c997fcc251cdbd1bec4406486ea7d9ce",
+        "ts": "2026-06-24T13:46:24.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-20b1878b62e14a85",
+        "headline": "Micron Faces Its AI Earnings Test",
+        "summary": "The memory-chip maker has outperformed major chip peers ahead of results.",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=15c2ed1f383d0018b6ecbb74953aa42191f61975dac82ea6dccf3cd9c65e130e",
+        "ts": "2026-06-24T13:45:02.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-8cd4f76077e9b7e4",
+        "headline": "Does the Tech Stock Frenzy Make You Nervous? Here Are 3 Steady, High-Yield Dividend Pipeline Stocks to Invest In Instead.",
+        "summary": "These three pipeline stocks look like great buys.",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=dbc962752b0b8ba45052400417cc34ca0c95b98ddf0267a024566960792bac3c",
+        "ts": "2026-06-24T13:35:00.000Z",
+        "symbols": [
+          "NVDA"
+        ]
+      },
+      {
+        "id": "stock-9bffacacc68dc8a2",
+        "headline": "Ladybug Resource Group, Inc.'s Jingdiao Division Deepens Strategic Alliance With Global Integration Giant Mino to Power Next-Gen EV Production Lines",
+        "summary": "TULSA, OK - June 24, 2026 (NEWMEDIAWIRE) - Ladybug Resource Group, Inc. (\"Ladybug\" or the \"Company\") (OTC ID: LBRG) today announced the continued expansion of its strategic collaboration between its Jingdiao manufacturing division and Mino, a globall...",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=f3570f2beb5614ef1d01174d1f0cdc47179f55526a7e2295413cacdf022ee0ea",
+        "ts": "2026-06-24T13:25:00.000Z",
+        "symbols": [
+          "TSLA"
+        ]
+      },
+      {
+        "id": "stock-2f05c58dfcd9e48e",
+        "headline": "Cloudflare (NET) Launches Browser Push To Sort Human And AI Traffic",
+        "summary": "Cloudflare announced a new initiative with Mozilla, Google, and Microsoft to standardize privacy-preserving protocols for distinguishing human and AI-generated traffic. The collaboration centers on a proposed Private Access Control Tokens (PACT) standard that aims to verify traffic without exposing personal data. The effort is positioned as an industry-wide response to rising AI-driven and automated bot activity acro",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=d2322775062e7edc802fab4ff87848fc8977ff5ee7172e2c9ea4392f761a3b67",
+        "ts": "2026-06-24T13:14:56.000Z",
+        "symbols": [
+          "MSFT"
+        ]
+      },
+      {
+        "id": "stock-fec79ce820452950",
+        "headline": "L8P8, Inc., Introduces Loop8ID, an Age Verification Solution to Support Online Child Safety Laws Without Collecting Personal Data",
+        "summary": "L8P8, Inc., the privacy-first identity company and creator of the Loop8 passwordless Privacy Controller, today announced the launch of Loop8ID Age Shield. This groundbreaking age verification platform enables companies to navigate the complex landscape of evolving U.S. state-level child safety laws, ensuring strict compliance without the need to collect or store personal identity information.",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=dfcd555a6a8b4a74087dc47d58fe02791bc976f11cc80683424254bd2a3452c1",
+        "ts": "2026-06-24T13:08:00.000Z",
+        "symbols": [
+          "AAPL"
+        ]
+      },
+      {
+        "id": "stock-f757d33d42f0ed4e",
+        "headline": "Elon Musk rips the US system of taxing what you earn, buy, and own. Do this now to keep more of your cash",
+        "summary": "Making the most of your margins is only the first step.",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=950a23e6c143f9c7b6194ed8c64c1085849db02bc5e2dff5c4e87d51a71496c3",
+        "ts": "2026-06-24T13:05:00.000Z",
+        "symbols": [
+          "TSLA"
+        ]
+      },
+      {
+        "id": "stock-d02f4a9069e46df4",
+        "headline": "Microsoft's New AI in Education Report highlights widespread adoption and increasing demand for support",
+        "summary": "Microsoft Corp. on Wednesday unveiled the third edition of its annual AI in Education Report1 that reveals both the momentum behind AI adoption in education and the opportunity ahead: helping schools move from interest and experimentation to meaningful, responsible implementation. Microsoft also announced today a new wave of AI-powered teaching and learning experiences, available at no-additional cost ahead of ISTELi",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=a079c32718b9798e58b6c5320ca24d31e0e40b3ec7fcc291c7e2358cc10aa61c",
+        "ts": "2026-06-24T13:00:00.000Z",
+        "symbols": [
+          "MSFT"
+        ]
+      },
+      {
+        "id": "stock-6f85482e07894e84",
+        "headline": "Sunrun Surges After Forming Data Centre Energy Alliance With Tesla and Renew Home (RUN)",
+        "summary": "Sunrun (NASDAQ:RUN) shares jumped 16% on Wednesday after the residential solar company announced a partnership with Renew Home and Tesla (NASDAQ:TSLA) aimed at supplying more than 16 gigawatts of flexible energy capacity to hyperscale data centre operators and utility companies. The initiative is designed to help address rapidly growing electricity demand driven by artificial intelligence and large-scale data centre ",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=08e66bf5280df32be24ca02a15c16aa11e5bdcdedd088aba35be23c77e0b9742",
+        "ts": "2026-06-24T12:48:56.000Z",
+        "symbols": [
+          "TSLA"
+        ]
+      },
+      {
+        "id": "stock-dcd376e7b3bdfa79",
+        "headline": "How Does Microsoft Turn Cloud Dominance Into $223B For Shareholders?",
+        "summary": "In the last five years, Microsoft (MSFT) stock has returned a massive $223 Bil back to its shareholders through cold, hard cash via dividends and buybacks. This impressive capacity to return capital is rooted in Microsoft’s evolution into a high-margin powerhouse, driven primarily by its dominance in cloud computing and enterprise software. The company’s ability to generate such significant \"payout power\" is fueled b",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=45ea761cd037bae610b0c092577cde9e382a0f624a0758a76b6eb388a0a45c3f",
+        "ts": "2026-06-24T12:46:05.000Z",
+        "symbols": [
+          "AAPL"
+        ]
+      },
+      {
+        "id": "stock-7ab85903ce5bc472",
+        "headline": "Alphabet Is In. Verizon Is Out.",
+        "summary": "Alphabet replaces Verizon in the Dow Jones Industrial Average",
+        "source": "Yahoo",
+        "url": "https://finnhub.io/api/news?id=a9b852c3f44177ec88615c3965d07b499f67e5aaeb4b734c1b8b164e4d9ee230",
+        "ts": "2026-06-24T12:39:47.000Z",
+        "symbols": [
+          "AAPL"
+        ]
+      }
+    ],
+    "macroPolicy": [
+      {
+        "id": "macroPolicy-89e24b72b8e15950",
+        "headline": "Qualcomm inks deal for AI startup Modular to bolster software stack, data center buildout",
+        "summary": "Qualcomm is looking to expand its position in the data center market as AI demand skyrockets.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/24/qualcomm-ai-chip-modular-software.html",
+        "ts": "2026-06-24T13:29:23.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-8f25fa279e8e8c73",
+        "headline": "Treasury Secretary Bessent says U.S. GDP growth can return to 3% before end of the year",
+        "summary": "Bessent sees his \"3-3-3\" plan as still in reach — 3% growth, a 3% deficit-to-GDP rate, and a 3 million barrels per day increase in oil production.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/24/treasury-secretary-bessent-says-us-gdp-growth-can-return-to-3percent-before-end-of-the-year.html",
+        "ts": "2026-06-24T12:20:52.000Z",
+        "tags": [
+          "rates",
+          "regulatory"
+        ]
+      },
+      {
+        "id": "macroPolicy-4b60a7cf3a53ef54",
+        "headline": "Airlines should still avoid airspace over Iran after framework deal, EU agency warns - Reuters",
+        "summary": "Airlines should still avoid airspace over Iran after framework deal, EU agency warns Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQSzlhYTFUZFlsTXhncS1GM19jblhhazNKQm1lQmRMWG5TWTZIRkQzTFpsZTAtcGZWb0N6MGtmdGt6aklHdWktNURibU9ieFc4YlBaYXBRZlpWRThNZXpnOTlRcWtuRXp6S0c3Um4tOTB6ejB6dUZmZnVpenlvcHdxLXF5ZXlON1h5azg4RnFLaHBhN09hY3NBS0M0dVBBWUphZzM1eURQVFVMeDM1d0VGX3YxSU9VQmpVeXk5THZtNGpua0s2ai0tNllWcw?oc=5",
+        "ts": "2026-06-24T07:09:13.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-737fac8822bf03e3",
+        "headline": "VIX owner Cboe jumps into prediction markets to build on zero-day options growth",
+        "summary": "Global markets operator Cboe has launched its first prediction markets products to meet consumer demand in the fast growing sector.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/24/vix-owner-cboe-jumps-into-prediction-markets-to-build-on-0dte-growth.html",
+        "ts": "2026-06-24T02:07:56.000Z",
+        "tags": [
+          "regulatory"
+        ]
+      },
+      {
+        "id": "macroPolicy-6f897c5e367ccdb1",
+        "headline": "Gold slips to two-week low as Fed rate-hike bets buoy dollar - Reuters",
+        "summary": "Gold slips to two-week low as Fed rate-hike bets buoy dollar Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNam5nVUZmdHE5YjRyUlF3YURJUnJBLUx1SDV6eEZrdXJYSGpneWFfWjRWT0ZIZmpyeTVGSEw0aFJQNFpnNG1pTDlld2F0UmRSbGRjLWpqNGk0VW9qcGdqeERPMENjNWNaSjZjNV8zZHVLZHVQWTI4RDV0UnNLeWhJVER3V1BLWjZzeXNoZjZxbUY3VU16N0dlTVhudDJMdw?oc=5",
+        "ts": "2026-06-24T01:23:00.000Z",
+        "tags": [
+          "fed",
+          "rates"
+        ]
+      },
+      {
+        "id": "macroPolicy-b5905701622cc6fe",
+        "headline": "Brent hits lowest since before start of Iran war on expectations of smoother oil flows via Hormuz - Reuters",
+        "summary": "Brent hits lowest since before start of Iran war on expectations of smoother oil flows via Hormuz Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNSjlBc1JxN0hPX3MwaDU1UDMyeEE1SG1tRS1ma1FpSENKVVdpVzY3eUNoeUJvdGtVVDZtRm84UG1jTjBwV0s0RTExRHZCczB3TnBYN05CSlJueGNLSU1zeUstS0U0NTBBa0NhUU00VE0wQWFWU0ZfWGtiT2tfeVBpdWV1NmZ3UlBvTmxwRXU3WlVPNGdDU3VWNXJMOWJfNWM1ZEtyNS1YV3JlY2xEeTZmczZsRmdrd1AzMVhZTEFVdw?oc=5",
+        "ts": "2026-06-24T01:17:00.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-848afe0e65a46293",
+        "headline": "US Senate joins House in voting to halt Iran war, rebuking Trump - Reuters",
+        "summary": "US Senate joins House in voting to halt Iran war, rebuking Trump Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQNmhxUVNibG82ZUN6NG5vUGVEb3c3X3ExNXJKYjFwYzZCYi03ZGFjX2JNZ1VyNzRzSzF5U3V4LVhIUGM4U0lrZzY4SmhBeGZuVHlqLWxsQ3hPRk5aYVZtT2ZPUk84LUl2LWw1WEl5ai1OS3ZFcGlKTmpEZmVPeG5rT1QwOFVoY25iS2NXRjBPTnQtNnBxYkNpQXFVT1hKTEJYbGJpSg?oc=5",
+        "ts": "2026-06-23T22:54:00.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-e6590f128d4e7862",
+        "headline": "US Senate votes to halt Iran war in latest rebuke of Trump - Reuters",
+        "summary": "US Senate votes to halt Iran war in latest rebuke of Trump Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPbTRaMVd3TU94enBqRXpUc0tCNzVEQ2dQaHlnN0oyMm9sak5aTFNybDQtTkJBU25xYlVSV2ZBR2Jwal9WNE5HQWh1N3A3UGpCNlZkUEo0SVoyaThBVmZmamtaaThxT3dBYl9iUE9JU2xNQUhWN2hSUVltdXZJYThsUEVtcnQzV3c4cGZSSlBGQndRdw?oc=5",
+        "ts": "2026-06-23T21:34:09.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-503db560df8050c7",
+        "headline": "CFTC sues Kentucky over actions against prediction markets, making it first red state to face federal scrutiny",
+        "summary": "The commission has now sued nine states in total in its battle to defend what it sees as its exclusive right to regulate event contracts.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/23/cftc-sues-kentucky-over-actions-against-prediction-markets.html",
+        "ts": "2026-06-23T20:55:45.000Z",
+        "tags": [
+          "fed"
+        ]
+      },
+      {
+        "id": "macroPolicy-55a84a7057d64623",
+        "headline": "Few in US say Iran war was worth it; Trump approval ties lowest of term, Reuters/Ipsos poll finds - Reuters",
+        "summary": "Few in US say Iran war was worth it; Trump approval ties lowest of term, Reuters/Ipsos poll finds Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNVWJLQVNrUDByX0d0MGo0ZEVtSzJRTTlsSjBYMUp3Wk5VZkYyeVVHYlJMQUtLZ01sV2c5cFNacnRUTHB3eFI0cGI5ZW44UG9fUW5hZVZkdE10XzkxRWp5d3dvRlBFNDJVeXE4Z3V5UW9GY0lPWWxLRG1famNNR0xTeVJMWnJRVTU0dHVwSkJkVV9tejBES0lPdkFMdzljblE0ak5VcW1kS0RSY3lycVczVmQzSnVRMnBFVGpQd2tRR25sOFlKRnRrdUhwMA?oc=5",
+        "ts": "2026-06-23T17:48:00.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-0e556f3278a5777b",
+        "headline": "Can Pakistan's peacekeeping role in Iran war give it an economic dividend? - Reuters",
+        "summary": "Can Pakistan's peacekeeping role in Iran war give it an economic dividend? Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPNWxoaHRXckdsdzBlTkJRYkJ2YnlqWU1LNVhKVW40ank0eVhLZmN5bFNJejVrcmtyU1NUZG9IZ3N6Sk1TTVdEU2g4c1hpeHgtaTZ5c1p5NERfRU8zMF9RdnlYQk1GUWlOU2szMHh0b2ZEb092akQ0NmxmSXN1VGViQ0E0aHFRanJTeHlILVFfMG16eGNpYjRmeXFDNGFhY1JtUmsycVdyWjlXVWJ3T2g2a3VsclRvQkFyelAzci10WWo1dw?oc=5",
+        "ts": "2026-06-23T17:22:26.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-0e1a949363198bef",
+        "headline": "Major Gulf bourses ease on investor caution, Fed rate-hike bets - Reuters",
+        "summary": "Major Gulf bourses ease on investor caution, Fed rate-hike bets Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOd3B2Wkxrb2pIRFhxNXNmaThxOFhxcm1EMnhINzRBY2RyU1F4SU9oRnZNWHR4TTRUTlJvWk9RV2JDc1A4Y1dGaHlYbVdFRFdfV0dXRkFRd1llWWRyY05LS3NBdXJhZ01rYXpaODV3SGV5dWhRaWZSSzRrTUFZSGNXQUJ6WS1kUklSRW9FUDlyN01xWHQycXVjWkxlblZSTEJfM1E?oc=5",
+        "ts": "2026-06-23T13:12:47.000Z",
+        "tags": [
+          "fed",
+          "rates"
+        ]
+      },
+      {
+        "id": "macroPolicy-ec6c36868ed99376",
+        "headline": "Nikhil Kamath sees energy transition stocks as key India bet",
+        "summary": "Nikhil Kamath views energy transition stocks as essential investments, while IT sector offers contrarian opportunities amidst market challenges.",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-23/zerodha-s-kamath-sees-energy-transition-stocks-as-key-india-bet",
+        "ts": "2026-06-23T12:12:32.000Z",
+        "tags": [
+          "regulatory"
+        ]
+      },
+      {
+        "id": "macroPolicy-812c4330392f3e2d",
+        "headline": "Trump tests Rust Belt pitch in Pennsylvania amid Iran, inflation pressures - Reuters",
+        "summary": "Trump tests Rust Belt pitch in Pennsylvania amid Iran, inflation pressures Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQOTFQbHY4R0tUM1NTb0ZIY1RsUmtWWjdvOGRtQ2tRd1ZrOHlONG1UREo0ZzNVTkNjS0dhalBIWXg5eC1sSUswT3ZFM0RHcnFKTkdCcUJjRF9yT3c1SHl3SEx3eGdES2JLTWlKRnAxNGsyUEJCQjJDRnRCSlhMRlpCQjNLX3ppSzhVVHhEUXhNNVg3aDdqVlhkaTJFUUVydlJjbkdMczdDWEVpUjVtRkd3bXprTm5BVUY0V04xMHdPNmZRYWREampaMw?oc=5",
+        "ts": "2026-06-23T10:01:00.000Z",
+        "tags": [
+          "inflation"
+        ]
+      },
+      {
+        "id": "macroPolicy-f7fbafde727452bb",
+        "headline": "Getty Images surges 145% after announcing OpenAI deal",
+        "summary": "The company’s shares have been hurt by the artificial intelligence “scare trade,” which has rippled through various corners of the market, from software and IT services firms to so-called “old economy” industries such as logistics",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-22/getty-images-soars-200-in-early-trading-after-openai-deal",
+        "ts": "2026-06-23T05:15:38.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-37335922d74dc202",
+        "headline": "Undoing the 'tangled nest' of Iran sanctions won't be easy or quick - Reuters",
+        "summary": "Undoing the 'tangled nest' of Iran sanctions won't be easy or quick Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPbnh6TlJtOW40cUJya0psc1JjaWQ1UlZMUU1aRWlraTFDajNvSWE3bWdvNTdTQnFYa0drOExiM1VQT1Zhdm5scnR0UW42Unh1b3hUcmpKdVVlTTlrN3dvc0pyc0hkVUY0RzhZTXV3MzBHeXFXVlF5TmkzVWdQQWhBcFNsSmY0TEpiLWQ1NUdMR3dEcktFcUdkUkNSZE42clhRT1g2T3psa1ZCajdCZTNWVw?oc=5",
+        "ts": "2026-06-23T05:12:00.000Z",
+        "tags": [
+          "sanctions"
+        ]
+      },
+      {
+        "id": "macroPolicy-c046aa3aa127c36b",
+        "headline": "US, Iran at odds on nuclear inspections, frozen assets in deal to end war - Reuters",
+        "summary": "US, Iran at odds on nuclear inspections, frozen assets in deal to end war Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNcS1OdmpfbHlfTkxhM2xVM0cwWHVDeWhRUTNiY284YkViREtCTWpoSmRJVGpVdFBVWnpaS1BpZEFHcjd1Y2s0VDZ1Z25oOUQzY1FtQ1ZTOGlKRE1JRm1Ma3k0RUZoN0RCTlBjTV84eUtfZ05Cdk1lSzd3aXV3QkJtVklEa3FIYk92MkUzTW5YMm82Wmd0TmpYMEF5dnBnUmU2M0RKamprTjRJcnd1Z292dE1nM1A0ekFiS1M3YVhGZUQ3T0pQ?oc=5",
+        "ts": "2026-06-23T05:02:00.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-23db9306a3b76ce8",
+        "headline": "India pivots to Russian crude and coal to mitigate Iran war fallout - Reuters",
+        "summary": "India pivots to Russian crude and coal to mitigate Iran war fallout Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQMmg5eThzVGtyeGJTQkhoNVhXOFo2bDBfMEluWUlHaWlBUE9vSi1KcFFySFB5aGg5V3lIT1d3LS1Oa0Q4a09aOTFiRGM2c0FrVmFNVWJRaUJBaU9teGRmYkVKSHRRU2xsRGE1cGpOVHMyUUpVNGRZSEtXRXRNWEJ5X2JLSnp3cDU4OGN5aG5uQzdFRWg3QUMxcjhpNEhYdkhxYVBVNmdzdGgySkhXcXNyYzFoVl8zRURXc2paRVowWUNNUXh0?oc=5",
+        "ts": "2026-06-23T02:50:00.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-894878b5c9729700",
+        "headline": "Gold falls as rate-hike bets boost dollar to one-year high - Reuters",
+        "summary": "Gold falls as rate-hike bets boost dollar to one-year high Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNUVBUOEYtdFRVZ0FwQ2pUYXpSUFQ1YjhZdHh6RjU2ZzV5RzdRUGtjajlLRTBIUDBoYk5ZcXcwNTE5UmZZVnR5aDVHR2MzVG5UUlE5TEVnTGo0VnplM2FuZnk3SnpQNmJ2ZnpSZ1A4RWhVcU5DUnBMUUh3YXFTUkktZGJXV25TSzBOODNaYm93ckJ0NUZDOF9pazlHRQ?oc=5",
+        "ts": "2026-06-23T01:31:00.000Z",
+        "tags": [
+          "rates"
+        ]
+      },
+      {
+        "id": "macroPolicy-171d4b796fa883ce",
+        "headline": "'We'll see' — Trump hedges on guarantee Iran won't use oil profits to rebuild military",
+        "summary": "Treasury Secretary Scott Bessent authorized the import of Iranian oil and refined products into the U.S. through at least August.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/22/trump-iran-war-oil-profits-rebuild-military.html",
+        "ts": "2026-06-22T21:40:28.000Z",
+        "tags": [
+          "rates",
+          "regulatory"
+        ]
+      },
+      {
+        "id": "macroPolicy-b3f5da9428e0ca9b",
+        "headline": "Stocks flat, oil falls as rate worries offset Iran talks optimism - Reuters",
+        "summary": "Stocks flat, oil falls as rate worries offset Iran talks optimism Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOVUJKVXNjdDQ1Qk4wVGUxU0VYY2FROHplR3N5UW0zT0JjZUgyQnN5MDltTHRxVWtwQktOdUdEcXh1YUY3OTNOUnNWMmNoMXNnRmZTNlI4NzFMeHRoR2Zmd1dwTlJSUldqUkVQcXJfVThwYnhSR0tPMnBUbm5jTW8tQTU3cmtmdw?oc=5",
+        "ts": "2026-06-22T20:56:38.000Z",
+        "tags": [
+          "rates"
+        ]
+      },
+      {
+        "id": "macroPolicy-a08f5fa5af556d30",
+        "headline": "Gurman Says Second-Gen iPhone Air, Coming in Early 2027, Will Sport a 0.5× Ultra-Wide Second Camera",
+        "summary": "Gurman Says Second-Gen iPhone Air, Coming in Early 2027, Will Sport a 0.5× Ultra-Wide Second Camera",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-17/apple-prepares-second-generation-iphone-air-for-spring-2027?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc4MTcyNjU5MiwiZXhwIjoxNzgyMzMxMzkyLCJhcnRpY2xlSWQiOiJUR1BINkJLR0NURlEwMCIsImJjb25uZWN0SWQiOiJBMDdGRjZGMzlBOTY0NzREOTNBQkFGRjUyQjBBQTE2NiJ9.25UCFLJjGHnk7gaJKhfIP2uChXC-tJLjKfOyUeY4QqI&leadSource=uverify%20wall",
+        "ts": "2026-06-22T19:36:46.000Z",
+        "tags": [
+          "regulatory"
+        ]
+      },
+      {
+        "id": "macroPolicy-84e7b26ba7c9f14b",
+        "headline": "SpaceX makes bond sale days after record IPO, discloses over $100 billion cash pile",
+        "summary": "SpaceX on Monday unveiled a senior unsecured notes offering and said it held about $100.8 billion in cash.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/22/spacex-spcx-bond-sale-ipo.html",
+        "ts": "2026-06-22T13:27:51.000Z",
+        "tags": [
+          "regulatory"
+        ]
+      },
+      {
+        "id": "macroPolicy-35a865534545c137",
+        "headline": "Iranian Guards' business empire to win big if US sanctions lifted - Reuters",
+        "summary": "Iranian Guards' business empire to win big if US sanctions lifted Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQeTVOWlpubWVJN3A4Rl9Wai1TNWRycWQwS1RrbXJCQndDZXIxaklsWV9idkhkRXI2SmN6cldIelBCNGVJNVNYWXhmUjNzeUx1VWhDbkNTdVJLNmwweUtzNmpobW5DSHNVc1BQM2xTc3plMzBpNVV6akI2X1AtVGkyN1l1Q0VIanZGNkctczJvSFM0WEtTdnZmNFlLdWg2LTVtUUxYTC00aEs0cG5qcERYSXBya1Y4dw?oc=5",
+        "ts": "2026-06-22T07:00:00.000Z",
+        "tags": [
+          "sanctions"
+        ]
+      },
+      {
+        "id": "macroPolicy-a8f63f035ee134e9",
+        "headline": "Iran war triggers global race to build oil reserves - Reuters",
+        "summary": "Iran war triggers global race to build oil reserves Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZ2VKQXhDQ0hnaDQtUUhLb21EZUhxSUVsQnBwUXBQMUMxYzRNWHM3ZkZmUDJubXFQZDBzY3JzTU1fdmtxNTBEN3RzazFRa2FHTWtfNnk1R3F1eVFmWkFyVG1sX3VPejFSNWZoU3NYZUJQZFlTWHZVZlhfd2FLcEJwUXpjVWhXYWJYOEgxZTROMFZQTDhMT3hfaTVyTGZGSHlnRXBkT1hQc0pvR2w4ZC1FdXRfQ1pYak54?oc=5",
+        "ts": "2026-06-22T06:06:29.000Z",
+        "tags": [
+          "geopolitics"
+        ]
+      },
+      {
+        "id": "macroPolicy-2739d574f2f93071",
+        "headline": "Two South Korean-operated vessels passed through Strait of Hormuz after MOU signed - Reuters",
+        "summary": "Two South Korean-operated vessels passed through Strait of Hormuz after MOU signed Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNYnptR25GLUVoNTJ0Zlpva0N6X2s1S3ZhVWRobEpCakdkWmluZ2dtYVltREJqNFZSdkJmcUYwTW9pcnZPeGRFUmdybGdwZ2VzUFJ3bnVYLUhsNVFSa0JZeWpSU3dYZnhTNzNKaThkOEl6ZVhpbGR0cFFNbl9rZDIxdEFDRHlXd2ZOUmU5T3l1NHlQNzNOYVB2TmJCQ0ZjUTVkY2taQlFoZE9USU0wYm9PVFJTVFRzWDg2Wmx3b21SUjNxSHc0Tk44dmE0Mm9VV0U?oc=5",
+        "ts": "2026-06-22T00:48:00.000Z",
+        "tags": [
+          "rates"
+        ]
+      },
+      {
+        "id": "macroPolicy-4f7a363c9c0a2f4f",
+        "headline": "US waives Iran sanctions after talks; Lebanon fighting abates - Reuters",
+        "summary": "US waives Iran sanctions after talks; Lebanon fighting abates Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNZWY0di1pSncycGtYTEtHQm9lQXhCWUxRSnlhMHlKdnJIdzdxYWlCcjdPVF9TeWJ6YXZQYU1oVjh0d1hRajdRaklhYU9CMHROR3VIbnNnSTFSaHJHYk1iNUJmLWhpVWU3VDN0cEE0UVZXTmFFQjYzUFZ1eUNNUFh0MmtDWmxWaUhFTjN0aWxMNGlCQ3Uyb0hBSk1Bd1h5cm9lN0RtOEdZSHdRdUlILVJueXJIQTBoMHMy?oc=5",
+        "ts": "2026-06-22T00:18:00.000Z",
+        "tags": [
+          "sanctions"
+        ]
+      }
+    ],
+    "indexCrossAsset": [
+      {
+        "id": "indexCrossAsset-8f25fa279e8e8c73",
+        "headline": "Treasury Secretary Bessent says U.S. GDP growth can return to 3% before end of the year",
+        "summary": "Bessent sees his \"3-3-3\" plan as still in reach — 3% growth, a 3% deficit-to-GDP rate, and a 3 million barrels per day increase in oil production.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/24/treasury-secretary-bessent-says-us-gdp-growth-can-return-to-3percent-before-end-of-the-year.html",
+        "ts": "2026-06-24T12:20:52.000Z"
+      },
+      {
+        "id": "indexCrossAsset-737fac8822bf03e3",
+        "headline": "VIX owner Cboe jumps into prediction markets to build on zero-day options growth",
+        "summary": "Global markets operator Cboe has launched its first prediction markets products to meet consumer demand in the fast growing sector.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/24/vix-owner-cboe-jumps-into-prediction-markets-to-build-on-0dte-growth.html",
+        "ts": "2026-06-24T02:07:56.000Z"
+      },
+      {
+        "id": "indexCrossAsset-6f897c5e367ccdb1",
+        "headline": "Gold slips to two-week low as Fed rate-hike bets buoy dollar - Reuters",
+        "summary": "Gold slips to two-week low as Fed rate-hike bets buoy dollar Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNam5nVUZmdHE5YjRyUlF3YURJUnJBLUx1SDV6eEZrdXJYSGpneWFfWjRWT0ZIZmpyeTVGSEw0aFJQNFpnNG1pTDlld2F0UmRSbGRjLWpqNGk0VW9qcGdqeERPMENjNWNaSjZjNV8zZHVLZHVQWTI4RDV0UnNLeWhJVER3V1BLWjZzeXNoZjZxbUY3VU16N0dlTVhudDJMdw?oc=5",
+        "ts": "2026-06-24T01:23:00.000Z"
+      },
+      {
+        "id": "indexCrossAsset-b5905701622cc6fe",
+        "headline": "Brent hits lowest since before start of Iran war on expectations of smoother oil flows via Hormuz - Reuters",
+        "summary": "Brent hits lowest since before start of Iran war on expectations of smoother oil flows via Hormuz Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNSjlBc1JxN0hPX3MwaDU1UDMyeEE1SG1tRS1ma1FpSENKVVdpVzY3eUNoeUJvdGtVVDZtRm84UG1jTjBwV0s0RTExRHZCczB3TnBYN05CSlJueGNLSU1zeUstS0U0NTBBa0NhUU00VE0wQWFWU0ZfWGtiT2tfeVBpdWV1NmZ3UlBvTmxwRXU3WlVPNGdDU3VWNXJMOWJfNWM1ZEtyNS1YV3JlY2xEeTZmczZsRmdrd1AzMVhZTEFVdw?oc=5",
+        "ts": "2026-06-24T01:17:00.000Z"
+      },
+      {
+        "id": "indexCrossAsset-9228d46a6e5b0727",
+        "headline": "New Lebanon-Israel talks begin in shadow of US-Iran deal - Reuters",
+        "summary": "New Lebanon-Israel talks begin in shadow of US-Iran deal Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNcmJNcndwcjlhZk9ySnNxNk4xLWZwOUVPTnBuVlBSeTJ5bVVDdkJtbks5amdvSjdYUzRpczBiUG1yWlVLT1FWcWZ4QWtpQmIwWHo3a3B1UVo1RzM5U3BHSzhVcllOUDlFWk5LRHp1aEVyWW5YdVFsNXdqNlZtUmdyU0k1amlRaVFNZ2gydVhBZkIxU0NVQXNDem1IdnVwbDAtRmkwNm1fWQ?oc=5",
+        "ts": "2026-06-23T16:51:14.000Z"
+      },
+      {
+        "id": "indexCrossAsset-977897fbfe6679cd",
+        "headline": "The Club's top 10 things to watch in the stock market Tuesday",
+        "summary": "The Nasdaq is set for a sharply lower open, as the plunge in South Korean stocks bleeds into the U.S.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/23/the-clubs-top-10-things-to-watch-in-the-stock-market-tuesday.html",
+        "ts": "2026-06-23T13:05:30.000Z"
+      },
+      {
+        "id": "indexCrossAsset-ec6c36868ed99376",
+        "headline": "Nikhil Kamath sees energy transition stocks as key India bet",
+        "summary": "Nikhil Kamath views energy transition stocks as essential investments, while IT sector offers contrarian opportunities amidst market challenges.",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-23/zerodha-s-kamath-sees-energy-transition-stocks-as-key-india-bet",
+        "ts": "2026-06-23T12:12:32.000Z"
+      },
+      {
+        "id": "indexCrossAsset-093f80c94afcc9b9",
+        "headline": "Asian refiners see little room for Iranian oil, leaving China as key buyer after US waiver - Reuters",
+        "summary": "Asian refiners see little room for Iranian oil, leaving China as key buyer after US waiver Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPUDBQMXczT0RrZnpKMXNZaTg5ekFvaW5jQ3NnTFFGWkVRZTBuUF9QU3RVTVVyR1h2LUh5SGZpZi1sbjdYMjdhQmpXakZGdmpnUEpBeVllSzFId0dEYWFLYy14WlFfLU9idFdqM0gxWEFWd0hwS1c1M0JzdE1qQVZwZkR4YW5wcEdneUViTDEtY2xSOHQ3eU11NWhUUHRvalBJTEZjNGxQbmNEWU1OWUFKbWQxVVVtOV9DaDNSQU43TDFqTGxXcWc?oc=5",
+        "ts": "2026-06-23T09:35:22.000Z"
+      },
+      {
+        "id": "indexCrossAsset-cbe5c9c09dd058d1",
+        "headline": "PPFAS Mutual Fund makes contrarian bet on IT stocks",
+        "summary": "The Nifty IT index is down over 27% this year, driving a sharp compression in valuations. The gauge trades at 15.7 times 2026 estimated price to earnings, down from 21.2 times a year ago",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-23/india-s-biggest-equity-fund-makes-contrarian-bet-on-it-stocks",
+        "ts": "2026-06-23T03:50:05.000Z"
+      },
+      {
+        "id": "indexCrossAsset-894878b5c9729700",
+        "headline": "Gold falls as rate-hike bets boost dollar to one-year high - Reuters",
+        "summary": "Gold falls as rate-hike bets boost dollar to one-year high Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNUVBUOEYtdFRVZ0FwQ2pUYXpSUFQ1YjhZdHh6RjU2ZzV5RzdRUGtjajlLRTBIUDBoYk5ZcXcwNTE5UmZZVnR5aDVHR2MzVG5UUlE5TEVnTGo0VnplM2FuZnk3SnpQNmJ2ZnpSZ1A4RWhVcU5DUnBMUUh3YXFTUkktZGJXV25TSzBOODNaYm93ckJ0NUZDOF9pazlHRQ?oc=5",
+        "ts": "2026-06-23T01:31:00.000Z"
+      },
+      {
+        "id": "indexCrossAsset-154c20f1bc402dbd",
+        "headline": "Oil prices finish 1% lower as investors focus on Hormuz flows after peace talks - Reuters",
+        "summary": "Oil prices finish 1% lower as investors focus on Hormuz flows after peace talks Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxORGVfZjVpeWcwVGgyVzhLV2tRWk5MS25BWWFual9TakpqRHJIQWtpNjFjVFVVS0U1ckYyOWg0QWJuQm5aLU5xV0ZXQ0dfOExaN0cwQWk5cWZzSXdoUkdybTE4VlZnZjJuS3NrTHM5Q01IUjVwSzNGYUstWmlxZTJpNUNGcll6WEpLR2FoMGVoLXZaVml1QV81QlZ0YXVRdHRKVkxGN24yckhoTUdtbGpqQg?oc=5",
+        "ts": "2026-06-23T00:35:00.000Z"
+      },
+      {
+        "id": "indexCrossAsset-05255b26979c483d",
+        "headline": "S&P 500, Nasdaq close lower, dragged by Alphabet and megacap tech; focus on Iran - Reuters",
+        "summary": "S&P 500, Nasdaq close lower, dragged by Alphabet and megacap tech; focus on Iran Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNTDQxcFBhNUJhWlNpLXhmbHBEcUMxSG00alpWU2t3bGpwWU82RUFLZmVFWklDZWpJSjg0a2dYdm14bkoxN3BYanhxUTMyZGprZ25rVlpCXzNQV3NaQmlUcVMydlp5eEdUQ1FMWU92ckNXWjhzTWt5R3NvNTV0UmFtbkhjTExKRm1hWlNPWThBemtwMExrWm9jcFFac2VHZVpmMmFYRGx1dWc?oc=5",
+        "ts": "2026-06-22T23:31:04.000Z"
+      },
+      {
+        "id": "indexCrossAsset-a8157fb929560896",
+        "headline": "Dollar climbs after US-Iran talks, pound choppy following Starmer exit - Reuters",
+        "summary": "Dollar climbs after US-Iran talks, pound choppy following Starmer exit Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPVjRxZXNFeklzd3pqbW9WcEQ2Z3AydlJET29VdmV3TUpqaWN2ZjRCaXp5WmpSN0RCcjlPQXl1SkktazBHOGRoSzVOMHI4ZmtlcmFQU3p2akRncGZ6cDl0MllKOFJIZ3VGMzA0anp2YmFNX0RqZ3FuTVN5cmtkQ3FTdW16VDl5eUFZTUVzZFpDRmltX1hoWFhvbzNYbHdYeUZyUFU2S1ZvSEpMYS01OS13NXlhcw?oc=5",
+        "ts": "2026-06-22T22:56:15.000Z"
+      },
+      {
+        "id": "indexCrossAsset-171d4b796fa883ce",
+        "headline": "'We'll see' — Trump hedges on guarantee Iran won't use oil profits to rebuild military",
+        "summary": "Treasury Secretary Scott Bessent authorized the import of Iranian oil and refined products into the U.S. through at least August.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/22/trump-iran-war-oil-profits-rebuild-military.html",
+        "ts": "2026-06-22T21:40:28.000Z"
+      },
+      {
+        "id": "indexCrossAsset-b3f5da9428e0ca9b",
+        "headline": "Stocks flat, oil falls as rate worries offset Iran talks optimism - Reuters",
+        "summary": "Stocks flat, oil falls as rate worries offset Iran talks optimism Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOVUJKVXNjdDQ1Qk4wVGUxU0VYY2FROHplR3N5UW0zT0JjZUgyQnN5MDltTHRxVWtwQktOdUdEcXh1YUY3OTNOUnNWMmNoMXNnRmZTNlI4NzFMeHRoR2Zmd1dwTlJSUldqUkVQcXJfVThwYnhSR0tPMnBUbm5jTW8tQTU3cmtmdw?oc=5",
+        "ts": "2026-06-22T20:56:38.000Z"
+      },
+      {
+        "id": "indexCrossAsset-e223e7f9be0a1216",
+        "headline": "Apple is a notable outlier in Monday's drubbing of mega-cap tech stocks",
+        "summary": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/22/apple-is-a-notable-outlier-in-mondays-drubbing-of-mega-cap-tech-stocks-.html",
+        "ts": "2026-06-22T18:24:47.000Z"
+      },
+      {
+        "id": "indexCrossAsset-2d76de64e7647e91",
+        "headline": "Gold rises as US-Iran peace optimism pulls oil prices lower - Reuters",
+        "summary": "Gold rises as US-Iran peace optimism pulls oil prices lower Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNWG14bzR3eVBkdmFpZ0VoT0tBUzRBbG0wZVUzWW9wN0hqbDV5SDlYUl9WRWxSZE9sZGsxc2ZCVEhHVDdhQUp0LW5MME0zOTRQM2NCb0h0eGlzZzFNODFVc1NBSFdVYkZCNzg3UnZiYUhpOWRCb0tfUFZaNVlrRDFRX0c2c1M1b3B2U3BROWwwQnlXT2N4LTZJOTRpbUVxdFhycXhQNkp5MzYyQQ?oc=5",
+        "ts": "2026-06-22T16:20:01.000Z"
+      },
+      {
+        "id": "indexCrossAsset-e9dcbecf9fd1e7b9",
+        "headline": "Oil settles down more 3% after US-Iran talks signal easing supply risks - Reuters",
+        "summary": "Oil settles down more 3% after US-Iran talks signal easing supply risks Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPWDktZEMyRnJ6ZUlaRUlUT3U2c0ZhTFluQm5kWHI3YkdBRTc0QVM0XzVYUHJmdGhzZUJMZ2pHTVdhclpUVVdBdUZ0dktUVUZ0SHpnS0UxY3BTMnJDUW10dnlKZEtiYjZvSkRoR3h1NTUyU2xUZ3NXTUlxTFNKemlyd3BLbUhEOGRmYUpfSnFvQ0R0c2tIMUowUDFRdXJyc2E3bXU1QTEwa3pKUldDRDlVXzR6QkxmNmpoQVk1Sw?oc=5",
+        "ts": "2026-06-22T16:00:50.000Z"
+      },
+      {
+        "id": "indexCrossAsset-9aaf5ee4c844357d",
+        "headline": "US authorizes Iranian oil sales amid talks on final peace deal - Reuters",
+        "summary": "US authorizes Iranian oil sales amid talks on final peace deal Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQYzdZaTNrdXFNYWlPV2hKM1g2TDZkUFRmM3pMTE5HZzc1NnRuY1Y1cEdkLWl4bWpWOWFHdmZnMDN0cS0zdFdOeVIzalM0cGN1Yk1PV1lmc0I1NElkUjI5cWtKQzVvdHVqZFFNUm9nT01BZDdlYXFJdnVPM2NiMF9mUFduSFhlcUZWUjV0RVJtY0NFcFVmSElZSXk0V1IxN3ZrLXc?oc=5",
+        "ts": "2026-06-22T14:46:30.000Z"
+      },
+      {
+        "id": "indexCrossAsset-8db339a3e1d9164b",
+        "headline": "India’s Desh Vibhor in Persian Gulf resumes voyage to Hormuz after U-turn",
+        "summary": "The Shipping Corporation of India’s tanker Desh Vibhor has resumed its journey through the Strait of Hormuz, marking a pivotal moment for global oil trade stability",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-06-19/oil-supertanker-turns-back-on-voyage-out-of-the-persian-gulf",
+        "ts": "2026-06-22T14:07:11.000Z"
+      },
+      {
+        "id": "indexCrossAsset-84e7b26ba7c9f14b",
+        "headline": "SpaceX makes bond sale days after record IPO, discloses over $100 billion cash pile",
+        "summary": "SpaceX on Monday unveiled a senior unsecured notes offering and said it held about $100.8 billion in cash.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/22/spacex-spcx-bond-sale-ipo.html",
+        "ts": "2026-06-22T13:27:51.000Z"
+      },
+      {
+        "id": "indexCrossAsset-5a01cde8931b1b58",
+        "headline": "Oil tanker traffic picks up through Hormuz - Reuters",
+        "summary": "Oil tanker traffic picks up through Hormuz Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQaHlxenJFdEF1NHdsVVVwWm0yaFNYX0ZtRWxNRkZFd0dmNF9senMxQ2h6S0hrTjdsSldRMm5UbjBDckZnT1dhdktteW43WXduTkstWThMUWsyTnZ3WnVZMnM1SGF6dGRWd2FpRVlTOUg0bXB3SFFNUmF2SUVEclNDWWRYLXNWbTc0bEpwUzV4TGxiSndjaXluUjNQYXQ?oc=5",
+        "ts": "2026-06-22T12:31:52.000Z"
+      },
+      {
+        "id": "indexCrossAsset-d99e6ebbef0e3af7",
+        "headline": "Rupee snaps six-session winning streak as firmer dollar pinches - Reuters",
+        "summary": "Rupee snaps six-session winning streak as firmer dollar pinches Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNa2NHT184T1JKOE9jMlk2cnZ0VEFZTVA2X2ZNZ0M2V0JXSGJiSTBBT29JS1Vlejl3eWdqMHY1QlcydVl5WjVUblVsMll0X2hLS2J4Ylg3QjZINnRXZFJHUloybUIxdFNmYzBuX2pfckdSc0FpOHVpZ24wTWdPOFZCcHFMM2Nja0tyX2xjLUNiWFN6V3JCWDlMRjRnY2xCNUNOaVdr?oc=5",
+        "ts": "2026-06-22T10:06:37.000Z"
+      },
+      {
+        "id": "indexCrossAsset-a8f63f035ee134e9",
+        "headline": "Iran war triggers global race to build oil reserves - Reuters",
+        "summary": "Iran war triggers global race to build oil reserves Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZ2VKQXhDQ0hnaDQtUUhLb21EZUhxSUVsQnBwUXBQMUMxYzRNWHM3ZkZmUDJubXFQZDBzY3JzTU1fdmtxNTBEN3RzazFRa2FHTWtfNnk1R3F1eVFmWkFyVG1sX3VPejFSNWZoU3NYZUJQZFlTWHZVZlhfd2FLcEJwUXpjVWhXYWJYOEgxZTROMFZQTDhMT3hfaTVyTGZGSHlnRXBkT1hQc0pvR2w4ZC1FdXRfQ1pYak54?oc=5",
+        "ts": "2026-06-22T06:06:29.000Z"
+      },
+      {
+        "id": "indexCrossAsset-a8cf756148060c37",
+        "headline": "Asia has plenty of crude oil, but refined fuels remain tight - Reuters",
+        "summary": "Asia has plenty of crude oil, but refined fuels remain tight Reuters",
+        "source": "Reuters",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNT1dHY0FqUjdaVEZLdWphNFBNWUVaS3hXekxMRlNPM3BqVU1ZT1VVYVRQMU5IUjNpT1pJNEpKS29pTHFSUldEeko0cUlvZFNtR00tbTlFY19hMDdrLU9ZVDctckJrSTBzQjF1V0t5Ni1oaWl5cmJWWmdnUFVWX1lCZ203VTBaZUNHTDBuRzRxdmpZMTdwSmRzUmIwU093anctbF82WU80VEg0XzQ4YkhwenFiWjlZT2FmeDRUNlB3?oc=5",
+        "ts": "2026-06-22T04:40:00.000Z"
+      },
+      {
+        "id": "indexCrossAsset-17312ae11d5959bd",
+        "headline": "The AI trade has left the hyperscalers in the dust. What will it take for that to change?",
+        "summary": "In his Sunday column for Investing Club subscribers, Jim Cramer examines the market's love affair with memory and semi-cap equipment stocks.",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/06/21/the-ai-trade-has-left-the-hyperscalers-in-the-dust-what-will-it-take-for-that-to-change-.html",
+        "ts": "2026-06-21T18:43:12.000Z"
+      }
+    ],
+    "economicCalendar": [
+      {
+        "id": "economicCalendar-f15ae2d46ba338a4",
+        "event": "FOMC decision digestion",
+        "country": "US",
+        "ts": "2026-06-17T18:00:00.000Z",
+        "source": "scheduled calendar (committed)",
+        "actual": null,
+        "estimate": null,
+        "prior": null
+      },
+      {
+        "id": "economicCalendar-e6df0aa4fff562d1",
+        "event": "US employment report",
+        "country": "US",
+        "ts": "2026-06-05T12:30:00.000Z",
+        "source": "scheduled calendar (committed)",
+        "actual": null,
+        "estimate": null,
+        "prior": null
+      }
+    ]
+  }
+}

@@ -259,7 +259,10 @@ export function buildArenaScenario(
   const paperTrades =
     evidenceInputs.paperTrades ?? countPaperEvidenceRows();
   const rwaFreshness =
-    evidenceInputs.rwaFreshness ?? assessRwaMarketFreshness();
+    evidenceInputs.rwaFreshness ??
+    assessRwaMarketFreshness(
+      process.env.ARENA_RWA_MARKET_PATH ?? "public/rwa-market.json",
+    );
   const liveReadOk = perception.liveReady && rwaFreshness.status === "fresh";
   const entryPrice = perception.tokenPrice;
   const pricePath = [

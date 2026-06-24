@@ -13,6 +13,80 @@
       "returnPct": 0.149,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-05-14 US open (window 2026-05-11..2026-05-14; 193 total, 47 AAPL-specific):\n- 2026-05-14 Final Trades: Eli Lilly, Dominion Energy and Apple (CNBC)\n- 2026-05-14 Apple-OpenAI relationship frays, setting up possible legal fight: Report (CNBC)\n- 2026-05-14 'Apple-OpenAI Relationship Frays, Setting Up Possible Legal Fight' - Bloomberg (Benzinga)\n- 2026-05-14 Reported Earlier: 'Anthropic's Mythos Helped Find Bugs in Apple's Desktop Operating System' - Wall Street Journal (Benzinga)\n- 2026-05-14 Assessing Apple (AAPL) Valuation As Tariffs And AI Ambitions Shape Market Expectations (Yahoo)\n- 2026-05-14 Apple Stock Hits Record Peak as iPhone Demand Stays Strong (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-05-14T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-05-14-1",
+            "section": "companyNews",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Final Trades: Eli Lilly, Dominion Energy and Apple"
+          },
+          {
+            "id": "company-2026-05-14-2",
+            "section": "companyNews",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Apple-OpenAI relationship frays, setting up possible legal fight: Report"
+          },
+          {
+            "id": "company-2026-05-14-3",
+            "section": "companyNews",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "'Apple-OpenAI Relationship Frays, Setting Up Possible Legal Fight' - Bloomberg"
+          },
+          {
+            "id": "company-2026-05-14-4",
+            "section": "companyNews",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Reported Earlier: 'Anthropic's Mythos Helped Find Bugs in Apple's Desktop Operating System' - Wall Street Journal"
+          },
+          {
+            "id": "company-2026-05-14-5",
+            "section": "companyNews",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Assessing Apple (AAPL) Valuation As Tariffs And AI Ambitions Shape Market Expectations"
+          },
+          {
+            "id": "company-2026-05-14-6",
+            "section": "companyNews",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Stock Hits Record Peak as iPhone Demand Stays Strong"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-05-14-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-05-14",
+            "section": "indexFutures",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-05-14",
+            "section": "crossAsset",
+            "timestamp": "2026-05-14T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Small -0.48% gap driven by unconfirmed AI partnership rumors alongside strong iPhone demand headlines; likely sentiment noise rather than fundamental repricing, favoring fade at open."
     },
     {
@@ -24,6 +98,80 @@
       "returnPct": -0.186,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-05-18 US open (window 2026-05-15..2026-05-18; 108 total, 30 AAPL-specific):\n- 2026-05-18 Apple To Kick Off Worldwide Developers Conference On June 8–12, 2026 (Benzinga)\n- 2026-05-18 Viking Global Opens Fresh Apple Stake Worth Nearly $1 Billion As Big Tech Trade Roars Back (Benzinga)\n- 2026-05-18 What Tim Cook's Trip to China Could Mean for Apple Investors (Yahoo)\n- 2026-05-18 Apple India Court Rejects Bid to Pause Antitrust Case (Yahoo)\n- 2026-05-18 Indian court tells Apple to 'cooperate' in antitrust case (Yahoo)\n- 2026-05-18 Apple China IPhone 17 Discounts Test Ecosystem And Margin Trade Offs (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-05-18T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-05-18-1",
+            "section": "companyNews",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple To Kick Off Worldwide Developers Conference On June 8–12, 2026"
+          },
+          {
+            "id": "company-2026-05-18-2",
+            "section": "companyNews",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Viking Global Opens Fresh Apple Stake Worth Nearly $1 Billion As Big Tech Trade Roars Back"
+          },
+          {
+            "id": "company-2026-05-18-3",
+            "section": "companyNews",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "What Tim Cook's Trip to China Could Mean for Apple Investors"
+          },
+          {
+            "id": "company-2026-05-18-4",
+            "section": "companyNews",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple India Court Rejects Bid to Pause Antitrust Case"
+          },
+          {
+            "id": "company-2026-05-18-5",
+            "section": "companyNews",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Indian court tells Apple to 'cooperate' in antitrust case"
+          },
+          {
+            "id": "company-2026-05-18-6",
+            "section": "companyNews",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple China IPhone 17 Discounts Test Ecosystem And Margin Trade Offs"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-05-18-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-05-18",
+            "section": "indexFutures",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-05-18",
+            "section": "crossAsset",
+            "timestamp": "2026-05-18T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "News is mixed-to-bullish (Viking $1B stake, WWDC dates) with standard regulatory/pricing noise; -0.70% discount lacks fundamental catalyst and reflects typical off-hours token liquidity/sentiment drift."
     },
     {
@@ -35,6 +183,80 @@
       "returnPct": -0.073,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-05-19 US open (window 2026-05-16..2026-05-19; 104 total, 34 AAPL-specific):\n- 2026-05-19 Fortnite returns to Apple App Store worldwide amid Supreme Court fight (Yahoo)\n- 2026-05-19 Prediction: Apple Will Be First to Hit a $6T Valuation. AI is a Massive Reason Why (Yahoo)\n- 2026-05-19 Apple Unveils AI Push Beyond Siri With Smart Writing, Accessibility Features (Benzinga)\n- 2026-05-19 Apple Sports Expands To More Than 90 New Countries And Regions; The Free iPhone App Adds New Markets And Expanded Coverage, Including Personalized, Real-time FIFA World Cup 2026 Features That Will Help Users Follow Every Moment Of The Tournament (Benzinga)\n- 2026-05-19 Apple unveils new accessibility features, and updates powered by Apple Intelligence (Yahoo)\n- 2026-05-19 'Apple's New Hardware Boss Shakes Up Oversight Of Product Design' - Bloomberg News (Benzinga)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-05-19T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-05-19-1",
+            "section": "companyNews",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Fortnite returns to Apple App Store worldwide amid Supreme Court fight"
+          },
+          {
+            "id": "company-2026-05-19-2",
+            "section": "companyNews",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Prediction: Apple Will Be First to Hit a $6T Valuation. AI is a Massive Reason Why"
+          },
+          {
+            "id": "company-2026-05-19-3",
+            "section": "companyNews",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple Unveils AI Push Beyond Siri With Smart Writing, Accessibility Features"
+          },
+          {
+            "id": "company-2026-05-19-4",
+            "section": "companyNews",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple Sports Expands To More Than 90 New Countries And Regions; The Free iPhone App Adds New Markets And Expanded Coverage, Including Personalized, Real-time FIFA World Cup 2026 Features That Will Help Users Follow Every Moment Of The Tournament"
+          },
+          {
+            "id": "company-2026-05-19-5",
+            "section": "companyNews",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple unveils new accessibility features, and updates powered by Apple Intelligence"
+          },
+          {
+            "id": "company-2026-05-19-6",
+            "section": "companyNews",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "'Apple's New Hardware Boss Shakes Up Oversight Of Product Design' - Bloomberg News"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-05-19-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-05-19",
+            "section": "indexFutures",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-05-19",
+            "section": "crossAsset",
+            "timestamp": "2026-05-19T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "0.42% premium driven by routine product announcements, app store updates, and analyst predictions rather than fundamental earnings or macro catalysts; typical retail sentiment noise that usually converges at the open."
     },
     {
@@ -46,6 +268,80 @@
       "returnPct": -0.135,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-05-22 US open (window 2026-05-19..2026-05-22; 176 total, 43 AAPL-specific):\n- 2026-05-22 Apple Takes App Store Fight to Supreme Court in Epic Games Case (Yahoo)\n- 2026-05-22 Could Apple, Amazon, Or Netflix Buy IMAX? This Analyst Sees Rising M&A Appeal For The Company (Yahoo)\n- 2026-05-22 Where Will Apple Stock Be In 3 Years? (Yahoo)\n- 2026-05-22 Apple Execs Say We Are In The Early Innings Of Spatial Computing – Here's How The Technology Is Already Changing The Consumer World (Benzinga)\n- 2026-05-22 Analyzing an Apple Stock Butterfly Spread: Risk, Reward, and Setup (Yahoo)\n- 2026-05-22 Nvidia Is Going To Have To Do An Apple On Dividends, Says Jim Cramer: Sounds 'Boring' But It Works (Benzinga)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-05-22T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-05-22-1",
+            "section": "companyNews",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Takes App Store Fight to Supreme Court in Epic Games Case"
+          },
+          {
+            "id": "company-2026-05-22-2",
+            "section": "companyNews",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Could Apple, Amazon, Or Netflix Buy IMAX? This Analyst Sees Rising M&A Appeal For The Company"
+          },
+          {
+            "id": "company-2026-05-22-3",
+            "section": "companyNews",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Where Will Apple Stock Be In 3 Years?"
+          },
+          {
+            "id": "company-2026-05-22-4",
+            "section": "companyNews",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple Execs Say We Are In The Early Innings Of Spatial Computing – Here's How The Technology Is Already Changing The Consumer World"
+          },
+          {
+            "id": "company-2026-05-22-5",
+            "section": "companyNews",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Analyzing an Apple Stock Butterfly Spread: Risk, Reward, and Setup"
+          },
+          {
+            "id": "company-2026-05-22-6",
+            "section": "companyNews",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Nvidia Is Going To Have To Do An Apple On Dividends, Says Jim Cramer: Sounds 'Boring' But It Works"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-05-22-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-05-22",
+            "section": "indexFutures",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-05-22",
+            "section": "crossAsset",
+            "timestamp": "2026-05-22T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Headlines are speculative/long-term (SCOTUS case, M&A rumors, spatial computing PR) with no immediate fundamental catalyst; 1.28% premium likely reflects off-hours sentiment/liquidity and should revert at open."
     },
     {
@@ -57,6 +353,80 @@
       "returnPct": 0.705,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-05-26 US open (window 2026-05-23..2026-05-26; 86 total, 23 AAPL-specific):\n- 2026-05-26 Apple's AI Profit Explosion (SeekingAlpha)\n- 2026-05-26 Apple Inc. (AAPL) is Attracting Investor Attention: Here is What You Should Know (Yahoo)\n- 2026-05-26 Apple: Will Agentic AI Be The Next Driver Of Valuation? (Benzinga)\n- 2026-05-26 Apple: IPhone Sales Still Hot (SeekingAlpha)\n- 2026-05-26 Comparative Study: Apple And Industry Competitors In Technology Hardware, Storage &amp; Peripherals Industry (Benzinga)\n- 2026-05-26 Nvidia: Echoes Of Apple's 2018 Turnaround (SeekingAlpha)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-05-26T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-05-26-1",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "SeekingAlpha",
+            "text": "Apple's AI Profit Explosion"
+          },
+          {
+            "id": "company-2026-05-26-2",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Inc. (AAPL) is Attracting Investor Attention: Here is What You Should Know"
+          },
+          {
+            "id": "company-2026-05-26-3",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple: Will Agentic AI Be The Next Driver Of Valuation?"
+          },
+          {
+            "id": "company-2026-05-26-4",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "SeekingAlpha",
+            "text": "Apple: IPhone Sales Still Hot"
+          },
+          {
+            "id": "company-2026-05-26-5",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Comparative Study: Apple And Industry Competitors In Technology Hardware, Storage &amp; Peripherals Industry"
+          },
+          {
+            "id": "company-2026-05-26-6",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "SeekingAlpha",
+            "text": "Nvidia: Echoes Of Apple's 2018 Turnaround"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-05-26-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-05-26",
+            "section": "indexFutures",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-05-26",
+            "section": "crossAsset",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "0.60% premium driven by soft, thematic headlines (AI, iPhone sales) with no material overnight catalysts; typical sentiment-driven noise likely to revert as institutional order flow sets the open."
     },
     {
@@ -68,6 +438,80 @@
       "returnPct": 0.186,
       "correct": false,
       "newsSummary": "AAPL headlines before the 2026-05-27 US open (window 2026-05-24..2026-05-27; 130 total, 40 AAPL-specific):\n- 2026-05-27 AAPL Surges 15% In May: What's Driving The Rally And Will It Continue? (Benzinga)\n- 2026-05-27 'China Smartphone Market Rebounded In April, With Apple Poised To Benefit Most; China's Handset Market Showed Signs Of Recovery In April, With Total Shipments Rising 2.8% YoY To 25.73M Units And Smartphone Shipments Climbing 12.3% To 25M Units, According To CAICT' - DigiTimes (Benzinga)\n- 2026-05-27 Apple Stock Hits New Record Highs as AI Doubts Begin to Fade (Yahoo)\n- 2026-05-26 Apple has the best hardware and has snared one of the best AI platforms with Gemini, says Jim Crmaer (CNBC)\n- 2026-05-26 Bank of America resets Apple stock price target on AI update (Yahoo)\n- 2026-05-26 Apple seen as key beneficiary of emerging agentic AI smartphone market, BofA says (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-05-27T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-05-27-1",
+            "section": "companyNews",
+            "timestamp": "2026-05-27T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "AAPL Surges 15% In May: What's Driving The Rally And Will It Continue?"
+          },
+          {
+            "id": "company-2026-05-27-2",
+            "section": "companyNews",
+            "timestamp": "2026-05-27T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "'China Smartphone Market Rebounded In April, With Apple Poised To Benefit Most; China's Handset Market Showed Signs Of Recovery In April, With Total Shipments Rising 2.8% YoY To 25.73M Units And Smartphone Shipments Climbing 12.3% To 25M Units, According To CAICT' - DigiTimes"
+          },
+          {
+            "id": "company-2026-05-27-3",
+            "section": "companyNews",
+            "timestamp": "2026-05-27T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Stock Hits New Record Highs as AI Doubts Begin to Fade"
+          },
+          {
+            "id": "company-2026-05-27-4",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Apple has the best hardware and has snared one of the best AI platforms with Gemini, says Jim Crmaer"
+          },
+          {
+            "id": "company-2026-05-27-5",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Bank of America resets Apple stock price target on AI update"
+          },
+          {
+            "id": "company-2026-05-27-6",
+            "section": "companyNews",
+            "timestamp": "2026-05-26T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple seen as key beneficiary of emerging agentic AI smartphone market, BofA says"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-05-27-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-05-27T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-05-27",
+            "section": "indexFutures",
+            "timestamp": "2026-05-27T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-05-27",
+            "section": "crossAsset",
+            "timestamp": "2026-05-27T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Gap reflects justified repricing from concrete catalysts (China shipment recovery, AI platform integration, BofA target reset) rather than transient sentiment."
     },
     {
@@ -79,6 +523,80 @@
       "returnPct": -1.305,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-01 US open (window 2026-05-29..2026-06-01; 86 total, 23 AAPL-specific):\n- 2026-06-01 Nvidia challenges Apple and Intel with AI chip for laptops (Yahoo)\n- 2026-06-01 Apple Stock Has Been on a Hot Run. Siri Revamp Could Give It Another Boost Next Week. (Yahoo)\n- 2026-06-01 Dell Stock Rises as It Targets Apple MacBook with New Laptop (Yahoo)\n- 2026-06-01 Dell Stock Rises as It Goes Head-to-Head with Apple Over Cutting-Edge Laptop (Yahoo)\n- 2026-06-01 Dell unveils XPS 13 laptop to compete with Apple’s MacBook Neo, Reuters says (Yahoo)\n- 2026-06-01 DELL vs AAPL: Analysts See Upside for One, and Downside for the Other (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-01T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-01-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Nvidia challenges Apple and Intel with AI chip for laptops"
+          },
+          {
+            "id": "company-2026-06-01-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Stock Has Been on a Hot Run. Siri Revamp Could Give It Another Boost Next Week."
+          },
+          {
+            "id": "company-2026-06-01-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Dell Stock Rises as It Targets Apple MacBook with New Laptop"
+          },
+          {
+            "id": "company-2026-06-01-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Dell Stock Rises as It Goes Head-to-Head with Apple Over Cutting-Edge Laptop"
+          },
+          {
+            "id": "company-2026-06-01-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Dell unveils XPS 13 laptop to compete with Apple’s MacBook Neo, Reuters says"
+          },
+          {
+            "id": "company-2026-06-01-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "DELL vs AAPL: Analysts See Upside for One, and Downside for the Other"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-01-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-01",
+            "section": "indexFutures",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-01",
+            "section": "crossAsset",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Competitive laptop/AI chip news and mixed analyst views typically drive short-term sentiment rather than fundamental repricing; the -0.67% overnight dip likely reflects liquidity/sentiment noise that should revert at the open."
     },
     {
@@ -90,6 +608,80 @@
       "returnPct": -2.022,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-02 US open (window 2026-05-30..2026-06-02; 110 total, 29 AAPL-specific):\n- 2026-06-02 Apple Loses Big Because Of Nvidia PC Chips (Yahoo)\n- 2026-06-02 Apple Eyes $200B Eyewear Market In Tim Cook's Final Hardware Bet (Benzinga)\n- 2026-06-02 Assessing Whether Apple (AAPL) Looks Overvalued After Its Recent Share Price Momentum (Yahoo)\n- 2026-06-02 Apple's WWDC Is June 8. Here's the 1 Announcement That Could Move the Stock (Yahoo)\n- 2026-06-01 Apple’s WWDC 2026 ‘Key Catalyst’ For AAPL Stock, Will Decide AI Positioning: Morgan Stanley (Yahoo)\n- 2026-06-01 Melius Raises Apple (AAPL) Price Target Ahead of WWDC (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-02T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-02-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Loses Big Because Of Nvidia PC Chips"
+          },
+          {
+            "id": "company-2026-06-02-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple Eyes $200B Eyewear Market In Tim Cook's Final Hardware Bet"
+          },
+          {
+            "id": "company-2026-06-02-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Assessing Whether Apple (AAPL) Looks Overvalued After Its Recent Share Price Momentum"
+          },
+          {
+            "id": "company-2026-06-02-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple's WWDC Is June 8. Here's the 1 Announcement That Could Move the Stock"
+          },
+          {
+            "id": "company-2026-06-02-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple’s WWDC 2026 ‘Key Catalyst’ For AAPL Stock, Will Decide AI Positioning: Morgan Stanley"
+          },
+          {
+            "id": "company-2026-06-02-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-01T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Melius Raises Apple (AAPL) Price Target Ahead of WWDC"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-02-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-02",
+            "section": "indexFutures",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-02",
+            "section": "crossAsset",
+            "timestamp": "2026-06-02T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Modest 0.94% premium driven by WWDC/AI catalyst speculation and analyst upgrades rather than fundamental overnight shocks. Typical off-hours sentiment drift likely to normalize at open when institutional liquidity returns."
     },
     {
@@ -101,6 +693,80 @@
       "returnPct": 0.182,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-04 US open (window 2026-06-01..2026-06-04; 191 total, 58 AAPL-specific):\n- 2026-06-04 Final Trades: Abbvie, Entegris, Oracle and Apple (CNBC)\n- 2026-06-04 Apple's App Store generated $1.4 trillion in sales last year (Yahoo)\n- 2026-06-04 The $10 Trillion Bet: Why Insiders Think SpaceX Could Rival Apple by Decade’s End (Yahoo)\n- 2026-06-04 Intel Stock Falls After Landing AI Partnership With Apple Supplier Foxconn (Yahoo)\n- 2026-06-04 Michigan Rep. Tim Walberg Bought Over $154K Worth of Apple Stock: Here's What You Should Know (Benzinga)\n- 2026-06-04 Recent Filing Shows That Rep. Cleo Fields Bought Over $1K Worth of Apple Stock (Benzinga)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-04T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-04-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Final Trades: Abbvie, Entegris, Oracle and Apple"
+          },
+          {
+            "id": "company-2026-06-04-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple's App Store generated $1.4 trillion in sales last year"
+          },
+          {
+            "id": "company-2026-06-04-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "The $10 Trillion Bet: Why Insiders Think SpaceX Could Rival Apple by Decade’s End"
+          },
+          {
+            "id": "company-2026-06-04-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Intel Stock Falls After Landing AI Partnership With Apple Supplier Foxconn"
+          },
+          {
+            "id": "company-2026-06-04-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Michigan Rep. Tim Walberg Bought Over $154K Worth of Apple Stock: Here's What You Should Know"
+          },
+          {
+            "id": "company-2026-06-04-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Recent Filing Shows That Rep. Cleo Fields Bought Over $1K Worth of Apple Stock"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-04-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-04",
+            "section": "indexFutures",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-04",
+            "section": "crossAsset",
+            "timestamp": "2026-06-04T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "0.63% premium driven by routine/backward-looking headlines and minor congressional trades; no material overnight catalysts to justify sustained repricing, typical low-liquidity overnight sentiment likely to arbitrage away at open."
     },
     {
@@ -112,6 +778,80 @@
       "returnPct": 1.826,
       "correct": false,
       "newsSummary": "AAPL headlines before the 2026-06-05 US open (window 2026-06-02..2026-06-05; 192 total, 65 AAPL-specific):\n- 2026-06-05 Apple Set To Introduce AI-Powered Siri Digital Assistant At WWDC (Yahoo)\n- 2026-06-05 Apple's WWDC: Tim Cook's AI legacy at stake in his final developer conference as CEO (CNBC)\n- 2026-06-05 This is the most important area to watch for Apple’s WWDC this year: Citi (Yahoo)\n- 2026-06-05 Apple’s WWDC puts Tim Cook’s AI legacy on the line (CNBC)\n- 2026-06-05 Apple Stock Could Finally Have Its AI Moment At WWDC: Ives says 'Expect Fireworks' (Benzinga)\n- 2026-06-05 Jim Cramer Says A $4 Trillion SpaceX Could Force Investors To Dump Nvidia, Apple And Microsoft (Benzinga)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-05T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-05-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Set To Introduce AI-Powered Siri Digital Assistant At WWDC"
+          },
+          {
+            "id": "company-2026-06-05-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Apple's WWDC: Tim Cook's AI legacy at stake in his final developer conference as CEO"
+          },
+          {
+            "id": "company-2026-06-05-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "This is the most important area to watch for Apple’s WWDC this year: Citi"
+          },
+          {
+            "id": "company-2026-06-05-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Apple’s WWDC puts Tim Cook’s AI legacy on the line"
+          },
+          {
+            "id": "company-2026-06-05-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple Stock Could Finally Have Its AI Moment At WWDC: Ives says 'Expect Fireworks'"
+          },
+          {
+            "id": "company-2026-06-05-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Jim Cramer Says A $4 Trillion SpaceX Could Force Investors To Dump Nvidia, Apple And Microsoft"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-05-jobs",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-05T12:30:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "US employment report is scheduled before the US equity open; treat same-morning cross-asset moves as macro repricing risk."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-05",
+            "section": "indexFutures",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "Broad index-futures context should be treated as event-linked until a live futures feed confirms otherwise."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-05",
+            "section": "crossAsset",
+            "timestamp": "2026-06-05T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "DXY/VIX/rates context is flagged as macro-sensitive for this open; stand aside unless company evidence clearly dominates."
+          }
+        ]
+      },
       "rationale": "Modest 0.67% premium driven by pre-WWDC AI hype and analyst speculation rather than concrete fundamentals; typical sentiment-driven drift likely to normalize at open liquidity."
     },
     {
@@ -123,6 +863,80 @@
       "returnPct": 2.954,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-08 US open (window 2026-06-05..2026-06-08; 137 total, 62 AAPL-specific):\n- 2026-06-08 Apple WWDC Keynote: Apple Devices Will Have Search Index For On-Device Content (Benzinga)\n- 2026-06-08 Apple WWDC Keynote:  iOS 27 Will Extend Back To iPhone 11 Models (Benzinga)\n- 2026-06-08 Apple WWDC Keynote: Integrating Additional Layers Of Liquid Glass Directly Into App Icon Artwork Itself (Benzinga)\n- 2026-06-08 Apple knows it has a Siri problem. It’s about to fix it (Yahoo)\n- 2026-06-08 Apple WWDC Keynote: Next Version Of macOS Is Golden Gate (Benzinga)\n- 2026-06-08 Apple WWDC Keynote: Tim Cook Says WWDC Announcements Will Center On Apple Intelligence And Siri; Apple Software Chief Craig Federighi Says Apple Plans To Update Child Safety Features (Benzinga)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-08T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-08-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple WWDC Keynote: Apple Devices Will Have Search Index For On-Device Content"
+          },
+          {
+            "id": "company-2026-06-08-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple WWDC Keynote: iOS 27 Will Extend Back To iPhone 11 Models"
+          },
+          {
+            "id": "company-2026-06-08-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple WWDC Keynote: Integrating Additional Layers Of Liquid Glass Directly Into App Icon Artwork Itself"
+          },
+          {
+            "id": "company-2026-06-08-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple knows it has a Siri problem. It’s about to fix it"
+          },
+          {
+            "id": "company-2026-06-08-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple WWDC Keynote: Next Version Of macOS Is Golden Gate"
+          },
+          {
+            "id": "company-2026-06-08-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple WWDC Keynote: Tim Cook Says WWDC Announcements Will Center On Apple Intelligence And Siri; Apple Software Chief Craig Federighi Says Apple Plans To Update Child Safety Features"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-08-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-08",
+            "section": "indexFutures",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-08",
+            "section": "crossAsset",
+            "timestamp": "2026-06-08T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "WWDC software/AI announcements are scheduled and historically produce muted cash-market reactions; the 1.15% premium likely reflects crypto/retail sentiment rather than fundamental repricing, making it highly fadeable at the open."
     },
     {
@@ -134,6 +948,80 @@
       "returnPct": -1.969,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-09 US open (window 2026-06-06..2026-06-09; 184 total, 108 AAPL-specific):\n- 2026-06-09 Apple Just Delivered Its $75 Per Share AI Moment at WWDC. Wall Street Says the Stock Could Hit $440 by Year-End. (Yahoo)\n- 2026-06-09 Apple Stock Falls After WWDC: Analyst Says 'Step In The Right Direction,' But Monetization Questions Remain (Benzinga)\n- 2026-06-09 Stocks making the biggest moves midday: Apple, Micron Technology, Coherent, DraftKings, J.M. Smucker & more (CNBC)\n- 2026-06-09 Apple Inc. (AAPL) is Attracting Investor Attention: Here is What You Should Know (Yahoo)\n- 2026-06-09 Apple Delays Siri AI Rollout in EU Following Regulatory Compliance Challenges (AAPL) (Yahoo)\n- 2026-06-09 Apple Delays AI Tool in EU (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-09T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-09-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Just Delivered Its $75 Per Share AI Moment at WWDC. Wall Street Says the Stock Could Hit $440 by Year-End."
+          },
+          {
+            "id": "company-2026-06-09-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple Stock Falls After WWDC: Analyst Says 'Step In The Right Direction,' But Monetization Questions Remain"
+          },
+          {
+            "id": "company-2026-06-09-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "CNBC",
+            "text": "Stocks making the biggest moves midday: Apple, Micron Technology, Coherent, DraftKings, J.M. Smucker & more"
+          },
+          {
+            "id": "company-2026-06-09-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Inc. (AAPL) is Attracting Investor Attention: Here is What You Should Know"
+          },
+          {
+            "id": "company-2026-06-09-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Delays Siri AI Rollout in EU Following Regulatory Compliance Challenges (AAPL)"
+          },
+          {
+            "id": "company-2026-06-09-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Delays AI Tool in EU"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-09-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-09",
+            "section": "indexFutures",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-09",
+            "section": "crossAsset",
+            "timestamp": "2026-06-09T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Gap reflects material EU regulatory delay for AI rollout and post-WWDC monetization concerns, indicating justified fundamental repricing rather than transient sentiment noise."
     },
     {
@@ -145,6 +1033,80 @@
       "returnPct": -0.116,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-12 US open (window 2026-06-09..2026-06-12; 222 total, 91 AAPL-specific):\n- 2026-06-12 Apple Inc (AAPL) Declines Following Important AI Advancements at WWDC 2026 (Yahoo)\n- 2026-06-12 AI Integration and iPhone Growth Assert Apple Inc. (AAPL) as One of the Best Forever Stocks to Buy (Yahoo)\n- 2026-06-11 Does Apple Stock Have More Upside? (Yahoo)\n- 2026-06-11 Here's Why Apple (AAPL) Gained But Lagged the Market Today (Yahoo)\n- 2026-06-11 How Apple rebuilt Siri with Google's AI (Yahoo)\n- 2026-06-11 Apple Inc. (AAPL) Is A Top Stock In Ken Griffin’s Portfolio (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-12T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-12-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-12T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Inc (AAPL) Declines Following Important AI Advancements at WWDC 2026"
+          },
+          {
+            "id": "company-2026-06-12-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-12T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "AI Integration and iPhone Growth Assert Apple Inc. (AAPL) as One of the Best Forever Stocks to Buy"
+          },
+          {
+            "id": "company-2026-06-12-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-11T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Does Apple Stock Have More Upside?"
+          },
+          {
+            "id": "company-2026-06-12-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-11T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Here's Why Apple (AAPL) Gained But Lagged the Market Today"
+          },
+          {
+            "id": "company-2026-06-12-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-11T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "How Apple rebuilt Siri with Google's AI"
+          },
+          {
+            "id": "company-2026-06-12-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-11T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple Inc. (AAPL) Is A Top Stock In Ken Griffin’s Portfolio"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-12-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-12T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-12",
+            "section": "indexFutures",
+            "timestamp": "2026-06-12T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-12",
+            "section": "crossAsset",
+            "timestamp": "2026-06-12T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Modest -1.46% drop aligns with typical post-WWDC 'sell-the-news' sentiment rather than fundamental deterioration; mixed/positive headlines and absence of material negative catalysts indicate liquidity-driven overnight noise likely to revert at open."
     },
     {
@@ -156,6 +1118,80 @@
       "returnPct": -0.461,
       "correct": true,
       "newsSummary": "AAPL headlines before the 2026-06-15 US open (window 2026-06-12..2026-06-15; 76 total, 23 AAPL-specific):\n- 2026-06-15 Apple (AAPL) Stock Fair Value Edges Higher As AI And Siri Plans Draw Split Views (Yahoo)\n- 2026-06-15 Jim Cramer Discusses the Sell-Off in Apple Stock Before SpaceX IPO (Yahoo)\n- 2026-06-15 The Zacks Analyst Blog Highlights Apple, Netflix and Disney (Yahoo)\n- 2026-06-15 Performance Comparison: Apple And Competitors In Technology Hardware, Storage &amp; Peripherals Industry (Benzinga)\n- 2026-06-15 Trump Threatens 100% Tariffs On French Wine Unless Macron Drops Tax On Amazon, Apple, Meta And Others (Benzinga)\n- 2026-06-14 Apple's iOS 27 surprise could change the AI narrative (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-15T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-15-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple (AAPL) Stock Fair Value Edges Higher As AI And Siri Plans Draw Split Views"
+          },
+          {
+            "id": "company-2026-06-15-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Jim Cramer Discusses the Sell-Off in Apple Stock Before SpaceX IPO"
+          },
+          {
+            "id": "company-2026-06-15-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "The Zacks Analyst Blog Highlights Apple, Netflix and Disney"
+          },
+          {
+            "id": "company-2026-06-15-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Performance Comparison: Apple And Competitors In Technology Hardware, Storage &amp; Peripherals Industry"
+          },
+          {
+            "id": "company-2026-06-15-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Trump Threatens 100% Tariffs On French Wine Unless Macron Drops Tax On Amazon, Apple, Meta And Others"
+          },
+          {
+            "id": "company-2026-06-15-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-14T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Apple's iOS 27 surprise could change the AI narrative"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-15-none",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "No scheduled CPI, jobs, or FOMC catalyst is recorded for this date in the committed audit fixture."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-15",
+            "section": "indexFutures",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "No committed pre-open S&P/Nasdaq futures shock is recorded for this date; do not infer a broad-market catalyst from this section alone."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-15",
+            "section": "crossAsset",
+            "timestamp": "2026-06-15T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral."
+          }
+        ]
+      },
       "rationale": "Overnight headlines are mixed and lack hard fundamental catalysts; the 1.44% premium likely reflects retail sentiment/liquidity noise rather than justified repricing, favoring mean reversion at the open."
     },
     {
@@ -167,6 +1203,80 @@
       "returnPct": -0.019,
       "correct": false,
       "newsSummary": "AAPL headlines before the 2026-06-18 US open (window 2026-06-15..2026-06-18; 179 total, 82 AAPL-specific):\n- 2026-06-18 B of A Securities Reiterates Buy on Apple, Maintains $380 Price Target (Benzinga)\n- 2026-06-18 Intel Stock Jumps On Reported Apple Chip Business (Yahoo)\n- 2026-06-18 How AI-Driven Chip Cost Inflation and Price Hikes Will Impact Apple (AAPL) Investors (Yahoo)\n- 2026-06-18 Trump Says Apple and Intel Are Working Together. Intel's Stock Is Rising On the News (Yahoo)\n- 2026-06-18 Apple May Add $100 To Higher-End iPhone Models To Counter Memory Costs: Analyst (Benzinga)\n- 2026-06-18 SpaceX Joins Nvidia, Alphabet, Apple, Microsoft, Amazon, and Taiwan Semiconductor in the $2 Trillion Club. But Will It Last? (Yahoo)",
+      "catalystBundle": {
+        "decisionTimestamp": "2026-06-18T13:30:00.000Z",
+        "companyNews": [
+          {
+            "id": "company-2026-06-18-1",
+            "section": "companyNews",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "B of A Securities Reiterates Buy on Apple, Maintains $380 Price Target"
+          },
+          {
+            "id": "company-2026-06-18-2",
+            "section": "companyNews",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Intel Stock Jumps On Reported Apple Chip Business"
+          },
+          {
+            "id": "company-2026-06-18-3",
+            "section": "companyNews",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "How AI-Driven Chip Cost Inflation and Price Hikes Will Impact Apple (AAPL) Investors"
+          },
+          {
+            "id": "company-2026-06-18-4",
+            "section": "companyNews",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "Trump Says Apple and Intel Are Working Together. Intel's Stock Is Rising On the News"
+          },
+          {
+            "id": "company-2026-06-18-5",
+            "section": "companyNews",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "Benzinga",
+            "text": "Apple May Add $100 To Higher-End iPhone Models To Counter Memory Costs: Analyst"
+          },
+          {
+            "id": "company-2026-06-18-6",
+            "section": "companyNews",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "Yahoo",
+            "text": "SpaceX Joins Nvidia, Alphabet, Apple, Microsoft, Amazon, and Taiwan Semiconductor in the $2 Trillion Club. But Will It Last?"
+          }
+        ],
+        "scheduledMacro": [
+          {
+            "id": "macro-2026-06-18-fomc",
+            "section": "scheduledMacro",
+            "timestamp": "2026-06-17T18:00:00.000Z",
+            "source": "committed macro calendar fixture",
+            "text": "Prior-session FOMC decision and press-conference digestion can drive broad overnight equity repricing into this open."
+          }
+        ],
+        "indexFutures": [
+          {
+            "id": "index-futures-2026-06-18",
+            "section": "indexFutures",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "committed pre-open futures context",
+            "text": "Broad index-futures context should be treated as event-linked until a live futures feed confirms otherwise."
+          }
+        ],
+        "crossAsset": [
+          {
+            "id": "cross-asset-2026-06-18",
+            "section": "crossAsset",
+            "timestamp": "2026-06-18T12:00:00.000Z",
+            "source": "committed cross-asset context",
+            "text": "DXY/VIX/rates context is flagged as macro-sensitive for this open; stand aside unless company evidence clearly dominates."
+          }
+        ]
+      },
       "rationale": "Mixed analyst reiterations and cost-inflation headlines lack a material fundamental catalyst to justify a 0.76% premium. The markup reflects typical overnight sentiment noise and should revert as institutional liquidity and spot pricing return at the open."
     }
   ]

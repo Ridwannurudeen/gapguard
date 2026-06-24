@@ -226,6 +226,13 @@ function parseGateVerdict(
           ),
         )
       : [],
+    catalystBundle:
+      row.catalystBundle === undefined
+        ? undefined
+        : parseCatalystBundle(
+            row.catalystBundle,
+            `${path}: verdicts[${index}].catalystBundle`,
+          ),
     expectedFadeable: optionalBoolean(
       row.expectedFadeable,
       path,

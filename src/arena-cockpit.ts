@@ -8,6 +8,7 @@ import {
   readArenaPublicKey,
 } from "./arenaSigning";
 import type { AgentPassport } from "./agentArena";
+import { buildCatalystBundle } from "./catalystBundle";
 import { loadGateVerdicts } from "./gateVerdicts";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
 import { verifyRecords, type ChainRecord } from "./logVerifier";
@@ -307,6 +308,13 @@ export async function runArenaCockpitCli(): Promise<void> {
       returnPct: v.returnPct,
       correct: v.correct,
       newsSummary: v.newsSummary,
+      catalystBundle:
+        v.catalystBundle ??
+        buildCatalystBundle({
+          asset: cache.asset,
+          date: v.date,
+          newsSummary: v.newsSummary ?? "No committed news summary.",
+        }),
       rationale: v.rationale,
     }));
     const newsOut = resolve("public/gate-verdicts.json");

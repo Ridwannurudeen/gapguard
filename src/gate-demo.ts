@@ -1,9 +1,11 @@
 import { qwenChat } from "./qwen";
+import { buildOperationalCatalystBundle } from "./catalystBundle";
 import {
   assessConvergence,
   effectiveMultiplier,
   type GateContext,
 } from "./convergenceGate";
+import { loadNewsFeed } from "./newsFeed";
 
 const apiKey = process.env.BITGET_QWEN_API_KEY;
 if (!apiKey) {
@@ -34,8 +36,24 @@ const cases: GateContext[] = [
   },
 ];
 
+const liveFeed = loadNewsFeed();
+const decisionTimestamp = new Date().toISOString();
+
 for (const ctx of cases) {
-  const verdict = await assessConvergence(ctx, (m) => qwenChat(m, { apiKey }));
+  const liveContext: GateContext = liveFeed
+    ? {
+        ...ctx,
+        catalystBundle: buildOperationalCatalystBundle({
+          asset: ctx.symbol,
+          newsSummary: ctx.newsSummary,
+          liveFeed,
+          decisionTimestamp,
+        }),
+      }
+    : ctx;
+  const verdict = await assessConvergence(liveContext, (m) =>
+    qwenChat(m, { apiKey }),
+  );
   console.log(
     `\n${ctx.symbol}  (${ctx.direction} ${(ctx.dislocationPct * 100).toFixed(1)}%, ${ctx.sessionLabel})`,
   );

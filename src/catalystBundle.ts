@@ -1,3 +1,6 @@
+import { loadCommittedMacroEvents } from "./macroCalendar";
+import type { EconomicCalendarItem, NewsFeed, NewsFeedItem } from "./newsFeed";
+
 export type CatalystSection =
   | "companyNews"
   | "scheduledMacro"
@@ -20,27 +23,7 @@ export interface CatalystBundle {
   crossAsset: CatalystBundleItem[];
 }
 
-interface MacroFixture {
-  date: string;
-  timestamp: string;
-  id: string;
-  text: string;
-}
-
-const SCHEDULED_MACRO: MacroFixture[] = [
-  {
-    date: "2026-06-05",
-    timestamp: "2026-06-05T12:30:00.000Z",
-    id: "macro-2026-06-05-jobs",
-    text: "US employment report is scheduled before the US equity open; treat same-morning cross-asset moves as macro repricing risk.",
-  },
-  {
-    date: "2026-06-18",
-    timestamp: "2026-06-17T18:00:00.000Z",
-    id: "macro-2026-06-18-fomc",
-    text: "Prior-session FOMC decision and press-conference digestion can drive broad overnight equity repricing into this open.",
-  },
-];
+const SCHEDULED_MACRO = loadCommittedMacroEvents();
 
 const SECTION_TITLES: Record<CatalystSection, string> = {
   companyNews: "COMPANY_NEWS",
@@ -162,6 +145,61 @@ function crossAssetItems(date: string, decision: string): CatalystBundleItem[] {
   ];
 }
 
+function underlyingOf(asset: string): string {
+  return asset.replace(/USDT$/i, "").replace(/X$/i, "").toUpperCase();
+}
+
+function itemText(headline: string, summary: string): string {
+  const summaryText = cleanText(summary);
+  const headlineText = cleanText(headline);
+  if (!summaryText || summaryText === headlineText) return headlineText;
+  return `${headlineText} - ${summaryText}`.slice(0, 360);
+}
+
+function toNewsCatalystItems(
+  section: CatalystSection,
+  items: NewsFeedItem[],
+  decision: string,
+  maxItems: number,
+): CatalystBundleItem[] {
+  return items
+    .filter((item) => isBeforeDecision(item.ts, decision))
+    .slice(0, maxItems)
+    .map((item) => ({
+      id: item.id,
+      section,
+      timestamp: item.ts,
+      source: item.source,
+      text: itemText(item.headline, item.summary),
+    }));
+}
+
+function toCalendarCatalystItems(
+  items: EconomicCalendarItem[],
+  decision: string,
+  maxItems: number,
+): CatalystBundleItem[] {
+  return items
+    .filter((item) => isBeforeDecision(item.ts, decision))
+    .slice(0, maxItems)
+    .map((item) => {
+      const values = [
+        item.actual === undefined ? "" : `actual=${item.actual ?? "n/a"}`,
+        item.estimate === undefined ? "" : `estimate=${item.estimate ?? "n/a"}`,
+        item.prior === undefined ? "" : `prior=${item.prior ?? "n/a"}`,
+      ].filter(Boolean);
+      return {
+        id: item.id,
+        section: "scheduledMacro" as const,
+        timestamp: item.ts,
+        source: item.source,
+        text: cleanText(
+          `${item.country} ${item.event}${values.length ? ` (${values.join(", ")})` : ""}`,
+        ),
+      };
+    });
+}
+
 export function buildCatalystBundle(input: {
   asset: string;
   date: string;
@@ -181,6 +219,49 @@ export function buildCatalystBundle(input: {
     indexFutures: indexFuturesItems(input.date, decision),
     crossAsset: crossAssetItems(input.date, decision),
   };
+}
+
+export function buildOperationalCatalystBundle(input: {
+  asset: string;
+  newsSummary: string;
+  liveFeed: NewsFeed;
+  decisionTimestamp?: string;
+  maxItemsPerSection?: number;
+}): CatalystBundle {
+  const decision = input.decisionTimestamp ?? new Date().toISOString();
+  const date = decision.slice(0, 10);
+  const maxItems = input.maxItemsPerSection ?? 8;
+  const underlying = underlyingOf(input.asset);
+  const matchingStock = input.liveFeed.categories.stock.filter(
+    (item) =>
+      !item.symbols?.length ||
+      item.symbols.some((symbol) => symbol.toUpperCase() === underlying),
+  );
+  const bundle = {
+    decisionTimestamp: decision,
+    companyNews: matchingStock.length
+      ? toNewsCatalystItems("companyNews", matchingStock, decision, maxItems)
+      : companyItems(input.asset, date, input.newsSummary, decision),
+    scheduledMacro: toCalendarCatalystItems(
+      input.liveFeed.categories.economicCalendar,
+      decision,
+      maxItems,
+    ),
+    indexFutures: toNewsCatalystItems(
+      "indexFutures",
+      input.liveFeed.categories.indexCrossAsset,
+      decision,
+      maxItems,
+    ),
+    crossAsset: toNewsCatalystItems(
+      "crossAsset",
+      input.liveFeed.categories.macroPolicy,
+      decision,
+      maxItems,
+    ),
+  };
+  validateNoLookAhead(bundle);
+  return bundle;
 }
 
 export function allCatalystItems(bundle: CatalystBundle): CatalystBundleItem[] {

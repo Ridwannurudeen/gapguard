@@ -66,6 +66,7 @@ npm run alpha:certify    # walk-forward pilot artifact, not proof of live alpha
 npm run paper:journal    # AAPLUSDT/NVDAUSDT stock paper journal, CSV + JSONL
 npm run arena:cockpit    # public cockpit data, chain, and attestation
 npm run rwa:check        # read-only public Bitget RWA market report
+npm run news:feed        # server-side Finnhub refresh -> public/news-feed.json
 ```
 
 Optional live Qwen regeneration:
@@ -76,9 +77,29 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit
 
 Credentials stay in environment variables or ignored local files. Do not paste keys into chat or commit them.
 
+## Live News Feed
+
+`public/news.html` is a static read plane. It fetches only `public/news-feed.json`; it never calls Finnhub or any exchange from the browser.
+
+Refresh on the server or a local operator machine with:
+
+```bash
+FINNHUB_API_KEY=<your-key> npm run news:feed
+```
+
+An ignored local key file also works:
+
+```bash
+printf "%s" "<your-key>" > .finnhubkey
+npm run news:feed
+```
+
+The VPS refresh job should run `npm run news:feed` on a fixed cadence, then copy only `public/news-feed.json` into the static docroot. Finnhub's economic-calendar endpoint is probed by the fetcher; if the deployed key's tier returns 401/403, GapGuard falls back to `data/macro-calendar.json` and labels it as a committed scheduled calendar.
+
 ## Important Files
 
 - [public/arena.html](public/arena.html) - judge cockpit with in-browser chain verification and tamper simulation.
+- [public/news.html](public/news.html) and [public/news-feed.json](public/news-feed.json) - static operational news surface and its server-generated feed.
 - [public/arena-chain.jsonl](public/arena-chain.jsonl) - Arena-native tamper-evident records.
 - [public/arena-attestation.json](public/arena-attestation.json) - Ed25519 attestation over the Arena Merkle root.
 - [artifacts/stock-paper-journal.jsonl](artifacts/stock-paper-journal.jsonl) and [artifacts/stock-paper-journal.csv](artifacts/stock-paper-journal.csv) - Track 3 stock paper journal.
