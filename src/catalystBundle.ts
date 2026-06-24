@@ -1,5 +1,7 @@
 import { loadCommittedMacroEvents } from "./macroCalendar";
+import type { NavReferenceStatus } from "./dislocation";
 import type { EconomicCalendarItem, NewsFeed, NewsFeedItem } from "./newsFeed";
+import type { OffHoursLiquiditySignal } from "./proxyReturn";
 
 export type CatalystSection =
   | "companyNews"
@@ -21,6 +23,13 @@ export interface CatalystBundle {
   scheduledMacro: CatalystBundleItem[];
   indexFutures: CatalystBundleItem[];
   crossAsset: CatalystBundleItem[];
+}
+
+export interface OffHoursSignalCatalystInput {
+  decisionTimestamp: string;
+  premiumDiscountBps?: number;
+  reference?: NavReferenceStatus;
+  liquidity?: OffHoursLiquiditySignal;
 }
 
 const SCHEDULED_MACRO = loadCommittedMacroEvents();
@@ -143,6 +152,91 @@ function crossAssetItems(date: string, decision: string): CatalystBundleItem[] {
         : "No committed DXY, VIX, or rates shock is recorded for this date; cross-asset context is neutral.",
     },
   ];
+}
+
+function duration(ms: number | null): string {
+  if (ms === null) return "n/a";
+  const minutes = ms / 60_000;
+  return minutes < 120
+    ? `${minutes.toFixed(1)}m`
+    : `${(minutes / 60).toFixed(1)}h`;
+}
+
+function bps(value: number | undefined): string {
+  return value === undefined ? "n/a" : value.toFixed(1);
+}
+
+function numberOrNa(value: number | null, digits: number): string {
+  return value === null ? "n/a" : value.toFixed(digits);
+}
+
+function assertSignalTimestamp(
+  timestamp: string,
+  decision: string,
+  label: string,
+): void {
+  if (!isBeforeDecision(timestamp, decision)) {
+    throw new Error(
+      `${label} timestamp ${timestamp} is not before decision ${decision}`,
+    );
+  }
+}
+
+export function buildOffHoursSignalItems(
+  input: OffHoursSignalCatalystInput,
+): CatalystBundleItem[] {
+  const items: CatalystBundleItem[] = [];
+  if (input.reference?.asOf) {
+    assertSignalTimestamp(
+      input.reference.asOf,
+      input.decisionTimestamp,
+      "NAV/oracle reference",
+    );
+    items.push({
+      id: `nav-oracle-${input.reference.asOf.slice(0, 10)}`,
+      section: "crossAsset",
+      timestamp: input.reference.asOf,
+      source: input.reference.source,
+      text: cleanText(
+        [
+          `NAV_ORACLE premiumDiscountBps=${bps(input.premiumDiscountBps)}`,
+          `price=${input.reference.price}`,
+          `freshness=${input.reference.stale ? "stale" : "fresh"}`,
+          `age=${duration(input.reference.ageMs)}`,
+          `maxAge=${duration(input.reference.maxAgeMs)}`,
+          input.reference.fallback ? "fallback=labeled" : "fallback=false",
+          input.reference.label,
+        ].join("; "),
+      ),
+    });
+  }
+
+  if (input.liquidity) {
+    assertSignalTimestamp(
+      input.liquidity.asOf,
+      input.decisionTimestamp,
+      "off-hours liquidity",
+    );
+    items.push({
+      id: `off-hours-liquidity-${input.liquidity.asOf.slice(0, 10)}`,
+      section: "crossAsset",
+      timestamp: input.liquidity.asOf,
+      source: input.liquidity.source,
+      text: cleanText(
+        [
+          `OFF_HOURS_LIQUIDITY depth=${input.liquidity.depth}`,
+          `gateBias=${input.liquidity.gateBias}`,
+          `spreadBps=${numberOrNa(input.liquidity.spreadBps, 1)}`,
+          `offHoursVolume=${input.liquidity.offHoursVolume.toFixed(2)}`,
+          `volumeRatio=${numberOrNa(input.liquidity.volumeRatio, 2)}`,
+          input.liquidity.fallback ? "fallback=labeled" : "fallback=false",
+          input.liquidity.reason,
+        ].join("; "),
+      ),
+    });
+  }
+
+  return items;
 }
 
 function underlyingOf(asset: string): string {

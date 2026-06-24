@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "8926d8198f305dfb6c3758504bf662fced87170b",
+  "commit": "ea3b407892a1c7026da4c10b6de35392e208fae8",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
-  "promptHash": "1c7bef897db9a8670f4b41b4ed4ae5436e5ddc5a62478333ef3ef7e96c19bb0e",
+  "promptHash": "eab129aaafb3d4d33550b7996ee31894ee0324230bd56fe3afcfd141b61c6d98",
   "publicKeyFingerprint": "88f0da408cefee09788a9a725e1c39e0f105279de492fcbedf10f10babd64561",
   "artifacts": [
     {
@@ -70,13 +70,13 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "08116578dfaead121d790e783de4fbd8dbb4c9cdd1ac0c94badc9543ba692966",
-      "bytes": 6284
+      "sha256": "d56fa258d2bdcd515758506738ef97aefc49e81c8fc1497b217892df5c351dd9",
+      "bytes": 6482
     },
     {
       "path": "glassbox-demo.jsonl",
-      "sha256": "fd70ba13016e84463d84074c3336c9120f53543297ced3f96ee3c8260f46858f",
-      "bytes": 4159
+      "sha256": "c037411bcd68f9bb0e5e193f9e5b4f3cbe4b72072dab8874cf726b86b3e82dd7",
+      "bytes": 5446
     },
     {
       "path": "artifacts/stock-paper-journal.jsonl",
