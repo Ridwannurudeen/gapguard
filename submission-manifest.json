@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "a451dbc26107e3b4c90e77149e473107575e0c37",
+  "commit": "40716c053fdcfd143e14062a9afe6af87d9e916a",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -10,8 +10,8 @@
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "b0c9b65ddf3d1b28a132d1b6048c160adde421318c613657ded380f9c52ef3d6",
-      "bytes": 5918
+      "sha256": "c7df3f2771bcff4696bb0bd1b6b42cb528f5cb561ac3368f1afd9f75f58da651",
+      "bytes": 5947
     },
     {
       "path": "docs/SUBMISSION.md",
@@ -25,38 +25,38 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "33e50d92668d6bc7cb9e73cadbfda5cc605d313e357a055fa649b9cb3a1d2ba9",
-      "bytes": 51175
+      "sha256": "c10e395a8109d75a929cd100e945556f4c1ec5d70728600d8c8325786e24d8aa",
+      "bytes": 66344
     },
     {
       "path": "public/news.html",
-      "sha256": "3cd2e9399a6157e09531e4b1d4e10a6e5267ba2c5eb013e35328d0fa31e3e4fb",
+      "sha256": "8dd993197f6a2f8c69e9811a658431c17c4cd5969291df1f7e724fc1f6b554ad",
       "bytes": 19296
     },
     {
       "path": "public/news-feed.json",
-      "sha256": "6f0589b3e24d7d53b57f01a0f237d32e88368b9e48336b0bb4b3b16d24e0ae7f",
-      "bytes": 55660
+      "sha256": "6941ce81f9426ab2116ecf7cca4f5a1a1c004639d6f97354ce5a1ee2823f9a65",
+      "bytes": 56550
     },
     {
       "path": "public/arena.html",
-      "sha256": "0f323218c07688722814ecef5ae9e9d083c1fe8ab5145c597d8a03d0af30f5f5",
-      "bytes": 62465
+      "sha256": "1e7a5e6069906a34a7cd6d470cdf9d298737ba0cd11ee31f6880d3be4d35b4a1",
+      "bytes": 68976
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "9c3248c72b41da833a6443b4538f622b4e773e50d982e661a398cbe6fb776d43",
-      "bytes": 19025
+      "sha256": "43795d7b2cd7bca50328d95bcee7d479df9814db2e623e21f5d9358edd7c2023",
+      "bytes": 19646
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "dc313829a97012708dbffc85c2e78d2c87a245a7fb8d657756dc78cbd6790c07",
-      "bytes": 11303
+      "sha256": "7ade299e98d1cb1cf017c62fc51db238e19f88197a35fa4197c85247d3f8e906",
+      "bytes": 11314
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "50ddcc9f197d1e9f60737da219b931c89485327ef6e7c6e894a807a48547c4e7",
-      "bytes": 422
+      "sha256": "1879eb781e49a1603e253ef2a372101d258970740f37d39e77b0d2eea42f1e83",
+      "bytes": 431
     },
     {
       "path": "public/arena-pubkey.pem",
@@ -120,8 +120,8 @@
     },
     {
       "path": "data/macro-calendar.json",
-      "sha256": "f182338d1eb18cd97c166ed41f15d6c0640fc2bb7dc620a2d2c36596fc4a8993",
-      "bytes": 927
+      "sha256": "208d0970a8c8a444c0fa4eba57c7e38acc3a4cf54689cb74d86f3eecbb2f9ce3",
+      "bytes": 955
     }
   ],
   "generationCommands": [
