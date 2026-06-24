@@ -122,23 +122,29 @@ export const OPERATOR_PAGE = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>GapGuard Operator Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
-:root{--bg:#0c0f0b;--card:#161a15;--line:rgba(224,231,204,.14);--ink:#f4f4ec;--muted:#aab0a0;--dim:#737a6b;--mint:#2fe6a2;--amber:#efb758;--red:#ff6270;--mono:ui-monospace,Menlo,Consolas,monospace}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,sans-serif;padding:28px;max-width:760px;margin:0 auto}
-h1{font-size:19px;margin:0 0 4px}.sub{color:var(--dim);font-size:12px;margin:0 0 22px}
-.warn{background:rgba(239,183,88,.1);border:1px solid var(--amber);color:var(--amber);border-radius:10px;padding:10px 14px;font-size:12.5px;margin-bottom:18px}
-label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);margin:14px 0 5px}
-input,select{width:100%;background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 11px;font:13px var(--mono)}
+:root{--ground:#0a0a0c;--floor:#101013;--card:#1a1a21;--line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);--ink:#f5f5f3;--muted:#9a9ca2;--dim:#66676d;--lime:#d7ff6a;--mint:#34e3a4;--amber:#f3b64e;--red:#ff5e6e;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;--sans:"Inter",system-ui,-apple-system,sans-serif;--display:"Space Grotesk","Inter",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0 auto;max-width:720px;background:var(--ground);color:var(--ink);font:15px/1.55 var(--sans);padding:30px 22px;-webkit-font-smoothing:antialiased}
+h1{font:600 20px/1.2 var(--display);letter-spacing:-.01em;margin:0;display:flex;align-items:center;gap:10px}
+.gg{display:grid;place-items:center;width:27px;height:27px;border-radius:6px;background:rgba(215,255,106,.12);border:1px solid rgba(215,255,106,.42);color:var(--lime);font:700 12px var(--mono);flex:none}
+.sub{color:var(--dim);font:12.5px var(--mono);margin:6px 0 22px}
+.warn{background:rgba(243,182,78,.1);border:1px solid rgba(243,182,78,.4);color:var(--amber);border-radius:11px;padding:11px 14px;font-size:13px;margin-bottom:18px;line-height:1.5}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);margin:14px 0 6px}
+input,select{width:100%;background:var(--floor);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font:13px var(--mono)}
+input:focus,select:focus{outline:none;border-color:var(--line-strong)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .confirm{margin-top:14px;display:none;align-items:center;gap:9px;color:var(--red);font-size:13px}
 .confirm.show{display:flex}.confirm input{width:auto}
-button{margin-top:18px;width:100%;background:var(--mint);color:#08120c;border:0;border-radius:9px;padding:12px;font-weight:700;font-size:14px;cursor:pointer}
+button{margin-top:18px;width:100%;background:var(--mint);color:#08130d;border:0;border-radius:10px;padding:13px;font:600 14px var(--sans);cursor:pointer}
 button.live{background:var(--red);color:#fff}button:disabled{opacity:.4;cursor:not-allowed}
-pre{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:14px;overflow:auto;font:12px var(--mono);color:var(--muted);margin-top:18px;white-space:pre-wrap}
-.modebadge{font:11px var(--mono);padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--dim)}
+pre{background:var(--floor);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font:12px var(--mono);color:var(--muted);margin-top:18px;white-space:pre-wrap}
+.modebadge{font:11px var(--mono);padding:3px 9px;border-radius:7px;border:1px solid var(--line);color:var(--dim)}
 </style></head>
 <body>
-<h1>GapGuard Operator Console <span id="badge" class="modebadge">dry_run</span></h1>
+<h1><span class="gg">GG</span> GapGuard Operator <span id="badge" class="modebadge">dry_run</span></h1>
 <p class="sub">127.0.0.1 only · keys live on the server · this page never sees them</p>
 <div class="warn" id="warn">dry_run builds the plan and places nothing.</div>
 <label>Operator token</label><input id="token" type="password" placeholder="OPERATOR_TOKEN (printed in the server terminal)" />
