@@ -19,3 +19,6 @@ artifacts/
 .arena-signing-key.pem
 .finnhubkey
 .bitget-demo.env
+
+# local Qwen/Finnhub keys for holdout scoring (never commit)
+.holdout-keys.env

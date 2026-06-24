@@ -16,6 +16,7 @@ import {
   type ChainRecord,
   type LogVerification,
 } from "./logVerifier";
+import { canonicalJson } from "./canonicalJson";
 
 export type ArenaRecordKind =
   | "mandate_rule"
@@ -55,7 +56,7 @@ export function sealArenaRecords(inputs: ArenaRecordInput[]): ArenaRecord[] {
 }
 
 export function formatArenaChain(records: ArenaRecord[]): string {
-  return `${records.map((record) => JSON.stringify(record)).join("\n")}\n`;
+  return `${records.map((record) => canonicalJson(record)).join("\n")}\n`;
 }
 
 export function verifyArenaRecords(records: ArenaRecord[]): LogVerification {
@@ -71,12 +72,12 @@ export function writeArenaChain(path: string, records: ArenaRecord[]): void {
   writeFileSync(path, formatArenaChain(records));
 }
 
-// --- Regulator-grade attestation: a Merkle root over the chain, signed (Ed25519) ---
+// --- Signed Merkle attestation: a root over the chain, signed (Ed25519) ---
 // The hash chain already makes any single-row edit detectable; the Merkle root is a
 // single compact fingerprint of the whole ledger, and the Ed25519 signature binds it
 // to the producer's key (attribution / non-repudiation). Anyone can recompute the
 // root from the records and verify the signature against the embedded public key —
-// "verify, don't trust", aligned with MiFID II / EU AI Act Art. 12 / SEC CAT audit norms.
+// "verify, don't trust": a cryptographic integrity proof, not regulatory certification.
 
 export interface ArenaAttestation {
   alg: "Ed25519";

@@ -1,0 +1,1711 @@
+{
+  "generatedAt": "2026-06-23T07:31:59.286Z",
+  "source": "Finnhub /api/v1/company-news",
+  "contexts": [
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No AAPL company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No AAPL company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No AAPL company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No AAPL company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No AAPL company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "AAPL headlines before the 2026-06-18 US open:\n- 2026-06-18 B of A Securities Reiterates Buy on Apple, Maintains $380 Price Target (Benzinga)\n- 2026-06-18 Intel Stock Jumps On Reported Apple Chip Business (Yahoo)\n- 2026-06-18 How AI-Driven Chip Cost Inflation and Price Hikes Will Impact Apple (AAPL) Investors (Yahoo)\n- 2026-06-18 Trump Says Apple and Intel Are Working Together. Intel's Stock Is Rising On the News (Yahoo)\n- 2026-06-18 Apple May Add $100 To Higher-End iPhone Models To Counter Memory Costs: Analyst (Benzinga)\n- 2026-06-18 Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday as Interim US-Iran Deal Lifts Risk Sentiment (Yahoo)"
+    },
+    {
+      "symbol": "AAPLUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "AAPL headlines before the 2026-06-22 US open:\n- 2026-06-22 Micron and Western Digital Rise 6%, SanDisk Gains 5% as Memory Stocks Rally Into Micron’s Earnings (Yahoo)\n- 2026-06-22 Reported June 19: Xiao-I Announces Shanghai High People's Court Dismisses All Litigation Claims Filed By Co. Against Apple's Siri Technology Alleged Infringement; Confirms Non-Patent Infringement Action That Specified Siri-Equipped iPhone Models Not Fall Within Protection Scope (Benzinga)\n- 2026-06-22 Here is What to Know Beyond Why Apple Inc. (AAPL) is a Trending Stock (Yahoo)\n- 2026-06-22 CNBC Points Pro: Which credit card is best for earning rewards on Uber rides? (CNBC)\n- 2026-06-22 Microsoft, Satya Nadella And The Most Polite Admission in Tech (Yahoo)\n- 2026-06-22 Is Apple's Margin Miracle Over? (Yahoo)"
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No AMD company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No AMD company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No AMD company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No AMD company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No AMD company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No AMD company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No AMD company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "AMD headlines before the 2026-06-15 US open:\n- 2026-06-15 Is AMD the Next $1 Trillion Chip Stock, or Just the Next AI Trap? (Yahoo)\n- 2026-06-15 This Under-the-Radar AI Chip Leader Just Became a No-Brainer Buy This Week (Yahoo)\n- 2026-06-15 Investor Cathie Wood Buys More Than $500 Million Of SpaceX Stock (Yahoo)\n- 2026-06-15 MaxLinear's Panther Momentum Builds on Growing Tier 1 Design Wins (Yahoo)\n- 2026-06-15 Update: US-Iran Peace Deal Announcement Lifts US Equity Futures Pre-Bell (Yahoo)\n- 2026-06-15 Is AMD’s £2 Billion UK AI Bet Altering The Investment Case For Advanced Micro Devices (AMD)? (Yahoo)"
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "AMD headlines before the 2026-06-16 US open:\n- 2026-06-16 Western Digital stock jumps as AI trade reignites (Yahoo)\n- 2026-06-16 Western Digital, Micron, Sandisk hover at all-time highs as AI trade reignites (Yahoo)\n- 2026-06-16 Cathie Wood Cleans House: Another Day Of Heavy Sales (Yahoo)\n- 2026-06-16 Investors Heavily Search Advanced Micro Devices, Inc. (AMD): Here is What You Need to Know (Yahoo)\n- 2026-06-16 Focus on 5 AI Behemoths Carving a Niche in the Server CPU Chip Market (Yahoo)\n- 2026-06-16 RXT Stock Surges 25% Premarket – What’s The Connection Between Rackspace’s Latest Pact With AMD And Its Workforce Reduction? (Yahoo)"
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "AMD headlines before the 2026-06-18 US open:\n- 2026-06-18 Nasdaq 100 Rallies, Oil Sinks To $75 On Iran Peace Deal: Stock Market Today (Benzinga)\n- 2026-06-18 Take Chips Off The Table Before AI Trade Turns, UBS Warns (Benzinga)\n- 2026-06-18 Question if Intel deserves AMD-level valuation, says Wedbush Securities' Matt Bryson (CNBC)\n- 2026-06-18 Intel Stock Jumps 10% on Apple Partnership (Yahoo)\n- 2026-06-18 US chip stocks gain after Apple-Intel partnership (Yahoo)\n- 2026-06-18 Samsung draws advanced chipmaking interest as TSMC capacity tightens (Yahoo)"
+    },
+    {
+      "symbol": "AMDUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "AMD headlines before the 2026-06-22 US open:\n- 2026-06-22 AMD's Rally Has Wall Street Paying Attention (Yahoo)\n- 2026-06-22 AI Boom and HBM Demand to Boost Micron's DRAM Revenues in Q3 (Yahoo)\n- 2026-06-22 AMD Lands a Massive AI Infrastructure Opportunity With Rackspace (Yahoo)\n- 2026-06-22 2 Growth Stocks to Add to Your Roster and 1 We Find Risky (Yahoo)\n- 2026-06-22 Nvidia Stock Is Falling When Its Chip Rivals Are Rising (Yahoo)\n- 2026-06-22 QQQ: The AI Business Model Is Likely Collapsing (SeekingAlpha)"
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No AMZN company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No AMZN company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No AMZN company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No AMZN company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "No AMZN company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-16 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-17 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "No AMZN company-news headlines before the 2026-06-18 US open."
+    },
+    {
+      "symbol": "AMZNUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "AMZN headlines before the 2026-06-22 US open:\n- 2026-06-22 AMZP: Earning Yield Through A Synthetic Buy-Write Strategy On Amazon Shares (SeekingAlpha)\n- 2026-06-22 Credo Wires Agentic AI With $10 Billion-Plus Market In Sight (Benzinga)\n- 2026-06-22 Alphabet Tumbles 6%, SpaceX Sinks 10% On Bond Sale: Stock Market Today (Benzinga)\n- 2026-06-22 Amazon Prime Day Puts Retail Demand in Focus (Yahoo)\n- 2026-06-22 Amazon.com, Inc. (AMZN) is Attracting Investor Attention: Here is What You Should Know (Yahoo)\n- 2026-06-22 Amazon Prime Day Set to Generate Record Online Spending as Retailers Compete for Shoppers (AMZN) (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No ARM company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No ARM company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No ARM company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "ARM headlines before the 2026-05-22 US open:\n- 2026-05-22 Is Arm Holdings (ARM) the Best European Growth Stock to Buy? (Yahoo)\n- 2026-05-22 S&P Futures Gain as Bond Yields Fall, U.S.-Iran Updates Awaited (Yahoo)\n- 2026-05-22 Arm Holdings (ARM) Hits All-Time High as Profits Seen Rocketing 5x (Yahoo)\n- 2026-05-21 Stocks Rebound as Crude Oil Falls on Hopes for a US-Iran Deal (Yahoo)\n- 2026-05-21 Dow slips, Nasdaq fades after Nvidia's strong results fail to lift sentiment (Yahoo)\n- 2026-05-21 Why Arm Holdings Stock Popped Today (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "ARM headlines before the 2026-05-27 US open:\n- 2026-05-26 Arm Surges as Nvidia's Vera Drives CPU Demand (Yahoo)\n- 2026-05-26 Semiconductor shares climb in premarket trade as investor confidence improves (Yahoo)\n- 2026-05-26 AI Chip Stocks Jump as Qualcomm Explodes Higher, AMD Leads Semiconductor Rally (Yahoo)\n- 2026-05-26 Semiconductor stocks rise premarket as investor sentiment boosted (Yahoo)\n- 2026-05-26 The AI Bubble That Isn't: Why Nvidia, Micron Still Look Cheap (Benzinga)\n- 2026-05-26 Arm’s AGI CPUs Put AI Data Center Growth Story In Focus (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "ARM headlines before the 2026-05-28 US open:\n- 2026-05-28 ARM vs. SNPS: Which AI Chip Design Stock Should Investors Buy? (Yahoo)\n- 2026-05-28 Agilent, Unusual Machines, Best Buy And Other Big Stocks Moving Higher On Thursday (Benzinga)\n- 2026-05-28 What Is Going On With ARM Stock On Thursday? (Benzinga)\n- 2026-05-28 You've Got To Take 'These Gifts' – Jim Cramer Says You Should Buy These 6 Stocks Amid 'So Much Opportunity' (Benzinga)\n- 2026-05-28 Mizuho Maintains Outperform on ARM Holdings, Raises Price Target to $360 (Benzinga)\n- 2026-05-27 US Equity Indexes Edge Higher as Crude Oil Slumps, Tech Giants Take Breather (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "ARM headlines before the 2026-05-29 US open:\n- 2026-05-29 AMD Could Be the Biggest Winner in the Next AI Battle (Yahoo)\n- 2026-05-29 S&P Futures Gain on Hopes for U.S.-Iran Deal; Dell Pops on Blowout Earnings (Yahoo)\n- 2026-05-29 Dell Technologies Posts Blockbuster Q1 Earnings, Joins NetApp and Other Big Stocks Moving Higher in Friday's Session (Benzinga)\n- 2026-05-28 Dell Earnings The 'Widest' In Its Public History, Says This Analyst, But Jim Cramer Thinks Nvidia Is 'Still The King' (Benzinga)\n- 2026-05-28 Nvidia's Next AI Wave Sparks Big Calls on Micron, Dell, Arm Stocks (Yahoo)\n- 2026-05-28 S&P 500 and Nasdaq 100 Post Record Highs on US-Iran Truce Reports (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "ARM headlines before the 2026-06-01 US open:\n- 2026-06-01 Why Arm Stock Is the Big Winner From Nvidia’s Chip Announcement (Yahoo)\n- 2026-06-01 Microsoft, Dell, and HP stocks rise as Nvidia announces new AI chip for personal computers (Yahoo)\n- 2026-06-01 ARM Stock Rockets Higher As Nvidia’s New AI Platform Fuels Fresh Bull Case (Yahoo)\n- 2026-06-01 Wells Fargo Maintains Overweight on ARM Holdings, Raises Price Target to $410 (Benzinga)\n- 2026-06-01 Nvidia Eats Intel's Lunch: Downgrade To Sell (SeekingAlpha)\n- 2026-06-01 Optimum Communications, Fluence Energy, Virgin Galactic And Other Big Stocks Moving Higher Today (Benzinga)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "ARM headlines before the 2026-06-02 US open:\n- 2026-06-02 Why a massive Nvidia stock rally may be just getting started (Yahoo)\n- 2026-06-02 Arm Holdings' Massive Run Is Far From Done (SeekingAlpha)\n- 2026-06-02 Arm CEO Haas Reportedly Says Blocking AI CPU Shipments To China Would Be Difficult – ‘CPUs Are Kind Of Like Oil Relative To The Application Space’ (Yahoo)\n- 2026-06-02 Arm CEO Warns AI Processor Export Restrictions to China Would Be Difficult to Enforce (ARM) (Yahoo)\n- 2026-06-02 Arm Holdings CEO says US would have difficulty banning AI CPU chip exports to China (Yahoo)\n- 2026-06-02 Arm CEO Warns China CPU Curbs May Be Impossible To Enforce— 'They Would Have To Limit Everything' (Benzinga)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "ARM headlines before the 2026-06-03 US open:\n- 2026-06-03 FTC Probe Puts Arm Licensing Model And AI Growth Story Under Review (Yahoo)\n- 2026-06-03 Why Super Micro Computer Stock Is Falling On Wednesday? (Benzinga)\n- 2026-06-03 Arm vs. NVIDIA: Which Semiconductor Stock Belongs in Your 10-Year Portfolio? (Yahoo)\n- 2026-06-03 Why Arm Stock Skyrocketed 68% in May (Yahoo)\n- 2026-06-03 Virtus SGA Global Growth Fund Q1 2026 Portfolio Update (SeekingAlpha)\n- 2026-06-03 Huang's Trillion-Dollar Sentence, Software's Cold Shower, and a Cyber Beat After the Bell (ChartMill)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "ARM headlines before the 2026-06-04 US open:\n- 2026-06-04 Intel, AMD, Micron shares trim losses after Broadcom results spark semiconductor sector sell-off (Yahoo)\n- 2026-06-04 Intel, AMD, Micron shares sink as Broadcom results spark semiconductor sector sell-off (Yahoo)\n- 2026-06-04 US Equity Futures Mixed Pre-Bell as Broadcom Falls, Clashes Continue in Middle East (Yahoo)\n- 2026-06-04 SoftBank just got a reminder of AI's biggest risk (Yahoo)\n- 2026-06-04 Broadcom Q2 earnings miss drags Nasdaq futures lower (Yahoo)\n- 2026-06-04 Markets News, June 4, 2026: Dow Soars 875 Points to Record Close; S&P 500 Overcomes Broadcom-Led Tech Pullback; Oil Retreats (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "ARM headlines before the 2026-06-05 US open:\n- 2026-06-05 US Equity Futures Mostly Lower Pre-Bell Amid Continued Tech Stock Sell-Off, US-Iran War Entering Fourth Month (Yahoo)\n- 2026-06-05 Why Is Arm Stock Falling Friday? (Benzinga)\n- 2026-06-05 Markets News: June 5, 2026: Nasdaq Ends Day 4% Lower, Tech Stocks Plunge; S&P 500 Snaps 9-Week Winning Streak; Treasury Yields Rise; Bitcoin Drops Below $60,000 (Yahoo)\n- 2026-06-05 The Dow Hit a Record. The Chip Trade Hit a Wall. And Hezbollah Said No. (ChartMill)\n- 2026-06-05 Microsoft Held Up as AI Chips Sold Off. Is It the Safer Megacap Bet Now? (Yahoo)\n- 2026-06-04 Dow Hits Record High And S&P 500 Gains As Oil Slides, While Chip Weakness Weighs On Nasdaq — AVGO, UNH, META, PINS, RUM In Focus (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "ARM headlines before the 2026-06-08 US open:\n- 2026-06-08 After 11% Wipeout, XSD Investors Must Hate Broadcom (Yahoo)\n- 2026-06-07 The Bull Case For Arm Holdings (ARM) Could Change Following AI Chip Selloff And Rate Jitters – Learn Why (Yahoo)\n- 2026-06-07 AI stock mania is taking over the markets in 2026 (Yahoo)\n- 2026-06-06 Why Nvidia, Intel, Marvell, and Other AI Stocks Plunged Today (Yahoo)\n- 2026-06-05 Nvidia Is Moving Into Intel and Qualcomm's Turf. These Are the Losers Investors Should Watch Closely. (Yahoo)\n- 2026-06-05 Stocks Settle Sharply Lower as Tech Companies Routed (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "ARM headlines before the 2026-06-09 US open:\n- 2026-06-09 Micron, Marvell and Arm Stock Charts Flash The Same Warning — One Still Looks Cheap (Benzinga)\n- 2026-06-08 Stocks Rally as Buyers Return After AI-Led Selloff (Yahoo)\n- 2026-06-08 Apple's AI Ambition Has A Picks-and-Shovels Trade — Here's Who Could Win (Benzinga)\n- 2026-06-08 After 11% Wipeout, XSD Investors Must Hate Broadcom (Yahoo)\n- 2026-06-07 The Bull Case For Arm Holdings (ARM) Could Change Following AI Chip Selloff And Rate Jitters – Learn Why (Yahoo)\n- 2026-06-07 AI stock mania is taking over the markets in 2026 (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "ARM headlines before the 2026-06-10 US open:\n- 2026-06-10 What Is Going On With Arm Stock On Wednesday? (Benzinga)\n- 2026-06-10 AMD, Nvidia, Arm, Intel: Inside The $120 Billion CPU Gold Rush (SeekingAlpha)\n- 2026-06-10 Jim Cramer on Arm Holdings: “I Wish I Had Kicked It Out Altogether” (Yahoo)\n- 2026-06-10 Trillions Invested In AI And The Consequences Of Success (SeekingAlpha)\n- 2026-06-09 US Equity Indexes Decline as Technology Comes Under Selling Pressure (Yahoo)\n- 2026-06-09 Broader Market Settles Lower as Chip Stocks Sink (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "ARM headlines before the 2026-06-11 US open:\n- 2026-06-11 Arm Holdings Rallies As Agentic AI Spark Triggers Wave Of Wall Street Upgrades (Benzinga)\n- 2026-06-11 Stitch Fix, Intel, KLA And Other Big Stocks Moving Higher On Thursday (Benzinga)\n- 2026-06-11 B of A Securities Maintains Neutral on ARM Holdings, Raises Price Target to $335 (Benzinga)\n- 2026-06-11 Mizuho Raises PT on Arm Holdings (ARM), Here’s What You Should Know (Yahoo)\n- 2026-06-10 US Equity Indexes Slide as Semiconductors Lead Technology Lower, Trump Warns of Iran Attack (Yahoo)\n- 2026-06-10 Stocks Settle Sharply Lower on Escalating Middle East Tensions (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "ARM headlines before the 2026-06-12 US open:\n- 2026-06-12 12 Information Technology Stocks Moving In Friday's Intraday Session (Benzinga)\n- 2026-06-12 FTC Probe Puts Arm Licensing Model And AGI CPU Plans In Focus (Yahoo)\n- 2026-06-12 These 3 Semiconductor Stocks Just Got a Bullish Nod From Citi. Buy the Dip. (Yahoo)\n- 2026-06-12 Rezolve AI, Bakkt, Seagate And Other Big Stocks Moving Higher On Friday (Benzinga)\n- 2026-06-12 NVIDIA Obliterates The Boring PC Era (Benzinga)\n- 2026-06-11 Stocks Settle Sharply Higher on Middle East Peace Hopes (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "ARM headlines before the 2026-06-16 US open:\n- 2026-06-16 Focus on 5 AI Behemoths Carving a Niche in the Server CPU Chip Market (Yahoo)\n- 2026-06-16 SpaceX becomes retail's biggest IPO trade: Chart of the Day (Yahoo)\n- 2026-06-16 ValuEngine Weekly Market Summary And Commentary (SeekingAlpha)\n- 2026-06-15 Stocks Settle Sharply Higher as US-Iran Peace Deal Spurs Optimism (Yahoo)\n- 2026-06-15 Stocks Rally as US-Iran Peace Deal Sinks Oil and Bond Yields (Yahoo)\n- 2026-06-15 Chips Up 8.8% in One Week: 5 Semiconductor Names Breaking Into New Highs (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "ARM headlines before the 2026-06-17 US open:\n- 2026-06-17 Arm Holdings plc (ARM) Rallied Over Multiple Tailwinds (Yahoo)\n- 2026-06-17 Broadcom's Massive AI Pipeline Secures Multi-Year Growth, Analyst Says (Benzinga)\n- 2026-06-17 Bernstein flags structural beneficiaries of the CPU renaissance (Yahoo)\n- 2026-06-17 The Zacks Analyst Blog Highlights Advanced Micro Devices, Intel, Arm Holdings, NVIDIA and QUALCOMM (Yahoo)\n- 2026-06-16 Stocks Indexes Finish Mostly Lower as Chipmakers Retreat (Yahoo)\n- 2026-06-16 Arm Holdings' Licensing Momentum Continues to Power Revenue Growth (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "ARM headlines before the 2026-06-18 US open:\n- 2026-06-18 New Street Research Downgrades ARM Holdings to Neutral (Benzinga)\n- 2026-06-18 Stocks Rally Before the Open on U.S.-Iran Peace Deal (Yahoo)\n- 2026-06-18 Why Did RXT, NBIS, ARM Stocks Surge To 52-Week Highs? (Yahoo)\n- 2026-06-17 Arm (ARM) Launches Neural Dawn To Show How It Wants In On Mobile AI Gaming (Yahoo)\n- 2026-06-17 Arm (ARM) Introduces Neural Dawn to Showcase New Neural Graphics Technology (Yahoo)\n- 2026-06-17 Stocks Retreat as Fed Signals Possible Higher Interest Rates (Yahoo)"
+    },
+    {
+      "symbol": "ARMUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "ARM headlines before the 2026-06-22 US open:\n- 2026-06-20 Why Bernstein Just Raised Its Price Target on Arm Stock by Nearly 70% (Yahoo)\n- 2026-06-18 Stocks Sharply Higher as US-Iran Peace Deal Eases Inflation Risks (Yahoo)\n- 2026-06-18 The 25 Biggest U.S. IPOs of All Time (Yahoo)\n- 2026-06-18 Stocks Supported as Geopolitical Risks Recede (Yahoo)\n- 2026-06-18 Advanced Micro Devices vs. Arm Holdings: Which AI CPU Stock Is the Better Buy? (Yahoo)"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No AVGO company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No AVGO company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No AVGO company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No AVGO company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No AVGO company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No AVGO company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No AVGO company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "AVGO headlines before the 2026-06-12 US open:\n- 2026-06-12 Chip Stocks Are Tumbling. Is It Time to Sell Cerebras, Broadcom, and Nvidia? (Yahoo)\n- 2026-06-12 Results: Broadcom Inc. Beat Earnings Expectations And Analysts Now Have New Forecasts (Yahoo)\n- 2026-06-12 Dan Ives’ Own ETF Is Up 27% YTD. The AI Revolution Trade Is Real. (Yahoo)\n- 2026-06-12 These 3 Semiconductor Stocks Just Got a Bullish Nod From Citi. Buy the Dip. (Yahoo)\n- 2026-06-12 Broadcom Is Still Worth Holding On To (SeekingAlpha)\n- 2026-06-12 What's at Stake for the Market (Yahoo)"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "AVGO headlines before the 2026-06-15 US open:\n- 2026-06-15 Micron's Broadcom‑Driven Drop Never Made Sense — Dip Buyers Are Up 40% (Benzinga)\n- 2026-06-15 Stocks higher after President Trump announces peace framework with Iran: Investor's next move (CNBC)\n- 2026-06-15 This Under-the-Radar AI Chip Leader Just Became a No-Brainer Buy This Week (Yahoo)\n- 2026-06-15 Carahsoft Study Reveals How Agencies Are Redefining Cybersecurity Amid Efficiency Push (Yahoo)\n- 2026-06-15 MaxLinear's Panther Momentum Builds on Growing Tier 1 Design Wins (Yahoo)\n- 2026-06-15 Prediction: Can Broadcom Shares Hit $550 in 2027? (Yahoo)"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "AVGO headlines before the 2026-06-16 US open:\n- 2026-06-16 Should You Buy the Dip in These 2 Beaten-Down Artificial Intelligence (AI) Stocks? (Yahoo)\n- 2026-06-16 Stocks making the biggest moves midday: SpaceX, Lumentum, Huntsman, e.l.f. Beauty, Intel & more (CNBC)\n- 2026-06-16 Marvell Needs Lots of Growth to Achieve Huang’s $1 Trillion Call (Yahoo)\n- 2026-06-16 The Bond Market Not Celebrating The Iran Deal, Inflation Is Still A Worry (SeekingAlpha)\n- 2026-06-16 Dow reaches new peak as investors await Warsh's first FOMC as chair (Yahoo)\n- 2026-06-16 That Didn't Take Long: SpaceX Earned Its First Wall Street Sell Rating Less Than an Hour After Trading Began (Yahoo)"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "AVGO headlines before the 2026-06-17 US open:\n- 2026-06-17 Billionaire Dan Loeb’s Top AI Stock Pick: Taiwan Semiconductor (TSM) (Yahoo)\n- 2026-06-17 Snubbing Nvidia for Adobe Costs Florida Stock-Picker $50 Billion (Yahoo)\n- 2026-06-17 Stocks making the biggest moves midday: SpaceX, JPMorgan, UniQure, Intel, Figma, Nano Nuclear & more (CNBC)\n- 2026-06-17 What's going on in today's pre-market session: S&P500 movers (ChartMill)\n- 2026-06-17 SpaceX's near $3 trillion rally comes with one big catch: Chart of the Day (Yahoo)\n- 2026-06-17 Broadcom's Massive AI Pipeline Secures Multi-Year Growth, Analyst Says (Benzinga)"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "AVGO headlines before the 2026-06-18 US open:\n- 2026-06-18 Architect Labs raises $24 million to take on Broadcom, Marvell custom chip business (Yahoo)\n- 2026-06-18 Update: Signed US-Iran Peace Deal Lifts US Equity Futures Pre-Bell (Yahoo)\n- 2026-06-18 Nasdaq 100 Rallies, Oil Sinks To $75 On Iran Peace Deal: Stock Market Today (Benzinga)\n- 2026-06-18 Nvidia Claims No. 1 Spot in $10 Billion AI Networking Market (Yahoo)\n- 2026-06-18 JPMorgan Analysts Say Broadcom Stock Is a 'Buy.' What to Know. (Yahoo)\n- 2026-06-18 Good News for Broadcom Stock Fans (Yahoo)"
+    },
+    {
+      "symbol": "AVGOUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "AVGO headlines before the 2026-06-22 US open:\n- 2026-06-22 J.P. Morgan Fires Back at Google Rumors Threatening Broadcom Stock (Yahoo)\n- 2026-06-22 Broadcom Inc. (AVGO) is Attracting Investor Attention: Here is What You Should Know (Yahoo)\n- 2026-06-22 Exclusive: Upscale AI wants to be the next Cisco—and it just raised another $190 million (Yahoo)\n- 2026-06-22 QQQ: The AI Business Model Is Likely Collapsing (SeekingAlpha)\n- 2026-06-22 Better Artificial Intelligence (AI) Stock to Buy: Broadcom vs. Marvell Technology (Yahoo)\n- 2026-06-22 Can Analog Devices Sustain Margin Expansion Throughout 2026? (Yahoo)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "BABA headlines before the 2026-05-19 US open:\n- 2026-05-19 Shares of stocks in the broader REIT space are trading higher. Strength may be due to a decline in Treasury yields. Additionally, Prologis announced acquisition of a $3.1 billion industrial property portfolio from Blackstone, which could be lifting industrial property stocks. (Benzinga)\n- 2026-05-19 ServiceNow, Alibaba, Archer-Daniels-Midland And More On CNBC's 'Final Trades' (Benzinga)\n- 2026-05-18 Chuck Schumer Slams Trump China Trip As 'Photo Op' With Xi Jinping, Says Visit Delivers 'Nothing' On Fentanyl, Taiwan And AI (Benzinga)\n- 2026-05-18 Alibaba: Cloud's Promise Sustains, But The Stock Is Pricey Still (SeekingAlpha)\n- 2026-05-18 Micron Stock's Worst 2-Day Drop In A Year: Is The Chip Bubble Bursting? (Benzinga)\n- 2026-05-18 Dan Loeb Dumps Microsoft, Slashes Nvidia And Rail Stocks In Sweeping Q1 Portfolio Overhaul (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "BABA headlines before the 2026-05-20 US open:\n- 2026-05-20 Alibaba, NextEra Energy, Transocean And A Real Estate Stock On CNBC's 'Final Trades' (Benzinga)\n- 2026-05-20 Alibaba Is Becoming An AI Giant (SeekingAlpha)\n- 2026-05-20 Alibaba Takes Aim At Nvidia With New 3X Powerful AI Chip And Next-Gen LLM Model As China Tech War Heats Up (Benzinga)\n- 2026-05-19 Shares of stocks in the broader REIT space are trading higher. Strength may be due to a decline in Treasury yields. Additionally, Prologis announced acquisition of a $3.1 billion industrial property portfolio from Blackstone, which could be lifting industrial property stocks. (Benzinga)\n- 2026-05-19 ServiceNow, Alibaba, Archer-Daniels-Midland And More On CNBC's 'Final Trades' (Benzinga)\n- 2026-05-18 Chuck Schumer Slams Trump China Trip As 'Photo Op' With Xi Jinping, Says Visit Delivers 'Nothing' On Fentanyl, Taiwan And AI (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "BABA headlines before the 2026-05-21 US open:\n- 2026-05-20 Jensen Huang Says Huawei Is 'Very, Very Strong' And Nvidia Has 'Largely Conceded' China Market: 'Don't Have Any Expectations' (Benzinga)\n- 2026-05-20 Alibaba, NextEra Energy, Transocean And A Real Estate Stock On CNBC's 'Final Trades' (Benzinga)\n- 2026-05-20 Alibaba Is Becoming An AI Giant (SeekingAlpha)\n- 2026-05-20 Alibaba Takes Aim At Nvidia With New 3X Powerful AI Chip And Next-Gen LLM Model As China Tech War Heats Up (Benzinga)\n- 2026-05-19 Shares of stocks in the broader REIT space are trading higher. Strength may be due to a decline in Treasury yields. Additionally, Prologis announced acquisition of a $3.1 billion industrial property portfolio from Blackstone, which could be lifting industrial property stocks. (Benzinga)\n- 2026-05-19 ServiceNow, Alibaba, Archer-Daniels-Midland And More On CNBC's 'Final Trades' (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "BABA headlines before the 2026-05-22 US open:\n- 2026-05-22 Vipshop Seeks To Boost Growth Through Outlet Strategy (Benzinga)\n- 2026-05-22 Yuanbao shares are trading higher. The company reported Q3 financial results. (Benzinga)\n- 2026-05-22 What's Going On With Alibaba Stock Friday? (Benzinga)\n- 2026-05-21 Alibaba: Consolidated Revenue Growth Will Be Much Higher In FY2027 (SeekingAlpha)\n- 2026-05-20 Jensen Huang Says Huawei Is 'Very, Very Strong' And Nvidia Has 'Largely Conceded' China Market: 'Don't Have Any Expectations' (Benzinga)\n- 2026-05-20 Alibaba, NextEra Energy, Transocean And A Real Estate Stock On CNBC's 'Final Trades' (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "BABA headlines before the 2026-05-26 US open:\n- 2026-05-26 Wall Street Lunch: BP Slips After Ousting Chairman Albert Manifold Over Governance Concerns (SeekingAlpha)\n- 2026-05-26 TikTok Owner ByteDance Is Reportedly Offering AI Staff A Sweet Deal As Talent War Heats Up (Benzinga)\n- 2026-05-24 Consumer Tech News (May 18-22): Meta Cuts 8,000 Jobs, Nvidia Posts Strong Earnings & More (Benzinga)\n- 2026-05-22 SpaceX And Anthropic Plan To Go Public — Here's What Happened After The 10 Biggest IPOs In History (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "BABA headlines before the 2026-05-27 US open:\n- 2026-05-27 Temu Parent PDD Warns Of Heavy Spending Push, Stock Tanks (Benzinga)\n- 2026-05-26 My Dividend Stock Portfolio: New April Dividend Record - 100 Holdings With 5 Buys (SeekingAlpha)\n- 2026-05-26 Tracking David Tepper's Appaloosa Management Portfolio - Q1 2026 Update (SeekingAlpha)\n- 2026-05-26 Wall Street Lunch: BP Slips After Ousting Chairman Albert Manifold Over Governance Concerns (SeekingAlpha)\n- 2026-05-26 TikTok Owner ByteDance Is Reportedly Offering AI Staff A Sweet Deal As Talent War Heats Up (Benzinga)\n- 2026-05-24 Consumer Tech News (May 18-22): Meta Cuts 8,000 Jobs, Nvidia Posts Strong Earnings & More (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "BABA headlines before the 2026-05-28 US open:\n- 2026-05-28 Coinbase Is Bringing Perp-Style Index Futures To Allow Traders To Speculate On AI, China And US Defense Industry (Benzinga)\n- 2026-05-28 Weibo Loses Nearly 30 Million Monthly Active Users In One Year (Benzinga)\n- 2026-05-28 PDD Holdings: Unjustified Sell-Off, Strong Buy (SeekingAlpha)\n- 2026-05-27 Temu Parent PDD Warns Of Heavy Spending Push, Stock Tanks (Benzinga)\n- 2026-05-26 My Dividend Stock Portfolio: New April Dividend Record - 100 Holdings With 5 Buys (SeekingAlpha)\n- 2026-05-26 Tracking David Tepper's Appaloosa Management Portfolio - Q1 2026 Update (SeekingAlpha)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "BABA headlines before the 2026-05-29 US open:\n- 2026-05-29 Hesai Says Co Selected By NVIDIA As Lidar Partner For NVIDIA DRIVE Hyperion 10 (Benzinga)\n- 2026-05-29 What's Going On With AMD Stock Friday? (Benzinga)\n- 2026-05-28 AI Glasses Shipments Are Exploding — And The Real Battle May Be Over Optics (Benzinga)\n- 2026-05-28 Coinbase Is Bringing Perp-Style Index Futures To Allow Traders To Speculate On AI, China And US Defense Industry (Benzinga)\n- 2026-05-28 Weibo Loses Nearly 30 Million Monthly Active Users In One Year (Benzinga)\n- 2026-05-28 PDD Holdings: Unjustified Sell-Off, Strong Buy (SeekingAlpha)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "BABA headlines before the 2026-06-01 US open:\n- 2026-06-01 Sea Limited: Top GARP And PEG Pick For Patient Investors (Rating Upgrade) (SeekingAlpha)\n- 2026-05-31 The Tech Tug-Of-War: U.S.-China Relations And The Race For Innovation (SeekingAlpha)\n- 2026-05-31 China's AI Dream Fades as Alibaba, Tencent, PDD Plunge While US Stocks Soar (Benzinga)\n- 2026-05-29 Hesai Says Co Selected By NVIDIA As Lidar Partner For NVIDIA DRIVE Hyperion 10 (Benzinga)\n- 2026-05-29 What's Going On With AMD Stock Friday? (Benzinga)\n- 2026-05-28 AI Glasses Shipments Are Exploding — And The Real Battle May Be Over Optics (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "BABA headlines before the 2026-06-02 US open:\n- 2026-06-02 What's Going On With Alibaba Stock Tuesday? (Benzinga)\n- 2026-06-02 Aehr Test Systems, Applied Optoelectronics, AXT And Other Big Stocks Moving Higher On Tuesday (Benzinga)\n- 2026-06-02 Dan Loeb Touted Semiconductors As The 'Most Attractive Sector' In AI Boom— But His Nvidia Sell-Off Tells A Different Story (Benzinga)\n- 2026-06-01 Sea Limited: Top GARP And PEG Pick For Patient Investors (Rating Upgrade) (SeekingAlpha)\n- 2026-05-31 The Tech Tug-Of-War: U.S.-China Relations And The Race For Innovation (SeekingAlpha)\n- 2026-05-31 China's AI Dream Fades as Alibaba, Tencent, PDD Plunge While US Stocks Soar (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "BABA headlines before the 2026-06-03 US open:\n- 2026-06-03 Meituan: Downgrade To HOLD As Structural Recovery Meets Cyclical Stagnation (SeekingAlpha)\n- 2026-06-03 Coupang: Nvidia Collaboration Sparks Excitement, But Don't Rush Out To Buy Just Yet (SeekingAlpha)\n- 2026-06-03 Five Below, Broadcom And 3 Stocks To Watch Heading Into Wednesday (Benzinga)\n- 2026-06-02 SpaceX: Lessons From The Post-IPO Drawdowns Of Mega-Tech Royalty (SeekingAlpha)\n- 2026-06-02 10 Consumer Discretionary Stocks With Whale Alerts In Today's Session (Benzinga)\n- 2026-06-02 What's Going On With Alibaba Stock Tuesday? (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "BABA headlines before the 2026-06-05 US open:\n- 2026-06-04 Virtus SGA International Growth Portfolio Q1 2026 Winners, Laggards, Buys & Sells (SeekingAlpha)\n- 2026-06-03 Cathie Wood Keeps On Selling AMD Stock, Ark Scoops Up $95.6 Million Worth Of Google Parent's Shares — Snaps Up Meta, Alibaba Too (Benzinga)\n- 2026-06-03 Meituan: Downgrade To HOLD As Structural Recovery Meets Cyclical Stagnation (SeekingAlpha)\n- 2026-06-03 Coupang: Nvidia Collaboration Sparks Excitement, But Don't Rush Out To Buy Just Yet (SeekingAlpha)\n- 2026-06-03 Five Below, Broadcom And 3 Stocks To Watch Heading Into Wednesday (Benzinga)\n- 2026-06-02 SpaceX: Lessons From The Post-IPO Drawdowns Of Mega-Tech Royalty (SeekingAlpha)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "BABA headlines before the 2026-06-09 US open:\n- 2026-06-09 PRESS: China eyes USD295 billion data centre buildout - Bloomberg (Fintel)\n- 2026-06-09 Beijing says \"firmly opposed\" to US blacklist of Chinese companies (Fintel)\n- 2026-06-09 Trump Administration Labels Tesla Rival Nio A Chinese Military Company—EV Maker Says 'Not Justified' (Benzinga)\n- 2026-06-09 China's Tech Giants Alibaba, Baidu, BYD Face Fresh US Scrutiny As Pentagon Expands Blacklist (Benzinga)\n- 2026-06-08 Wall Street Lunch: Intel Leads Chip And AI Rally On Google, Nvidia Foundry Report (SeekingAlpha)\n- 2026-06-08 What's Going On With Alibaba Stock Monday? (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "BABA headlines before the 2026-06-10 US open:\n- 2026-06-10 CrowdStrike Warns China Is Behind 58% Of State-Backed Cyber Attacks As Chinese and North Korean Hackers Hunt US AI Secrets (Benzinga)\n- 2026-06-09 PRESS: China eyes USD295 billion data centre buildout - Bloomberg (Fintel)\n- 2026-06-09 Beijing says \"firmly opposed\" to US blacklist of Chinese companies (Fintel)\n- 2026-06-09 Trump Administration Labels Tesla Rival Nio A Chinese Military Company—EV Maker Says 'Not Justified' (Benzinga)\n- 2026-06-09 China's Tech Giants Alibaba, Baidu, BYD Face Fresh US Scrutiny As Pentagon Expands Blacklist (Benzinga)\n- 2026-06-08 Wall Street Lunch: Intel Leads Chip And AI Rally On Google, Nvidia Foundry Report (SeekingAlpha)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "BABA headlines before the 2026-06-11 US open:\n- 2026-06-11 Alibaba Stock Falls After Chinese Regulator Warnings, US Pentagon Listing (Benzinga)\n- 2026-06-11 UPDATE: Reported Earlier: 'As 618 shopping frenzy grows, Beijing warns e-commerce giants over price-war tactics' - South China Morning Post (Benzinga)\n- 2026-06-11 Reported Earlier: 'Beijing online shopping warning hits shares in Chinese tech groups' - Financial Times (Benzinga)\n- 2026-06-11 Oxford Industries Posts Mixed Q1 Results, Joins Oracle, Swarmer And Other Big Stocks Moving Lower In Thursday's Pre-Market Session (Benzinga)\n- 2026-06-11 OpenAI Reveals Alleged Chinese Network Used ChatGPT To Influence US Debate On Trump Tariffs, AI Policy (Benzinga)\n- 2026-06-11 GigaCloud Soars 70+% In One Year Despite U.S. Furniture Sale Declines (SeekingAlpha)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "BABA headlines before the 2026-06-12 US open:\n- 2026-06-12 FedEx Announces €3 Customs Duty On Low-Value Shipments Into The EU Following End Of €150 De Minimis Exemption From July 1 (Benzinga)\n- 2026-06-12 Top 3 Consumer Stocks That May Explode In Q2 (Benzinga)\n- 2026-06-12 Chinese Customers Can Now Order NVIDIA's Vera CPUs: Report (Benzinga)\n- 2026-06-11 Alibaba Stock Falls After Chinese Regulator Warnings, US Pentagon Listing (Benzinga)\n- 2026-06-11 UPDATE: Reported Earlier: 'As 618 shopping frenzy grows, Beijing warns e-commerce giants over price-war tactics' - South China Morning Post (Benzinga)\n- 2026-06-11 Reported Earlier: 'Beijing online shopping warning hits shares in Chinese tech groups' - Financial Times (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "BABA headlines before the 2026-06-15 US open:\n- 2026-06-15 The Hormuz Reopening Trade: These 20 Large-Cap Stocks Still Haven't Caught Up To Pre-War Levels (Benzinga)\n- 2026-06-14 Consumer Tech News (Jun 8-12): SpaceX Debuts On Nasdaq, Big Tech Faces Political Scrutiny & More (Benzinga)\n- 2026-06-13 Baidu: AI Stock With A High Safety Margin (SeekingAlpha)\n- 2026-06-13 Michael Burry Buys the Dip in Four Tech Stocks He Sees as Bargains (Benzinga)\n- 2026-06-12 FedEx Announces €3 Customs Duty On Low-Value Shipments Into The EU Following End Of €150 De Minimis Exemption From July 1 (Benzinga)\n- 2026-06-12 Top 3 Consumer Stocks That May Explode In Q2 (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "BABA headlines before the 2026-06-16 US open:\n- 2026-06-16 What Is Going On With Alibaba Stock On Tuesday? (Benzinga)\n- 2026-06-16 Alibaba Rolls Out Qwen-Robot Suite (Benzinga)\n- 2026-06-16 PDD Holdings: Even 'Deeply Undervalued' May Be An Understatement Now (SeekingAlpha)\n- 2026-06-15 Alibaba Reportedly Eyeing A Super-Sized Bid For Pupu Following Meituan's Dingdong Deal (Benzinga)\n- 2026-06-15 SpaceX Traded More Than Apple, Microsoft, Tesla, Meta And Google Stocks Combined (Benzinga)\n- 2026-06-15 The Hormuz Reopening Trade: These 20 Large-Cap Stocks Still Haven't Caught Up To Pre-War Levels (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "BABA headlines before the 2026-06-17 US open:\n- 2026-06-16 What Is Going On With Alibaba Stock On Tuesday? (Benzinga)\n- 2026-06-16 Alibaba Rolls Out Qwen-Robot Suite (Benzinga)\n- 2026-06-16 PDD Holdings: Even 'Deeply Undervalued' May Be An Understatement Now (SeekingAlpha)\n- 2026-06-15 Alibaba Reportedly Eyeing A Super-Sized Bid For Pupu Following Meituan's Dingdong Deal (Benzinga)\n- 2026-06-15 SpaceX Traded More Than Apple, Microsoft, Tesla, Meta And Google Stocks Combined (Benzinga)\n- 2026-06-15 The Hormuz Reopening Trade: These 20 Large-Cap Stocks Still Haven't Caught Up To Pre-War Levels (Benzinga)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "BABA headlines before the 2026-06-18 US open:\n- 2026-06-18 JD.com: The Biggest Chinese Bargain (SeekingAlpha)\n- 2026-06-18 What's Going On With Alibaba Stock Thursday? (Benzinga)\n- 2026-06-18 Alibaba Cloud Launched Fifth Data Center In Japan (Benzinga)\n- 2026-06-16 What Is Going On With Alibaba Stock On Tuesday? (Benzinga)\n- 2026-06-16 Alibaba Rolls Out Qwen-Robot Suite (Benzinga)\n- 2026-06-16 PDD Holdings: Even 'Deeply Undervalued' May Be An Understatement Now (SeekingAlpha)"
+    },
+    {
+      "symbol": "BABAUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "BABA headlines before the 2026-06-22 US open:\n- 2026-06-22 Alibaba Stock Pulls Back: Why Chairman Joe Tsai’s Bold New AI Gambit Has Wall Street Hesitant (Benzinga)\n- 2026-06-22 Alibaba's Logistics Unit Rolls Out Rack-Climbing Warehouse Robot (Benzinga)\n- 2026-06-22 Alibaba: Technical Bottom Is Near - Diversified Commerce/Cloud Growth Prospects (SeekingAlpha)\n- 2026-06-22 China sanctions 10 US firms over Pentagon blacklist (Fintel)\n- 2026-06-22 Wall Street Breakfast Podcast: Negotiations In Doubt (SeekingAlpha)\n- 2026-06-22 MP Materials, USA Rare Earth Among 10 US Firms Hit By China's New Export Curbs (Benzinga)"
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-17 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "No GOOGL company-news headlines before the 2026-06-18 US open."
+    },
+    {
+      "symbol": "GOOGLUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "GOOGL headlines before the 2026-06-22 US open:\n- 2026-06-22 Google Backs $3.2B AI Chip Push Against Nvidia (Yahoo)\n- 2026-06-22 Why Is Fervo Energy Stock Gaining Monday? (Benzinga)\n- 2026-06-22 J.P. Morgan Fires Back at Google Rumors Threatening Broadcom Stock (Yahoo)\n- 2026-06-22 Could Intel (INTC) Be an Unexpected Winner of the AI Chip Shortage? (Yahoo)\n- 2026-06-22 Tesla's Missing 10,000: Is Optimus Falling Behind The Robotics Pack? (Yahoo)\n- 2026-06-22 Google CEO says AI has changed revenue picture completely (Yahoo)"
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No MSFT company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No MSFT company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "MSFT headlines before the 2026-06-16 US open:\n- 2026-06-16 Stelo Brings Real-Time Change Data Streaming to Microsoft Fabric Through Open Mirroring Integration (Yahoo)\n- 2026-06-16 SPCX On Track To Overtake AMZN As Fifth-Largest Company By Market Cap Within Days Of Blockbuster Nasdaq Debut (Yahoo)\n- 2026-06-16 SpaceX Just Passed the Value of Amazon and Microsoft. At What Share Price Does it Become the World’s Most Valuable Company? (Yahoo)\n- 2026-06-16 Microsoft debuts Surface Laptop and Surface Pro amid AI-driven memory shortage (Yahoo)\n- 2026-06-16 Snap unveils $2,195 AR glasses as CEO Evan Spiegel bets on post-smartphone future (CNBC)\n- 2026-06-16 VyOS 1.5 LTS Now Available on Equinix Network Edge, Bringing VPP-Accelerated Performance and Automation-First Networking to the Global Interconnection Fabric (Yahoo)"
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "MSFT headlines before the 2026-06-17 US open:\n- 2026-06-17 AI startup Genspark valued at $2.6 billion in latest funding round (Yahoo)\n- 2026-06-17 3 Underrated Dividend Stocks That Could Generate Reliable Cash Flow for Your Portfolio for Decades (Yahoo)\n- 2026-06-17 Snubbing Nvidia for Adobe Costs Florida Stock-Picker $50 Billion (Yahoo)\n- 2026-06-17 Microsoft (MSFT) Stock Sees Modest Fair Value Lift As AI Debate Drives Price Target Split (Yahoo)\n- 2026-06-17 Introducing Adobe Brand Visibility: A Unified Solution for the AI Search Era (Yahoo)\n- 2026-06-17 Microsoft Weighs DeepSeek Models for Lower-Cost Copilot (Yahoo)"
+    },
+    {
+      "symbol": "MSFTUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "MSFT headlines before the 2026-06-18 US open:\n- 2026-06-18 What Could Go Wrong For Adobe Stock? (Yahoo)\n- 2026-06-18 SpaceX Looks Like Meme Stock To Some. Is That A Good Or Bad Thing? (Yahoo)\n- 2026-06-18 Oracle Is Burning Billions: Is IBM Stock The Smarter Cloud Play? (Yahoo)\n- 2026-06-18 Harini Gokul to Join Afiniti's Board as AI Redefines the Role of the Contact Center (Yahoo)\n- 2026-06-18 IREN Stock Gets Fresh Bull Case: Jefferies Sees AI Pivot Unlocking $3.1B In Annual Revenue (Yahoo)\n- 2026-06-18 Why Is SanDisk Stock Surging On Thursday? (Benzinga)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No NFLX company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No NFLX company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No NFLX company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No NFLX company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "No NFLX company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "NFLX headlines before the 2026-06-01 US open:\n- 2026-05-31 Netflix Turns Wonka And Young MacDonald Into New Franchise Revenue Stream (Yahoo)\n- 2026-05-31 Disney is poised to ramp its already booming advertising business. Rita Ferro is behind the push (CNBC)\n- 2026-05-30 Paramount Is Pulling Every Lever to Sell LBO Debt (Yahoo)\n- 2026-05-30 Netflix, Inc. (NFLX) Expands Consumer Products With New Partnerships and Strong Growth Outlook (Yahoo)\n- 2026-05-30 Down 28%, Netflix Stock Is Suddenly a Bargain (Yahoo)\n- 2026-05-30 Broadcom, Hewlett Packard Headline Earnings Next Week (SeekingAlpha)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "NFLX headlines before the 2026-06-02 US open:\n- 2026-06-02 Trade Tracker: Brian Belski buys American Airlines and Hyatt Hotels (CNBC)\n- 2026-06-02 Trade Tracker: Joe Terranova sells Uber and buys Twilio and Generac (CNBC)\n- 2026-06-02 Has Netflix Become More of a Value Stock Than a Growth Stock? (Yahoo)\n- 2026-06-01 Netflix taps Disney's Caitlin Conant for new D.C.-based role (Yahoo)\n- 2026-06-01 2nd Princeton CorpGov Forum: Complete Highlights and Panels in 4K from Endowments to PE in Sports (Yahoo)\n- 2026-06-01 YouTubers take over the box office with two movies, 'Backrooms' and 'Obsession' (CNBC)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "NFLX headlines before the 2026-06-03 US open:\n- 2026-06-03 Is Netflix’s Live Breakfast Club Bet Reshaping the Investment Case for Netflix (NFLX)? (Yahoo)\n- 2026-06-03 Meta vs. Netflix: Which One Deserves Your Retirement Capital Today? (Yahoo)\n- 2026-06-03 If You'd Invested $10,000 in Netflix Stock 10 Years Ago, Here's How Much You'd Have Today (Yahoo)\n- 2026-06-03 Virtus SGA Global Growth Fund Q1 2026 Portfolio Update (SeekingAlpha)\n- 2026-06-03 100 Million Households Later And Wall Street Still Underestimates Roku (SeekingAlpha)\n- 2026-06-03 NFLX Stock Reverses Course Overnight: Retail Shrugs Off Outgoing Chairman’s Sale As ‘Routine’ (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "NFLX headlines before the 2026-06-04 US open:\n- 2026-06-04 Spotify vs. Netflix: Which Streaming Stock Deserves Your Retirement Capital? (Yahoo)\n- 2026-06-04 3 Bear Put Spread Trade Ideas For This Tuesday (Yahoo)\n- 2026-06-04 Netflix, Disney+ And Amazon Just Dodged Massive Canadian Streaming Levies That Would Have Cost Billions (Benzinga)\n- 2026-06-04 Netflix Aims to Use AI to Help Viewers Manage Content Overload (Yahoo)\n- 2026-06-04 Trump Floats Keeping UFC Arena On White House Lawn Forever, Points To Eiffel Tower: 'Maybe We'll Never Take It Down' (Benzinga)\n- 2026-06-03 Netflix Stock Is in the Longest Losing Streak Since 2022 (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "NFLX headlines before the 2026-06-05 US open:\n- 2026-06-05 The One Very Simple Reason ‘60 Minutes’ Imploded (Yahoo)\n- 2026-06-05 Is Trending Stock Netflix, Inc. (NFLX) a Buy Now? (Yahoo)\n- 2026-06-05 Market Chatter: Netflix Advances AI-Assisted Production Strategy With Creator Protections (Yahoo)\n- 2026-06-05 Nasdaq, S&P 500, Dow Futures Slip As Chip Stocks Pull Back: LULU, NFLX, KEEL, MRLN Stocks In Focus (Yahoo)\n- 2026-06-04 Virtus SGA U.S. Large Cap Growth Portfolio Q1 2026: Fundamentals And Execution Remains Strong (SeekingAlpha)\n- 2026-06-04 Netflix Bets On AI Tools As Stock Trades Below Analyst Targets (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "NFLX headlines before the 2026-06-08 US open:\n- 2026-06-08 3 Quality Compounders to Target This Week (Yahoo)\n- 2026-06-08 Trump Wants Birthday UFC Event On The White House Lawn—A New Lawsuit Says Not So Fast (Benzinga)\n- 2026-06-07 I’m a psychologist who studies couples: People in the happiest relationships do 5 things in the evening—instead of watching TV (CNBC)\n- 2026-06-07 Netflix’s Underperforming Stock Needs a New Story. It Can’t Be AI. (Yahoo)\n- 2026-06-07 Consumer Tech News (June 1-3): AI Demand Surge Prompts Big Earnings Beat, AI Can Steal Jobs & More (Benzinga)\n- 2026-06-07 Is Netflix (NFLX) One of the Best Quality Growth Stocks to Buy? (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "NFLX headlines before the 2026-06-09 US open:\n- 2026-06-09 NETFLIX INC (NASDAQ:NFLX) Passes Affordable Growth Screen as a Classic GARP Candidate (ChartMill)\n- 2026-06-09 Zacks Investment Ideas feature highlights: SOXX, Uber Technologies and Netflix (Yahoo)\n- 2026-06-09 Disney: Continuing To Muddle Through As A Base Case Scenario Ahead (SeekingAlpha)\n- 2026-06-09 MANGOS Is The New Magnificent Seven — And Half Of It Hasn't Gone Public Yet (Benzinga)\n- 2026-06-09 Paramount Accuses Netflix Of Waging 'Scorched-Earth Campaign' To Derail Warner Bros. Discovery Deal: Report (Benzinga)\n- 2026-06-09 Disney: Streaming Success Changes The Game As The One Disney Strategy Takes Shape (SeekingAlpha)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "NFLX headlines before the 2026-06-10 US open:\n- 2026-06-10 Calls of the Day: Illumina, Netflix and REITs (CNBC)\n- 2026-06-10 $100 Invested In Netflix 10 Years Ago Would Be Worth This Much Today (Benzinga)\n- 2026-06-10 XEL Energy: Wildfires And Surging Electrical Demand (SeekingAlpha)\n- 2026-06-10 QDVO: Attractive Yield, But Dividend Growth Is The Real Story (SeekingAlpha)\n- 2026-06-10 Paramount’s Middle East Billions in Warner Bid Get EU Probe (Yahoo)\n- 2026-06-10 Paramount Skydance Clash Puts Netflix Competition And Regulatory Role In Focus (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "NFLX headlines before the 2026-06-11 US open:\n- 2026-06-11 What Is Google Hiding Behind Its AI Silence? (Yahoo)\n- 2026-06-11 Omdia: Netflix to Reach 400 Million Subscribers by 2031, Maintaining Global Streaming Lead Despite Industry Consolidation (Yahoo)\n- 2026-06-11 Netflix (NFLX): 10 Best Stocks to Buy Now For Next 3 Months (Yahoo)\n- 2026-06-11 2 Internet Stocks to Own for Decades and 1 We Turn Down (Yahoo)\n- 2026-06-11 Bruin Capital CEO George Pyne on appetite for live sports: Sports is having a moment (CNBC)\n- 2026-06-11 FIFA Deal Tests How Netflix Uses Games To Deepen Subscriber Engagement (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "NFLX headlines before the 2026-06-12 US open:\n- 2026-06-12 Here’s What Dragging Netflix (NFLX) Down (Yahoo)\n- 2026-06-12 The $4.7 Billion US-Canada Bridge That Trump Tried To Stop Was Finally Ready— Then The Opening Got Delayed (Benzinga)\n- 2026-06-12 Netflix: A High-Quality Compounder Back On Sale (SeekingAlpha)\n- 2026-06-12 Jay Hoag Takes Over as Netflix Inc. (NFLX) Chairman Amid Focus on Advertising and Live Events (Yahoo)\n- 2026-06-11 Why Meta's latest AI push feels 'out of step' (Yahoo)\n- 2026-06-11 Marvell Just Ripped 57% in a Month. Will the June 22 S&P 500 Listing Be a Sell-the-News Event? (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "NFLX headlines before the 2026-06-15 US open:\n- 2026-06-15 Roku Is Worth More As A Takeover Target — Here Are The Companies That Might Buy It (Benzinga)\n- 2026-06-15 Kalshi's Record $18B Month Was Powered By A Secret AI Named 'Harrison' That Runs On Claude (Benzinga)\n- 2026-06-15 Netflix And iHeartMedia Expand Exclusive Video Podcast Partnership With New Star Driven iHeartPodcasts (Benzinga)\n- 2026-06-15 The Zacks Analyst Blog Highlights Apple, Netflix and Disney (Yahoo)\n- 2026-06-15 Fox's acquisition of Roku give the company 'a strategic future': LightShed's Rich Greenfield (CNBC)\n- 2026-06-15 Iran Truce Sealed, SpaceX Storms Wall Street and Warsh Steps to the Mic (ChartMill)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "NFLX headlines before the 2026-06-16 US open:\n- 2026-06-16 Netflix Flexes 'M&A Muscle' As Bidding Contests Spook Wall Street (Benzinga)\n- 2026-06-16 Netflix Denies It Made Acquisition Bid For Roku, Semafor Correspondent Says (Benzinga)\n- 2026-06-16 'Netflix Lost Out To Fox In Pursuit Of Roku' - Semafor (Benzinga)\n- 2026-06-16 Fox Places Big Bet on Streaming with $22 Billion Roku Deal (Yahoo)\n- 2026-06-15 With Roku Stock Near Highs, Is It Worth It? (Yahoo)\n- 2026-06-15 Netflix (NFLX) Surpasses Market Returns: Some Facts Worth Knowing (Yahoo)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "NFLX headlines before the 2026-06-17 US open:\n- 2026-06-17 Here is What to Know Beyond Why Netflix, Inc. (NFLX) is a Trending Stock (Yahoo)\n- 2026-06-17 Stocks making the biggest moves midday: SpaceX, JPMorgan, UniQure, Intel, Figma, Nano Nuclear & more (CNBC)\n- 2026-06-17 Netflix's stock slide is getting worse (Yahoo)\n- 2026-06-17 Paramount-WBD, Fox-Roku? No Worries For Netflix (Yahoo)\n- 2026-06-17 How options traders can play SpaceX if they missed out on the IPO (CNBC)\n- 2026-06-17 Stock Of The Day: Is This The Bottom For Netflix? (Benzinga)"
+    },
+    {
+      "symbol": "NFLXUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "NFLX headlines before the 2026-06-22 US open:\n- 2026-06-22 Netflix (NFLX) Expands Video Podcast Partnership with iHeartMedia (Yahoo)\n- 2026-06-22 The Zacks Analyst Blog Highlights Netflix, Amazon, Disney and Apple (Yahoo)\n- 2026-06-21 Down 17%, Is Netflix a Buy After Walking Away From Warner Bros. and Roku? (Yahoo)\n- 2026-06-21 Netflix Finally Makes an Acquisition That Wall Street Actually Likes (Yahoo)\n- 2026-06-21 Netflix Co-CEO Ted Sarandos Doesn't Bother With Management Books, But This 1902 Book A Steamship Captain He Read 'Over And Over' Again (Benzinga)\n- 2026-06-21 Murdoch’s $23 Billion Bet Could Change Everything for Fox (Yahoo)"
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No NVDA company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No NVDA company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No NVDA company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No NVDA company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No NVDA company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No NVDA company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-16 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "No NVDA company-news headlines before the 2026-06-18 US open."
+    },
+    {
+      "symbol": "NVDAUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "NVDA headlines before the 2026-06-22 US open:\n- 2026-06-22 Micron and Western Digital Rise 6%, SanDisk Gains 5% as Memory Stocks Rally Into Micron’s Earnings (Yahoo)\n- 2026-06-22 Google Backs $3.2B AI Chip Push Against Nvidia (Yahoo)\n- 2026-06-22 Trulieve's NYSE Listing Is Historic. But Is the Stock Still Worth Buying? (Yahoo)\n- 2026-06-22 Upscale AI valued at $2 billion after funding extension (Yahoo)\n- 2026-06-22 Why Is Fervo Energy Stock Gaining Monday? (Benzinga)\n- 2026-06-22 AMD's Rally Has Wall Street Paying Attention (Yahoo)"
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No QQQ company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No QQQ company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No QQQ company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No QQQ company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No QQQ company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No QQQ company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No QQQ company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No QQQ company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No QQQ company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No QQQ company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "QQQ headlines before the 2026-06-11 US open:\n- 2026-06-11 Chips Lead Nasdaq 100 Rebound, Oracle Sinks 11%: Stock Market Today (Benzinga)\n- 2026-06-11 How These Sectors Might Slump To The Downside After The June Fed Decision (SeekingAlpha)\n- 2026-06-11 Oracle Missed On Cloud Revenue: Why AI ETFs Are Unfazed (Benzinga)\n- 2026-06-11 AI Selloff Hits Breadth as Indexes Pull Back From Breakout Highs (ChartMill)\n- 2026-06-11 Heading For The Exits (SeekingAlpha)\n- 2026-06-11 Yes, This Is A Bubble: I'm Buying The Dip Anyway (SeekingAlpha)"
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "QQQ headlines before the 2026-06-15 US open:\n- 2026-06-15 Global PMI Shows Inflation Rates Have Further To Rise As Input Costs Increase At Steepest Pace For 3½ Years (SeekingAlpha)\n- 2026-06-15 Stock Market Today: Nasdaq 100 Rallies, Oil Sinks 5% As U.S.-Iran Deal Reopens Hormuz (Benzinga)\n- 2026-06-15 Bull Market Resets Look Like This (SeekingAlpha)\n- 2026-06-15 The Market Is Experiencing A 'Jumping The Shark' Moment (SeekingAlpha)\n- 2026-06-15 Internal Strength Broadens Beyond Mega-Cap Growth (ChartMill)\n- 2026-06-15 S&P 500: How To Think About Friday (SeekingAlpha)"
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "QQQ headlines before the 2026-06-18 US open:\n- 2026-06-18 Markets Move Higher To Recapture Gains After Selloff (SeekingAlpha)\n- 2026-06-18 Nasdaq 100 Rallies, Oil Sinks To $75 On Iran Peace Deal: Stock Market Today (Benzinga)\n- 2026-06-18 One Massive Hole In The AI Narrative (SeekingAlpha)\n- 2026-06-18 Breadth Takes a Hit, but the Medium-Term Structure Holds (ChartMill)\n- 2026-06-18 Nine Hawks Chasing A Storm That May Already Be Gone (SeekingAlpha)\n- 2026-06-18 JEPQ: No Reason To Hold It (SeekingAlpha)"
+    },
+    {
+      "symbol": "QQQUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "QQQ headlines before the 2026-06-22 US open:\n- 2026-06-22 Alphabet Tumbles 6%, SpaceX Sinks 10% On Bond Sale: Stock Market Today (Benzinga)\n- 2026-06-22 The Fed Needs To Hike Interest Rates (SeekingAlpha)\n- 2026-06-22 Muted Stock Movement Marks Uncertainty Amid Iran Peace Talks (SeekingAlpha)\n- 2026-06-22 QQQ: The AI Business Model Is Likely Collapsing (SeekingAlpha)\n- 2026-06-22 Stock-Bond Dynamics May Be In Flux, But Global Diversification Proved Its Worth In 2026 (SeekingAlpha)\n- 2026-06-22 Q2 GDP Nowcast Steady At 2.5% As U.S.-Iran Talks Progress (SeekingAlpha)"
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No SPY company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No SPY company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No SPY company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No SPY company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No SPY company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No SPY company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No SPY company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No SPY company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No SPY company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "SPY headlines before the 2026-06-15 US open:\n- 2026-06-15 Global PMI Shows Inflation Rates Have Further To Rise As Input Costs Increase At Steepest Pace For 3½ Years (SeekingAlpha)\n- 2026-06-15 Exchange-Traded Funds, Equity Futures Higher Pre-Bell Monday Amid US-Iran Ceasefire (Yahoo)\n- 2026-06-15 Retirees Are Dropping Traditional Bonds for This 12%-Yielding Income Fund (Yahoo)\n- 2026-06-15 MOAT: Relative Value Proposition Is What Makes VanEck's Wide Moat ETF Special (SeekingAlpha)\n- 2026-06-15 Bull Market Resets Look Like This (SeekingAlpha)\n- 2026-06-15 'Anthropic Set to Meet Trump Officials Over AI Security Concerns' - Bloomberg (Benzinga)"
+    },
+    {
+      "symbol": "SPYUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "SPY headlines before the 2026-06-18 US open:\n- 2026-06-18 Markets Move Higher To Recapture Gains After Selloff (SeekingAlpha)\n- 2026-06-18 Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursday as Interim US-Iran Deal Lifts Risk Sentiment (Yahoo)\n- 2026-06-18 Nasdaq 100 Rallies, Oil Sinks To $75 On Iran Peace Deal: Stock Market Today (Benzinga)\n- 2026-06-18 White House Press Briefing With Vice President JD Vance On Lebanon Component Of Iran Deal, Says Expect Both Sides To Honor Deal; Will Have To Manage Flare-ups Through Diplomacy; Eventually Want To See Lebanese Gov't Police Southern Lebanon; Israelis Have To Respect This Peace Process; Attacks On Civilians In Beirut Not Acceptable; On Israeli Critics Of The Trump's Iran Deal, Says Might Not Want To Attack Only Ally, Wake Up And Smell The Reality Israel Is In (Benzinga)\n- 2026-06-18 'Conservatives plan nationwide protest against AI data centers' - Axios Exclusive (Benzinga)\n- 2026-06-18 One Massive Hole In The AI Narrative (SeekingAlpha)"
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "No TSLA company-news headlines before the 2026-05-19 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No TSLA company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No TSLA company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No TSLA company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No TSLA company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No TSLA company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No TSLA company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "TSLA headlines before the 2026-06-17 US open:\n- 2026-06-17 Tesla Defies Auto Industry Sales Slump, Goldman Raises Q2 Delivery Forecast (Yahoo)\n- 2026-06-17 Latest News In Electric Vehicles - Rivian Joins ChargeScape For Grid Resilience And Energy Savings (Yahoo)\n- 2026-06-17 SpaceX Options Just Broke A Record Meta Set In 2012 (Benzinga)\n- 2026-06-17 SpaceX's near $3 trillion rally comes with one big catch: Chart of the Day (Yahoo)\n- 2026-06-17 Uber takes on Waymo and Tesla with expanded robotaxi service in Houston (CNBC)\n- 2026-06-17 xAI is ‘kind of a failure’: Former Meta AI scientist (CNBC)"
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "TSLA headlines before the 2026-06-18 US open:\n- 2026-06-18 SpaceX Looks Like Meme Stock To Some. Is That A Good Or Bad Thing? (Yahoo)\n- 2026-06-18 Your Tesla Drives Better Than You Do—and That’s Good News for the Stock (Yahoo)\n- 2026-06-18 This Week In Energy Transition - A P Moller Capital Acquires Mainstream Renewable Power South Africa (Yahoo)\n- 2026-06-18 Swedish Transport Administration Recommends Vote Against Tesla's FSD (Supervised) Self-Driving Tech Rollout In Europe Unless Speeding Ability Disabled; Separate Swedish Transport Agency Says Country's Official Position On The Matter Still Being Established (Benzinga)\n- 2026-06-18 Could SpaceX Join the \"Magnificent Seven\"? (Yahoo)\n- 2026-06-18 At Tesla, Elon Musk Chooses To Exercise Options, Resulting In $110.55B (Benzinga)"
+    },
+    {
+      "symbol": "TSLAUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "TSLA headlines before the 2026-06-22 US open:\n- 2026-06-22 Tesla's Missing 10,000: Is Optimus Falling Behind The Robotics Pack? (Yahoo)\n- 2026-06-22 What Do Mattel, Mitsubishi And Tesla Have In Common? One Word: MEGAPOD (Benzinga)\n- 2026-06-22 Should You Buy Tesla Stock Before July 2? (Yahoo)\n- 2026-06-22 Jefferies Warns Tesla Could Trade Like SpaceX Proxy (Yahoo)\n- 2026-06-22 JD Vance Says Trump Backs Government Stakes In AI Giants, But Musk And Cuban Push Back: 'Better Just To Send Money Directly' (Yahoo)\n- 2026-06-22 What Happens If SpaceX Merges With Tesla (SeekingAlpha)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-19",
+      "newsSummary": "TSM headlines before the 2026-05-19 US open:\n- 2026-05-19 Chamath Flags AI Compute Crunch: 8 Stocks To Watch (Benzinga)\n- 2026-05-19 Noteworthy Insider Activity: BorZen Tien Invests $139K In Taiwan Semiconductor Stock (Benzinga)\n- 2026-05-19 TzuSou Chuang Takes Money Off The Table, Sells $13.97M In Taiwan Semiconductor Stock (Benzinga)\n- 2026-05-19 What's Going On With AMD Stock Tuesday? (Benzinga)\n- 2026-05-19 Cramer Flags AI Winners, Warns STMicro Is 'Late Late Late' At 51x Earnings (Benzinga)\n- 2026-05-19 Intel's AI Comeback: CEO Reveals Insatiable CPU Demand As Customers Bulk Up Orders (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "TSM headlines before the 2026-05-20 US open:\n- 2026-05-20 The AI Capex Boom Has An International Address (SeekingAlpha)\n- 2026-05-20 TSM (NYSE:TSM): Strong Growth and Technical Breakout Setup (ChartMill)\n- 2026-05-20 Intel CEO Is Building A 'New Intel' That Works At 'Speed Of Light' (Benzinga)\n- 2026-05-20 Nvidia Earnings Prediction Market Preview: What Will Jensen Huang Say? (Benzinga)\n- 2026-05-20 Hitchhiker Commodities: The Supply Chains Nobody Owns (SeekingAlpha)\n- 2026-05-20 Inside The AI Chip Crunch: Intel Pressures PC Makers To Upgrade Fast (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "TSM headlines before the 2026-05-21 US open:\n- 2026-05-21 S&P 500 Faces Global Challenge From International Chip Funds, EM ETFs (Benzinga)\n- 2026-05-21 The TSMC Paradox: Huge AI Silicon Supply Vs. Finite Infrastructure (SeekingAlpha)\n- 2026-05-21 What's Going On With Intel Stock Thursday? (Benzinga)\n- 2026-05-21 AMD Plans To Invest Billions In Taiwan For AI Chips (Benzinga)\n- 2026-05-21 Nikki Haley Says If China Controls Taiwan, The Communist Party Gains Leverage Over World's Critical Supply Chain: 'Threat To Global Freedom' (Benzinga)\n- 2026-05-20 Tracking Al Gore's Generation Investment Management Portfolio - Q1 2026 Update (SeekingAlpha)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "TSM headlines before the 2026-05-22 US open:\n- 2026-05-22 United Microelectronics: The Market Is No Longer Pricing It As A Sleepy Mature-Node Foundry (SeekingAlpha)\n- 2026-05-22 What Is Going On With AMD Stock On Friday? (Benzinga)\n- 2026-05-22 Asia's AI Trade Is Expanding Beyond Taiwan Semiconductor: Analyst (Benzinga)\n- 2026-05-22 AGD: Good Fund, But Tech Exposure And Valuation Could Be Risks (SeekingAlpha)\n- 2026-05-21 Cathie Wood Doubles Down On Peter Thiel's Bullish, Ark Sells Taiwan Semiconductor Stock Amid Spike (Benzinga)\n- 2026-05-21 Trump Administration Is Pausing $14 Billion Taiwan Arms Sale To 'Make Sure' US Has Enough Munitions For Iran War, Says Acting Navy Secretary (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "TSM headlines before the 2026-05-26 US open:\n- 2026-05-26 Taiwan Semiconductor's Growth Propels Taiwan Stock Market To Overtake India (Benzinga)\n- 2026-05-26 NVIDIA's Jensen Huang Declares China A 'Very Important' Market (Benzinga)\n- 2026-05-26 The Real Reason The iPhone 17e Is Falling Behind Its Predecessor In Japan (Benzinga)\n- 2026-05-26 Nvidia Surpasses Taiwan And India Stock Markets As Analysts Eye $10 Trillion Valuation (Benzinga)\n- 2026-05-26 Bitcoin Will Survive AI, Crypto Analyst Points To Wall Street Veteran's Prophecy: 'Belief Is Harder Than Fundamentals' (Benzinga)\n- 2026-05-25 Huawei Says It Has A Chipmaking Breakthrough. Did US Sanctions Backfire? (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "TSM headlines before the 2026-05-27 US open:\n- 2026-05-27 Nvidia's Taiwan Investment Highlights A New AI Supply Chain Reality (Benzinga)\n- 2026-05-27 Taiwan Semiconductor Stock Hits 52-Week High - Here's Why (Benzinga)\n- 2026-05-27 'TSMC's CEO Pledges 30%-Plus Incentive Bump While AI Profits Soar' - Bloomberg News (Benzinga)\n- 2026-05-27 After Micron, Nvidia-Supplier SK Hynix Joins $1 Trillion Club As AI Chip Frenzy Reaches New Heights— Analyst Says Memory Boom Is Far From Over (Benzinga)\n- 2026-05-27 Jensen Huang Says Nvidia Will Pour $150 Billion A Year Into 'Booming' AI Hub Taiwan (Benzinga)\n- 2026-05-26 Tracking David Tepper's Appaloosa Management Portfolio - Q1 2026 Update (SeekingAlpha)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "TSM headlines before the 2026-05-28 US open:\n- 2026-05-28 'TSMC Executive Says Energy Efficiency Becoming Most Important Chip Design Consideration' - Reuters (Benzinga)\n- 2026-05-28 What's Going On With Taiwan Semiconductor Stock Thursday? (Benzinga)\n- 2026-05-28 EWT: AI Revolution Meets The Geopolitical Shadow And Stretched Valuation (SeekingAlpha)\n- 2026-05-27 Tracking Ruane, Cunniff & Goldfarb's Portfolio - Q1 2026 Update (SeekingAlpha)\n- 2026-05-27 Nvidia's Taiwan Investment Highlights A New AI Supply Chain Reality (Benzinga)\n- 2026-05-27 Taiwan Semiconductor Stock Hits 52-Week High - Here's Why (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "TSM headlines before the 2026-05-29 US open:\n- 2026-05-29 TSM vs Broadcom: Both Nearing 52-Week High, Only One is a Buy (Yahoo)\n- 2026-05-29 Broadcom Stock Attracts A Billionaire Buyer As AI Momentum Accelerates (Benzinga)\n- 2026-05-29 AMD Could Be the Biggest Winner in the Next AI Battle (Yahoo)\n- 2026-05-29 AI's Next Winners May Not Be Nvidia's Buyers—They May Be Its Suppliers (Benzinga)\n- 2026-05-29 Taiwan's MediaTek says it supports both TSMC and Intel's advanced packaging technologies (Yahoo)\n- 2026-05-29 Key Themes to Watch at Asia’s Biggest AI Tech Show (Yahoo)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "TSM headlines before the 2026-06-01 US open:\n- 2026-06-01 CDT May 2026 - 1999 Called, They Want Their Stock Market Back (SeekingAlpha)\n- 2026-06-01 What's Going On With Intel Stock Monday? (Benzinga)\n- 2026-06-01 TSMC Uses NVIDIA AI Technology to Speed Up Chip Design and Manufacturing (Benzinga)\n- 2026-05-31 Why Nvidia CEO Jensen Huang's Computex Speech Matters: AI Chips, Taiwan Investments And The Company's Next Big Moves (Benzinga)\n- 2026-05-31 Applied Materials (AMAT) – Among the 10 Best Long-Term Dividend Stocks to Invest In According to Billionaires (Yahoo)\n- 2026-05-31 The Tech Tug-Of-War: U.S.-China Relations And The Race For Innovation (SeekingAlpha)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "TSM headlines before the 2026-06-02 US open:\n- 2026-06-02 What's Going On With Taiwan Semiconductor Stock Tuesday? (Benzinga)\n- 2026-06-02 Dan Loeb Touted Semiconductors As The 'Most Attractive Sector' In AI Boom— But His Nvidia Sell-Off Tells A Different Story (Benzinga)\n- 2026-06-02 What's Going On With Intel Stock Tuesday? (Benzinga)\n- 2026-06-01 Hyperscalers Are Trying To Replace Nvidia's GPUs - TSMC Gets The Upside Either Way (SeekingAlpha)\n- 2026-06-01 TSMC's Price Hike Is Bad For Nvidia Margins — And Potentially Great For Nvidia Stock (Benzinga)\n- 2026-06-01 Nvidia's AI PC Chip Unveiling Spotlights 3 Stock Beneficiaries And Structural Risk For Intel (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "TSM headlines before the 2026-06-03 US open:\n- 2026-06-03 Virtus SGA Global Growth Fund Q1 2026 Portfolio Update (SeekingAlpha)\n- 2026-06-03 Baron Global Opportunity Fund Q1 2026 Contributors And Detractors (SeekingAlpha)\n- 2026-06-03 Intel Calls Taiwan Semiconductor Trusted Partner, Not Rival (Benzinga)\n- 2026-06-03 AI Stocks Enter A Crucial Month As Major Tech Events Crowd The Calendar (SeekingAlpha)\n- 2026-06-02 What's Going On With Taiwan Semiconductor Stock Tuesday? (Benzinga)\n- 2026-06-02 Dan Loeb Touted Semiconductors As The 'Most Attractive Sector' In AI Boom— But His Nvidia Sell-Off Tells A Different Story (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "TSM headlines before the 2026-06-04 US open:\n- 2026-06-04 Nvidia: Blackwell, AI Inference And CUDA Keep The Growth Story Intact (Upgrade) (SeekingAlpha)\n- 2026-06-04 Recent Filing Shows That Rep. Cleo Fields Bought Over $1K Worth of Apple Stock (Benzinga)\n- 2026-06-04 SCHD-Inspired 4-Factor Dividend Growth Strategy Selections For June 2026 (SeekingAlpha)\n- 2026-06-04 Why Is Intel Stock Falling Thursday? (Benzinga)\n- 2026-06-04 What's Going On With NVIDIA Stock Thursday? (Benzinga)\n- 2026-06-04 Taiwan Semiconductor CEO Says Rivals Have Years To Catch Up (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "TSM headlines before the 2026-06-05 US open:\n- 2026-06-05 Tech And FX: Short-Term Volatility May Cloud Long-Term Trend (SeekingAlpha)\n- 2026-06-05 Momo Aggressively Buys Semiconductor Dip; Big Setback For SpaceX; Blowout Jobs Report (Benzinga)\n- 2026-06-05 Broadcom Has A Marvell Problem (SeekingAlpha)\n- 2026-06-05 What's Going On With Intel Stock Friday? (Benzinga)\n- 2026-06-05 What's Going On With Taiwan Semiconductor Stock Friday? (Benzinga)\n- 2026-06-05 Why Micron Is Still 'Pretty Cheap' Despite Its AI-Driven Run: Legato CIO Says This Is 'Not The Dot-Com Bubble' (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "TSM headlines before the 2026-06-08 US open:\n- 2026-06-08 Shares of semiconductor companies are trading higher amid optimism that the Middle East conflict will come to a swifter conclusion, which may help assuage concerns about inflation and higher rates affecting demand. (Benzinga)\n- 2026-06-08 Marvell's S&P 500 Inclusion Could Spark Fresh ETF Buying Despite Valuation Concerns (Benzinga)\n- 2026-06-08 Alger AI Enablers & Adopters ETF Q1 2026 Portfolio Update (SeekingAlpha)\n- 2026-06-07 Tracking Chase Coleman's Tiger Global Portfolio - Q1 2026 Update (SeekingAlpha)\n- 2026-06-07 Elon Musk In Direct Talks With ASML For $119B TeraFab Chip Plant: CEO Calls Him 'Very Serious' (Benzinga)\n- 2026-06-07 Consumer Tech News (June 1-3): AI Demand Surge Prompts Big Earnings Beat, AI Can Steal Jobs & More (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "TSM headlines before the 2026-06-09 US open:\n- 2026-06-09 Why Is Intel Stock Gaining Tuesday? (Benzinga)\n- 2026-06-09 Jim Cramer Is 'VERY Skeptical' Of Intel's 2028 Foundry Deal With Google And Nvidia: Here's Why (Benzinga)\n- 2026-06-09 'Taiwan Mulls Curbs on AI Chip Exports to China to Align With US' - Bloomberg (Benzinga)\n- 2026-06-09 Taiwan Semiconductor Becomes World's Ninth-Most Valuable Company (Benzinga)\n- 2026-06-08 Tracking Prem Watsa's Fairfax Financial Holdings Portfolio - Q1 2026 Update (SeekingAlpha)\n- 2026-06-08 Apple's AI Ambition Has A Picks-and-Shovels Trade — Here's Who Could Win (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "TSM headlines before the 2026-06-10 US open:\n- 2026-06-10 Credo Technology: The $3,000-Per-GPU Memory Arbitrage Demands A Strong Buy (Rating Upgrade) (SeekingAlpha)\n- 2026-06-10 Taiwan Semiconductor (NYSE:TSM) Shows Strong High-Growth Momentum Setup (ChartMill)\n- 2026-06-10 Why Is Intel Stock Sliding On Wednesday? (Benzinga)\n- 2026-06-10 'Chip War' Author Chris Miller Says China Has Been 'Underspending' On AI For Four Years: Beijing 'Just Doesn't Believe' It Matters (Benzinga)\n- 2026-06-10 No Slowing Down: Taiwan Semiconductor May Sales Leap 30% On Relentless AI Demand (Benzinga)\n- 2026-06-10 Elizabeth Warren Warns AI Power Boom Is Fueling A Private Equity 'Cash Grab' In Utilities (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "TSM headlines before the 2026-06-11 US open:\n- 2026-06-11 Intel's Make-Or-Break Moment Is Closer Than You Think (SeekingAlpha)\n- 2026-06-10 Credo Technology: The $3,000-Per-GPU Memory Arbitrage Demands A Strong Buy (Rating Upgrade) (SeekingAlpha)\n- 2026-06-10 Taiwan Semiconductor (NYSE:TSM) Shows Strong High-Growth Momentum Setup (ChartMill)\n- 2026-06-10 Why Is Intel Stock Sliding On Wednesday? (Benzinga)\n- 2026-06-10 'Chip War' Author Chris Miller Says China Has Been 'Underspending' On AI For Four Years: Beijing 'Just Doesn't Believe' It Matters (Benzinga)\n- 2026-06-10 No Slowing Down: Taiwan Semiconductor May Sales Leap 30% On Relentless AI Demand (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "TSM headlines before the 2026-06-15 US open:\n- 2026-06-15 Taiwan Semiconductor-SP ADR (NYSE:TSM) Scores Perfect Technical Rating, Flashes Bullish Consolidation Setup (ChartMill)\n- 2026-06-15 Stock Market Today: S&P 500, Dow, Nasdaq Futures Jump As Trump Announces Deal With Iran—SpaceX, TSMC, Micron, Red Cat In Focus (UPDATED) (Benzinga)\n- 2026-06-15 Why SpaceX, Anthropic, And OpenAI IPOs Are A Red Flag For The Stock Market (SeekingAlpha)\n- 2026-06-15 Why Is Taiwan Semiconductor Stock Gaining Monday? (Benzinga)\n- 2026-06-15 The S&P 500's Missing Giant: What Happens If The 6th-Largest Stock Stays Out A Full Year? (SeekingAlpha)\n- 2026-06-14 Consumer Tech News (Jun 8-12): SpaceX Debuts On Nasdaq, Big Tech Faces Political Scrutiny & More (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "TSM headlines before the 2026-06-16 US open:\n- 2026-06-16 Taiwan Semiconductor VP Makes $75K Stock Purchase (Benzinga)\n- 2026-06-16 Amkor And Taiwan Semiconductor Announce 10-Year Deal To Expand Semiconductor Packaging Capabilities In Arizona; Financial Terms Not Disclosed (Benzinga)\n- 2026-06-15 Cathie Wood Dumps Millions Worth Of Tesla, Palantir, Roku, AMD And More Even As TSLA Stock Pops On SpaceX Merger Buzz (Benzinga)\n- 2026-06-15 10 Information Technology Stocks With Whale Alerts In Today's Session (Benzinga)\n- 2026-06-15 Taiwan Semiconductor-SP ADR (NYSE:TSM) Scores Perfect Technical Rating, Flashes Bullish Consolidation Setup (ChartMill)\n- 2026-06-15 Stock Market Today: S&P 500, Dow, Nasdaq Futures Jump As Trump Announces Deal With Iran—SpaceX, TSMC, Micron, Red Cat In Focus (UPDATED) (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "TSM headlines before the 2026-06-17 US open:\n- 2026-06-17 EXCLUSIVE: Google And Meta May Have The Most To Lose In The AI‑Agent Era, Says Founder Who Rejected OpenAI (Benzinga)\n- 2026-06-17 Stock Market Today: Dow Futures Tumble, S&P 500, Nasdaq Gains As Investors Await FOMC Decision— Amkor, La-Z-Boy In Focus (UPDATED) (Benzinga)\n- 2026-06-17 Intel Stock Gains As 18A-P Semiconductor Node Enters Risk Production (Benzinga)\n- 2026-06-17 Why Is Amkor Technology Stock Soaring Wednesday? (Benzinga)\n- 2026-06-17 Taiwan Semiconductor Knocked Down To No. 7 Globally After SpaceX's Record-Breaking IPO (Benzinga)\n- 2026-06-16 Five International Dividend Growers Your Screen Is Distorting (SeekingAlpha)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "TSM headlines before the 2026-06-18 US open:\n- 2026-06-18 Intel's Next Move Could Be Bigger Than Today's Pop (Benzinga)\n- 2026-06-18 Why Is Intel Stock Soaring Thursday? (Benzinga)\n- 2026-06-18 Why Is Marvell Technology Stock Gaining Thursday? (Benzinga)\n- 2026-06-18 After Nvidia And Tesla, Trump Confirms Apple Has Agreed To Build Chips With Intel Amid US Manufacturing Push: 'When Was The Last Time...' (Benzinga)\n- 2026-06-18 Taiwan Semiconductor: Not Expensive When You Run The Numbers On AI Demand (SeekingAlpha)\n- 2026-06-17 Jim Cramer Names Intel His Favorite Stock, Says Chipmaker 'Will Work' Because Of This Reason (Benzinga)"
+    },
+    {
+      "symbol": "TSMUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "TSM headlines before the 2026-06-22 US open:\n- 2026-06-22 AMD's 324% Rally Hides A Serious Risk Nobody's Talking About (SeekingAlpha)\n- 2026-06-22 What's Going On With Taiwan Semiconductor Stock Monday? (Benzinga)\n- 2026-06-22 Intel's Apple-Driven Surge Gets A Harsh Verdict: 'It's Becoming A Meme Stock' (Benzinga)\n- 2026-06-21 3 Stocks To Play The AI And Data Center Boom (SeekingAlpha)\n- 2026-06-21 Consumer Tech News (June 15-18): Trump Signals Major US Chip Alliance, Snap AR Glasses Face Criticism & More (Benzinga)\n- 2026-06-21 TSMC: The Buying Opportunity Is Finally Flashing (Rating Upgrade) (SeekingAlpha)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-20",
+      "newsSummary": "No COIN company-news headlines before the 2026-05-20 US open."
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No COIN company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No COIN company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "COIN headlines before the 2026-05-26 US open:\n- 2026-05-26 Coinbase CEO Flags Huge Finance Shift As SEC Delays Blockchain Plans (Yahoo)\n- 2026-05-26 Coinbase's Eight-Figure Donations Ahead Of 'Most Consequential' Midterm Election (Benzinga)\n- 2026-05-26 Brian Armstrong Lists 8 Ways Finance Still Needs 'An Update' And Crypto Is At The Center (Benzinga)\n- 2026-05-25 Bitcoin, Ethereum Flat, While XRP, Dogecoin Drops After US Strikes Iran: Analyst Says 'Difficult' For BTC To Sustain A 'Durable Rally' (Benzinga)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "COIN headlines before the 2026-05-27 US open:\n- 2026-05-27 SPY: All Or Nothing (SeekingAlpha)\n- 2026-05-27 Donald Trump Shouted Out Intel, Then Dell, Then Micron: Look At His Own Stock Filings To See Who May Get The Next Shoutout (Benzinga)\n- 2026-05-27 'Polymarket Wants Traders to ID Themselves as It Faces Sanctions, Legal Risks' - The Information (Benzinga)\n- 2026-05-27 SpaceX To Overtake MSTR, TSLA, COIN As Largest Public Company Holding Bitcoin (Benzinga)\n- 2026-05-27 Coinbase: What Exactly Are Bears Waiting For? (SeekingAlpha)\n- 2026-05-27 Coinbase: A Hold On Strength, Not A Buy On Hope (SeekingAlpha)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "COIN headlines before the 2026-06-01 US open:\n- 2026-06-01 Exchange-Traded Funds, Equity Futures Higher Pre-Bell Monday as AI Optimism Overshadows Middle East Risks (Yahoo)\n- 2026-06-01 Get insights into the top movers in the S&P500 index of Monday's pre-market session. (ChartMill)\n- 2026-06-01 Stocks making the biggest moves midday: MGM Resorts, Zoom Communications, Nvidia, Viasat, IBM & more (CNBC)\n- 2026-06-01 Trump's Scandals Are Muddying CLARITY's Chances, Mike Novogratz Says—But Do Prediction Markets Agree? (Benzinga)\n- 2026-06-01 Binance Ventures Into US Stocks Trading For Overseas Customers, Eyes Tokenized Shares In 'Super App' Push (Benzinga)\n- 2026-06-01 Stocks making the biggest moves premarket: Nvidia, Arm, Taylor Morrison, Qualcomm & more (CNBC)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "COIN headlines before the 2026-06-02 US open:\n- 2026-06-02 Kevin O'Leary Says The Biggest Crypto Opportunity May Be Hiding Inside S&P 500 (Benzinga)\n- 2026-06-01 Bitcoin, XRP Fall, Ethereum, Dogecoin Flat As Israel-Hezbollah War Threatens Iran Deal: 'Critical' Cluster Could Decide BTC's Next Move, Says Analyst (Benzinga)\n- 2026-06-01 Grayscale Investments Sets 0.29% Fee For Hyperliquid ETF (Yahoo)\n- 2026-06-01 Binance Adds 7,000 U.S. Stocks and ETFs as Crypto Platforms Push Into Brokerage Territory (Yahoo)\n- 2026-06-01 AI Meets Crypto Income: GraniteShares Launches Super Micro Computer, MARA ETFs (Benzinga)\n- 2026-06-01 What's going on in today's session: S&P500 gap up and gap down stocks (ChartMill)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "COIN headlines before the 2026-06-03 US open:\n- 2026-06-03 Visa And Mastercard Collaborate On New Stablecoin Platform (Yahoo)\n- 2026-06-03 Bitcoin trails stocks by most since 2019 as traders get their kicks elsewhere (CNBC)\n- 2026-06-03 Coinbase CEO-Backed NewLimit Claims Aging Reversal Breakthrough, Raises $435 Million For Human Trials (Benzinga)\n- 2026-06-03 Cardano Founder Charles Hoskinson Says Crypto Is 'Near-Perfect Complement' To AI Agents—Here's Why (Benzinga)\n- 2026-06-02 Bitcoin Bleeds After Strategy's Sell-Off, Ethereum, XRP, Dogecoin Also Sink: Analyst Points Out 'Meaningful' Stress, But BTC Bottom Still Not In (Benzinga)\n- 2026-06-02 Digital Tools for Big IPOs: Computershare’s Issuer Services North America CEO Ann Bowering, Live at Nasdaq (Yahoo)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "COIN headlines before the 2026-06-05 US open:\n- 2026-06-05 Coinbase Stock Is Struggling. Why Crypto Trading Could Be Slow to Recover. (Yahoo)\n- 2026-06-05 Investors Heavily Search Coinbase Global, Inc. (COIN): Here is What You Need to Know (Yahoo)\n- 2026-06-05 Baird turns bearish on Coinbase, sees Q2 revenue miss and valuation risk (Yahoo)\n- 2026-06-05 Why Bitcoin, XRP and Other Cryptos Could Be First Casualties of SpaceX IPO (Yahoo)\n- 2026-06-05 Coinbase Eyes Next-Gen Capital Markets Expansion With SpaceX Pre-IPO? (Yahoo)\n- 2026-06-05 Stocks making the biggest moves midday: Broadcom, Arm, Strategy, Chipotle, Quantinuum & more (CNBC)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "COIN headlines before the 2026-06-08 US open:\n- 2026-06-08 Bitcoin Price Rebounds From 2-Month Low. SpaceX IPO Siphons Capital, Analyst Says. (Yahoo)\n- 2026-06-08 Strategy Buys $101 Million Worth of Bitcoin. It’s a Good Sign for Crypto. (Yahoo)\n- 2026-06-08 Marvell Stock Is Up 230% In 2026 — S&P 500 Debut Could Make That Look Conservative (Benzinga)\n- 2026-06-08 SpaceX Feels Expensive At $1.8 Trillion? 85% Of Hyperliquid Traders Are Still Long (Benzinga)\n- 2026-06-08 Bitcoin, Ethereum, Solana Down Over 20% In A Month Is The 'Biggest Macro Opportunity,' Expert Claims (Benzinga)\n- 2026-06-08 Both retail and institutional are signaling crypto is a long-term asset to hold: John D’Agostino (CNBC)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "COIN headlines before the 2026-06-09 US open:\n- 2026-06-09 Trump family got about $500M from crypto venture — but investors saw steep losses (CNBC)\n- 2026-06-09 How do IPOs perform after a big one-day pop? Here's what you need to know (CNBC)\n- 2026-06-09 Institutions Don't Mind Scooping Up Bitcoin At A Discount, Says Top Coinbase Exec (Yahoo)\n- 2026-06-09 Bitcoin's brutal sell-off sparks a flurry of trading in related stocks, including one big bullish bet (CNBC)\n- 2026-06-08 Institutional Conviction Remains Strong Despite Bitcoin Downturn, According to Coinbase Executive (Yahoo)\n- 2026-06-08 Why Coinbase (COIN) Stock Is Trading Up Today (Yahoo)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "COIN headlines before the 2026-06-10 US open:\n- 2026-06-10 To The Moon? SpaceX IPO May Ground Crypto ETFs (Benzinga)\n- 2026-06-10 Company that bet big on Trump-backed crypto says its fortunes have improved (CNBC)\n- 2026-06-10 Kalshi ‘Perps’ Surpass $1 Billion In Trading Volume A Week After Launch (Yahoo)\n- 2026-06-09 Both Institutions and Retail Are Buying and Holding Crypto Despite Bitcoin’s 50% Pullback (Yahoo)\n- 2026-06-09 Crypto Winter Is Here: 3 Stocks To Put On Ice This Summer (Yahoo)\n- 2026-06-09 A16z, Paradigm and Ribbit Back Morpho in $175 Million Credit Market Round (Yahoo)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "COIN headlines before the 2026-06-11 US open:\n- 2026-06-11 Coinbase launches tool to let AI agents manage trading and payments (CNBC)\n- 2026-06-11 1 Cash-Producing Stock with Exciting Potential and 2 Facing Challenges (Yahoo)\n- 2026-06-11 Bernstein: 2026 FIFA World Cup Is A 'Watershed Moment' For Prediction Markets—But Who Will Win It? (Benzinga)\n- 2026-06-11 Kevin O'Leary Says Crypto's Next Growth Phase Will Be Driven By Legislation, Not Speculation (Benzinga)\n- 2026-06-10 Mastercard Taps Coinbase, Ripple and Crypto Firms for AI Agent Payments (Yahoo)\n- 2026-06-10 Is MSTR's Small Operating Revenue Base Increasing Balance Sheet Risks? (Yahoo)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "COIN headlines before the 2026-06-12 US open:\n- 2026-06-12 SpaceX IPO: Here's what retails investors need to know (CNBC)\n- 2026-06-11 Stocks Settle Sharply Higher on Middle East Peace Hopes (Yahoo)\n- 2026-06-11 Coinbase Launches A.I. Agent That Can Execute Trades (Yahoo)\n- 2026-06-11 Can Bitcoin Hold the August 2024 Low? (Yahoo)\n- 2026-06-11 MoonPay Adds PayPal, NYSE and National Security Veterans to Board (Yahoo)\n- 2026-06-11 Digital Asset Raises $355M as Canton Pushes Deeper Into Capital Markets (Yahoo)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "COIN headlines before the 2026-06-15 US open:\n- 2026-06-15 Prediction Markets See Record Volumes From World Cup Betting (Yahoo)\n- 2026-06-15 Bitcoin Just Surpassed a Key Level. It’s Driving These Crypto Stocks Higher. (Yahoo)\n- 2026-06-15 Which S&P500 stocks are moving before the opening bell on Monday? (ChartMill)\n- 2026-06-15 Options Action: Vix, crypto make moves (CNBC)\n- 2026-06-15 Stocks Set to Open Sharply Higher as Oil Sinks on U.S.-Iran Deal, Fed Meeting Awaited (Yahoo)\n- 2026-06-15 Ouster, Datavault AI, Paranovus Entertainment Technology And Other Big Stocks Moving Higher On Monday (Benzinga)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "COIN headlines before the 2026-06-16 US open:\n- 2026-06-16 Ethereum Jumps 10% As Crypto Trade Reignites (Yahoo)\n- 2026-06-16 Coinbase Global, Inc. (COIN) Is a Trending Stock: Facts to Know Before Betting on It (Yahoo)\n- 2026-06-16 Coinbase CEO on tokenized stock launch: Opens U.S. equity access to global investors (CNBC)\n- 2026-06-16 SpaceX becomes retail's biggest IPO trade: Chart of the Day (Yahoo)\n- 2026-06-16 Peace Deal Lights the Fuse - Dow Hits Record, Chips Go Vertical (ChartMill)\n- 2026-06-16 Mark Cuban Says 'Just Sell Em Memecoins' To Brian Armstrong After Coinbase CEO Demands Reforms Of Investor Laws That Favor 'Rich' Investors (Benzinga)"
+    },
+    {
+      "symbol": "COINUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "COIN headlines before the 2026-06-22 US open:\n- 2026-06-22 CLARITY Act Approval Odds Drop To 48%: What Is Going On? (Benzinga)\n- 2026-06-22 Rep. Dan Meuser: Kevin Warsh has the right plan at the right time (CNBC)\n- 2026-06-22 Crypto Money Floods Maryland Primary — $5.5 Million Backs Steny Hoyer's Handpicked Successor Adrian Boafo (Benzinga)\n- 2026-06-22 Is Tokenization The Next Evolution Of Global Financial Market Infrastructure? Ft. Rob Goldstein, COO Of BlackRock (SeekingAlpha)\n- 2026-06-21 Coinbase Global Comes Closer To ‘Everything Exchange’ With Latest Product Launches (Yahoo)\n- 2026-06-19 Coinbase (COIN) Launches SEC-Registered AI Investment Advisor for Coinbase One Subscribers (Yahoo)"
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No META company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-22",
+      "newsSummary": "No META company-news headlines before the 2026-05-22 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "No META company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No META company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No META company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No META company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No META company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No META company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No META company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No META company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "No META company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "No META company-news headlines before the 2026-06-10 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "No META company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "No META company-news headlines before the 2026-06-12 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "No META company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "No META company-news headlines before the 2026-06-16 US open."
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "META headlines before the 2026-06-17 US open:\n- 2026-06-17 AI startup Genspark valued at $2.6 billion in latest funding round (Yahoo)\n- 2026-06-17 Billionaire Dan Loeb Is Selling Old Economy Stocks and Buying This AI Play (Yahoo)\n- 2026-06-17 Global Hedge Funds Doubled Down on Technology and Semiconductor Names in May Despite Persistent Macro Risks, According to Hazeltree (Yahoo)\n- 2026-06-17 SpaceX just obliterated Facebook's 14-year options record by more than 4X — 1.6 million bets in a single day (Yahoo)\n- 2026-06-17 SNAP Stock Slides: Why Wall Street Thinks Snap's Futuristic New Smart Glasses Are Priced Too High (Benzinga)\n- 2026-06-17 SpaceX Options Just Broke A Record Meta Set In 2012 (Benzinga)"
+    },
+    {
+      "symbol": "METAUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "META headlines before the 2026-06-22 US open:\n- 2026-06-22 SpaceX Investors May Soon Face A Question Meta, Uber And Rivian Shareholders Know Well (Benzinga)\n- 2026-06-22 OfferUp Honors Small Businesses by Spotlighting Entrepreneurs Who Built Their Companies Using the Platform (Yahoo)\n- 2026-06-22 Credo Wires Agentic AI With $10 Billion-Plus Market In Sight (Benzinga)\n- 2026-06-22 Alphabet Tumbles 6%, SpaceX Sinks 10% On Bond Sale: Stock Market Today (Benzinga)\n- 2026-06-22 Investors Heavily Search Meta Platforms, Inc. (META): Here is What You Need to Know (Yahoo)\n- 2026-06-22 Meta Taps New WhatsApp Boss as Part of $900 Million Investment (Yahoo)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-21",
+      "newsSummary": "No MSTR company-news headlines before the 2026-05-21 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No MSTR company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No MSTR company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "No MSTR company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No MSTR company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No MSTR company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No MSTR company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No MSTR company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "No MSTR company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "MSTR headlines before the 2026-06-09 US open:\n- 2026-06-09 MicroStrategy’s STRC Tracks Bitcoin Lower Again as Semi-Monthly Dividend Begins (Yahoo)\n- 2026-06-09 Investors Heavily Search Strategy Inc (MSTR): Here is What You Need to Know (Yahoo)\n- 2026-06-09 Morning Minute: Saylor is Back to Buying (Yahoo)\n- 2026-06-09 Bitcoin’s Worst Week Since FTX Crash May Signal More Pain Ahead (Yahoo)\n- 2026-06-09 Bitcoin Consolidates At $62,000: Watch Q4 For The Bear Market Bottom, Top Exec Says (Benzinga)\n- 2026-06-09 Strategy May Become A Single Point Of Failure For Bitcoin (SeekingAlpha)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-10",
+      "newsSummary": "MSTR headlines before the 2026-06-10 US open:\n- 2026-06-10 To The Moon? SpaceX IPO May Ground Crypto ETFs (Benzinga)\n- 2026-06-10 Strategy's Math Just Got A Lot Scarier As Bitcoin Price Slides (Yahoo)\n- 2026-06-10 Bitcoin, XRP, Ethereum Slump as AI Selloff Hits Cryptos (Yahoo)\n- 2026-06-10 Competition Pressure Hurt AppLovin (APP) in Q1 (Yahoo)\n- 2026-06-10 Taiwan Semiconductor Manufacturing Company Limited’s (TSM) Results Strengthened Its Key Role in the AI Trend (Yahoo)\n- 2026-06-10 Crypto Weekly: Saylor's bitcoin sale, Greece mulls crypto tax (Yahoo)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-11",
+      "newsSummary": "MSTR headlines before the 2026-06-11 US open:\n- 2026-06-11 Strategy Declines 25% YTD: Time to Exit or Hold the Stock? (Yahoo)\n- 2026-06-11 Corporate Bitcoin Buying Has Collapsed This Year (Yahoo)\n- 2026-06-11 Strategy: An Expensive Bitcoin Sale (SeekingAlpha)\n- 2026-06-11 MicroStrategy Stock Sees $6 Million in Bullish Bets Despite the 40% Crash (Yahoo)\n- 2026-06-11 The AP Mechanisms That Crashed Bitcoin And Ethereum ETFs Are Now Set Up To Reverse (SeekingAlpha)\n- 2026-06-11 Bitcoin Sale Didn't Shake Institutional Investors, Says Strategy CEO, But Crypto Anarchist Retail Crowd Got The Jitters (Yahoo)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "MSTR headlines before the 2026-06-12 US open:\n- 2026-06-12 Leverage Shares by Themes Closing Capped Accelerated Single-Stock ETF Series Due to Lack of Assets (Yahoo)\n- 2026-06-12 Bitcoin News Today: Strategy CEO Phong Le Reveals 3 Reasons Behind First Bitcoin Sale Since 2022 (Yahoo)\n- 2026-06-12 Bitcoin Range-Bound After Tepid Recovery (Yahoo)\n- 2026-06-12 ‘I Said to YOU Never Sell Your Bitcoin’: Saylor Speaks Out on 32 BTC Sale (Yahoo)\n- 2026-06-12 Bitcoin, Ethereum, XRP, Dogecoin Jump After Trump Sparks Optimism On Iran Deal: Analyst Says SpaceX IPO Would Be 'Tricky' For The Markets (Yahoo)\n- 2026-06-12 Palo Alto Networks, Strategy, and C3.ai Shares Are Soaring, What You Need To Know (Yahoo)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "MSTR headlines before the 2026-06-15 US open:\n- 2026-06-15 Bitcoin Jumps Above $65,000 As Fed Risk Looms (Yahoo)\n- 2026-06-15 STRC Price Signals 63% Odds of Dividend Increase, Distress Fears Overstated: Analyst (Yahoo)\n- 2026-06-15 MicroStrategy Sells More Stock Than It Buys Bitcoin: A Red Flag? (Yahoo)\n- 2026-06-15 Strategy Buys $100 Million Of Bitcoin Ahead Of Price Surge (Yahoo)\n- 2026-06-15 Bitcoin Just Surpassed a Key Level. It’s Driving These Crypto Stocks Higher. (Yahoo)\n- 2026-06-15 Here's How Much You Would Have Made Owning Strategy Stock In The Last 10 Years (Benzinga)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "MSTR headlines before the 2026-06-16 US open:\n- 2026-06-16 Michael Saylor Says ‘AI Summer’ Is Draining Bitcoin Demand, Expects Capital To Rotate Back By Year-End As Frenzy Around OpenAI, SpaceX Fades (Yahoo)\n- 2026-06-16 How the bitcoin, ethereum playbook is evolving for Strategy and Bitmine (Yahoo)\n- 2026-06-16 BMNR Is Down 45% This Year, Yet Options Traders Favor It Over MSTR (Yahoo)\n- 2026-06-16 Peter Schiff Admits Bitcoin ‘Will Not Go To Zero’ in Debate — Calls Out Strategy's Latest BTC Purchase (Yahoo)\n- 2026-06-16 Bitcoin Vs Gold: Schiff Slams Saylor's MSTR For 'Sacrificing Shareholders,' Pompliano Defends BTC's Long-Term Edge Over Gold (Yahoo)\n- 2026-06-16 Strategy (MSTR) Stock Could Be 16% Below Fair Value After $100 Million Bitcoin Buy (Yahoo)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "MSTR headlines before the 2026-06-18 US open:\n- 2026-06-18 Bitcoin Plunges To $62,500, Ethereum, XRP Lose 5%: What Is Going? (Benzinga)\n- 2026-06-18 Coinbase Stock: Is COIN Underperforming the Financial Sector? (Yahoo)\n- 2026-06-18 Strategy And Its Preferreds: Maybe Later, But I'm Not Now Willing To Bet On Genius (SeekingAlpha)\n- 2026-06-18 The 'Saylor Cloud' Looms Over Bitcoin—And These Two Altcoins Are The Beneficiaries (Benzinga)\n- 2026-06-18 Why Strategy, Coinbase Stocks Are Rising When Bitcoin Is Falling (Yahoo)\n- 2026-06-18 Strategy's STRC Hits $89 Record Low: Is Peter Schiff's 'Death Spiral' Warning Coming True? (Yahoo)"
+    },
+    {
+      "symbol": "MSTRUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "MSTR headlines before the 2026-06-22 US open:\n- 2026-06-22 SoFi Technologies (SOFI) Slid Amid Interest Rate Volatility and Macro Uncertainty (Yahoo)\n- 2026-06-22 TechnipFMC plc (FTI) Rallied on a Mix of Bullish Forces (Yahoo)\n- 2026-06-22 Sandisk Corporation (SNDK) Jumped on Improving Memory Fundamentals (Yahoo)\n- 2026-06-22 Michael Saylor's Strategy Cuts Weekly Bitcoin Purchases By Two-Thirds — Builds $1.4B Liquidity Cushion (Yahoo)\n- 2026-06-22 Strategy Inc (MSTR) Is a Trending Stock: Facts to Know Before Betting on It (Yahoo)\n- 2026-06-22 MicroStrategy Buys Just 520 Bitcoin While Building $1.4 Billion Cash War Chest (Yahoo)"
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-05-26",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-05-28",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-05-29",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-03",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-04",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-05",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-08",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-09",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-11",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-15",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-18",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-18 US open."
+    },
+    {
+      "symbol": "NDX100USDT",
+      "date": "2026-06-22",
+      "newsSummary": "No NDX100 company-news headlines before the 2026-06-22 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-26",
+      "newsSummary": "No PLTR company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-27",
+      "newsSummary": "No PLTR company-news headlines before the 2026-05-27 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-28",
+      "newsSummary": "No PLTR company-news headlines before the 2026-05-28 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-05-29",
+      "newsSummary": "No PLTR company-news headlines before the 2026-05-29 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-01",
+      "newsSummary": "No PLTR company-news headlines before the 2026-06-01 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-02",
+      "newsSummary": "No PLTR company-news headlines before the 2026-06-02 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-03",
+      "newsSummary": "No PLTR company-news headlines before the 2026-06-03 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-04",
+      "newsSummary": "No PLTR company-news headlines before the 2026-06-04 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-05",
+      "newsSummary": "No PLTR company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-08",
+      "newsSummary": "PLTR headlines before the 2026-06-08 US open:\n- 2026-06-08 Beyond AI Chip Rally: 4 Software Stocks to Buy Now as the Hype Shifts (Yahoo)\n- 2026-06-08 Palantir CEO Alex Karp Says He's Been Warning AI Leaders For Months About Nationalization Risks: 'The Momentum Is On The Side Of People Who...' (Yahoo)\n- 2026-06-08 The Market May Be Missing What’s Changing at BigBear AI (Yahoo)\n- 2026-06-08 1 Cash-Producing Stock on Our Buy List and 2 Facing Challenges (Yahoo)\n- 2026-06-08 Last Year, Wall Street Said This AI Stock Was Overvalued. Now, Wall Street Expects It to Deliver Double-Digit Gains. (Yahoo)\n- 2026-06-08 Palantir CEO: Companies Are 'Token Maxing' On AI The Way People Binge Porn (Yahoo)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-09",
+      "newsSummary": "PLTR headlines before the 2026-06-09 US open:\n- 2026-06-09 UK Reviews Palantir NHS Deal (Yahoo)\n- 2026-06-09 Three Hotly Anticipated AI IPOs: Which One Is Poised to List First? (Yahoo)\n- 2026-06-09 Exploring 3 High Growth Tech Stocks in the US Market (Yahoo)\n- 2026-06-09 What's Going On With Palantir On Tuesday? (Benzinga)\n- 2026-06-09 AI Juggernauts Nvidia, Palantir, Micron, and Broadcom Are Sending Shockwaves Through Wall Street With This Nearly $13 Billion Warning (Yahoo)\n- 2026-06-09 Joe Lonsdale on SpaceX: A critical company in the middle of the biggest industrial revolution ever (CNBC)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-12",
+      "newsSummary": "PLTR headlines before the 2026-06-12 US open:\n- 2026-06-12 Leverage Shares by Themes Closing Capped Accelerated Single-Stock ETF Series Due to Lack of Assets (Yahoo)\n- 2026-06-12 Palantir Expands Commercial AI Footprint With New Multiyear Enterprise Deals (Yahoo)\n- 2026-06-12 Dan Loeb Calls Selling Palantir In The $20s A 'Huge Mistake:' 'I Missed A 10X' (Benzinga)\n- 2026-06-12 SpaceX May Look Expensive Today — Palantir Co-Founder Says It Could Look 'Really Cheap' In 10 Years (Yahoo)\n- 2026-06-11 SpaceX IPO Sends Nasdaq Futures Up 135 Points As Elon Musk's $1.77 Trillion Rocket Company Faces Scrutiny Over Starship, xAI Losses (Benzinga)\n- 2026-06-11 Marvell Just Ripped 57% in a Month. Will the June 22 S&P 500 Listing Be a Sell-the-News Event? (Yahoo)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-15",
+      "newsSummary": "PLTR headlines before the 2026-06-15 US open:\n- 2026-06-15 Palantir Technologies Inc. (PLTR) is Attracting Investor Attention: Here is What You Should Know (Yahoo)\n- 2026-06-15 Exploring 3 High Growth Tech Stocks in US Market (Yahoo)\n- 2026-06-15 SpaceX Stock Already Blew Past Two Of Three Price Targets — Here's What's Next (Benzinga)\n- 2026-06-15 Dan Ives Calls SpaceX IPO A 'Goldilocks Outcome' That Signals Green Light For OpenAI, Anthropic Debuts (Benzinga)\n- 2026-06-15 The S&P 500's Missing Giant: What Happens If The 6th-Largest Stock Stays Out A Full Year? (SeekingAlpha)\n- 2026-06-14 Palantir Swiss Court Defeat Raises European Data Sovereignty And Contract Risks (Yahoo)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-16",
+      "newsSummary": "PLTR headlines before the 2026-06-16 US open:\n- 2026-06-16 Wolfe Research Upgrades Palantir Technologies to Peer Perform (Benzinga)\n- 2026-06-16 Update: Palantir Technologies to Stop Working With French Intelligence, PM Lecornu Says (Yahoo)\n- 2026-06-16 Here Are Tuesday’s Best Wall Street Analyst Research Calls: Dynatrace, Emerson Electric, Exxon Mobil, Flutter Entertainment, Genuine Parts, nVent Electric, Palantir Technologies, Roku, and More (Yahoo)\n- 2026-06-16 How Your Taxes Will Be Different Next Year, And Why You'll Have Trump To Thank (Benzinga)\n- 2026-06-16 Surf Air Mobility Showcases AIP-Enabled BrokerOS at Palantir AIPCon 10 (Yahoo)\n- 2026-06-16 PLTR Stock Gains Attention: Wolfe Says Palantir Is ‘Too Big To Ignore’ In Enterprise AI (Yahoo)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-17",
+      "newsSummary": "PLTR headlines before the 2026-06-17 US open:\n- 2026-06-17 Buy 5 Technology Laggards Despite the Sector's Dream Run in 2026 (Yahoo)\n- 2026-06-17 Palantir: The N-Of-1 AI Tech Single-Seller Is At Its Limit (Rating Downgrade) (SeekingAlpha)\n- 2026-06-17 Dan Ives Predicts a Tesla-SpaceX Megamerger. Here’s What Investors Need to Know. (Yahoo)\n- 2026-06-17 Down Nearly 40% From Its Highs, Is Palantir Stock a Once-in-a-Decade Buying Opportunity? (Yahoo)\n- 2026-06-17 Great Market Expectations (SeekingAlpha)\n- 2026-06-17 The Smartest Way to Play the AI Boom in 2026 (Yahoo)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-18",
+      "newsSummary": "PLTR headlines before the 2026-06-18 US open:\n- 2026-06-18 SpaceX Looks Like Meme Stock To Some. Is That A Good Or Bad Thing? (Yahoo)\n- 2026-06-18 Oligo Security Joins Palantir's FedStart Program to Accelerate Runtime Security for Federal Agencies (Yahoo)\n- 2026-06-18 Software Is Under Pressure Again- Key Levels I'm Watching (SeekingAlpha)\n- 2026-06-18 These 2 Beaten-Down Market Favorites Could Be Primed for a Rebound (Yahoo)\n- 2026-06-18 Palantir: The $185 Billion Contract Nobody's Pricing In (SeekingAlpha)\n- 2026-06-18 Palantir: Attractive As Never Before (SeekingAlpha)"
+    },
+    {
+      "symbol": "PLTRUSDT",
+      "date": "2026-06-22",
+      "newsSummary": "PLTR headlines before the 2026-06-22 US open:\n- 2026-06-22 EnduroSat Names Spencer McCollester as SVP of Operations, US (Yahoo)\n- 2026-06-22 French Domestic Intelligence Agency Replaces Palantir (PLTR) for Local Rival, Reuters Reports (Yahoo)\n- 2026-06-22 Exclusive: The AI company powering public safety operations for the 2026 World Cup just raised $250 million (Yahoo)\n- 2026-06-21 3 Stocks To Play The AI And Data Center Boom (SeekingAlpha)\n- 2026-06-21 3 AI Tech Stocks That Just Crushed Earnings: Are They Still Buys for the Long Term? (Yahoo)\n- 2026-06-21 3 Small-Cap Stocks Getting a Russell 2000 Rebalance Boost (Yahoo)"
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-05-26",
+      "newsSummary": "No SP500 company-news headlines before the 2026-05-26 US open."
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-05",
+      "newsSummary": "No SP500 company-news headlines before the 2026-06-05 US open."
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-08",
+      "newsSummary": "No SP500 company-news headlines before the 2026-06-08 US open."
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-09",
+      "newsSummary": "No SP500 company-news headlines before the 2026-06-09 US open."
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-11",
+      "newsSummary": "No SP500 company-news headlines before the 2026-06-11 US open."
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-15",
+      "newsSummary": "No SP500 company-news headlines before the 2026-06-15 US open."
+    },
+    {
+      "symbol": "SP500USDT",
+      "date": "2026-06-18",
+      "newsSummary": "No SP500 company-news headlines before the 2026-06-18 US open."
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import type { SessionState } from "./types";
 import type { DislocationResult } from "./dislocation";
 import type { RiskDecision } from "./riskGovernor";
+import { canonicalJson } from "./canonicalJson";
 
 /** Optional LLM convergence-gate input applied to this decision. */
 export interface GateApplied {
@@ -43,11 +44,11 @@ export interface DecisionRecord extends DecisionInput {
 export const GENESIS_HASH = "0".repeat(64);
 
 export function hashDecision(r: DecisionInput & { prevHash: string }): string {
-  return createHash("sha256").update(JSON.stringify(r)).digest("hex");
+  return createHash("sha256").update(canonicalJson(r)).digest("hex");
 }
 
 export function formatRecord(r: DecisionRecord): string {
-  return JSON.stringify(r);
+  return canonicalJson(r);
 }
 
 /** Sink that appends each record as a JSONL line to a file. */

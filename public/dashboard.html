@@ -845,6 +845,29 @@
           .join("");
       }
 
+      function canonicalJson(value) {
+        if (value === null) return "null";
+        if (typeof value === "string") return JSON.stringify(value);
+        if (typeof value === "boolean") return value ? "true" : "false";
+        if (typeof value === "number") {
+          if (!Number.isFinite(value)) {
+            throw new Error("canonical JSON cannot encode non-finite numbers");
+          }
+          return JSON.stringify(value);
+        }
+        if (Array.isArray(value)) {
+          return `[${value.map((item) => canonicalJson(item)).join(",")}]`;
+        }
+        if (typeof value === "object") {
+          return `{${Object.keys(value)
+            .sort()
+            .filter((key) => value[key] !== undefined)
+            .map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`)
+            .join(",")}}`;
+        }
+        throw new Error(`canonical JSON cannot encode ${typeof value}`);
+      }
+
       async function verify(records) {
         let expectedPrev = genesis;
         const errors = [];
@@ -854,7 +877,7 @@
             errors.push(`line ${i + 1}: prevHash mismatch`);
           }
           const { hash, ...payload } = record;
-          const computed = await sha256(JSON.stringify(payload));
+          const computed = await sha256(canonicalJson(payload));
           if (hash !== computed) {
             errors.push(`line ${i + 1}: hash mismatch`);
           }

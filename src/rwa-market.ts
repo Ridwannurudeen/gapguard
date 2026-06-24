@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fetchTextWithRetry } from "./http";
 
 const BITGET_BASE_URL = "https://api.bitget.com";
 const PRODUCT_TYPE = "USDT-FUTURES";
@@ -291,11 +292,13 @@ function bitgetUrl(path: string): string {
 }
 
 async function fetchBitgetArray(path: string): Promise<unknown[]> {
-  const response = await fetch(bitgetUrl(path));
+  const response = await fetchTextWithRetry(bitgetUrl(path), undefined, {
+    maxResponseChars: 1_000_000,
+  });
   if (!response.ok) {
     throw new Error(`Bitget public API returned HTTP ${response.status}`);
   }
-  const payload = asRecord(await response.json());
+  const payload = asRecord(JSON.parse(response.text) as unknown);
   const code = readString(payload.code);
   if (code && code !== "00000") {
     throw new Error(`Bitget public API returned code ${code}`);

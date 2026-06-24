@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-06-23T06:31:13.507Z",
+  "productSentence": "GapGuard is an AI abstention and risk engine for tokenized US stocks: it decides whether an off-hours gap is liquidity noise to trade or news-driven repricing to respect, then proves every decision with a signed audit trail.",
+  "boundary": "Cryptographic integrity proof, not regulatory certification. Approval-gated live path; current stock evidence is backtest/paper.",
+  "metrics": {
+    "aaplAlwaysFade": {
+      "source": "artifacts/aaplusdt-backtest.json",
+      "window": "2026-05-12 -> 2026-06-18",
+      "costs": "0.05% cost/side + 0.2981 bps slippage/side",
+      "tradeCount": 15,
+      "totalReturnPct": -0.397,
+      "winRatePct": 40,
+      "profitFactor": 0.95,
+      "label": "AAPLUSDT always-fade baseline"
+    },
+    "aaplGateDriven": {
+      "source": "artifacts/aaplusdt-news-aware-backtest.json",
+      "window": "2026-05-12 -> 2026-06-18",
+      "costs": "0.05% cost/side + 0.2851 bps slippage/side",
+      "tradeCount": 13,
+      "totalReturnPct": 1.418,
+      "winRatePct": 38.5,
+      "profitFactor": 1.35,
+      "label": "AAPLUSDT Qwen gate-driven pilot"
+    },
+    "aaplAlwaysFollow": {
+      "source": "artifacts/aaplusdt-news-aware-backtest.json",
+      "window": "2026-05-12 -> 2026-06-18",
+      "costs": "0.05% cost/side + 0.2851 bps slippage/side",
+      "tradeCount": 15,
+      "totalReturnPct": -2.955,
+      "winRatePct": 26.7,
+      "profitFactor": 0.63,
+      "label": "AAPLUSDT always-follow baseline"
+    },
+    "aaplLabelAware": {
+      "source": "artifacts/aaplusdt-news-aware-backtest.json",
+      "window": "2026-05-12 -> 2026-06-18",
+      "costs": "0.05% cost/side + 0.2851 bps slippage/side",
+      "tradeCount": 13,
+      "totalReturnPct": 1.797,
+      "winRatePct": 46.2,
+      "profitFactor": 1.45,
+      "label": "AAPLUSDT label-aware baseline"
+    },
+    "rwaBasketAlwaysFade": {
+      "source": "artifacts/rwa-multi-backtest.json",
+      "window": "2026-03-31 -> 2026-06-22",
+      "costs": "0.05% cost/side + 0.283 bps slippage/side",
+      "tradeCount": 747,
+      "totalReturnPct": -0.015,
+      "winRatePct": 37.5,
+      "profitFactor": 0.75,
+      "label": "20-symbol RWA always-fade baseline",
+      "symbols": 20
+    },
+    "walkForwardPilot": {
+      "source": "artifacts/rwa-alpha-certification.json",
+      "window": "2026-03-31T17:00:00.000Z -> 2026-06-22T16:00:00.000Z",
+      "costs": "0.05% cost/side + 0.283 bps slippage/side",
+      "tradeCount": 116,
+      "totalReturnPct": 2.643,
+      "winRatePct": 54.3,
+      "profitFactor": 1.74,
+      "label": "positive pilot OOS over 16 trading days",
+      "alphaStatus": "positive",
+      "oosTradingDays": 16,
+      "vsAlwaysFadeReturnPct": 8.051
+    }
+  },
+  "gateAudit": {
+    "source": "artifacts/aaplusdt-gate-audit.json",
+    "model": "qwen3.6-plus",
+    "correct": 12,
+    "scored": 15,
+    "accuracyPct": 80,
+    "keyCase": "2026-06-09 WWDC: correctly stood aside on a news-driven repricing gap."
+  },
+  "gateHoldout": {
+    "source": "artifacts/gate-holdout-report.json",
+    "symbols": 20,
+    "candidates": 790,
+    "holdoutCandidates": 341,
+    "alwaysFadeAccuracyPct": 42.2,
+    "alwaysFadeRegretPct": 1.775,
+    "macroAblationAccuracyPct": 39.9,
+    "fullBundleQwenStatus": "evaluated",
+    "fullBundleQwenAccuracyPct": 39,
+    "fullBundleQwenRegretPct": 1.622
+  },
+  "stockPaperJournal": {
+    "jsonl": "artifacts/stock-paper-journal.jsonl",
+    "csv": "artifacts/stock-paper-journal.csv",
+    "rowCount": 58,
+    "label": "SIMULATED/PAPER_STOCK; not a live exchange stock fill"
+  },
+  "cryptoDemoSmoke": {
+    "source": "artifacts/paper-btc-smoke.jsonl",
+    "rowCount": 3,
+    "label": "Bitget Demo integration smoke (crypto BTCUSDT), not Track 3 stock evidence"
+  },
+  "caveats": [
+    "No live on-exchange RWA stock fill is claimed.",
+    "The AAPL gate-driven result is n=15 and driven mainly by one correctly avoided WWDC loss.",
+    "The 20-symbol always-fade basket is negative, which is why the product is an abstention/risk engine instead of a blind gap fader.",
+    "The walk-forward result is a positive pilot OOS over 16 trading days, not proven profitable alpha."
+  ]
+}

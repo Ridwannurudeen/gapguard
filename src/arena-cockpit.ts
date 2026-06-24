@@ -8,6 +8,7 @@ import {
   readArenaPublicKey,
 } from "./arenaSigning";
 import type { AgentPassport } from "./agentArena";
+import { loadGateVerdicts } from "./gateVerdicts";
 import { extractOrderId, type BgcFuturesOrder } from "./liveStockBroker";
 import type { DeskOpinion, QuorumDecision } from "./quorum";
 import type { RwaMarketReport } from "./rwa-market";
@@ -249,7 +250,7 @@ export async function runArenaCockpitCli(): Promise<void> {
 
   const attestation = attestChain(artifact.arenaChain.records, {
     signedAt: new Date().toISOString(),
-    model: "qwen3.6-plus (desk) + deterministic (gap core)",
+    model: "Qwen catalyst gate + deterministic Quorum",
     privateKey: signingKey,
   });
   mkdirSync(dirname(attestOut), { recursive: true });
@@ -282,20 +283,13 @@ export async function runArenaCockpitCli(): Promise<void> {
   // for the cockpit's Agent News Desk + replay scrubber.
   const verdictsSrc = resolve("data/aaplusdt-gate-verdicts.json");
   if (existsSync(verdictsSrc)) {
-    const cache = JSON.parse(readFileSync(verdictsSrc, "utf8")) as {
-      asset?: string;
-      model?: string;
-      generatedAt?: string;
-      verdicts?: unknown[];
-      results?: unknown[];
-    };
-    const rows = (cache.verdicts ?? cache.results ?? []) as Array<
-      Record<string, unknown>
-    >;
-    const verdicts = rows.map((v) => ({
+    const cache = loadGateVerdicts(verdictsSrc);
+    const verdicts = cache.verdicts.map((v) => ({
       date: v.date,
+      action: v.action,
       fadeable: v.fadeable,
       multiplier: v.multiplier,
+      evidenceIds: v.evidenceIds,
       returnPct: v.returnPct,
       correct: v.correct,
       newsSummary: v.newsSummary,
@@ -304,7 +298,18 @@ export async function runArenaCockpitCli(): Promise<void> {
     const newsOut = resolve("public/gate-verdicts.json");
     writeFileSync(
       newsOut,
-      `${JSON.stringify({ asset: cache.asset, model: cache.model, generatedAt: cache.generatedAt, verdicts }, null, 2)}\n`,
+      `${JSON.stringify(
+        {
+          asset: cache.asset,
+          model: cache.model,
+          generatedAt: cache.generatedAt,
+          boundary:
+            "Qwen catalyst verdict cache for reproducible replay; cryptographic integrity proof, not regulatory certification.",
+          verdicts,
+        },
+        null,
+        2,
+      )}\n`,
     );
     console.log(
       `Agent News Desk data: ${newsOut} (${verdicts.length} verdicts)`,

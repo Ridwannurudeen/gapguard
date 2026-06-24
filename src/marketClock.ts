@@ -1,7 +1,7 @@
 import {
-  NYSE_FULL_CLOSURES_2026,
-  NYSE_EARLY_CLOSES_2026,
-} from "./nyseCalendar2026";
+  nyseEarlyClosesAround,
+  nyseFullClosuresAround,
+} from "./nyseCalendar";
 import type { MarketSession, SessionState } from "./types";
 
 const PRE_START = 4 * 60; // 04:00 ET
@@ -128,10 +128,9 @@ export function classifySession(
   now: Date,
   opts: ClockOptions = {},
 ): SessionState {
-  const full = opts.fullClosures ?? NYSE_FULL_CLOSURES_2026;
-  const early = opts.earlyCloses ?? NYSE_EARLY_CLOSES_2026;
-
   const p = etParts(now);
+  const full = opts.fullClosures ?? nyseFullClosuresAround(p.year);
+  const early = opts.earlyCloses ?? nyseEarlyClosesAround(p.year);
   const dateStr = `${p.year}-${pad(p.month)}-${pad(p.day)}`;
   const m = p.hour * 60 + p.minute;
 

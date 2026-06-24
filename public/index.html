@@ -635,10 +635,9 @@
           <span class="grad">and prove every call.</span>
         </h1>
         <p class="sub">
-          A tokenized stock trades 24/7; the underlying market is open ~6.5h a day.
-          GapGuard's public build replays an evidence-weighted deterministic Quorum
-          scenario, names the live Qwen gate only in the audit path, and seals every
-          decision into a signed, tamper-evident trail a judge can re-verify in the browser.
+          GapGuard is an AI abstention and risk engine for tokenized US stocks:
+          it decides whether an off-hours gap is liquidity noise to trade or
+          news-driven repricing to respect, then proves every decision with a signed audit trail.
         </p>
         <div class="cta-row">
           <a class="btn primary" href="arena.html">Open the Arena cockpit →</a>
@@ -647,12 +646,12 @@
 
         <div class="metrics">
           <div class="metric reveal">
-            <div class="v">790</div>
+            <div class="v" id="metricRwaTrades">790</div>
             <div class="l">RWA sample trades · 20 symbols</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">+2.65%</div>
-            <div class="l">walk-forward RWA cert · 16 OOS days</div>
+            <div class="v cyan" id="metricPilotReturn">+2.648%</div>
+            <div class="l">positive pilot OOS · 16 trading days</div>
           </div>
           <div class="metric reveal">
             <div class="v">Ed25519</div>
@@ -679,7 +678,7 @@
           noise</strong> that reverts at the US open; some is <strong style="color:var(--ink)">justified
           repricing</strong> — an earnings beat, a keynote, a Fed surprise — that keeps going.
           Blindly fading every gap is how naive bots blow up. And separately: why would anyone
-          trust an autonomous agent with capital here at all?
+          approve an agent for capital here at all?
         </p>
         <div class="steps">
           <div class="step reveal">
@@ -775,19 +774,19 @@
                 <tr><th>Strategy</th><th>Return</th><th>Trades</th><th>Win</th></tr>
               </thead>
               <tbody>
-                <tr><td>AAPL always-fade</td><td class="down">−0.397%</td><td>15</td><td>40%</td></tr>
-                <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td class="up">+1.346%</td><td>13</td><td>38.5%</td></tr>
-                <tr><td>AAPL label-aware</td><td>+1.793%</td><td>13</td><td>46%</td></tr>
-                <tr><td>20-symbol always-fade</td><td class="down">−8.233%</td><td>790</td><td>44%</td></tr>
-                <tr class="row-hi"><td>Walk-forward RWA cert (16 OOS days)</td><td class="up">+2.648%</td><td>116</td><td>54.3%</td></tr>
+                <tr><td>AAPL always-fade</td><td id="metricAaplFadeReturn" class="down">−0.397%</td><td id="metricAaplFadeTrades">15</td><td>40%</td></tr>
+                <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td id="metricGateReturn" class="up">+1.409%</td><td id="metricGateTrades">13</td><td>38.5%</td></tr>
+                <tr><td>AAPL label-aware baseline</td><td id="metricLabelReturn">+1.787%</td><td>13</td><td>46.2%</td></tr>
+                <tr><td>20-symbol always-fade</td><td id="metricBasketReturn" class="down">−8.233%</td><td>790</td><td>44.1%</td></tr>
+                <tr class="row-hi"><td>Positive pilot OOS (16 trading days)</td><td id="metricPilotTableReturn" class="up">+2.648%</td><td>116</td><td>54.3%</td></tr>
               </tbody>
             </table>
             <p class="note">
               <strong>Honest caveat:</strong> on real blinded Finnhub news the Qwen gate scores
-              12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.346% —
-              driven mainly by that one catalyst, small sample. The +1.793% row is a
-              label-grounded baseline, not an AI edge. The walk-forward cert is on just 16 OOS
-              trading days — a hypothesis, not a live edge; we don't headline a Sharpe at that sample.
+              12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.409% —
+              driven mainly by that one catalyst, small sample. The +1.787% row is a
+              label-grounded baseline, not an AI edge. The walk-forward pilot is on just 16 OOS
+              trading days — a hypothesis, not proven profitable alpha; we don't headline a Sharpe at that sample.
             </p>
           </div>
 
@@ -802,7 +801,7 @@
                 <tr><td>Holdout labels</td><td>separate file</td></tr>
                 <tr><td>Accuracy</td><td class="up">12/15 (80%)</td></tr>
                 <tr class="row-hi"><td>WWDC call</td><td class="up">stood aside ✓</td></tr>
-                <tr><td>Gate-driven</td><td class="up">+1.346% vs −0.475%</td></tr>
+                <tr><td>Gate-driven</td><td class="up">+1.409% vs −0.404%</td></tr>
               </tbody>
             </table>
             <p class="note">
@@ -810,13 +809,13 @@
               blinded Finnhub headlines</strong> it scores every AAPL gap after the model returns,
               and writes a verdict cache that <span class="mono">backtest:news</span> replays
               honestly. On real news Qwen scores 12/15 and <strong style="color:var(--ink)">correctly
-              stands aside on WWDC</strong>, turning the −0.475% always-fade baseline into +1.346%.
+              stands aside on WWDC</strong>, turning the −0.404% always-fade baseline into +1.409%.
             </p>
             <p class="note" style="margin-top:10px">
-              <strong>Certified:</strong> a Bitget Playbook managed run
+              <strong>Managed run:</strong> a Bitget Playbook run
               (<span class="mono">pbrun-e3fe0ec8c873</span>) completed on
               <span class="mono">AAPLUSDT.BITGET</span> — 38 trades, honest flat/negative
-              Sharpe, the first completed managed backtest on a real tokenized US stock.
+              Sharpe, a completed managed backtest on a real tokenized US stock.
             </p>
           </div>
         </div>
@@ -842,12 +841,13 @@
 <span class="k">"alg"</span>: <span class="s">"Ed25519"</span>,
 <span class="k">"merkleRoot"</span>: <span class="s">"c3bb60…8a9e"</span>,
 <span class="k">"recordCount"</span>: 11,
-<span class="k">"model"</span>: <span class="s">"Qwen gate cache + deterministic Quorum"</span>,
+<span class="k">"model"</span>: <span class="s">"Qwen catalyst gate + deterministic Quorum"</span>,
 <span class="k">"signatureB64"</span>: <span class="s">"bBSN61mb…"</span>
             </div>
             <p class="note">
-              A compact "verify, don't trust" fingerprint aligned with MiFID II / EU AI Act
-              Art. 12 / SEC CAT audit norms — attribution the open-source desks don't have.
+              A compact "verify, don't trust" fingerprint: signed tamper-evident
+              audit trail inspired by regulated-market recordkeeping. Cryptographic
+              integrity proof, not regulatory certification.
             </p>
           </div>
           <div class="panel reveal">
@@ -856,9 +856,9 @@
               <li><span class="mono">npm test</span> — 109 tests, typecheck clean</li>
               <li><span class="mono">npm run backtest</span> — real AAPLUSDT gap backtest, no key</li>
               <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
-              <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA alpha certification</li>
+              <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA pilot artifact</li>
               <li><span class="mono">npm run backtest:news</span> — label baseline + gate cache replay</li>
-              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache on real Finnhub news; +1.346% gate-driven, WWDC correct</li>
+              <li><span class="mono">npm run gate:audit</span> — blinded Qwen verdict cache on real Finnhub news; WWDC correct</li>
               <li><span class="mono">npm run arena:cockpit</span> — rebuild the signed chain</li>
               <li>Open <span class="mono">arena.html</span> → Verify chain, then Simulate tampering</li>
             </ul>
@@ -1056,6 +1056,33 @@
             const pill = document.getElementById("rootpill");
             if (pill) pill.textContent = "Ed25519 · root " + short + " · " + (a.recordCount ?? "") + " records";
           }
+        })
+        .catch(() => {});
+
+      function signedPct(value, digits = 3) {
+        if (typeof value !== "number" || !Number.isFinite(value)) return "—";
+        return (value > 0 ? "+" : "") + value.toFixed(digits) + "%";
+      }
+
+      function setMetric(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
+      fetch("metrics.json", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!data || !data.metrics) return;
+          const m = data.metrics;
+          setMetric("metricRwaTrades", String(m.rwaBasketAlwaysFade?.tradeCount ?? "790"));
+          setMetric("metricPilotReturn", signedPct(m.walkForwardPilot?.totalReturnPct));
+          setMetric("metricAaplFadeReturn", signedPct(m.aaplAlwaysFade?.totalReturnPct));
+          setMetric("metricAaplFadeTrades", String(m.aaplAlwaysFade?.tradeCount ?? "15"));
+          setMetric("metricGateReturn", signedPct(m.aaplGateDriven?.totalReturnPct));
+          setMetric("metricGateTrades", String(m.aaplGateDriven?.tradeCount ?? "13"));
+          setMetric("metricLabelReturn", signedPct(m.aaplLabelAware?.totalReturnPct));
+          setMetric("metricBasketReturn", signedPct(m.rwaBasketAlwaysFade?.totalReturnPct));
+          setMetric("metricPilotTableReturn", signedPct(m.walkForwardPilot?.totalReturnPct));
         })
         .catch(() => {});
 

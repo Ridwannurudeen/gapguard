@@ -9,12 +9,36 @@ import {
   type ArenaRecord,
 } from "../src/arena-chain";
 
+function browserCanonicalJson(value: unknown): string {
+  if (value === null) return "null";
+  if (typeof value === "string") return JSON.stringify(value);
+  if (typeof value === "boolean") return value ? "true" : "false";
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) {
+      throw new Error("canonical JSON cannot encode non-finite numbers");
+    }
+    return JSON.stringify(value);
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map((item) => browserCanonicalJson(item)).join(",")}]`;
+  }
+  if (typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    return `{${Object.keys(record)
+      .sort()
+      .filter((key) => record[key] !== undefined)
+      .map((key) => `${JSON.stringify(key)}:${browserCanonicalJson(record[key])}`)
+      .join(",")}}`;
+  }
+  throw new Error(`canonical JSON cannot encode ${typeof value}`);
+}
+
 async function browserStyleHash(record: ArenaRecord): Promise<string> {
   const payload: Record<string, unknown> = { ...record };
   delete payload.hash;
   const digest = await webcrypto.subtle.digest(
     "SHA-256",
-    new TextEncoder().encode(JSON.stringify(payload)),
+    new TextEncoder().encode(browserCanonicalJson(payload)),
   );
   return [...new Uint8Array(digest)]
     .map((byte) => byte.toString(16).padStart(2, "0"))
@@ -81,7 +105,7 @@ describe("arena chain", () => {
         ts: "2026-06-22T00:00:00.000Z",
         kind: "broker_order",
         agentId: "quorum",
-        payload: { symbol: "NVDAUSDT", size: "0.03" },
+        payload: { symbol: "NVDAUSDT", nested: { z: 2, a: 1 }, size: "0.03" },
       },
     ]);
 

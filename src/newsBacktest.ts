@@ -11,13 +11,10 @@
 //   npm run backtest:news
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { dirname, relative, resolve } from "node:path";
 import type { Candle } from "./gapEngine";
 import { loadGateVerdicts } from "./gateVerdicts";
-import {
-  buildNewsBacktestReport,
-  type Catalyst,
-} from "./newsBacktestReport";
+import { buildNewsBacktestReport, type Catalyst } from "./newsBacktestReport";
 import { resolveBacktestSlippage } from "./slippage";
 
 const GAP_THRESHOLD = Number(process.env.BT_GAP_THRESHOLD ?? "0.004");
@@ -26,10 +23,14 @@ const START_EQUITY = 1000;
 
 const candleFile = resolve(process.argv[2] ?? "data/aaplusdt-1h.json");
 const catalystFile = resolve(process.argv[3] ?? "data/aaplusdt-catalysts.json");
-const gateVerdictFile = resolve(
+const gateVerdictInput =
   process.argv[4] ??
-    process.env.BT_GATE_VERDICTS ??
-    "data/aaplusdt-gate-verdicts.json",
+  process.env.BT_GATE_VERDICTS ??
+  "data/aaplusdt-gate-verdicts.json";
+const gateVerdictFile = resolve(gateVerdictInput);
+const gateVerdictPath = relative(process.cwd(), gateVerdictFile).replaceAll(
+  "\\",
+  "/",
 );
 const fixture = JSON.parse(readFileSync(candleFile, "utf8")) as {
   symbol: string;
@@ -62,7 +63,7 @@ const report = buildNewsBacktestReport({
   slippageBps: slippage.slippageBps,
   slippageSource: slippage.source,
   startEquity: START_EQUITY,
-  gateVerdictPath: gateVerdictFile,
+  gateVerdictPath,
   gateCache,
 });
 
@@ -73,7 +74,10 @@ writeFileSync(out, `${JSON.stringify(report, null, 2)}\n`);
 console.log(
   `\nGapGuard news-aware backtest — ${symbol} (${report.window.from} -> ${report.window.to})`,
 );
-const table: Record<string, { "return %": number; trades: number; "win %": number }> = {
+const table: Record<
+  string,
+  { "return %": number; trades: number; "win %": number }
+> = {
   "always-fade (baseline)": {
     "return %": report.variants.alwaysFade.totalReturnPct,
     trades: report.variants.alwaysFade.totalTrades,
@@ -91,6 +95,11 @@ table["AAPL-label-aware"] = {
   "return %": report.variants.aaplNewsAware.totalReturnPct,
   trades: report.variants.aaplNewsAware.totalTrades,
   "win %": report.variants.aaplNewsAware.winRatePct,
+};
+table["always-follow (baseline)"] = {
+  "return %": report.variants.alwaysFollow.totalReturnPct,
+  trades: report.variants.alwaysFollow.totalTrades,
+  "win %": report.variants.alwaysFollow.winRatePct,
 };
 table["all-label-aware"] = {
   "return %": report.variants.allCatalystAware.totalReturnPct,

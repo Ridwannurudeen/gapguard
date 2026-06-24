@@ -26,8 +26,10 @@ describe("buildNewsBacktestReport", () => {
       verdicts: [
         {
           date: "2026-05-13",
+          action: "STAND_ASIDE",
           fadeable: false,
           multiplier: 0,
+          evidenceIds: [],
           expectedFadeable: false,
           correct: true,
           returnPct: -0.1,
@@ -94,5 +96,49 @@ describe("buildNewsBacktestReport", () => {
     expect(report.gateVerdictCache).toMatchObject({
       status: expect.stringContaining("missing"),
     });
+  });
+
+  it("executes FOLLOW as the opposite momentum trade", () => {
+    const gateCache: GateVerdictCache = {
+      asset: "AAPLUSDT",
+      model: "stub-model",
+      promptSource: "blinded summaries",
+      verdicts: [
+        {
+          date: "2026-05-13",
+          action: "FOLLOW",
+          fadeable: false,
+          multiplier: 0,
+          evidenceIds: ["macro-2026-05-13"],
+          expectedFadeable: false,
+          correct: true,
+          returnPct: 0.9,
+          rationale: "real momentum catalyst",
+        },
+      ],
+    };
+
+    const report = buildNewsBacktestReport({
+      symbol: "AAPLUSDT",
+      interval: "1H",
+      candles: [bar(dayA, 100, 100), bar(dayB, 102, 101)],
+      catalysts: [],
+      gapThreshold: 0.004,
+      costPerSide: 0.0005,
+      slippageBps: 0,
+      slippageSource: "test no spread",
+      startEquity: 1000,
+      gateVerdictPath: "data/aaplusdt-gate-verdicts.json",
+      gateCache,
+    });
+
+    expect(report.variants.alwaysFade.totalTrades).toBe(1);
+    expect(report.variants.gateDriven?.totalTrades).toBe(1);
+    expect(report.gateVerdictCache).toMatchObject({
+      followDates: ["2026-05-13"],
+    });
+    expect(report.variants.gateDriven?.totalReturnPct).toBeLessThan(
+      report.variants.alwaysFade.totalReturnPct,
+    );
   });
 });

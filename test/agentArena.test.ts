@@ -45,7 +45,9 @@ describe("agent arena passports", () => {
     expect(passport.grade).toBe("LICENSED");
     expect(passport.license.liveTradingAllowed).toBe(true);
     expect(passport.license.maxNotionalUSDT).toBe(20);
-    expect(passport.findings).toEqual(["licensed for one capped supervised fill"]);
+    expect(passport.findings).toEqual([
+      "approval-gated for one capped supervised path; current stock evidence is backtest/paper",
+    ]);
   });
 
   it("keeps a verified but incomplete agent paper-only", () => {
@@ -83,7 +85,9 @@ describe("agent arena passports", () => {
 
     expect(passport.grade).toBe("PAPER_ONLY");
     expect(passport.license.liveTradingAllowed).toBe(false);
-    expect(passport.findings.join(" | ")).toContain("alpha not live-certified");
+    expect(passport.findings.join(" | ")).toContain(
+      "pilot evidence not positive",
+    );
   });
 
   it("rejects a narrative bot with no risk governor or hash chain", () => {
@@ -125,10 +129,8 @@ describe("agent arena passports", () => {
       evidence: { ...quorum.evidence, hashChainOk: false },
     });
 
-    expect(rankPassports([rejected, paperOnly, licensed]).map((p) => p.grade)).toEqual([
-      "LICENSED",
-      "PAPER_ONLY",
-      "REJECTED",
-    ]);
+    expect(
+      rankPassports([rejected, paperOnly, licensed]).map((p) => p.grade),
+    ).toEqual(["LICENSED", "PAPER_ONLY", "REJECTED"]);
   });
 });

@@ -28,8 +28,32 @@ export interface SimBrokerFill {
   balanceBefore: number;
   balanceAfter: number;
   balanceDelta: number;
+  executedQty: number;
+  avgFillPrice: number;
+  feeUSDT: number;
   notionalUSDT: number;
   realizedPnlUSDT: number;
+}
+
+export interface SimBrokerState {
+  openOrders: { orderId: string; symbol: string }[];
+  positionSize: number;
+  entryPrice: number;
+  markPrice: number;
+  balanceUSDT: number;
+}
+
+export interface SimKillSwitchResult {
+  cancelledOrderIds: string[];
+  flattenOrder: {
+    symbol: string;
+    side: "sell" | "buy";
+    executedQty: number;
+    avgFillPrice: number;
+    realizedPnlUSDT: number;
+  } | null;
+  finalPositionSize: 0;
+  finalBalanceUSDT: number;
 }
 
 export interface SimBrokerResult extends BrokerResult {
@@ -64,7 +88,12 @@ export async function placeSimulatedFuturesOrder(
   options: SimBrokerOptions,
 ): Promise<SimBrokerResult> {
   assertPricePath(options.pricePath);
-  const plan = buildFuturesOrderPlan(intent, cfg);
+  const livePlan = buildFuturesOrderPlan(intent, cfg);
+  const plan = {
+    ...livePlan,
+    command: "simBroker",
+    args: ["simulated-futures-order"],
+  };
   const fillPrice = options.pricePath[0];
   const exitPrice = options.pricePath[options.pricePath.length - 1];
   const realizedPnlUSDT =
@@ -87,6 +116,9 @@ export async function placeSimulatedFuturesOrder(
     balanceBefore,
     balanceAfter,
     balanceDelta,
+    executedQty: intent.size,
+    avgFillPrice: fillPrice,
+    feeUSDT: fee,
     notionalUSDT: plan.notionalUSDT,
     realizedPnlUSDT,
   };
@@ -94,6 +126,26 @@ export async function placeSimulatedFuturesOrder(
   return {
     status: cfg.mode === "dry_run" ? "dry_run" : "submitted",
     plan,
+    receipt: {
+      clientOid: plan.order.clientOid,
+      orderId,
+      status: cfg.mode === "dry_run" ? "dry_run" : "filled",
+      executedQty: intent.size,
+      avgFillPrice: fillPrice,
+      feeUSDT: fee,
+      realizedPnlUSDT,
+      balanceDelta,
+      transitions: [
+        {
+          ts: fill.ts,
+          status: cfg.mode === "dry_run" ? "submitted" : "filled",
+          orderId,
+          rawStatus: cfg.mode === "dry_run" ? "dry_run" : "filled",
+          avgFillPrice: fillPrice,
+          executedQty: intent.size,
+        },
+      ],
+    },
     fill,
     stdout: JSON.stringify({
       code: "SIMULATED",
@@ -107,5 +159,34 @@ export async function placeSimulatedFuturesOrder(
       },
     }),
     stderr: "",
+  };
+}
+
+export function simulateKillSwitch(state: SimBrokerState): SimKillSwitchResult {
+  const cancelledOrderIds = state.openOrders.map((order) => order.orderId);
+  if (state.positionSize === 0) {
+    return {
+      cancelledOrderIds,
+      flattenOrder: null,
+      finalPositionSize: 0,
+      finalBalanceUSDT: state.balanceUSDT,
+    };
+  }
+
+  const side = state.positionSize > 0 ? "sell" : "buy";
+  const executedQty = Math.abs(state.positionSize);
+  const realizedPnlUSDT =
+    (state.markPrice - state.entryPrice) * state.positionSize;
+  return {
+    cancelledOrderIds,
+    flattenOrder: {
+      symbol: state.openOrders[0]?.symbol ?? "UNKNOWN",
+      side,
+      executedQty,
+      avgFillPrice: state.markPrice,
+      realizedPnlUSDT,
+    },
+    finalPositionSize: 0,
+    finalBalanceUSDT: +(state.balanceUSDT + realizedPnlUSDT).toFixed(8),
   };
 }

@@ -1,0 +1,257 @@
+{
+  "generatedAt": "2026-06-24T04:53:55.679Z",
+  "strategy": "GapGuard gate holdout evaluation",
+  "data": {
+    "manifestPath": "C:/Users/gudma/OneDrive/Desktop/GITHUB-FILES/gapguard/data/rwa-sample/manifest.json",
+    "symbols": [
+      "AAPLUSDT",
+      "NVDAUSDT",
+      "TSLAUSDT",
+      "MSFTUSDT",
+      "GOOGLUSDT",
+      "AMZNUSDT",
+      "METAUSDT",
+      "AMDUSDT",
+      "COINUSDT",
+      "MSTRUSDT",
+      "QQQUSDT",
+      "SPYUSDT",
+      "NDX100USDT",
+      "SP500USDT",
+      "TSMUSDT",
+      "BABAUSDT",
+      "NFLXUSDT",
+      "PLTRUSDT",
+      "AVGOUSDT",
+      "ARMUSDT"
+    ],
+    "candidates": 790,
+    "formationCandidates": 449,
+    "holdoutCandidates": 341,
+    "holdoutStart": "2026-05-19"
+  },
+  "protocol": {
+    "split": "First 60% of unique gap dates are formation only; metrics are reported on the later holdout dates.",
+    "gapThresholdPct": 0.4,
+    "costPerSidePct": 0.05,
+    "executionAssumptionSource": "symbol-specific half-spread, funding, and min-size from public/rwa-market.json",
+    "oracle": "Oracle label is the best post-cost action among FADE, FOLLOW, and STAND_ASIDE for evaluation only.",
+    "noTuning": "No thresholds are tuned on this holdout. Always-fade and macro-stand-aside are fixed ablations; the oracle is computed post-hoc for scoring only and never fed to the model."
+  },
+  "variants": [
+    {
+      "name": "always_fade",
+      "scope": "all holdout symbols",
+      "status": "evaluated",
+      "evaluated": 341,
+      "accuracyPct": 42.2,
+      "meanRegretPct": 1.775,
+      "confusion": {
+        "FADE": {
+          "FADE": {
+            "count": 144,
+            "costPct": 0
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 0,
+            "costPct": 0
+          }
+        },
+        "FOLLOW": {
+          "FADE": {
+            "count": 179,
+            "costPct": 603.399
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 0,
+            "costPct": 0
+          }
+        },
+        "STAND_ASIDE": {
+          "FADE": {
+            "count": 18,
+            "costPct": 1.941
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 0,
+            "costPct": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "jobs_fomc_macro_stand_aside",
+      "scope": "all holdout symbols; fixed calendar dates only",
+      "status": "evaluated",
+      "evaluated": 341,
+      "accuracyPct": 39.9,
+      "meanRegretPct": 1.64,
+      "confusion": {
+        "FADE": {
+          "FADE": {
+            "count": 135,
+            "costPct": 0
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 9,
+            "costPct": 11.462
+          }
+        },
+        "FOLLOW": {
+          "FADE": {
+            "count": 152,
+            "costPct": 494.867
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 27,
+            "costPct": 51.102
+          }
+        },
+        "STAND_ASIDE": {
+          "FADE": {
+            "count": 17,
+            "costPct": 1.91
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 1,
+            "costPct": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "cached_aapl_qwen_gate",
+      "scope": "C:/Users/gudma/OneDrive/Desktop/GITHUB-FILES/gapguard/data/aaplusdt-gate-verdicts.json only",
+      "status": "evaluated",
+      "evaluated": 13,
+      "accuracyPct": 30.8,
+      "meanRegretPct": 0.712,
+      "confusion": {
+        "FADE": {
+          "FADE": {
+            "count": 4,
+            "costPct": 0
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 1,
+            "costPct": 0.173
+          }
+        },
+        "FOLLOW": {
+          "FADE": {
+            "count": 3,
+            "costPct": 6.942
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 1,
+            "costPct": 1.745
+          }
+        },
+        "STAND_ASIDE": {
+          "FADE": {
+            "count": 4,
+            "costPct": 0.391
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 0,
+            "costPct": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "full_bundle_qwen_gate",
+      "scope": "live Qwen catalyst-gate scoring across all holdout symbols with the macro catalyst bundle (cached to data/holdout-gate-verdicts.json)",
+      "status": "evaluated",
+      "evaluated": 341,
+      "accuracyPct": 39,
+      "meanRegretPct": 1.622,
+      "confusion": {
+        "FADE": {
+          "FADE": {
+            "count": 122,
+            "costPct": 0
+          },
+          "FOLLOW": {
+            "count": 12,
+            "costPct": 50.241
+          },
+          "STAND_ASIDE": {
+            "count": 10,
+            "costPct": 11.63
+          }
+        },
+        "FOLLOW": {
+          "FADE": {
+            "count": 140,
+            "costPct": 428.15
+          },
+          "FOLLOW": {
+            "count": 10,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 29,
+            "costPct": 61.056
+          }
+        },
+        "STAND_ASIDE": {
+          "FADE": {
+            "count": 17,
+            "costPct": 1.91
+          },
+          "FOLLOW": {
+            "count": 0,
+            "costPct": 0
+          },
+          "STAND_ASIDE": {
+            "count": 1,
+            "costPct": 0
+          }
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "This artifact is an evaluation report, not a trained model.",
+    "The oracle uses realized returns after the open, so it is never fed back into prompts or trading decisions.",
+    "Full-bundle Qwen verdicts cover all holdout symbols (live keyed run, cached); cached_aapl_qwen_gate remains AAPL-only by design. Company-news coverage varies by symbol; index proxies (QQQ/SPY/NDX100/SP500) carry macro/index/cross-asset context only.",
+    "RWA candles are Bitget tokenized-stock futures candles, not primary exchange equity prints."
+  ]
+}

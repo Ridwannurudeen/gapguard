@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T09:10:30.315Z",
+  "generatedAt": "2026-06-22T23:33:05.623Z",
   "dataset": {
     "name": "TSLAx closed-market convergence sample",
     "proofScope": "synthetic_sample",
@@ -12,7 +12,7 @@
     "verification": {
       "ok": true,
       "count": 5,
-      "finalHash": "ccb916f68e0e0e3673bc8486580ac0fa2c399ec5c5a94ae0785ea446ce1bd25c",
+      "finalHash": "7229f29e9e6e49a606e5bd83c6b91464aec8284a8665143044d3134db0f41a2b",
       "errors": []
     }
   },
@@ -48,7 +48,7 @@
         "rationale": "quiet tape; no repricing catalyst"
       },
       "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
-      "hash": "41d390b1d3e5df7bfd5cc8397f809ef638801a25802f1c0b5d2937e051339fe5"
+      "hash": "350ddc2ea0cd0cedbaafb3061137c5464443919f36c0115116f7e3d4ebdfe3d3"
     },
     {
       "ts": "2026-06-06T18:00:00Z",
@@ -84,8 +84,8 @@
         "multiplier": 0.85,
         "rationale": "fadeable risk-on drift, but proxy coverage is thin"
       },
-      "prevHash": "41d390b1d3e5df7bfd5cc8397f809ef638801a25802f1c0b5d2937e051339fe5",
-      "hash": "f0e377fb1175ac7a1591f08608f0e98d34f879c4ddb043cfa35f3ab0dae3e167"
+      "prevHash": "350ddc2ea0cd0cedbaafb3061137c5464443919f36c0115116f7e3d4ebdfe3d3",
+      "hash": "691769d3513de42df8fc7452b6031ffbc5fd21a5ec78b5b24b2c6939514dfa0f"
     },
     {
       "ts": "2026-06-07T18:00:00Z",
@@ -121,8 +121,8 @@
         "multiplier": 0.9,
         "rationale": "fadeable dislocation with partial proxy confirmation"
       },
-      "prevHash": "f0e377fb1175ac7a1591f08608f0e98d34f879c4ddb043cfa35f3ab0dae3e167",
-      "hash": "7a7f6200a5c3a8ec9771b41f4b507e5d0840c7ed399ccb92c998ddab62e73e24"
+      "prevHash": "691769d3513de42df8fc7452b6031ffbc5fd21a5ec78b5b24b2c6939514dfa0f",
+      "hash": "26cc5921a2efb5d3d0c35cbbd63d51a501b3be61863528313980840157403b3a"
     },
     {
       "ts": "2026-06-08T12:00:00Z",
@@ -158,8 +158,8 @@
         "multiplier": 0.75,
         "rationale": "still fadeable, reduced conviction into the open"
       },
-      "prevHash": "7a7f6200a5c3a8ec9771b41f4b507e5d0840c7ed399ccb92c998ddab62e73e24",
-      "hash": "f8f2e881b411c55b76c2d7862b9509d7e83ebf7332defbcd7e02a4c2200cd98e"
+      "prevHash": "26cc5921a2efb5d3d0c35cbbd63d51a501b3be61863528313980840157403b3a",
+      "hash": "ff8de334a4abc4eda380c1680bc0951b0f57e678dbba640e9f6ba563ac026fe6"
     },
     {
       "ts": "2026-06-08T13:35:00Z",
@@ -191,8 +191,8 @@
         "multiplier": 1,
         "rationale": "regular session; governor should flatten"
       },
-      "prevHash": "f8f2e881b411c55b76c2d7862b9509d7e83ebf7332defbcd7e02a4c2200cd98e",
-      "hash": "ccb916f68e0e0e3673bc8486580ac0fa2c399ec5c5a94ae0785ea446ce1bd25c"
+      "prevHash": "ff8de334a4abc4eda380c1680bc0951b0f57e678dbba640e9f6ba563ac026fe6",
+      "hash": "7229f29e9e6e49a606e5bd83c6b91464aec8284a8665143044d3134db0f41a2b"
     }
   ]
 }

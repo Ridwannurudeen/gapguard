@@ -1,12 +1,22 @@
 {
   "name": "gapguard",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "GapGuard — AI agent for trading the off-hours gap on tokenized US stocks (Bitget AI Hackathon S1, Track 3)",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
+    "judge": "node scripts/judge.mjs",
+    "serve:public": "node scripts/serve-public.mjs",
+    "paper:journal": "tsx src/stockPaperJournal.ts",
+    "evidence": "tsx scripts/build-evidence.ts",
+    "evidence:check": "tsx scripts/build-evidence.ts --check",
+    "manifest": "tsx src/submissionManifest.ts",
+    "manifest:check": "tsx src/submissionManifest.ts --check",
     "demo": "tsx src/replay.ts",
     "replay:proof": "tsx src/replay.ts",
     "verify-log": "tsx src/verify-log.ts",
@@ -14,6 +24,9 @@
     "rwa:check": "tsx src/rwa-market.ts",
     "gate-demo": "tsx src/gate-demo.ts",
     "gate:audit": "tsx src/gateAudit.ts",
+    "gate:holdout": "tsx src/gateHoldoutReport.ts",
+    "holdout:news": "tsx src/fetchHoldoutNews.ts",
+    "holdout:score": "tsx src/holdoutGateScoring.ts",
     "arena:demo": "tsx src/arena-demo.ts",
     "arena:cockpit": "tsx src/arena-cockpit.ts",
     "arena:keygen": "node scripts/arena-keygen.mjs",
