@@ -621,6 +621,7 @@
           <a class="hide-sm" href="#how">How it works</a>
           <a class="hide-sm" href="#proof">Proof</a>
           <a class="hide-sm" href="#field">vs the field</a>
+          <a class="hide-sm" href="#modes">Modes</a>
           <a class="pill" href="arena.html">Arena cockpit →</a>
         </nav>
       </div>
@@ -775,15 +776,15 @@
               </thead>
               <tbody>
                 <tr><td>AAPL always-fade</td><td id="metricAaplFadeReturn" class="down">−0.397%</td><td id="metricAaplFadeTrades">15</td><td>40%</td></tr>
-                <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td id="metricGateReturn" class="up">+1.409%</td><td id="metricGateTrades">13</td><td>38.5%</td></tr>
-                <tr><td>AAPL label-aware baseline</td><td id="metricLabelReturn">+1.787%</td><td>13</td><td>46.2%</td></tr>
+                <tr class="row-hi"><td>AAPL gate-driven (real news)</td><td id="metricGateReturn" class="up">+1.418%</td><td id="metricGateTrades">13</td><td>38.5%</td></tr>
+                <tr><td>AAPL label-aware baseline</td><td id="metricLabelReturn">+1.797%</td><td>13</td><td>46.2%</td></tr>
                 <tr><td>20-symbol always-fade</td><td id="metricBasketReturn" class="down">−8.233%</td><td>790</td><td>44.1%</td></tr>
                 <tr class="row-hi"><td>Positive pilot OOS (16 trading days)</td><td id="metricPilotTableReturn" class="up">+2.648%</td><td>116</td><td>54.3%</td></tr>
               </tbody>
             </table>
             <p class="note">
               <strong>Honest caveat:</strong> on real blinded Finnhub news the Qwen gate scores
-              12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.409% —
+              12/15 and correctly stands aside on WWDC, so the gate-driven row is +1.418% —
               driven mainly by that one catalyst, small sample. The +1.787% row is a
               label-grounded baseline, not an AI edge. The walk-forward pilot is on just 16 OOS
               trading days — a hypothesis, not proven profitable alpha; we don't headline a Sharpe at that sample.
@@ -801,7 +802,7 @@
                 <tr><td>Holdout labels</td><td>separate file</td></tr>
                 <tr><td>Accuracy</td><td class="up">12/15 (80%)</td></tr>
                 <tr class="row-hi"><td>WWDC call</td><td class="up">stood aside ✓</td></tr>
-                <tr><td>Gate-driven</td><td class="up">+1.409% vs −0.404%</td></tr>
+                <tr><td>Gate-driven</td><td class="up">+1.418% vs −0.397%</td></tr>
               </tbody>
             </table>
             <p class="note">
@@ -809,7 +810,7 @@
               blinded Finnhub headlines</strong> it scores every AAPL gap after the model returns,
               and writes a verdict cache that <span class="mono">backtest:news</span> replays
               honestly. On real news Qwen scores 12/15 and <strong style="color:var(--ink)">correctly
-              stands aside on WWDC</strong>, turning the −0.404% always-fade baseline into +1.409%.
+              stands aside on WWDC</strong>, turning the −0.397% always-fade baseline into +1.418%.
             </p>
             <p class="note" style="margin-top:10px">
               <strong>Managed run:</strong> a Bitget Playbook run
@@ -1002,6 +1003,63 @@
           <textarea id="mandateInput" class="mandate-input" rows="3" spellcheck="false">Never lose >2% overnight. Max 10% position. Stay flat when evidence conflicts.</textarea>
           <button id="compileMandate" class="btn primary" type="button" style="margin-top:12px">Compile mandate →</button>
           <div id="mandateRules" class="mandate-rules"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 READ & WRITE MODES -->
+    <section id="modes">
+      <style>
+        .modes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px 0}
+        @media(max-width:760px){.modes-grid{grid-template-columns:1fr}}
+        .mode-card{background:var(--card);border:1px solid var(--line);border-top-width:2px;border-radius:14px;padding:20px}
+        .mode-card.read{border-top-color:var(--dim)}
+        .mode-card.paper{border-top-color:var(--mint)}
+        .mode-card.live{border-top-color:var(--amber)}
+        .mode-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+        .mode-dot{width:9px;height:9px;border-radius:50%;background:var(--dim);flex:none}
+        .mode-card.paper .mode-dot{background:var(--mint)}
+        .mode-card.live .mode-dot{background:var(--amber)}
+        .mode-name{font-family:var(--mono);font-weight:600;color:var(--ink);font-size:15px}
+        .mode-tag{margin-left:auto;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+        .mode-card.paper .mode-tag{color:var(--mint)}
+        .mode-card.live .mode-tag{color:var(--amber)}
+        .mode-card p{color:var(--muted);font-size:13.5px;line-height:1.55;margin:0 0 14px}
+        .mode-foot{font-family:var(--mono);font-size:11.5px;color:var(--dim);border-top:1px solid var(--line);padding-top:11px}
+        .modes-note{font-size:14px;color:var(--muted);line-height:1.65}
+        .modes-note strong{color:var(--ink)}
+      </style>
+      <div class="wrap">
+        <div class="kicker reveal">08 — Read &amp; write</div>
+        <h2 class="sec reveal">A public read surface. A gated, server-side write path.</h2>
+        <p class="lede reveal">
+          This site is read-only: it observes the gap, the gate, and the signed trail. It holds
+          no exchange key and places no order. Execution lives behind the broker on the server —
+          three modes, rising friction.
+        </p>
+        <div class="modes-grid reveal">
+          <div class="mode-card read">
+            <div class="mode-head"><span class="mode-dot"></span><span class="mode-name">dry_run</span><span class="mode-tag">read-only</span></div>
+            <p>Builds the order plan and places nothing — this is what the cockpit renders. No keys, no fills.</p>
+            <div class="mode-foot">status: dry_run</div>
+          </div>
+          <div class="mode-card paper">
+            <div class="mode-head"><span class="mode-dot"></span><span class="mode-name">paper</span><span class="mode-tag">Demo · proven</span></div>
+            <p>Routes to Bitget Demo via <span class="mono">--paper-trading</span>. Real orders, demo funds — proven with three BTCUSDT fills (real orderIds).</p>
+            <div class="mode-foot">status: submitted → filled</div>
+          </div>
+          <div class="mode-card live">
+            <div class="mode-head"><span class="mode-dot"></span><span class="mode-name">live</span><span class="mode-tag">gated · never fired</span></div>
+            <p>Real money, locked. Needs a LICENSED passport, explicit <span class="mono">--confirm-live</span>, isolated margin, ≤2× leverage, a notional cap, and manual approval.</p>
+            <div class="mode-foot">no live fill claimed</div>
+          </div>
+        </div>
+        <div class="panel reveal modes-note">
+          <strong>Why it's built this way.</strong> Exchange keys never reach the browser — the write
+          path runs server-side in <span class="mono">src/liveStockBroker.ts</span>, enforces every gate
+          in code (not the UI), is idempotent per <span class="mono">clientOid</span>, and seals each action
+          into the same Ed25519-signed chain this site re-verifies. The read plane proves; the write plane
+          executes only under an operator's explicit, capped confirmation.
         </div>
       </div>
     </section>
