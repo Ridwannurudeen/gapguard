@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T16:28:13.641Z",
+  "generatedAt": "2026-06-24T20:03:37.443Z",
   "dataset": {
     "name": "TSLAx closed-market convergence sample",
     "proofScope": "synthetic_sample",
@@ -12,7 +12,7 @@
     "verification": {
       "ok": true,
       "count": 5,
-      "finalHash": "7229f29e9e6e49a606e5bd83c6b91464aec8284a8665143044d3134db0f41a2b",
+      "finalHash": "412fd4b8b84ca40f3bd7f849973750b34e9dbb8cdd8eefea698259f5687bb060",
       "errors": []
     }
   },
@@ -34,21 +34,33 @@
       "dislocation": {
         "fairValue": 100,
         "dislocationPct": 0.005,
+        "premiumDiscountBps": 50,
         "zScore": 0.33333333333333337,
         "direction": "fair",
-        "confidence": 0
+        "confidence": 0,
+        "reference": {
+          "price": 100,
+          "source": "fallback:referencePrice",
+          "asOf": null,
+          "decisionTimestamp": null,
+          "ageMs": null,
+          "maxAgeMs": null,
+          "stale": false,
+          "fallback": true,
+          "label": "fallback referencePrice; no sourced NAV/oracle supplied"
+        }
       },
       "risk": {
         "action": "hold",
         "targetNotional": 0,
-        "reason": "No dislocation — hold"
+        "reason": "No dislocation - hold"
       },
       "gate": {
         "multiplier": 1,
         "rationale": "quiet tape; no repricing catalyst"
       },
       "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
-      "hash": "350ddc2ea0cd0cedbaafb3061137c5464443919f36c0115116f7e3d4ebdfe3d3"
+      "hash": "b8bb9e87336b7b2bfe3be7f5c263e84390f61fca2a7e5de6b1ff601873501d1d"
     },
     {
       "ts": "2026-06-06T18:00:00Z",
@@ -71,21 +83,33 @@
       "dislocation": {
         "fairValue": 100.03850000000001,
         "dislocationPct": 0.019607451131314308,
+        "premiumDiscountBps": 196.0745113131431,
         "zScore": 1.3071634087542872,
         "direction": "rich",
-        "confidence": 0.15358170437714358
+        "confidence": 0.15358170437714358,
+        "reference": {
+          "price": 100,
+          "source": "fallback:referencePrice",
+          "asOf": null,
+          "decisionTimestamp": null,
+          "ageMs": null,
+          "maxAgeMs": null,
+          "stale": false,
+          "fallback": true,
+          "label": "fallback referencePrice; no sourced NAV/oracle supplied"
+        }
       },
       "risk": {
         "action": "enter_short",
         "targetNotional": -870.2963248038136,
-        "reason": "Short convergence — conf 13.1%, size 870.30 (cap 2000.00, off-hours)"
+        "reason": "Short convergence - conf 13.1%, size 870.30 (cap 2000.00, off-hours)"
       },
       "gate": {
         "multiplier": 0.85,
         "rationale": "fadeable risk-on drift, but proxy coverage is thin"
       },
-      "prevHash": "350ddc2ea0cd0cedbaafb3061137c5464443919f36c0115116f7e3d4ebdfe3d3",
-      "hash": "691769d3513de42df8fc7452b6031ffbc5fd21a5ec78b5b24b2c6939514dfa0f"
+      "prevHash": "b8bb9e87336b7b2bfe3be7f5c263e84390f61fca2a7e5de6b1ff601873501d1d",
+      "hash": "e5717fc0930f248a89840f5f499f3a0d2f3a4ffcaff997a1786647e7d3c06610"
     },
     {
       "ts": "2026-06-07T18:00:00Z",
@@ -108,21 +132,33 @@
       "dislocation": {
         "fairValue": 100.1026553860795,
         "dislocationPct": 0.03393860633184499,
+        "premiumDiscountBps": 339.38606331844994,
         "zScore": 2.2625737554563328,
         "direction": "rich",
-        "confidence": 0.6312868777281664
+        "confidence": 0.6312868777281664,
+        "reference": {
+          "price": 100,
+          "source": "fallback:referencePrice",
+          "asOf": null,
+          "decisionTimestamp": null,
+          "ageMs": null,
+          "maxAgeMs": null,
+          "stale": false,
+          "fallback": true,
+          "label": "fallback referencePrice; no sourced NAV/oracle supplied"
+        }
       },
       "risk": {
         "action": "enter_short",
         "targetNotional": -1997.4403049270477,
-        "reason": "Short convergence — conf 56.8%, size 1997.44 (cap 1997.44, off-hours)"
+        "reason": "Short convergence - conf 56.8%, size 1997.44 (cap 1997.44, off-hours)"
       },
       "gate": {
         "multiplier": 0.9,
         "rationale": "fadeable dislocation with partial proxy confirmation"
       },
-      "prevHash": "691769d3513de42df8fc7452b6031ffbc5fd21a5ec78b5b24b2c6939514dfa0f",
-      "hash": "26cc5921a2efb5d3d0c35cbbd63d51a501b3be61863528313980840157403b3a"
+      "prevHash": "e5717fc0930f248a89840f5f499f3a0d2f3a4ffcaff997a1786647e7d3c06610",
+      "hash": "ef5b74e3c35da4254711cb7072801bdfe1d3f1b361da6f0e89573bd419ea9cdf"
     },
     {
       "ts": "2026-06-08T12:00:00Z",
@@ -145,21 +181,33 @@
       "dislocation": {
         "fairValue": 100.19286661075695,
         "dislocationPct": 0.028017297879584454,
+        "premiumDiscountBps": 280.17297879584453,
         "zScore": 1.8678198586389636,
         "direction": "rich",
-        "confidence": 0.4339099293194818
+        "confidence": 0.4339099293194818,
+        "reference": {
+          "price": 100,
+          "source": "fallback:referencePrice",
+          "asOf": null,
+          "decisionTimestamp": null,
+          "ageMs": null,
+          "maxAgeMs": null,
+          "stale": false,
+          "fallback": true,
+          "label": "fallback referencePrice; no sourced NAV/oracle supplied"
+        }
       },
       "risk": {
         "action": "hold",
         "targetNotional": -1997.4403049270477,
-        "reason": "Short convergence — conf 32.5%, size 1999.37 (cap 1999.37, off-hours)"
+        "reason": "Short convergence - conf 32.5%, size 1999.37 (cap 1999.37, off-hours)"
       },
       "gate": {
         "multiplier": 0.75,
         "rationale": "still fadeable, reduced conviction into the open"
       },
-      "prevHash": "26cc5921a2efb5d3d0c35cbbd63d51a501b3be61863528313980840157403b3a",
-      "hash": "ff8de334a4abc4eda380c1680bc0951b0f57e678dbba640e9f6ba563ac026fe6"
+      "prevHash": "ef5b74e3c35da4254711cb7072801bdfe1d3f1b361da6f0e89573bd419ea9cdf",
+      "hash": "7c628b26cc513234dd9abf23598d476346ce05a9abe08fb0d8e22a51943f6490"
     },
     {
       "ts": "2026-06-08T13:35:00Z",
@@ -178,21 +226,33 @@
       "dislocation": {
         "fairValue": 100,
         "dislocationPct": 0.0040000000000000565,
+        "premiumDiscountBps": 40.00000000000056,
         "zScore": 0.26666666666667044,
         "direction": "fair",
-        "confidence": 0
+        "confidence": 0,
+        "reference": {
+          "price": 100,
+          "source": "fallback:referencePrice",
+          "asOf": null,
+          "decisionTimestamp": null,
+          "ageMs": null,
+          "maxAgeMs": null,
+          "stale": false,
+          "fallback": true,
+          "label": "fallback referencePrice; no sourced NAV/oracle supplied"
+        }
       },
       "risk": {
         "action": "flatten",
         "targetNotional": 0,
-        "reason": "Underlying open — convergence realized, flattening"
+        "reason": "Underlying open - convergence realized, flattening"
       },
       "gate": {
         "multiplier": 1,
         "rationale": "regular session; governor should flatten"
       },
-      "prevHash": "ff8de334a4abc4eda380c1680bc0951b0f57e678dbba640e9f6ba563ac026fe6",
-      "hash": "7229f29e9e6e49a606e5bd83c6b91464aec8284a8665143044d3134db0f41a2b"
+      "prevHash": "7c628b26cc513234dd9abf23598d476346ce05a9abe08fb0d8e22a51943f6490",
+      "hash": "412fd4b8b84ca40f3bd7f849973750b34e9dbb8cdd8eefea698259f5687bb060"
     }
   ]
 }

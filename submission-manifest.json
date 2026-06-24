@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "ea3b407892a1c7026da4c10b6de35392e208fae8",
+  "commit": "a7685b5319f4a77e95ebf66550070a0431433775",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
-  "promptHash": "eab129aaafb3d4d33550b7996ee31894ee0324230bd56fe3afcfd141b61c6d98",
+  "promptHash": "78432be24500f9b1723d7bf9fa0583956811e5056f1c20f60098a8891c1ff03f",
   "publicKeyFingerprint": "88f0da408cefee09788a9a725e1c39e0f105279de492fcbedf10f10babd64561",
   "artifacts": [
     {
@@ -70,8 +70,8 @@
     },
     {
       "path": "public/dashboard-data.json",
-      "sha256": "d56fa258d2bdcd515758506738ef97aefc49e81c8fc1497b217892df5c351dd9",
-      "bytes": 6482
+      "sha256": "22a0168a68b2987efd17c331f5a2454532ddcf02f9628a47b8ccd2162fe46db4",
+      "bytes": 8256
     },
     {
       "path": "glassbox-demo.jsonl",
