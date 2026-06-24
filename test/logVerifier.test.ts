@@ -47,6 +47,16 @@ describe("logVerifier", () => {
     expect(result.errors).toEqual([]);
   });
 
+  it("rejects empty and malformed chains", () => {
+    expect(verifyRecords([])).toMatchObject({
+      ok: false,
+      errors: ["hash chain is empty"],
+    });
+    expect(
+      verifyRecords([{ prevHash: "not-hex", hash: "also-not-hex" }]),
+    ).toMatchObject({ ok: false });
+  });
+
   it("detects tampered records", () => {
     const gb = new GlassBox();
     const record = gb.record(decision);

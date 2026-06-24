@@ -1614,18 +1614,28 @@
             merkleRootOk: false,
             signatureOk: false,
             publicKeyOk: false,
+            recordCountOk: false,
             error: "attestation or public key missing",
           };
         }
 
         const merkleRoot = await computeMerkleRoot(records);
         const merkleRootOk = merkleRoot === att.merkleRoot;
+        const recordCountOk = att.recordCount === records.length;
         const publishedPublicKey = publicKeyBody(publicKeyPem);
         const publicKeyOk = publishedPublicKey === att.publicKeySpkiB64;
         let signatureOk = false;
         let error = "";
 
         try {
+          const signedEnvelope = {
+            alg: att.alg,
+            merkleRoot: att.merkleRoot,
+            recordCount: att.recordCount,
+            signedAt: att.signedAt,
+            ...(att.model ? { model: att.model } : {}),
+            publicKeySpkiB64: att.publicKeySpkiB64,
+          };
           const key = await crypto.subtle.importKey(
             "spki",
             base64ToBytes(publishedPublicKey),
@@ -1637,19 +1647,31 @@
             { name: "Ed25519" },
             key,
             base64ToBytes(att.signatureB64),
-            hexToBytes(att.merkleRoot),
+            new TextEncoder().encode(canonicalJson(signedEnvelope)),
           );
         } catch (err) {
           error = err instanceof Error ? err.message : "signature verify failed";
         }
 
         return {
-          ok: merkleRootOk && signatureOk && publicKeyOk,
+          ok: merkleRootOk && signatureOk && publicKeyOk && recordCountOk,
           merkleRootOk,
           signatureOk,
           publicKeyOk,
+          recordCountOk,
           error,
         };
+      }
+
+      function isArenaKind(value) {
+        return [
+          "mandate_rule",
+          "quorum_decision",
+          "agent_decision",
+          "mandate_breach",
+          "passport_issued",
+          "broker_order",
+        ].includes(value);
       }
 
       async function verifyArenaChain(records) {
@@ -1670,6 +1692,37 @@
 
         for (const [index, record] of records.entries()) {
           const row = index + 1;
+          if (
+            typeof record.prevHash !== "string" ||
+            !/^[a-f0-9]{64}$/.test(record.prevHash)
+          ) {
+            errors.push(`line ${row}: prevHash malformed`);
+            brokenRows.add(row);
+          }
+          if (
+            typeof record.hash !== "string" ||
+            !/^[a-f0-9]{64}$/.test(record.hash)
+          ) {
+            errors.push(`line ${row}: hash malformed`);
+            brokenRows.add(row);
+          }
+          if (typeof record.ts !== "string" || !record.ts) {
+            errors.push(`line ${row}: ts missing`);
+            brokenRows.add(row);
+          }
+          if (!isArenaKind(record.kind)) {
+            errors.push(`line ${row}: kind malformed`);
+            brokenRows.add(row);
+          }
+          if (typeof record.agentId !== "string" || !record.agentId) {
+            errors.push(`line ${row}: agentId missing`);
+            brokenRows.add(row);
+          }
+          if (!Object.prototype.hasOwnProperty.call(record, "payload")) {
+            errors.push(`line ${row}: payload missing`);
+            brokenRows.add(row);
+          }
+
           if (record.prevHash !== expectedPrev) {
             errors.push(`line ${row}: prevHash mismatch`);
             brokenRows.add(row);

@@ -99,6 +99,8 @@ export type CommandRunner = (
   options?: CommandRunnerOptions,
 ) => Promise<CommandResult>;
 
+const BLOCKED_BROKER_ENV_KEYS = ["BITGET_API_BASE_URL"];
+
 function formatSize(size: number): string {
   return size.toFixed(8).replace(/0+$/, "").replace(/\.$/, "");
 }
@@ -127,7 +129,19 @@ export function defaultBgcInvocation(): {
   if (existsSync(localClient)) {
     return { command: process.execPath, argsPrefix: [localClient] };
   }
-  return { command: "bgc", argsPrefix: [] };
+  throw new Error(
+    "local bitget-client executable not found; run npm install before placing broker orders",
+  );
+}
+
+export function brokerCommandEnv(
+  env: NodeJS.ProcessEnv = process.env,
+): NodeJS.ProcessEnv {
+  const childEnv: NodeJS.ProcessEnv = { ...process.env, ...env };
+  for (const key of BLOCKED_BROKER_ENV_KEYS) {
+    delete childEnv[key];
+  }
+  return childEnv;
 }
 
 export function bitgetCredentialsPresent(
@@ -495,9 +509,10 @@ export async function placeFuturesOrder(
       "BITGET_API_KEY, BITGET_SECRET_KEY, and BITGET_PASSPHRASE are required",
     );
   }
+  const childEnv = brokerCommandEnv(cfg.env);
 
   const result = await runner(plan.command, plan.args, {
-    env: cfg.env,
+    env: childEnv,
     timeoutMs: cfg.timeoutMs,
   });
   if (result.exitCode !== 0) {
@@ -518,7 +533,7 @@ export async function placeFuturesOrder(
   const receipt = await pollFuturesOrderReceipt(
     plan,
     buildSubmittedReceipt(plan, result.stdout),
-    cfg,
+    { ...cfg, env: childEnv },
     runner,
   );
 

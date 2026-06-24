@@ -71,16 +71,25 @@ describe("broker balance cli", () => {
   });
 
   it("reads the futures available balance via the runner", async () => {
+    let childEnv: NodeJS.ProcessEnv | undefined;
     const value = await readFuturesAvailable(
       "paper",
-      async () => ({
-        exitCode: 0,
-        stdout: '{"data":[{"available":"2500.5"}]}',
-        stderr: "",
-      }),
-      {},
+      async (_command, _args, options) => {
+        childEnv = options?.env;
+        return {
+          exitCode: 0,
+          stdout: '{"data":[{"available":"2500.5"}]}',
+          stderr: "",
+        };
+      },
+      {
+        ARENA_BALANCE_COIN: "USDT",
+        BITGET_API_BASE_URL: "http://127.0.0.1:9999",
+      },
     );
     expect(value).toBe(2500.5);
+    expect(childEnv?.ARENA_BALANCE_COIN).toBe("USDT");
+    expect(childEnv?.BITGET_API_BASE_URL).toBeUndefined();
   });
 
   it("returns null when the balance query fails", async () => {

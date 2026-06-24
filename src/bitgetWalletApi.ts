@@ -5,6 +5,7 @@ import { fetchTextWithRetry } from "./http";
 export { canonicalJson };
 
 export const BITGET_WALLET_BASE_URL = "https://bopenapi.bgwapi.io";
+const BITGET_WALLET_ORIGIN = new URL(BITGET_WALLET_BASE_URL).origin;
 
 export interface BitgetAuth {
   apiKey: string;
@@ -24,6 +25,22 @@ export interface BitgetHttpResponse {
   statusCode: number;
   bodyText: string;
   json?: unknown;
+}
+
+function normalizeBaseUrl(baseUrl: string): string {
+  return baseUrl.replace(/\/+$/, "");
+}
+
+export function isOfficialBitgetWalletBaseUrl(baseUrl: string): boolean {
+  try {
+    const parsed = new URL(baseUrl);
+    return (
+      parsed.origin === BITGET_WALLET_ORIGIN &&
+      (parsed.pathname === "" || parsed.pathname === "/")
+    );
+  } catch {
+    return false;
+  }
 }
 
 export function buildSignaturePayload(
@@ -71,12 +88,18 @@ export async function postBitget<TBody extends object>(
   body: TBody,
   cfg: BitgetRequestConfig = {},
 ): Promise<BitgetHttpResponse> {
+  const baseUrl = normalizeBaseUrl(cfg.baseUrl ?? BITGET_WALLET_BASE_URL);
   const bodyText = canonicalJson(body);
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
 
   if (cfg.auth) {
+    if (!isOfficialBitgetWalletBaseUrl(baseUrl)) {
+      throw new Error(
+        "refusing to send signed Bitget Wallet request to non-official base URL",
+      );
+    }
     const timestamp = String(cfg.nowMs?.() ?? Date.now());
     headers["x-api-key"] = cfg.auth.apiKey;
     headers["x-api-timestamp"] = timestamp;
@@ -90,7 +113,7 @@ export async function postBitget<TBody extends object>(
   }
 
   const res = await fetchTextWithRetry(
-    `${cfg.baseUrl ?? BITGET_WALLET_BASE_URL}${path}`,
+    `${baseUrl}${path}`,
     {
       method: "POST",
       headers,

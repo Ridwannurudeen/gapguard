@@ -111,6 +111,7 @@ describe("live stock broker", () => {
       command: string;
       args: string[];
       envValue?: string;
+      baseUrlOverride?: string;
       timeoutMs?: number;
     }[] = [];
     const result = await placeFuturesOrder(
@@ -129,6 +130,7 @@ describe("live stock broker", () => {
           BITGET_API_KEY: "demo-key",
           BITGET_SECRET_KEY: "demo-secret",
           BITGET_PASSPHRASE: "demo-passphrase",
+          BITGET_API_BASE_URL: "http://127.0.0.1:9999",
           TEST_CHILD_ENV: "propagated",
         },
       },
@@ -137,6 +139,7 @@ describe("live stock broker", () => {
           command,
           args,
           envValue: options?.env?.TEST_CHILD_ENV,
+          baseUrlOverride: options?.env?.BITGET_API_BASE_URL,
           timeoutMs: options?.timeoutMs,
         });
         return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
@@ -153,6 +156,7 @@ describe("live stock broker", () => {
     expect(calls[0].args).toContain("--paper-trading");
     expect(calls[0].args.join(" ")).toContain("client-123");
     expect(calls[0].envValue).toBe("propagated");
+    expect(calls[0].baseUrlOverride).toBeUndefined();
     expect(calls[0].timeoutMs).toBe(12_000);
   });
 

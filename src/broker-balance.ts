@@ -1,4 +1,5 @@
 import {
+  brokerCommandEnv,
   bitgetCredentialsPresent,
   defaultBgcInvocation,
   runCommand,
@@ -103,7 +104,9 @@ export async function readFuturesAvailable(
     },
     invocation.argsPrefix,
   );
-  const result = await runner(invocation.command, args);
+  const result = await runner(invocation.command, args, {
+    env: brokerCommandEnv(env),
+  });
   if (result.exitCode !== 0) return null;
   return parseAvailable(result.stdout);
 }
@@ -120,7 +123,9 @@ export async function runBalanceCli(
   }
   const invocation = defaultBgcInvocation();
   const cmdArgs = buildBalanceArgs(args, invocation.argsPrefix);
-  const result = await runner(invocation.command, cmdArgs);
+  const result = await runner(invocation.command, cmdArgs, {
+    env: brokerCommandEnv(env),
+  });
   if (result.exitCode !== 0) {
     throw new Error(
       `balance query failed (${result.exitCode}): ${result.stderr.slice(0, 240)}`,

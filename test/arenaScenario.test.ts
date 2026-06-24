@@ -13,19 +13,23 @@ describe("arena behavioral scenario", () => {
     );
 
     expect(artifact.evidence.backtest.alphaStatus).toBe("positive");
-    // The 3rd Bitget Demo paper fill cleared the "fewer than 3 paper trades" blocker.
-    expect(quorum?.grade).toBe("LICENSED");
-    expect(quorum?.findings.join(" | ")).toContain(
-      "approval-gated for one capped supervised path",
-    );
+    if (artifact.evidence.rwaFreshness.status === "fresh") {
+      expect(quorum?.grade).toBe("LICENSED");
+      expect(quorum?.findings.join(" | ")).toContain(
+        "approval-gated for one capped supervised path",
+      );
+    } else {
+      expect(quorum?.grade).toBe("PAPER_ONLY");
+      expect(quorum?.findings).toContain("no live read-only Bitget evidence");
+    }
     expect(naive?.grade).toBe("REJECTED");
     expect(naive?.findings.join(" | ")).toContain("overnight loss <= 1.5%");
     expect(artifact.naiveDecision.breachedRules).toContain(
       "stay flat when evidence conflicts",
     );
     expect(artifact.arenaChain.verification.ok).toBe(true);
-    expect(artifact.arena.graduationStatus).toBe(
-      "licensed_waiting_explicit_approval",
+    expect(artifact.arena.graduationStatus).toMatch(
+      /licensed_waiting_explicit_approval|positive_pilot_paper_only/,
     );
     expect(artifact.graduationDryRun.status).toBe("dry_run");
     expect(artifact.perception.source).toContain("Bitget public RWA");

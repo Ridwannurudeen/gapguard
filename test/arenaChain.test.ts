@@ -143,7 +143,22 @@ describe("arena attestation (Merkle + Ed25519)", () => {
       merkleRootOk: true,
       signatureOk: true,
       publicKeyOk: true,
+      recordCountOk: true,
+      chainOk: true,
     });
+  });
+
+  it("rejects structurally invalid Arena records", () => {
+    const invalid = {
+      prevHash: GENESIS_HASH,
+      hash: GENESIS_HASH,
+    } as ArenaRecord;
+
+    const result = verifyArenaRecords([invalid]);
+
+    expect(result.ok).toBe(false);
+    expect(result.errors.join(" | ")).toContain("kind is not a valid");
+    expect(result.errors.join(" | ")).toContain("payload is required");
   });
 
   it("detects a tampered payload via Merkle-root mismatch", () => {
@@ -154,6 +169,16 @@ describe("arena attestation (Merkle + Ed25519)", () => {
     ];
     const result = verifyAttestation(tampered, att);
     expect(result.merkleRootOk).toBe(false);
+    expect(result.ok).toBe(false);
+  });
+
+  it("detects unsigned attestation metadata changes", () => {
+    const att = attestChain(records, { signedAt: "2026-06-22T00:00:00.000Z" });
+    const forged = { ...att, recordCount: 999 };
+    const result = verifyAttestation(records, forged);
+
+    expect(result.recordCountOk).toBe(false);
+    expect(result.signatureOk).toBe(false);
     expect(result.ok).toBe(false);
   });
 
