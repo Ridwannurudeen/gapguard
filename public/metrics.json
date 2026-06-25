@@ -92,7 +92,11 @@
     "fullBundleQwenRegretPct": 1.622,
     "fullBundleQwenRegretCiPct": "1.372% to 1.895%",
     "fullBundleQwenRegretReductionCiPct": "-0.029% to 0.324%",
-    "fullBundleQwenRegretReductionPValue": 0.106
+    "fullBundleQwenRegretReductionPValue": 0.106,
+    "alwaysFadeTailRegretPct95": 7.474,
+    "fullBundleQwenTailRegretPct95": 5.807,
+    "fullBundleQwenTailRegretReductionCiPct": "1.234% to 3.555%",
+    "fullBundleQwenTailRegretReductionPValue": 0.001
   },
   "stockPaperJournal": {
     "jsonl": "artifacts/stock-paper-journal.jsonl",
