@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "4b89e4e6be826fc13845d553580fa7770b2a4f66",
+  "commit": "7496addc874f2032e355786bc21098d1fc13acde",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -25,8 +25,8 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "733979ddec99b4686e09c404cb92c13eecc90a9a04a21edd997bbf96bfcd33f0",
-      "bytes": 66403
+      "sha256": "002adb2010eaa44616e854ed5a852f185c911f08ec6c3a74b992edb9b6a36add",
+      "bytes": 67337
     },
     {
       "path": "public/news.html",

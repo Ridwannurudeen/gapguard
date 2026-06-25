@@ -814,6 +814,16 @@
               compounding losses. The walk-forward pilot is on just 16 OOS trading days — a
               hypothesis, not proven profitable alpha; we don't headline a Sharpe at that sample.
             </p>
+            <p class="note" style="border-left:3px solid var(--lime);background:rgba(215,255,106,.06);padding-left:12px">
+              <strong style="color:var(--ink)">The rigorous finding (20-symbol / 790-candidate holdout, significance-tested):</strong>
+              accuracy is the wrong yardstick for an abstention engine — a fade-everything bot looks
+              accurate only because most gaps revert, while it eats the catastrophic losses on news days.
+              On <strong style="color:var(--ink)">worst-case (95th-percentile) regret</strong> — the
+              disasters the gate exists to avoid — GapGuard cuts the tail loss from
+              <span class="mono">7.47%</span> to <span class="mono">5.81%</span>, a reduction with 95% CI
+              [1.23, 3.56] and <strong style="color:var(--ink)">p = 0.001</strong>. The proven edge is
+              risk reduction, not direction-picking.
+            </p>
           </div>
 
           <div class="panel reveal">
