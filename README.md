@@ -1,10 +1,32 @@
 # GapGuard
 
+[![GapGuard — AI that knows when not to trade](public/og.png)](https://gapguard.gudman.xyz)
+
 GapGuard is an AI abstention and risk engine for tokenized US stocks: it decides whether an off-hours gap is liquidity noise to trade or news-driven repricing to respect, then proves every decision with a signed audit trail.
 
 Bitget AI Base Camp Hackathon S1, Track 3: US Stock AI Trading.
 
 **Live demo:** [gapguard.gudman.xyz](https://gapguard.gudman.xyz) &middot; **Video walkthrough:** [youtu.be/e_KX0ZDN2uw](https://youtu.be/e_KX0ZDN2uw)
+
+<p align="center">
+  <img src="artifacts/app-assistant.png" width="80%" alt="GapGuard consumer assistant: a plain-English live gap call scored against your own risk rules, with a one-tap Bitget handoff">
+</p>
+
+The consumer assistant ([`app.html`](https://gapguard.gudman.xyz/app.html)): plain-English off-hours gap calls scored against your own risk rules, with a one-tap handoff to your Bitget account. GapGuard gives the call and shows the exact order — it never holds your keys or places the trade.
+
+## Track 3 Submission
+
+Every required and supplementary material for Track 3 (US Stock AI Trading), mapped to where it lives. All links are public and require no login.
+
+| Official requirement | Status | Where |
+| --- | --- | --- |
+| Public GitHub repo with README, **or** login-free demo | Both | This public repo + login-free demos: [`public/app.html`](public/app.html) (consumer assistant) and [`public/arena.html`](public/arena.html) (judge cockpit) |
+| Live / paper trading log — timestamp, asset, direction, price, quantity, account balance change (required, prioritized) | Provided | [`artifacts/stock-paper-journal.jsonl`](artifacts/stock-paper-journal.jsonl) / [`.csv`](artifacts/stock-paper-journal.csv) — all six fields, AAPLUSDT/NVDAUSDT, plus PnL and a naive counterfactual |
+| Backtest report with generating code, not screenshots (optional, supplementary) | Provided | `artifacts/*-backtest*.json` + [`playbook/aaplusdt-backtest-result.json`](playbook/aaplusdt-backtest-result.json); reproducible via `npm run backtest*` / `alpha:certify`, code in [`src/`](src) |
+| Demo video, public, ≤3 min (optional) | Provided | [youtu.be/e_KX0ZDN2uw](https://youtu.be/e_KX0ZDN2uw) |
+| Clear strategy thesis, not a feature list (required) | Provided | [How It Works](#how-it-works) below + the four-part write-up in [docs/SUBMISSION.md](docs/SUBMISSION.md) |
+
+**Built with Bitget tools:** the AAPLUSDT managed backtest completed on Bitget Playbook ([`playbook/aaplusdt-backtest-result.json`](playbook/aaplusdt-backtest-result.json)), and the Bitget Agent Hub execution path is proven by a BTCUSDT Demo paper fill ([`artifacts/paper-btc-smoke.jsonl`](artifacts/paper-btc-smoke.jsonl)).
 
 ## 60-Second Quickstart
 
@@ -59,6 +81,14 @@ GapGuard is the product. Quorum is the internal five-role deterministic adversar
 5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading.
 6. Proof: Arena records are sealed into a sha256 hash chain and signed with Ed25519 over a Merkle root.
 
+The [judge cockpit](https://gapguard.gudman.xyz/arena.html) recomputes every record hash in your browser. Change one row and the chain turns red — tamper-evident, and verifiable without trusting us.
+
+<p align="center">
+  <img src="artifacts/arena-verify.png" width="46%" alt="Arena cockpit with the hash chain verified, 11 records green">
+  &nbsp;&nbsp;
+  <img src="artifacts/arena-tamper.png" width="46%" alt="Arena cockpit after tampering one row, chain turns red">
+</p>
+
 ## Core Commands
 
 ```bash
@@ -82,22 +112,13 @@ Credentials stay in environment variables or ignored local files. Do not paste k
 
 ## Live News Feed
 
-`public/news.html` is a static read plane. It fetches only `public/news-feed.json`; it never calls Finnhub or any exchange from the browser.
-
-Refresh on the server or a local operator machine with:
+`public/news.html` is a static read plane: it fetches only `public/news-feed.json` and never calls Finnhub or any exchange from the browser. Regenerate the feed server-side (never in the browser) with:
 
 ```bash
 FINNHUB_API_KEY=<your-key> npm run news:feed
 ```
 
-An ignored local key file also works:
-
-```bash
-printf "%s" "<your-key>" > .finnhubkey
-npm run news:feed
-```
-
-The VPS refresh job should run `npm run news:feed` on a fixed cadence, then copy only `public/news-feed.json` into the static docroot. Finnhub's economic-calendar endpoint is probed by the fetcher; if the deployed key's tier returns 401/403, GapGuard falls back to `data/macro-calendar.json` and labels it as a committed scheduled calendar.
+If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls back to `data/macro-calendar.json`, labeled as a committed scheduled calendar.
 
 ## Important Files
 
