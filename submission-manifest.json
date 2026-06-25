@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "9252dd66fbfffe60338bef0b1be8f9381912e744",
+  "commit": "fcef729b7c7c2a3b43f8c025c589c46f2b04e559",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -117,6 +117,11 @@
       "path": "artifacts/paper-btc-smoke.jsonl",
       "sha256": "032224b96e3c3d971a83c1abb822892b4b156aaa17f7357492743c8ce21582f6",
       "bytes": 7079
+    },
+    {
+      "path": "artifacts/microstructure-calibration.json",
+      "sha256": "e9b6b0a5e60a254dfa80c4947713bed3dff465d534d620243f5a014efb9f744e",
+      "bytes": 1644
     },
     {
       "path": "data/macro-calendar.json",

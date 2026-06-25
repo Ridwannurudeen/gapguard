@@ -28,6 +28,7 @@ const DEFAULT_ARTIFACTS = [
   "artifacts/rwa-multi-backtest.json",
   "artifacts/rwa-alpha-certification.json",
   "artifacts/paper-btc-smoke.jsonl",
+  "artifacts/microstructure-calibration.json",
   "data/macro-calendar.json",
 ];
 
