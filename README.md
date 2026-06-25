@@ -74,12 +74,13 @@ Boundary: cryptographic integrity proof, not regulatory certification. Approval-
 
 GapGuard is the product. Quorum is the internal five-role deterministic adversarial desk. Agent Passport/Arena is the trust and execution control layer.
 
-1. Perception: Bitget RWA contract/ticker data plus deterministic US-session clock and dislocation logic.
-2. Catalyst gate: Qwen classifies real, blinded Finnhub overnight news as fadeable noise or justified repricing. Invalid model output fails closed.
+1. Perception: Bitget RWA contract/ticker data, a deterministic US-session clock and dislocation logic, plus deterministic spread/depth/funding/NAV guards as a microstructure safety floor.
+2. Catalyst gate: a two-tier Qwen model — `qwen3.6-flash` for quick passes, `qwen3.6-plus` for deep reasoning — classifies real, blinded Finnhub overnight news as fadeable noise or justified repricing. Invalid model output fails closed.
 3. Quorum: five-role deterministic adversarial desk weighs narrative, positioning, market intel, bear, and risk evidence.
 4. Mandate: natural-language risk rules compile into hard vetoes.
 5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading.
 6. Proof: Arena records are sealed into a sha256 hash chain and signed with Ed25519 over a Merkle root.
+7. Reflection: realized outcomes of past calls are appended to a hash-chained lesson log and fed back into the gate, so the engine learns from its own receipts without ever mutating them.
 
 The [judge cockpit](https://gapguard.gudman.xyz/arena.html) recomputes every record hash in your browser. Change one row and the chain turns red — tamper-evident, and verifiable without trusting us.
 
@@ -126,6 +127,7 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 - [public/news.html](public/news.html) and [public/news-feed.json](public/news-feed.json) - static operational news surface and its server-generated feed.
 - [public/arena-chain.jsonl](public/arena-chain.jsonl) - Arena-native tamper-evident records.
 - [public/arena-attestation.json](public/arena-attestation.json) - Ed25519 attestation over the Arena Merkle root.
+- [public/reflection-chain.jsonl](public/reflection-chain.jsonl) - append-only, hash-chained reflection lessons fed back into the gate.
 - [artifacts/stock-paper-journal.jsonl](artifacts/stock-paper-journal.jsonl) and [artifacts/stock-paper-journal.csv](artifacts/stock-paper-journal.csv) - Track 3 stock paper journal.
 - [artifacts/paper-btc-smoke.jsonl](artifacts/paper-btc-smoke.jsonl) - Bitget Demo integration smoke, BTCUSDT only.
 
@@ -135,6 +137,7 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 - The positive walk-forward result is a positive pilot OOS over 16 trading days, not proven profitable alpha.
 - The 20-symbol always-fade basket is negative; the point of GapGuard is abstention, risk control, and verifiable restraint.
 - Live real-money trading remains blocked without explicit user approval, a licensed passport, isolated margin, a hard notional cap, and `--confirm-live`.
+- Microstructure fadeable probabilities are not yet calibrated: the spread/depth/funding/NAV guards run as a deterministic safety floor, and the calibration report honestly flags insufficient labeled history to fit a probabilistic model.
 
 ## License
 
