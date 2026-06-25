@@ -54,12 +54,24 @@ describe("gate holdout report", () => {
       name: "always_fade",
       status: "evaluated",
     });
+    expect(report.variants[0].stats.accuracyPct.ciLow).not.toBeNull();
+    expect(report.variants[0].stats.meanRegretPct.ciHigh).not.toBeNull();
+    expect(report.variants[0].tailRegretPct95).not.toBeNull();
     expect(report.variants[0].confusion.FADE.FADE.count).toBeGreaterThanOrEqual(
       0,
     );
-    expect(report.variants.find((row) => row.name === "full_bundle_qwen_gate")).toMatchObject({
-      status: "not_run_missing_key",
-      evaluated: 0,
+    const macro = report.variants.find(
+      (row) => row.name === "jobs_fomc_macro_stand_aside",
+    );
+    expect(macro?.comparisonToAlwaysFade).toMatchObject({
+      baseline: "always_fade",
+      evaluated: report.data.holdoutCandidates,
     });
+    expect(macro?.comparisonToAlwaysFade?.meanRegretReductionPValue).not.toBeNull();
+    expect(report.variants.find((row) => row.name === "full_bundle_qwen_gate"))
+      .toMatchObject({
+        status: "not_run_missing_key",
+        evaluated: 0,
+      });
   });
 });

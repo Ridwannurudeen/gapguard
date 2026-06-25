@@ -82,11 +82,17 @@
     "candidates": 790,
     "holdoutCandidates": 341,
     "alwaysFadeAccuracyPct": 42.2,
+    "alwaysFadeAccuracyCiPct": "37.243% to 47.801%",
     "alwaysFadeRegretPct": 1.775,
+    "alwaysFadeRegretCiPct": "1.496% to 2.043%",
     "macroAblationAccuracyPct": 39.9,
     "fullBundleQwenStatus": "evaluated",
     "fullBundleQwenAccuracyPct": 39,
-    "fullBundleQwenRegretPct": 1.622
+    "fullBundleQwenAccuracyCiPct": "33.724% to 44.282%",
+    "fullBundleQwenRegretPct": 1.622,
+    "fullBundleQwenRegretCiPct": "1.372% to 1.895%",
+    "fullBundleQwenRegretReductionCiPct": "-0.029% to 0.324%",
+    "fullBundleQwenRegretReductionPValue": 0.106
   },
   "stockPaperJournal": {
     "jsonl": "artifacts/stock-paper-journal.jsonl",
