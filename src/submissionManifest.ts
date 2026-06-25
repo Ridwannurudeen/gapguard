@@ -16,6 +16,7 @@ const DEFAULT_ARTIFACTS = [
   "public/arena-data.json",
   "public/arena-chain.jsonl",
   "public/arena-attestation.json",
+  "public/reflection-chain.jsonl",
   "public/arena-pubkey.pem",
   "public/metrics.json",
   "public/dashboard-data.json",
