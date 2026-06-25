@@ -1149,6 +1149,17 @@
         <div id="workflowGrid" class="workflow-grid"></div>
       </section>
 
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="eyebrow">Reflective decision memory</div>
+            <h2>Signed lessons from resolved calls</h2>
+          </div>
+          <span id="reflectionStatus" class="tag info">loading</span>
+        </div>
+        <div id="reflectionList" class="reflection-list"></div>
+      </section>
+
       <section class="layout">
         <div class="panel">
           <div class="panel-head">
@@ -2215,12 +2226,67 @@
         }
       }
 
+      function renderReflection(records) {
+        const status = document.getElementById("reflectionStatus");
+        const list = document.getElementById("reflectionList");
+        if (!status || !list) return;
+        if (!Array.isArray(records) || records.length === 0) {
+          status.textContent = "none yet";
+          status.className = "tag";
+          list.innerHTML =
+            '<div class="muted" style="font-size:13px">No resolved-decision reflections published yet.</div>';
+          return;
+        }
+        let prev = "0".repeat(64);
+        let linked = true;
+        for (const r of records) {
+          if (r.prevHash !== prev) {
+            linked = false;
+            break;
+          }
+          prev = r.hash;
+        }
+        status.textContent = `${records.length} signed · ${linked ? "chain verified" : "chain broken"}`;
+        status.className = `tag ${linked ? "ok" : "bad"}`;
+        list.innerHTML = records
+          .map((r) => {
+            const p = r.payload || {};
+            const o = p.outcome || {};
+            const date = String(o.decisionTs || "").slice(0, 10);
+            const ret =
+              typeof o.rawReturnPct === "number"
+                ? `${o.rawReturnPct >= 0 ? "+" : ""}${o.rawReturnPct}%`
+                : "—";
+            const alpha =
+              typeof o.alphaPct === "number"
+                ? `${o.alphaPct >= 0 ? "+" : ""}${o.alphaPct}%`
+                : "—";
+            const alphaColor =
+              (o.alphaPct ?? 0) >= 0 ? "var(--mint)" : "var(--red)";
+            const lesson = String(p.lesson || p.artifact?.text || "").replace(
+              /</g,
+              "&lt;",
+            );
+            const label = p.artifact?.label
+              ? `<span style="font-family:var(--mono);font-size:10px;color:var(--dim)"> · ${p.artifact.label}</span>`
+              : "";
+            return `<div style="border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:9px;background:rgba(26,26,33,.5)">
+              <div style="display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--dim)">
+                <span>AAPL · ${date}</span><span>return ${ret} · alpha <b style="color:${alphaColor}">${alpha}</b></span>
+              </div>
+              <p style="margin:8px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink)">${lesson}${label}</p>
+            </div>`;
+          })
+          .join("");
+      }
+
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
         attestation = (await loadJson("arena-attestation.json")) ?? null;
         arenaPublicKeyPem = await loadText("arena-pubkey.pem");
         chainRecords = await loadJsonl("arena-chain.jsonl");
         render(data);
+        renderReflection(await loadJsonl("reflection-chain.jsonl"));
         const verifyButton = document.getElementById("verifyButton");
         verifyButton.addEventListener("click", () => void runVerify(verifyButton));
         const heroVerifyButton = document.getElementById("heroVerifyButton");
