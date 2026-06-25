@@ -85,11 +85,20 @@ function companyItems(
 
   if (items.length) return items.slice(0, 8);
 
+  // Pre-open (noon UTC) is the natural stamp for a daily summary, but the live
+  // refresh runs around the clock — before noon that stamp is in the future and
+  // trips the no-look-ahead guard. Clamp to just before the decision so an
+  // intraday/overnight live run never look-aheads (backtests decide at 13:30, so
+  // they keep the noon stamp unchanged).
+  const summaryTimestamp = isBeforeDecision(preOpenTimestamp(date), decision)
+    ? preOpenTimestamp(date)
+    : new Date(Date.parse(decision) - 1000).toISOString();
+
   return [
     {
       id: `company-${date}-summary`,
       section: "companyNews",
-      timestamp: preOpenTimestamp(date),
+      timestamp: summaryTimestamp,
       source: "Finnhub company-news summary",
       text: cleanText(`${asset}: ${newsSummary}`).slice(0, 280),
     },
@@ -98,7 +107,8 @@ function companyItems(
 
 function macroItems(date: string, decision: string): CatalystBundleItem[] {
   const matches = SCHEDULED_MACRO.filter(
-    (event) => event.date === date && isBeforeDecision(event.timestamp, decision),
+    (event) =>
+      event.date === date && isBeforeDecision(event.timestamp, decision),
   );
   if (matches.length === 0) {
     return [
@@ -120,7 +130,10 @@ function macroItems(date: string, decision: string): CatalystBundleItem[] {
   }));
 }
 
-function indexFuturesItems(date: string, decision: string): CatalystBundleItem[] {
+function indexFuturesItems(
+  date: string,
+  decision: string,
+): CatalystBundleItem[] {
   const hasMacro = SCHEDULED_MACRO.some((event) => event.date === date);
   const timestamp = preOpenTimestamp(date);
   if (!isBeforeDecision(timestamp, decision)) return [];
@@ -433,7 +446,10 @@ function readSection(value: unknown, path: string): CatalystBundleItem[] {
   });
 }
 
-export function parseCatalystBundle(value: unknown, path: string): CatalystBundle {
+export function parseCatalystBundle(
+  value: unknown,
+  path: string,
+): CatalystBundle {
   const record = asRecord(value, path);
   const bundle = {
     decisionTimestamp: readString(
