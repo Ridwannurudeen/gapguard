@@ -39,6 +39,7 @@ All public numbers below are generated from committed artifacts by `npm run evid
 | 20-symbol RWA always-fade baseline | -0.015% / 747 trades | `artifacts/rwa-multi-backtest.json` |
 | Positive pilot OOS over 16 trading days | +2.643% / 116 trades | `artifacts/rwa-alpha-certification.json` |
 | Multi-symbol gate holdout | 341 holdout candidates / 20 symbols | `artifacts/gate-holdout-report.json` |
+| Risk-reduction edge: worst-case (p95) regret, gate vs always-fade | 5.807% vs 7.474% (reduction p=0.001) | `artifacts/gate-holdout-report.json` |
 | Stock paper journal | 58 rows | `artifacts/stock-paper-journal.jsonl`, `artifacts/stock-paper-journal.csv` |
 | Crypto Demo integration smoke | 3 BTCUSDT paper rows | `artifacts/paper-btc-smoke.jsonl` |
 <!-- EVIDENCE:END -->

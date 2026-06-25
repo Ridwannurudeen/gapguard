@@ -58,6 +58,10 @@ export interface EvidenceReport {
     fullBundleQwenRegretCiPct: string | null;
     fullBundleQwenRegretReductionCiPct: string | null;
     fullBundleQwenRegretReductionPValue: number | null;
+    alwaysFadeTailRegretPct95: number | null;
+    fullBundleQwenTailRegretPct95: number | null;
+    fullBundleQwenTailRegretReductionCiPct: string | null;
+    fullBundleQwenTailRegretReductionPValue: number | null;
   };
   stockPaperJournal: {
     jsonl: string;
@@ -135,7 +139,7 @@ function variantStatCi(
 
 function comparisonMetric(
   variant: UnknownRecord,
-  key: "meanRegretReductionPct",
+  key: "meanRegretReductionPct" | "tailRegretReductionPct95",
 ): UnknownRecord {
   return asRecord(asRecord(variant.comparisonToAlwaysFade)[key]);
 }
@@ -201,6 +205,7 @@ function summaryBlock(report: EvidenceReport): string {
 | 20-symbol RWA always-fade baseline | ${pct(m.rwaBasketAlwaysFade.totalReturnPct)} / ${m.rwaBasketAlwaysFade.tradeCount} trades | \`${m.rwaBasketAlwaysFade.source}\` |
 | Positive pilot OOS over ${m.walkForwardPilot.oosTradingDays} trading days | ${pct(m.walkForwardPilot.totalReturnPct)} / ${m.walkForwardPilot.tradeCount} trades | \`${m.walkForwardPilot.source}\` |
 | Multi-symbol gate holdout | ${report.gateHoldout.holdoutCandidates} holdout candidates / ${report.gateHoldout.symbols} symbols | \`${report.gateHoldout.source}\` |
+| Risk-reduction edge: worst-case (p95) regret, gate vs always-fade | ${report.gateHoldout.fullBundleQwenTailRegretPct95}% vs ${report.gateHoldout.alwaysFadeTailRegretPct95}% (reduction p=${report.gateHoldout.fullBundleQwenTailRegretReductionPValue}) | \`${report.gateHoldout.source}\` |
 | Stock paper journal | ${report.stockPaperJournal.rowCount} rows | \`${report.stockPaperJournal.jsonl}\`, \`${report.stockPaperJournal.csv}\` |
 | Crypto Demo integration smoke | ${report.cryptoDemoSmoke.rowCount} BTCUSDT paper rows | \`${report.cryptoDemoSmoke.source}\` |
 <!-- EVIDENCE:END -->`;
@@ -322,10 +327,7 @@ export function buildEvidenceReport(generatedAt?: string): EvidenceReport {
         holdoutVariant("jobs_fomc_macro_stand_aside"),
         "accuracyPct",
       ),
-      fullBundleQwenStatus: getString(
-        fullBundleQwenHoldout,
-        "status",
-      ),
+      fullBundleQwenStatus: getString(fullBundleQwenHoldout, "status"),
       fullBundleQwenAccuracyPct: readOptionalNumber(
         fullBundleQwenHoldout,
         "accuracyPct",
@@ -348,6 +350,21 @@ export function buildEvidenceReport(generatedAt?: string): EvidenceReport {
       fullBundleQwenRegretReductionPValue: readOptionalNumber(
         asRecord(fullBundleQwenHoldout.comparisonToAlwaysFade),
         "meanRegretReductionPValue",
+      ),
+      alwaysFadeTailRegretPct95: readOptionalNumber(
+        alwaysFadeHoldout,
+        "tailRegretPct95",
+      ),
+      fullBundleQwenTailRegretPct95: readOptionalNumber(
+        fullBundleQwenHoldout,
+        "tailRegretPct95",
+      ),
+      fullBundleQwenTailRegretReductionCiPct: formatCi(
+        comparisonMetric(fullBundleQwenHoldout, "tailRegretReductionPct95"),
+      ),
+      fullBundleQwenTailRegretReductionPValue: readOptionalNumber(
+        asRecord(fullBundleQwenHoldout.comparisonToAlwaysFade),
+        "tailRegretReductionPValue",
       ),
     },
     stockPaperJournal: {
@@ -428,7 +445,9 @@ export function checkEvidenceArtifacts(report: EvidenceReport): void {
     ? readFileSync(resolve("docs/METRICS.md"), "utf8")
     : "";
   const mismatches: string[] = [];
-  if (normalizeEvidenceText(currentJson) !== normalizeEvidenceText(expectedJson))
+  if (
+    normalizeEvidenceText(currentJson) !== normalizeEvidenceText(expectedJson)
+  )
     mismatches.push("public/metrics.json");
   if (
     normalizeEvidenceText(currentMarkdown) !==

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "fcef729b7c7c2a3b43f8c025c589c46f2b04e559",
+  "commit": "4b89e4e6be826fc13845d553580fa7770b2a4f66",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -10,13 +10,13 @@
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "c2ef7253bef7c21c4b0b72c7ca86c2cf9545ec3d04fd56e9502356e862c3832f",
-      "bytes": 5841
+      "sha256": "8467f5eb6738f20c2565375d53d8471873b86ebd71f72ca39ec073856ac2f1b7",
+      "bytes": 5989
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "b5c14aa2e4b31a6830712219eab8a3919b4cbef9696cc9f106caecea59b3953b",
-      "bytes": 7526
+      "sha256": "87fba0e47417d05d508ca31a6402b7b084c30c3117cc69d985dd28fbf6dc4646",
+      "bytes": 8746
     },
     {
       "path": "docs/METRICS.md",
@@ -70,8 +70,8 @@
     },
     {
       "path": "public/metrics.json",
-      "sha256": "74d67094ba4f9623e4b72549203cbd328b83db6c61878dc5efbb0757572816f4",
-      "bytes": 4507
+      "sha256": "5e7163e213ecfa26dde7abaa7dafe168ffb99a784df70267f4f6971d4b2d6c82",
+      "bytes": 4711
     },
     {
       "path": "public/dashboard-data.json",
