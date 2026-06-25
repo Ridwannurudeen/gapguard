@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import {
   PRODUCT_SENTENCE,
   buildEvidenceReport,
+  checkEvidenceArtifacts,
   metricsMarkdown,
 } from "../src/evidenceReport";
 
@@ -25,6 +26,8 @@ describe("evidenceReport", () => {
     expect(report.gateHoldout.source).toBe(
       "artifacts/gate-holdout-report.json",
     );
+    expect(report.gateHoldout.fullBundleQwenAccuracyCiPct).not.toBeNull();
+    expect(report.gateHoldout.fullBundleQwenRegretReductionPValue).not.toBeNull();
     expect(report.boundary).toContain("not regulatory certification");
   });
 
@@ -35,7 +38,13 @@ describe("evidenceReport", () => {
 
     expect(markdown).toContain("AAPLUSDT Qwen gate-driven pilot");
     expect(markdown).toContain("Multi-symbol gate holdout");
+    expect(markdown).toContain("95% CI");
+    expect(markdown).toContain("Mean-regret reduction CI");
     expect(markdown).toContain("artifacts/aaplusdt-news-aware-backtest.json");
     expect(markdown).toContain("No live on-exchange RWA stock fill");
+  });
+
+  it("accepts committed evidence blocks regardless of CRLF checkout style", () => {
+    expect(() => checkEvidenceArtifacts(buildEvidenceReport())).not.toThrow();
   });
 });

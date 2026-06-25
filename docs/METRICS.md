@@ -17,7 +17,7 @@ Boundary: Cryptographic integrity proof, not regulatory certification. Approval-
 
 Gate audit: 12/15 (80%) on artifacts/aaplusdt-gate-audit.json; 2026-06-09 WWDC: correctly stood aside on a news-driven repricing gap.
 
-Multi-symbol gate holdout: 341/790 candidates across 20 symbols in `artifacts/gate-holdout-report.json`. Full-bundle Qwen gate (evaluated): 39% accuracy / 1.622% mean regret vs always-fade 42.2% / 1.775%. The gate does not beat always-fade on accuracy but posts lower cost-weighted regret — reported honestly, not as a generalized-edge claim.
+Multi-symbol gate holdout: 341/790 candidates across 20 symbols in `artifacts/gate-holdout-report.json`. Full-bundle Qwen gate (evaluated): 39% accuracy (95% CI 33.724% to 44.282%) / 1.622% mean regret (95% CI 1.372% to 1.895%) vs always-fade 42.2% (95% CI 37.243% to 47.801%) / 1.775% (95% CI 1.496% to 2.043%). Mean-regret reduction CI vs always-fade: -0.029% to 0.324%; p=0.106. The gate does not beat always-fade on accuracy; any regret edge is reported with uncertainty, not as a generalized-edge claim.
 
 Stock paper journal: `artifacts/stock-paper-journal.jsonl` and `artifacts/stock-paper-journal.csv` (58 rows, SIMULATED/PAPER_STOCK; not a live exchange stock fill).
 

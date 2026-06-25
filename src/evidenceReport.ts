@@ -47,11 +47,17 @@ export interface EvidenceReport {
     candidates: number;
     holdoutCandidates: number;
     alwaysFadeAccuracyPct: number | null;
+    alwaysFadeAccuracyCiPct: string | null;
     alwaysFadeRegretPct: number | null;
+    alwaysFadeRegretCiPct: string | null;
     macroAblationAccuracyPct: number | null;
     fullBundleQwenStatus: string;
     fullBundleQwenAccuracyPct: number | null;
+    fullBundleQwenAccuracyCiPct: string | null;
     fullBundleQwenRegretPct: number | null;
+    fullBundleQwenRegretCiPct: string | null;
+    fullBundleQwenRegretReductionCiPct: string | null;
+    fullBundleQwenRegretReductionPValue: number | null;
   };
   stockPaperJournal: {
     jsonl: string;
@@ -112,6 +118,30 @@ function getArray(record: UnknownRecord, key: string): unknown[] {
 function readOptionalNumber(record: UnknownRecord, key: string): number | null {
   const value = record[key];
   return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function formatCi(metric: UnknownRecord): string | null {
+  const low = readOptionalNumber(metric, "ciLow");
+  const high = readOptionalNumber(metric, "ciHigh");
+  return low === null || high === null ? null : `${low}% to ${high}%`;
+}
+
+function variantStatCi(
+  variant: UnknownRecord,
+  key: "accuracyPct" | "meanRegretPct",
+): string | null {
+  return formatCi(asRecord(asRecord(variant.stats)[key]));
+}
+
+function comparisonMetric(
+  variant: UnknownRecord,
+  key: "meanRegretReductionPct",
+): UnknownRecord {
+  return asRecord(asRecord(variant.comparisonToAlwaysFade)[key]);
+}
+
+function normalizeEvidenceText(value: string): string {
+  return value.replace(/\r\n/g, "\n");
 }
 
 function countJsonlRows(path: string): number {
@@ -200,6 +230,8 @@ export function buildEvidenceReport(generatedAt?: string): EvidenceReport {
   const holdoutVariants = getArray(holdout, "variants").map(asRecord);
   const holdoutVariant = (name: string) =>
     holdoutVariants.find((variant) => variant.name === name) ?? {};
+  const alwaysFadeHoldout = holdoutVariant("always_fade");
+  const fullBundleQwenHoldout = holdoutVariant("full_bundle_qwen_gate");
   const reportGeneratedAt =
     generatedAt ??
     getString(alpha, "generatedAt") ??
@@ -277,28 +309,45 @@ export function buildEvidenceReport(generatedAt?: string): EvidenceReport {
       candidates: getNumber(holdoutData, "candidates"),
       holdoutCandidates: getNumber(holdoutData, "holdoutCandidates"),
       alwaysFadeAccuracyPct: readOptionalNumber(
-        holdoutVariant("always_fade"),
+        alwaysFadeHoldout,
         "accuracyPct",
       ),
+      alwaysFadeAccuracyCiPct: variantStatCi(alwaysFadeHoldout, "accuracyPct"),
       alwaysFadeRegretPct: readOptionalNumber(
-        holdoutVariant("always_fade"),
+        alwaysFadeHoldout,
         "meanRegretPct",
       ),
+      alwaysFadeRegretCiPct: variantStatCi(alwaysFadeHoldout, "meanRegretPct"),
       macroAblationAccuracyPct: readOptionalNumber(
         holdoutVariant("jobs_fomc_macro_stand_aside"),
         "accuracyPct",
       ),
       fullBundleQwenStatus: getString(
-        holdoutVariant("full_bundle_qwen_gate"),
+        fullBundleQwenHoldout,
         "status",
       ),
       fullBundleQwenAccuracyPct: readOptionalNumber(
-        holdoutVariant("full_bundle_qwen_gate"),
+        fullBundleQwenHoldout,
+        "accuracyPct",
+      ),
+      fullBundleQwenAccuracyCiPct: variantStatCi(
+        fullBundleQwenHoldout,
         "accuracyPct",
       ),
       fullBundleQwenRegretPct: readOptionalNumber(
-        holdoutVariant("full_bundle_qwen_gate"),
+        fullBundleQwenHoldout,
         "meanRegretPct",
+      ),
+      fullBundleQwenRegretCiPct: variantStatCi(
+        fullBundleQwenHoldout,
+        "meanRegretPct",
+      ),
+      fullBundleQwenRegretReductionCiPct: formatCi(
+        comparisonMetric(fullBundleQwenHoldout, "meanRegretReductionPct"),
+      ),
+      fullBundleQwenRegretReductionPValue: readOptionalNumber(
+        asRecord(fullBundleQwenHoldout.comparisonToAlwaysFade),
+        "meanRegretReductionPValue",
       ),
     },
     stockPaperJournal: {
@@ -343,7 +392,7 @@ Boundary: ${report.boundary}
 
 Gate audit: ${report.gateAudit.correct}/${report.gateAudit.scored} (${report.gateAudit.accuracyPct}%) on ${report.gateAudit.source}; ${report.gateAudit.keyCase}
 
-Multi-symbol gate holdout: ${report.gateHoldout.holdoutCandidates}/${report.gateHoldout.candidates} candidates across ${report.gateHoldout.symbols} symbols in \`${report.gateHoldout.source}\`. Full-bundle Qwen gate (${report.gateHoldout.fullBundleQwenStatus}): ${report.gateHoldout.fullBundleQwenAccuracyPct}% accuracy / ${report.gateHoldout.fullBundleQwenRegretPct}% mean regret vs always-fade ${report.gateHoldout.alwaysFadeAccuracyPct}% / ${report.gateHoldout.alwaysFadeRegretPct}%. The gate does not beat always-fade on accuracy but posts lower cost-weighted regret — reported honestly, not as a generalized-edge claim.
+Multi-symbol gate holdout: ${report.gateHoldout.holdoutCandidates}/${report.gateHoldout.candidates} candidates across ${report.gateHoldout.symbols} symbols in \`${report.gateHoldout.source}\`. Full-bundle Qwen gate (${report.gateHoldout.fullBundleQwenStatus}): ${report.gateHoldout.fullBundleQwenAccuracyPct}% accuracy (95% CI ${report.gateHoldout.fullBundleQwenAccuracyCiPct ?? "n/a"}) / ${report.gateHoldout.fullBundleQwenRegretPct}% mean regret (95% CI ${report.gateHoldout.fullBundleQwenRegretCiPct ?? "n/a"}) vs always-fade ${report.gateHoldout.alwaysFadeAccuracyPct}% (95% CI ${report.gateHoldout.alwaysFadeAccuracyCiPct ?? "n/a"}) / ${report.gateHoldout.alwaysFadeRegretPct}% (95% CI ${report.gateHoldout.alwaysFadeRegretCiPct ?? "n/a"}). Mean-regret reduction CI vs always-fade: ${report.gateHoldout.fullBundleQwenRegretReductionCiPct ?? "n/a"}; p=${report.gateHoldout.fullBundleQwenRegretReductionPValue ?? "n/a"}. The gate does not beat always-fade on accuracy; any regret edge is reported with uncertainty, not as a generalized-edge claim.
 
 Stock paper journal: \`${report.stockPaperJournal.jsonl}\` and \`${report.stockPaperJournal.csv}\` (${report.stockPaperJournal.rowCount} rows, ${report.stockPaperJournal.label}).
 
@@ -379,8 +428,13 @@ export function checkEvidenceArtifacts(report: EvidenceReport): void {
     ? readFileSync(resolve("docs/METRICS.md"), "utf8")
     : "";
   const mismatches: string[] = [];
-  if (currentJson !== expectedJson) mismatches.push("public/metrics.json");
-  if (currentMarkdown !== expectedMarkdown) mismatches.push("docs/METRICS.md");
+  if (normalizeEvidenceText(currentJson) !== normalizeEvidenceText(expectedJson))
+    mismatches.push("public/metrics.json");
+  if (
+    normalizeEvidenceText(currentMarkdown) !==
+    normalizeEvidenceText(expectedMarkdown)
+  )
+    mismatches.push("docs/METRICS.md");
   for (const path of ["README.md", "docs/SUBMISSION.md"]) {
     const fullPath = resolve(path);
     if (!existsSync(fullPath)) continue;
@@ -388,7 +442,11 @@ export function checkEvidenceArtifacts(report: EvidenceReport): void {
     const match = current.match(
       /<!-- EVIDENCE:START -->[\s\S]*?<!-- EVIDENCE:END -->/,
     );
-    if (match && match[0] !== expectedBlock) mismatches.push(path);
+    if (
+      match &&
+      normalizeEvidenceText(match[0]) !== normalizeEvidenceText(expectedBlock)
+    )
+      mismatches.push(path);
   }
   if (mismatches.length) {
     throw new Error(`Evidence drift: regenerate ${mismatches.join(", ")}`);

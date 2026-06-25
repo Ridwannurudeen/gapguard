@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T04:53:55.679Z",
+  "generatedAt": "2026-06-25T00:11:07.876Z",
   "strategy": "GapGuard gate holdout evaluation",
   "data": {
     "manifestPath": "C:/Users/gudma/OneDrive/Desktop/GITHUB-FILES/gapguard/data/rwa-sample/manifest.json",
@@ -46,6 +46,24 @@
       "evaluated": 341,
       "accuracyPct": 42.2,
       "meanRegretPct": 1.775,
+      "tailRegretPct95": 7.474,
+      "stats": {
+        "accuracyPct": {
+          "estimate": 42.229,
+          "ciLow": 37.243,
+          "ciHigh": 47.801
+        },
+        "meanRegretPct": {
+          "estimate": 1.775,
+          "ciLow": 1.496,
+          "ciHigh": 2.043
+        },
+        "tailRegretPct95": {
+          "estimate": 7.474,
+          "ciLow": 5.961,
+          "ciHigh": 9.295
+        }
+      },
       "confusion": {
         "FADE": {
           "FADE": {
@@ -64,7 +82,7 @@
         "FOLLOW": {
           "FADE": {
             "count": 179,
-            "costPct": 603.399
+            "costPct": 603.382
           },
           "FOLLOW": {
             "count": 0,
@@ -78,7 +96,7 @@
         "STAND_ASIDE": {
           "FADE": {
             "count": 18,
-            "costPct": 1.941
+            "costPct": 1.895
           },
           "FOLLOW": {
             "count": 0,
@@ -98,6 +116,24 @@
       "evaluated": 341,
       "accuracyPct": 39.9,
       "meanRegretPct": 1.64,
+      "tailRegretPct95": 6.452,
+      "stats": {
+        "accuracyPct": {
+          "estimate": 39.883,
+          "ciLow": 34.897,
+          "ciHigh": 44.868
+        },
+        "meanRegretPct": {
+          "estimate": 1.64,
+          "ciLow": 1.37,
+          "ciHigh": 1.923
+        },
+        "tailRegretPct95": {
+          "estimate": 6.452,
+          "ciLow": 5.31,
+          "ciHigh": 8.207
+        }
+      },
       "confusion": {
         "FADE": {
           "FADE": {
@@ -110,13 +146,13 @@
           },
           "STAND_ASIDE": {
             "count": 9,
-            "costPct": 11.462
+            "costPct": 11.485
           }
         },
         "FOLLOW": {
           "FADE": {
             "count": 152,
-            "costPct": 494.867
+            "costPct": 494.855
           },
           "FOLLOW": {
             "count": 0,
@@ -124,13 +160,13 @@
           },
           "STAND_ASIDE": {
             "count": 27,
-            "costPct": 51.102
+            "costPct": 51.166
           }
         },
         "STAND_ASIDE": {
           "FADE": {
             "count": 17,
-            "costPct": 1.91
+            "costPct": 1.867
           },
           "FOLLOW": {
             "count": 0,
@@ -141,6 +177,28 @@
             "costPct": 0
           }
         }
+      },
+      "comparisonToAlwaysFade": {
+        "baseline": "always_fade",
+        "evaluated": 341,
+        "accuracyDeltaPct": {
+          "estimate": -2.346,
+          "ciLow": -4.106,
+          "ciHigh": -0.587
+        },
+        "meanRegretReductionPct": {
+          "estimate": 0.135,
+          "ciLow": 0.055,
+          "ciHigh": 0.218
+        },
+        "tailRegretReductionPct95": {
+          "estimate": 1.41,
+          "ciLow": 0.348,
+          "ciHigh": 2.41
+        },
+        "accuracyPValue": 0.014,
+        "meanRegretReductionPValue": 0.002,
+        "tailRegretReductionPValue": 0.02
       }
     },
     {
@@ -149,7 +207,25 @@
       "status": "evaluated",
       "evaluated": 13,
       "accuracyPct": 30.8,
-      "meanRegretPct": 0.712,
+      "meanRegretPct": 0.711,
+      "tailRegretPct95": 2.971,
+      "stats": {
+        "accuracyPct": {
+          "estimate": 30.769,
+          "ciLow": 7.692,
+          "ciHigh": 53.846
+        },
+        "meanRegretPct": {
+          "estimate": 0.711,
+          "ciLow": 0.17,
+          "ciHigh": 1.452
+        },
+        "tailRegretPct95": {
+          "estimate": 2.971,
+          "ciLow": 0.774,
+          "ciHigh": 3.833
+        }
+      },
       "confusion": {
         "FADE": {
           "FADE": {
@@ -162,13 +238,13 @@
           },
           "STAND_ASIDE": {
             "count": 1,
-            "costPct": 0.173
+            "costPct": 0.176
           }
         },
         "FOLLOW": {
           "FADE": {
             "count": 3,
-            "costPct": 6.942
+            "costPct": 6.941
           },
           "FOLLOW": {
             "count": 0,
@@ -176,13 +252,13 @@
           },
           "STAND_ASIDE": {
             "count": 1,
-            "costPct": 1.745
+            "costPct": 1.747
           }
         },
         "STAND_ASIDE": {
           "FADE": {
             "count": 4,
-            "costPct": 0.391
+            "costPct": 0.381
           },
           "FOLLOW": {
             "count": 0,
@@ -193,6 +269,28 @@
             "costPct": 0
           }
         }
+      },
+      "comparisonToAlwaysFade": {
+        "baseline": "always_fade",
+        "evaluated": 13,
+        "accuracyDeltaPct": {
+          "estimate": -7.692,
+          "ciLow": -23.077,
+          "ciHigh": 0
+        },
+        "meanRegretReductionPct": {
+          "estimate": 0.139,
+          "ciLow": -0.041,
+          "ciHigh": 0.457
+        },
+        "tailRegretReductionPct95": {
+          "estimate": 0.792,
+          "ciLow": 0,
+          "ciHigh": 1.979
+        },
+        "accuracyPValue": 0.724,
+        "meanRegretReductionPValue": 0.732,
+        "tailRegretReductionPValue": 0.69
       }
     },
     {
@@ -202,6 +300,24 @@
       "evaluated": 341,
       "accuracyPct": 39,
       "meanRegretPct": 1.622,
+      "tailRegretPct95": 5.807,
+      "stats": {
+        "accuracyPct": {
+          "estimate": 39.003,
+          "ciLow": 33.724,
+          "ciHigh": 44.282
+        },
+        "meanRegretPct": {
+          "estimate": 1.622,
+          "ciLow": 1.372,
+          "ciHigh": 1.895
+        },
+        "tailRegretPct95": {
+          "estimate": 5.807,
+          "ciLow": 5.089,
+          "ciHigh": 7.201
+        }
+      },
       "confusion": {
         "FADE": {
           "FADE": {
@@ -210,17 +326,17 @@
           },
           "FOLLOW": {
             "count": 12,
-            "costPct": 50.241
+            "costPct": 50.239
           },
           "STAND_ASIDE": {
             "count": 10,
-            "costPct": 11.63
+            "costPct": 11.655
           }
         },
         "FOLLOW": {
           "FADE": {
             "count": 140,
-            "costPct": 428.15
+            "costPct": 428.141
           },
           "FOLLOW": {
             "count": 10,
@@ -228,13 +344,13 @@
           },
           "STAND_ASIDE": {
             "count": 29,
-            "costPct": 61.056
+            "costPct": 61.126
           }
         },
         "STAND_ASIDE": {
           "FADE": {
             "count": 17,
-            "costPct": 1.91
+            "costPct": 1.867
           },
           "FOLLOW": {
             "count": 0,
@@ -245,12 +361,35 @@
             "costPct": 0
           }
         }
+      },
+      "comparisonToAlwaysFade": {
+        "baseline": "always_fade",
+        "evaluated": 341,
+        "accuracyDeltaPct": {
+          "estimate": -3.226,
+          "ciLow": -6.452,
+          "ciHigh": 0
+        },
+        "meanRegretReductionPct": {
+          "estimate": 0.153,
+          "ciLow": -0.029,
+          "ciHigh": 0.324
+        },
+        "tailRegretReductionPct95": {
+          "estimate": 2.648,
+          "ciLow": 1.234,
+          "ciHigh": 3.555
+        },
+        "accuracyPValue": 0.062,
+        "meanRegretReductionPValue": 0.106,
+        "tailRegretReductionPValue": 0.001
       }
     }
   ],
   "limitations": [
     "This artifact is an evaluation report, not a trained model.",
     "The oracle uses realized returns after the open, so it is never fed back into prompts or trading decisions.",
+    "Bootstrap intervals are deterministic paired resamples over the fixed holdout candidates; they quantify sampling noise but do not turn the cached gate into a live-model proof.",
     "Full-bundle Qwen verdicts cover all holdout symbols (live keyed run, cached); cached_aapl_qwen_gate remains AAPL-only by design. Company-news coverage varies by symbol; index proxies (QQQ/SPY/NDX100/SP500) carry macro/index/cross-asset context only.",
     "RWA candles are Bitget tokenized-stock futures candles, not primary exchange equity prints."
   ]
