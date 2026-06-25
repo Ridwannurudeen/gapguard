@@ -4,6 +4,8 @@ GapGuard is an AI abstention and risk engine for tokenized US stocks: it decides
 
 Bitget AI Base Camp Hackathon S1, Track 3: US Stock AI Trading.
 
+**Live demo:** [gapguard.gudman.xyz](https://gapguard.gudman.xyz) &middot; **Video walkthrough:** [youtu.be/e_KX0ZDN2uw](https://youtu.be/e_KX0ZDN2uw)
+
 ## 60-Second Quickstart
 
 Requires Node.js >=20.
