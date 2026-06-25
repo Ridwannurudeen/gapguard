@@ -50,6 +50,7 @@ The 2026-06-09 WWDC case is the hero example: the Qwen catalyst gate correctly s
 | --- | --- |
 | Project description (four-part, clear thesis) | This doc + `README.md` — problem, system, evidence, honest limits |
 | Public GitHub repo + README, **or** login-free demo | Both: public repo with a runnable README, **and** login-free demos — `public/app.html` (consumer assistant) and `public/arena.html` (cockpit with browser chain verification) |
+| Project demo video | **https://youtu.be/e_KX0ZDN2uw** — ~3-min walkthrough: WWDC stand-aside, the p=0.001 risk-reduction edge, the consumer one-tap handoff, and live browser chain verification |
 | Live/paper trading log: timestamp · asset · direction · price · quantity · balance change | `artifacts/stock-paper-journal.jsonl` / `.csv` — all six required fields, AAPLUSDT, plus PnL and a naive counterfactual |
 | Backtest report **with code** (not screenshots) | `artifacts/aaplusdt-backtest.json`, `aaplusdt-news-aware-backtest.json`, `rwa-multi-backtest.json`, `rwa-alpha-certification.json`, `playbook/aaplusdt-backtest-result.json` — all reproducible via `npm run backtest*` / `alpha:certify`, code in `src/` |
 | Exchange integration (supplementary) | `artifacts/paper-btc-smoke.jsonl` — Bitget Demo crypto integration smoke; the AAPLUSDT managed Playbook backtest also completed |
@@ -95,5 +96,5 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit
 - [x] Stock paper journal with Track 3 fields
 - [x] Read-only public RWA market evidence
 - [x] Tests and typecheck
-- [ ] Demo video recorded by user
+- [x] Demo video: https://youtu.be/e_KX0ZDN2uw
 - [ ] Submit only after explicit user approval
