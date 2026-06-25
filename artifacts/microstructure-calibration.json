@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-06-25T00:27:17.945Z",
+  "status": "insufficient_labeled_microstructure_history",
+  "coverage": {
+    "historicalOutcomeRows": 747,
+    "currentFeatureRows": 12,
+    "liveFeatureRows": 7,
+    "usableLabeledFeatureRows": 0,
+    "rowsWithSpreadBps": 19,
+    "rowsWithFundingRate": 19,
+    "rowsWithVolume": 19,
+    "rowsWithPremiumDiscountBps": 0,
+    "rowsWithOutcome": 747,
+    "minimumRows": 200
+  },
+  "requiredRowShape": [
+    "symbol",
+    "decisionTimestamp",
+    "spreadBps",
+    "quoteVolumeUSDT or offHoursVolume",
+    "fundingRate",
+    "premiumDiscountBps",
+    "outcomeReturnPct or fadeReturnPct"
+  ],
+  "model": null,
+  "reliabilityCurve": [],
+  "decision": "Keep deterministic spread/depth/funding/NAV guards as a safety floor; do not claim calibrated fadeable probabilities yet.",
+  "limitations": [
+    "Historical RWA candle fixtures contain outcomes but not point-in-time spread, depth, funding, and NAV premium rows.",
+    "Current RWA and live-call snapshots contain microstructure features but do not have realized open-convergence outcome labels.",
+    "No reliability curve is published until usable labeled feature rows meet the minimum sample count."
+  ],
+  "nextDataToCollect": [
+    "At every live/off-hours decision, persist symbol, decisionTimestamp, spreadBps, quoteVolumeUSDT/offHoursVolume, fundingRate, premiumDiscountBps, and reference freshness.",
+    "After the underlying opens, append the realized fade/follow/stand-aside outcome without mutating the original decision row.",
+    "Train and publish a calibration curve only on rows whose features were known at decision time."
+  ]
+}
