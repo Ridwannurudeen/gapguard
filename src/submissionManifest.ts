@@ -13,6 +13,7 @@ const DEFAULT_ARTIFACTS = [
   "public/news.html",
   "public/news-feed.json",
   "public/arena.html",
+  "public/status.html",
   "public/arena-data.json",
   "public/arena-chain.jsonl",
   "public/arena-attestation.json",
