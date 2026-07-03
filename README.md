@@ -70,6 +70,8 @@ All public numbers below are generated from committed artifacts by `npm run evid
 
 Boundary: cryptographic integrity proof, not regulatory certification. Approval-gated live path; current stock evidence is backtest/paper. The BTCUSDT Demo fill is a Bitget Demo integration smoke test, not Track 3 stock evidence.
 
+Read the two regret rows together. The gate is deliberately **not** tuned for average accuracy — it slightly trails always-fade there (39.0% vs 42.2%), and the mean-regret gap is not significant (p = 0.106). A fade-everything bot looks accurate only because most gaps revert, while it quietly eats the rare news-day blowups. The significance-tested win is on **worst-case (p95) tail regret**, cut from 7.47% to 5.81% (p = 0.001): the engine trades a little average accuracy to avoid the disasters. That is exactly what "knows when not to trade" should buy — risk reduction, not a directional-alpha claim.
+
 ## How It Works
 
 GapGuard is the product. Quorum is the internal five-role deterministic adversarial desk. Agent Passport/Arena is the trust and execution control layer.
@@ -138,6 +140,13 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 - The 20-symbol always-fade basket is negative; the point of GapGuard is abstention, risk control, and verifiable restraint.
 - Live real-money trading remains blocked without explicit user approval, a licensed passport, isolated margin, a hard notional cap, and `--confirm-live`.
 - Microstructure fadeable probabilities are not yet calibrated: the spread/depth/funding/NAV guards run as a deterministic safety floor, and the calibration report honestly flags insufficient labeled history to fit a probabilistic model.
+
+## Deep dives
+
+- [docs/TRUST_LAYER.md](docs/TRUST_LAYER.md) — the portable seal → Merkle → Ed25519 → browser-verify attestation format, specified so any trading agent can reuse it.
+- [docs/LIVE_RWA_RUNBOOK.md](docs/LIVE_RWA_RUNBOOK.md) — the safe, gated path to one real reversible RWA stock-perp fill sealed into the signed chain.
+- [docs/SUBMISSION.md](docs/SUBMISSION.md) — full Track-3 write-up. [docs/METRICS.md](docs/METRICS.md) — every public number, traced to its artifact.
+- [/status.html](https://gapguard.gudman.xyz/status.html) — live freshness watchdog for the cron-owned feeds and the gate key.
 
 ## License
 

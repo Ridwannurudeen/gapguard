@@ -48,7 +48,8 @@
     "live:calls": "tsx src/buildLiveCalls.ts",
     "live:bundle": "esbuild scripts/liveCallsEntry.ts --bundle --platform=node --format=esm --outfile=dist/live-calls.mjs",
     "broker:rwa-roundtrip": "tsx src/rwaRoundTrip.ts",
-    "microstructure:assess": "tsx src/microstructureCalibration.ts"
+    "microstructure:assess": "tsx src/microstructureCalibration.ts",
+    "status": "tsx src/buildStatusReport.ts"
   },
   "devDependencies": {
     "@types/node": "^22.19.19",

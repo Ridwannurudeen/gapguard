@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-06-24T14:26:37.214Z",
-  "commit": "c50ab663967c535fb150acced198e4ce52122832",
+  "commit": "fcfc8f47b6e5ae323dc0f10927cc456299a1bf83",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -10,8 +10,8 @@
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "3cc3af7b1d0faf0a053598b2fdd730362fb0a4a85dfd11359d8f700bc29bd08b",
-      "bytes": 9361
+      "sha256": "07fa6d5cea483e56fd4397c846da3954ec09eaa8f9b81ca4a4debd6c9fd9c887",
+      "bytes": 10597
     },
     {
       "path": "docs/SUBMISSION.md",
@@ -20,18 +20,18 @@
     },
     {
       "path": "docs/METRICS.md",
-      "sha256": "f08edd73714970632b5ee9c1b1827643dd571ad520f334cbaaa7174b13871b27",
-      "bytes": 2525
+      "sha256": "d31082f4d356a5171887d0161390373383453773d9226ff0e2debab98f12acb2",
+      "bytes": 2722
     },
     {
       "path": "public/index.html",
-      "sha256": "002adb2010eaa44616e854ed5a852f185c911f08ec6c3a74b992edb9b6a36add",
-      "bytes": 67337
+      "sha256": "714cfc5b7e8831d0c6b8d4bff736f199121368ace08c2bfaaf5fdc00a9ef97ed",
+      "bytes": 67396
     },
     {
       "path": "public/news.html",
-      "sha256": "1fcdd5831e1a875ee4b833a718d18c27597bee5e3e0fa4a6d59d99aa23af6ac2",
-      "bytes": 19359
+      "sha256": "7101edd032579f5f25aa94eae66a1659d8daa0401c7ea18b09399d4ba93c3145",
+      "bytes": 19422
     },
     {
       "path": "public/news-feed.json",
@@ -40,8 +40,13 @@
     },
     {
       "path": "public/arena.html",
-      "sha256": "bb26b6464463b9d5a0c0f1db56d73d48cd646234f9559aa43049a1fe18ef5844",
-      "bytes": 71963
+      "sha256": "69b3c886492f6e0195153d0ce1407164ec7e5dad0d0afe1b4c41bac5958b9970",
+      "bytes": 72026
+    },
+    {
+      "path": "public/status.html",
+      "sha256": "fb636c89578f7eca18212ed93d2b8ba7cb12b3cfa1272d3d94d38109c06447c5",
+      "bytes": 16955
     },
     {
       "path": "public/arena-data.json",
