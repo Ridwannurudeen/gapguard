@@ -26,7 +26,7 @@ Every required and supplementary material for Track 3 (US Stock AI Trading), map
 | Demo video, public, ≤3 min (optional) | Provided | [youtu.be/e_KX0ZDN2uw](https://youtu.be/e_KX0ZDN2uw) |
 | Clear strategy thesis, not a feature list (required) | Provided | [How It Works](#how-it-works) below + the four-part write-up in [docs/SUBMISSION.md](docs/SUBMISSION.md) |
 
-**Built with Bitget tools:** the AAPLUSDT managed backtest completed on Bitget Playbook ([`playbook/aaplusdt-backtest-result.json`](playbook/aaplusdt-backtest-result.json)), and the Bitget Agent Hub execution path is proven by a BTCUSDT Demo paper fill ([`artifacts/paper-btc-smoke.jsonl`](artifacts/paper-btc-smoke.jsonl)).
+**Built with Bitget tools:** the AAPLUSDT managed backtest completed on Bitget Playbook and the strategy is **published** on GetAgent (`strategy fd237bfe-8c54-4a4a-b461-5188cc8e4d20`, version `0.0.1` — publicly listed, not just a private draft run; result in [`playbook/aaplusdt-backtest-result.json`](playbook/aaplusdt-backtest-result.json)), and the Bitget Agent Hub execution path is proven by a BTCUSDT Demo paper fill ([`artifacts/paper-btc-smoke.jsonl`](artifacts/paper-btc-smoke.jsonl)).
 
 ## 60-Second Quickstart
 
