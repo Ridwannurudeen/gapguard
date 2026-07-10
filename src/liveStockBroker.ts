@@ -17,6 +17,8 @@ export interface FuturesOrderIntent {
   size: number;
   referencePrice: number;
   clientOid?: string;
+  stopLossPrice?: number;
+  takeProfitPrice?: number;
 }
 
 export interface BrokerConfig {
@@ -43,6 +45,8 @@ export interface BgcFuturesOrder {
   tradeSide: "open" | "close";
   clientOid: string;
   orderType: "market";
+  presetStopLossPrice?: string;
+  presetStopSurplusPrice?: string;
 }
 
 export interface FuturesOrderPlan {
@@ -159,12 +163,60 @@ export function bitgetCredentialsPresent(
   );
 }
 
+/**
+ * Every open order carries a stop-loss and (optionally) a take-profit as
+ * Bitget preset TP/SL fields, enforced by the exchange itself — no
+ * monitoring process needs to run for the stop to fire. Directions are
+ * validated so a wrong-sign bracket (stop-loss on the winning side) is
+ * rejected before it ever reaches the exchange rather than silently
+ * accepted and doing nothing or triggering instantly.
+ */
+function validateBracket(
+  side: FuturesSide,
+  referencePrice: number,
+  stopLossPrice: number | undefined,
+  takeProfitPrice: number | undefined,
+): void {
+  const isLong = side === "open_long";
+  if (stopLossPrice !== undefined) {
+    assertFinitePositive(stopLossPrice, "stopLossPrice");
+    if (
+      isLong ? stopLossPrice >= referencePrice : stopLossPrice <= referencePrice
+    ) {
+      throw new Error(
+        `stopLossPrice ${stopLossPrice} must be ${isLong ? "below" : "above"} referencePrice ${referencePrice} for ${side}`,
+      );
+    }
+  }
+  if (takeProfitPrice !== undefined) {
+    assertFinitePositive(takeProfitPrice, "takeProfitPrice");
+    if (
+      isLong
+        ? takeProfitPrice <= referencePrice
+        : takeProfitPrice >= referencePrice
+    ) {
+      throw new Error(
+        `takeProfitPrice ${takeProfitPrice} must be ${isLong ? "above" : "below"} referencePrice ${referencePrice} for ${side}`,
+      );
+    }
+  }
+}
+
 export function buildFuturesOrder(intent: FuturesOrderIntent): BgcFuturesOrder {
   assertFinitePositive(intent.size, "size");
   assertFinitePositive(intent.referencePrice, "referencePrice");
   if (!intent.symbol) throw new Error("symbol is required");
   const direction = intent.side.endsWith("long") ? "buy" : "sell";
   const tradeSide = intent.side.startsWith("open") ? "open" : "close";
+
+  if (tradeSide === "open") {
+    validateBracket(
+      intent.side,
+      intent.referencePrice,
+      intent.stopLossPrice,
+      intent.takeProfitPrice,
+    );
+  }
 
   return {
     symbol: intent.symbol,
@@ -176,6 +228,12 @@ export function buildFuturesOrder(intent: FuturesOrderIntent): BgcFuturesOrder {
     tradeSide,
     clientOid: intent.clientOid ?? clientOid(intent.symbol),
     orderType: "market",
+    ...(tradeSide === "open" && intent.stopLossPrice !== undefined
+      ? { presetStopLossPrice: intent.stopLossPrice.toString() }
+      : {}),
+    ...(tradeSide === "open" && intent.takeProfitPrice !== undefined
+      ? { presetStopSurplusPrice: intent.takeProfitPrice.toString() }
+      : {}),
   };
 }
 

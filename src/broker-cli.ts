@@ -1,6 +1,8 @@
 import { appendFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaPassports, buildDefaultQuorumDecision } from "./arena-demo";
+import { ARENA_MANDATE_TEXT } from "./arenaScenario";
+import { compileMandate } from "./mandate";
 import {
   extractOrderId,
   placeFuturesOrder,
@@ -8,6 +10,12 @@ import {
   type FuturesSide,
 } from "./liveStockBroker";
 import { readFuturesAvailable } from "./broker-balance";
+
+// Reuse the constitution's own overnight-loss cap as the default bracket
+// distance, rather than invent a separate risk number: the desk already
+// claims to enforce this limit, so the stop-loss should actually be it.
+const CONSTITUTION_OVERNIGHT_LOSS_PCT =
+  compileMandate(ARENA_MANDATE_TEXT).riskConfig.drawdownHaltPct;
 
 export interface BrokerCliArgs {
   mode: BrokerMode;
@@ -18,6 +26,8 @@ export interface BrokerCliArgs {
   maxNotionalUSDT: number;
   confirmLive: boolean;
   out: string;
+  stopLossPct: number | null;
+  takeProfitPct: number | null;
 }
 
 function valueAfter(argv: string[], index: number, flag: string): string {
@@ -52,6 +62,15 @@ function parseNumber(value: string, flag: string): number {
   const parsed = Number(value);
   if (!Number.isFinite(parsed) || parsed <= 0) {
     throw new Error(`${flag} must be a positive number`);
+  }
+  return parsed;
+}
+
+/** 0 explicitly disables the bracket leg; unset falls back to the caller's default. */
+function parseBracketPct(value: string, flag: string): number {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error(`${flag} must be a non-negative number`);
   }
   return parsed;
 }
@@ -118,6 +137,8 @@ export function parseBrokerCliArgs(
   );
   let confirmLive = false;
   let out: string | undefined;
+  let stopLossPct: number | undefined;
+  let takeProfitPct: number | undefined;
 
   for (let i = 0; i < argv.length; i += 1) {
     const flag = argv[i];
@@ -144,6 +165,12 @@ export function parseBrokerCliArgs(
     } else if (flag === "--out") {
       out = valueAfter(argv, i, flag);
       i += 1;
+    } else if (flag === "--stop-loss-pct") {
+      stopLossPct = parseBracketPct(valueAfter(argv, i, flag), flag);
+      i += 1;
+    } else if (flag === "--take-profit-pct") {
+      takeProfitPct = parseBracketPct(valueAfter(argv, i, flag), flag);
+      i += 1;
     } else {
       throw new Error(`unknown argument: ${flag}`);
     }
@@ -160,11 +187,20 @@ export function parseBrokerCliArgs(
   const resolvedSize = size ?? defaultOrderSize(mode, env);
   const resolvedReferencePrice =
     referencePrice ?? defaultReferencePrice(mode, env);
+  // Every live/paper order gets a stop-loss by default, sized off the desk's
+  // own constitution (never lose >1.5% overnight) rather than a fresh
+  // number, so a position can never be opened unprotected by accident.
+  // --stop-loss-pct 0 / --take-profit-pct 0 explicitly opts out.
+  const resolvedStopLossPct = stopLossPct ?? CONSTITUTION_OVERNIGHT_LOSS_PCT;
+  const resolvedTakeProfitPct =
+    takeProfitPct ?? CONSTITUTION_OVERNIGHT_LOSS_PCT;
 
   return {
     mode,
     symbol: resolvedSymbol,
     side,
+    stopLossPct: resolvedStopLossPct > 0 ? resolvedStopLossPct : null,
+    takeProfitPct: resolvedTakeProfitPct > 0 ? resolvedTakeProfitPct : null,
     size: resolvedSize,
     referencePrice: resolvedReferencePrice,
     maxNotionalUSDT,
@@ -190,12 +226,26 @@ export async function runBrokerCli(): Promise<void> {
   // account-balance change (read-only; skipped for dry-run, which makes no call).
   const balanceBefore =
     args.mode === "dry_run" ? null : await readFuturesAvailable(args.mode);
+  const isOpen = side === "open_long" || side === "open_short";
+  const isLong = side === "open_long";
+  const stopLossPrice =
+    isOpen && args.stopLossPct !== null
+      ? args.referencePrice *
+        (isLong ? 1 - args.stopLossPct : 1 + args.stopLossPct)
+      : undefined;
+  const takeProfitPrice =
+    isOpen && args.takeProfitPct !== null
+      ? args.referencePrice *
+        (isLong ? 1 + args.takeProfitPct : 1 - args.takeProfitPct)
+      : undefined;
   const result = await placeFuturesOrder(
     {
       symbol: args.symbol,
       side,
       size,
       referencePrice: args.referencePrice,
+      stopLossPrice,
+      takeProfitPrice,
     },
     {
       mode: args.mode,
@@ -251,8 +301,12 @@ export async function runBrokerCli(): Promise<void> {
   const leverageNote = result.leverageCheck
     ? `; leverage ${result.leverageCheck.observedLeverage ?? "unknown"}x${result.leverageCheck.corrected ? " (corrected)" : ""}`
     : "";
+  const bracketNote =
+    stopLossPrice !== undefined || takeProfitPrice !== undefined
+      ? `; bracket SL=${stopLossPrice?.toFixed(2) ?? "none"} TP=${takeProfitPrice?.toFixed(2) ?? "none"}`
+      : "";
   console.log(
-    `${result.status} ${args.symbol} ${side} size ${args.size} (${args.mode}) order ${orderId ?? "n/a"}; balance ${balanceBefore ?? "n/a"} -> ${balanceAfter ?? "n/a"} (Δ ${balanceDelta ?? "n/a"})${leverageNote}; quorum x${decision.positionMultiplier} recorded, not applied -> ${out}`,
+    `${result.status} ${args.symbol} ${side} size ${args.size} (${args.mode}) order ${orderId ?? "n/a"}; balance ${balanceBefore ?? "n/a"} -> ${balanceAfter ?? "n/a"} (Δ ${balanceDelta ?? "n/a"})${leverageNote}${bracketNote}; quorum x${decision.positionMultiplier} recorded, not applied -> ${out}`,
   );
 }
 
