@@ -1,9 +1,9 @@
 {
   "alg": "Ed25519",
-  "merkleRoot": "5aecb60f1796af14fb3cc769a9354c613967b3e398e913589f308d65710be82c",
+  "merkleRoot": "ab4ee6d68664ff18b449c7a5049d6fbbee521cabb8ba525390e4ec0c99384f65",
   "recordCount": 11,
-  "signedAt": "2026-07-10T00:51:14.255Z",
+  "signedAt": "2026-07-10T01:05:46.326Z",
   "model": "Qwen catalyst gate + deterministic Quorum",
   "publicKeySpkiB64": "MCowBQYDK2VwAyEADoXqmETbHZAA02/142/+iCMSzn+Pfs4Rn0IiGNOXYRc=",
-  "signatureB64": "rv2f8TE4huMIF5vk4qeZ8tXavDrGUiFo8mqxLS1FpwyKwRDhOMX1Gupo49AD64M/vmi14M77+n+iGlmBsH/ZDA=="
+  "signatureB64": "2UCLbOtdV8hTViTfHkfLGqvbnGz834qrGv5fLINYWLXHwohAyackmFRg8hap5ETtHRJXdIqF0CXJD9qwjQUDBw=="
 }
