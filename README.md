@@ -26,7 +26,7 @@ Every required and supplementary material for Track 3 (US Stock AI Trading), map
 | Demo video, public, ≤3 min (optional) | Provided | [youtu.be/e_KX0ZDN2uw](https://youtu.be/e_KX0ZDN2uw) |
 | Clear strategy thesis, not a feature list (required) | Provided | [How It Works](#how-it-works) below + the four-part write-up in [docs/SUBMISSION.md](docs/SUBMISSION.md) |
 
-**Built with Bitget tools:** the AAPLUSDT managed backtest completed on Bitget Playbook and the strategy is **published** on GetAgent (`strategy fd237bfe-8c54-4a4a-b461-5188cc8e4d20`, version `0.0.1` — publicly listed, not just a private draft run; result in [`playbook/aaplusdt-backtest-result.json`](playbook/aaplusdt-backtest-result.json)), and the Bitget Agent Hub execution path is proven by a BTCUSDT Demo paper fill ([`artifacts/paper-btc-smoke.jsonl`](artifacts/paper-btc-smoke.jsonl)).
+**Built with Bitget tools:** the AAPLUSDT managed backtest completed on Bitget Playbook and the strategy is **published** on GetAgent (`strategy fd237bfe-8c54-4a4a-b461-5188cc8e4d20`, version `0.0.1` — publicly listed, not just a private draft run; result in [`playbook/aaplusdt-backtest-result.json`](playbook/aaplusdt-backtest-result.json)); the Bitget Agent Hub execution path is proven by a BTCUSDT Demo paper fill ([`artifacts/paper-btc-smoke.jsonl`](artifacts/paper-btc-smoke.jsonl)); and a real live tokenized-stock fill has now been executed and closed on-exchange (AAPLUSDT, orders `1459271172842696705`/`1459280427494780929`, see [`artifacts/live-trades.jsonl`](artifacts/live-trades.jsonl)).
 
 ## 60-Second Quickstart
 
@@ -66,6 +66,7 @@ All public numbers below are generated from committed artifacts by `npm run evid
 | Risk-reduction edge: worst-case (p95) regret, gate vs always-fade | 5.807% vs 7.474% (reduction p=0.001) | `artifacts/gate-holdout-report.json` |
 | Stock paper journal | 58 rows | `artifacts/stock-paper-journal.jsonl`, `artifacts/stock-paper-journal.csv` |
 | Crypto Demo integration smoke | 3 BTCUSDT paper rows | `artifacts/paper-btc-smoke.jsonl` |
+| Live AAPLUSDT round-trip (real funds) | open @ 315.47, close @ 315.16, size 0.05, balance -$0.034 | `artifacts/live-trades.jsonl` |
 <!-- EVIDENCE:END -->
 
 Boundary: cryptographic integrity proof, not regulatory certification. Approval-gated live path; current stock evidence is backtest/paper. The BTCUSDT Demo fill is a Bitget Demo integration smoke test, not Track 3 stock evidence.
@@ -80,7 +81,7 @@ GapGuard is the product. Quorum is the internal five-role deterministic adversar
 2. Catalyst gate: a two-tier Qwen model — `qwen3.6-flash` for quick passes, `qwen3.6-plus` for deep reasoning — classifies real, blinded Finnhub overnight news as fadeable noise or justified repricing. Invalid model output fails closed.
 3. Quorum: five-role deterministic adversarial desk weighs narrative, positioning, market intel, bear, and risk evidence.
 4. Mandate: natural-language risk rules compile into hard vetoes.
-5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading.
+5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading; the same live broker path has executed one real, gated AAPLUSDT open/close round trip.
 6. Proof: Arena records are sealed into a sha256 hash chain and signed with Ed25519 over a Merkle root.
 7. Reflection: realized outcomes of past calls are appended to a hash-chained lesson log and fed back into the gate, so the engine learns from its own receipts without ever mutating them.
 
@@ -132,19 +133,20 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 - [public/reflection-chain.jsonl](public/reflection-chain.jsonl) - append-only, hash-chained reflection lessons fed back into the gate.
 - [artifacts/stock-paper-journal.jsonl](artifacts/stock-paper-journal.jsonl) and [artifacts/stock-paper-journal.csv](artifacts/stock-paper-journal.csv) - Track 3 stock paper journal.
 - [artifacts/paper-btc-smoke.jsonl](artifacts/paper-btc-smoke.jsonl) - Bitget Demo integration smoke, BTCUSDT only.
+- [artifacts/live-trades.jsonl](artifacts/live-trades.jsonl) - real live AAPLUSDT open/close fill receipts (orders `1459271172842696705` / `1459280427494780929`).
 
 ## Honest Limits
 
-- No live on-exchange RWA stock fill is claimed.
+- One real live on-exchange RWA stock fill has been executed and closed (AAPLUSDT, receipts in [`artifacts/live-trades.jsonl`](artifacts/live-trades.jsonl)) — this proves the exchange path end-to-end, it is not a live-alpha claim or sustained live trading.
 - The positive walk-forward result is a positive pilot OOS over 16 trading days, not proven profitable alpha.
 - The 20-symbol always-fade basket is negative; the point of GapGuard is abstention, risk control, and verifiable restraint.
-- Live real-money trading remains blocked without explicit user approval, a licensed passport, isolated margin, a hard notional cap, and `--confirm-live`.
+- Further live real-money trading remains blocked without explicit user approval, a licensed passport, isolated margin, a hard notional cap, and `--confirm-live`.
 - Microstructure fadeable probabilities are not yet calibrated: the spread/depth/funding/NAV guards run as a deterministic safety floor, and the calibration report honestly flags insufficient labeled history to fit a probabilistic model.
 
 ## Deep dives
 
 - [docs/TRUST_LAYER.md](docs/TRUST_LAYER.md) — the portable seal → Merkle → Ed25519 → browser-verify attestation format, specified so any trading agent can reuse it.
-- [docs/LIVE_RWA_RUNBOOK.md](docs/LIVE_RWA_RUNBOOK.md) — the safe, gated path to one real reversible RWA stock-perp fill sealed into the signed chain.
+- [docs/LIVE_RWA_RUNBOOK.md](docs/LIVE_RWA_RUNBOOK.md) — the gated path to a real reversible RWA stock-perp fill sealed into the signed chain; executed once (see Honest Limits above).
 - [docs/SUBMISSION.md](docs/SUBMISSION.md) — full Track-3 write-up. [docs/METRICS.md](docs/METRICS.md) — every public number, traced to its artifact.
 - [/status.html](https://gapguard.gudman.xyz/status.html) — live freshness watchdog for the cron-owned feeds and the gate key.
 

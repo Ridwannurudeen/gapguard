@@ -38,6 +38,7 @@ All public numbers below are generated from committed artifacts by `npm run evid
 | Risk-reduction edge: worst-case (p95) regret, gate vs always-fade | 5.807% vs 7.474% (reduction p=0.001) | `artifacts/gate-holdout-report.json` |
 | Stock paper journal | 58 rows | `artifacts/stock-paper-journal.jsonl`, `artifacts/stock-paper-journal.csv` |
 | Crypto Demo integration smoke | 3 BTCUSDT paper rows | `artifacts/paper-btc-smoke.jsonl` |
+| Live AAPLUSDT round-trip (real funds) | open @ 315.47, close @ 315.16, size 0.05, balance -$0.034 | `artifacts/live-trades.jsonl` |
 <!-- EVIDENCE:END -->
 
 The 2026-06-09 WWDC case is the hero example: the Qwen catalyst gate correctly stood aside on a news-driven repricing gap that the always-fade baseline would have traded.
@@ -84,7 +85,7 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit
 
 ## Honest Limitations
 
-1. No live on-exchange RWA stock fill is claimed. Bitget Demo supports crypto perps; the RWA stock leg is simulated/backtested unless explicit live approval is granted.
+1. One real live on-exchange RWA stock fill has been executed and closed (AAPLUSDT, `artifacts/live-trades.jsonl`) under explicit live approval; it proves the exchange path end-to-end and is not a live-alpha or sustained-trading claim. Bitget Demo supports crypto perps only, so the RWA stock leg otherwise stays simulated/backtested.
 2. No directional alpha is claimed: on raw accuracy the gate does not beat fading everything (39.0% vs 42.2%). The proven, significance-tested edge is risk reduction — a worst-case (p95) regret cut of 7.47% to 5.81% (p = 0.001), not profit. The small positive pilot (+1.4% OOS, 13 trades) is illustrative, not a generalized profit claim.
 3. The broader always-fade basket is negative. This strengthens the product thesis: GapGuard blocks weak strategies instead of pretending every gap should be traded.
 4. Qwen verdicts are cached for reproducibility after the live audit pass.

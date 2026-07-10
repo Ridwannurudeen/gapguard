@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "createdAt": "2026-07-10T01:09:50.529Z",
-  "commit": "32b57742634188d53bc5193cbf6c5c7e72a6ac66",
+  "createdAt": "2026-07-10T01:39:12.617Z",
+  "commit": "83f5c7e7528d8fd0c87eed1dabef1da8e2f971aa",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -10,18 +10,18 @@
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "5a37ecd3f7772c2cd754412b76c957c094d6cce8be270f46fd0176cc1a7f3b23",
-      "bytes": 10769
+      "sha256": "9dfc8b3e30edd4f53340f9f154cbcdaa78799597759edf7f72f3af0f63c14c19",
+      "bytes": 11612
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "2ed2f356613a6f6e3fb7f308565f0ce6cb65865b96184a32b8109ec030886056",
-      "bytes": 8958
+      "sha256": "c5668c1add66af60fdeb19ebe78a91f1bdf02ec409461e7220d716b516a0cfe3",
+      "bytes": 9258
     },
     {
       "path": "docs/METRICS.md",
-      "sha256": "d31082f4d356a5171887d0161390373383453773d9226ff0e2debab98f12acb2",
-      "bytes": 2722
+      "sha256": "dd8ec86bd0722ca960d9ccbfc0673790943506654c9cdbfa05c1ffc4cfb26c4f",
+      "bytes": 3047
     },
     {
       "path": "public/index.html",
@@ -50,17 +50,17 @@
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "83bae6c1af57b65c3ea7e08503643fa1715bf72fbb05866caaff7a56fd6c5fa6",
-      "bytes": 19341
+      "sha256": "e7e19c88b58b3fe2897d577acfe4c584734177245f7f92ad549efb7a05b8646f",
+      "bytes": 19324
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "3b66ed51ac1f6b9e0b87dfd98f35f87c36c1d7a077b8eb15575b8d18b6188413",
-      "bytes": 11585
+      "sha256": "61b5c19c0ac229077a147df1155ec78676609071dd6b1b5448b85958f13c4618",
+      "bytes": 11579
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "0886b1ff035cd1b01bcbb7e4130b7aba73c885b7b625e9f3dd4ecd03fb604c84",
+      "sha256": "c5b8f280d70b76fd08e0d08d28452a9046798c530844f2990e4f445dfa89aa5f",
       "bytes": 422
     },
     {
@@ -75,8 +75,8 @@
     },
     {
       "path": "public/metrics.json",
-      "sha256": "5e7163e213ecfa26dde7abaa7dafe168ffb99a784df70267f4f6971d4b2d6c82",
-      "bytes": 4711
+      "sha256": "c7e5075edf0600cab4e3722a51dad64f75c7958663c2ec0febc2f08041d8cdf4",
+      "bytes": 5160
     },
     {
       "path": "public/dashboard-data.json",

@@ -74,6 +74,17 @@ export interface EvidenceReport {
     rowCount: number;
     label: string;
   };
+  liveStockRoundTrip: {
+    source: string;
+    symbol: string;
+    openOrderId: string;
+    closeOrderId: string;
+    openPrice: number;
+    closePrice: number;
+    size: number;
+    netCostUSDT: number;
+    label: string;
+  } | null;
   caveats: string[];
 }
 
@@ -156,6 +167,62 @@ function countJsonlRows(path: string): number {
     .filter((line) => line.trim().length > 0).length;
 }
 
+function readJsonlRows(path: string): UnknownRecord[] {
+  const fullPath = resolve(path);
+  if (!existsSync(fullPath)) return [];
+  return readFileSync(fullPath, "utf8")
+    .split(/\r?\n/)
+    .filter((line) => line.trim().length > 0)
+    .map((line) => asRecord(JSON.parse(line) as unknown));
+}
+
+/**
+ * Builds the live round-trip evidence row from artifacts/live-trades.jsonl,
+ * pairing the most recent open with the most recent matching close (by
+ * symbol) so the README claim can never drift ahead of what actually
+ * cleared on the exchange.
+ */
+function buildLiveStockRoundTrip(): EvidenceReport["liveStockRoundTrip"] {
+  const rows = readJsonlRows("artifacts/live-trades.jsonl").filter(
+    (row) => row.mode === "live",
+  );
+  const close = [...rows]
+    .reverse()
+    .find((row) => String(row.side).startsWith("close"));
+  if (!close) return null;
+  const open = [...rows]
+    .reverse()
+    .find(
+      (row) =>
+        row.symbol === close.symbol &&
+        String(row.side).startsWith("open") &&
+        Number(row.ts ? Date.parse(String(row.ts)) : 0) <
+          Number(Date.parse(String(close.ts))),
+    );
+  if (!open) return null;
+  const openReceipt = asRecord(open.receipt);
+  const closeReceipt = asRecord(close.receipt);
+  const openPrice =
+    readOptionalNumber(openReceipt, "avgFillPrice") ??
+    getNumber(open, "referencePrice");
+  const closePrice =
+    readOptionalNumber(closeReceipt, "avgFillPrice") ??
+    getNumber(close, "referencePrice");
+  const openDelta = readOptionalNumber(open, "balanceDelta") ?? 0;
+  const closeDelta = readOptionalNumber(close, "balanceDelta") ?? 0;
+  return {
+    source: "artifacts/live-trades.jsonl",
+    symbol: getString(open, "symbol"),
+    openOrderId: getString(open, "orderId"),
+    closeOrderId: getString(close, "orderId"),
+    openPrice,
+    closePrice,
+    size: getNumber(open, "size"),
+    netCostUSDT: openDelta + closeDelta,
+    label: "real live tokenized-stock fill, opened and closed on-exchange",
+  };
+}
+
 function formatWindow(window: UnknownRecord): string {
   return `${String(window.from ?? "unknown")} -> ${String(window.to ?? "unknown")}`;
 }
@@ -194,6 +261,10 @@ function shortPct(value: number): string {
   return `${value > 0 ? "+" : ""}${value.toFixed(1)}%`;
 }
 
+function usd(value: number): string {
+  return `${value < 0 ? "-" : "+"}$${Math.abs(value).toFixed(3)}`;
+}
+
 function summaryBlock(report: EvidenceReport): string {
   const m = report.metrics;
   return `<!-- EVIDENCE:START -->
@@ -207,7 +278,11 @@ function summaryBlock(report: EvidenceReport): string {
 | Multi-symbol gate holdout | ${report.gateHoldout.holdoutCandidates} holdout candidates / ${report.gateHoldout.symbols} symbols | \`${report.gateHoldout.source}\` |
 | Risk-reduction edge: worst-case (p95) regret, gate vs always-fade | ${report.gateHoldout.fullBundleQwenTailRegretPct95}% vs ${report.gateHoldout.alwaysFadeTailRegretPct95}% (reduction p=${report.gateHoldout.fullBundleQwenTailRegretReductionPValue}) | \`${report.gateHoldout.source}\` |
 | Stock paper journal | ${report.stockPaperJournal.rowCount} rows | \`${report.stockPaperJournal.jsonl}\`, \`${report.stockPaperJournal.csv}\` |
-| Crypto Demo integration smoke | ${report.cryptoDemoSmoke.rowCount} BTCUSDT paper rows | \`${report.cryptoDemoSmoke.source}\` |
+| Crypto Demo integration smoke | ${report.cryptoDemoSmoke.rowCount} BTCUSDT paper rows | \`${report.cryptoDemoSmoke.source}\` |${
+    report.liveStockRoundTrip
+      ? `\n| Live ${report.liveStockRoundTrip.symbol} round-trip (real funds) | open @ ${report.liveStockRoundTrip.openPrice}, close @ ${report.liveStockRoundTrip.closePrice}, size ${report.liveStockRoundTrip.size}, balance ${usd(report.liveStockRoundTrip.netCostUSDT)} | \`${report.liveStockRoundTrip.source}\` |`
+      : ""
+  }
 <!-- EVIDENCE:END -->`;
 }
 
@@ -379,11 +454,12 @@ export function buildEvidenceReport(generatedAt?: string): EvidenceReport {
       label:
         "Bitget Demo integration smoke (crypto BTCUSDT), not Track 3 stock evidence",
     },
+    liveStockRoundTrip: buildLiveStockRoundTrip(),
     caveats: [
-      "No live on-exchange RWA stock fill is claimed.",
       "The AAPL gate-driven result is n=15 and driven mainly by one correctly avoided WWDC loss.",
       "The 20-symbol always-fade basket is negative, which is why the product is an abstention/risk engine instead of a blind gap fader.",
       "The walk-forward result is a positive pilot OOS over 16 trading days, not proven profitable alpha.",
+      "The single live round-trip fill proves the exchange path works end-to-end; it is one small trade, not a live-alpha claim.",
     ],
   };
 }
@@ -414,7 +490,11 @@ Multi-symbol gate holdout: ${report.gateHoldout.holdoutCandidates}/${report.gate
 Stock paper journal: \`${report.stockPaperJournal.jsonl}\` and \`${report.stockPaperJournal.csv}\` (${report.stockPaperJournal.rowCount} rows, ${report.stockPaperJournal.label}).
 
 Crypto Demo smoke: \`${report.cryptoDemoSmoke.source}\` (${report.cryptoDemoSmoke.rowCount} rows, ${report.cryptoDemoSmoke.label}).
-
+${
+  report.liveStockRoundTrip
+    ? `\nLive round-trip: \`${report.liveStockRoundTrip.source}\` — ${report.liveStockRoundTrip.symbol} opened (order \`${report.liveStockRoundTrip.openOrderId}\` @ ${report.liveStockRoundTrip.openPrice}) and closed (order \`${report.liveStockRoundTrip.closeOrderId}\` @ ${report.liveStockRoundTrip.closePrice}), size ${report.liveStockRoundTrip.size}, balance ${usd(report.liveStockRoundTrip.netCostUSDT)} (${report.liveStockRoundTrip.label}).\n`
+    : ""
+}
 ## Caveats
 
 ${report.caveats.map((caveat) => `- ${caveat}`).join("\n")}
