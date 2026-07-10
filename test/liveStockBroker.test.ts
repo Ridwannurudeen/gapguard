@@ -153,7 +153,7 @@ describe("live stock broker", () => {
       clientOid: "client-123",
       status: "submitted",
     });
-    expect(calls).toHaveLength(2);
+    expect(calls).toHaveLength(3);
     expect(calls[0].args).toContain("futures_set_leverage");
     expect(calls[0].args).toContain("--paper-trading");
     expect(calls[1].command).toBe(process.execPath);
@@ -162,6 +162,7 @@ describe("live stock broker", () => {
     expect(calls[1].envValue).toBe("propagated");
     expect(calls[1].baseUrlOverride).toBeUndefined();
     expect(calls[1].timeoutMs).toBe(12_000);
+    expect(calls[2].args).toContain("futures_get_positions");
   });
 
   it("sets the licensed leverage on the exchange before submitting the order", async () => {
@@ -196,6 +197,136 @@ describe("live stock broker", () => {
     expect(leverageArgs[leverageArgs.indexOf("--leverage") + 1]).toBe("1");
     expect(leverageArgs[leverageArgs.indexOf("--holdSide") + 1]).toBe("long");
     expect(calls[1]).toContain("futures_place_order");
+  });
+
+  it("passes through when the exchange confirms the requested leverage on the new position", async () => {
+    const calls: string[][] = [];
+    const result = await placeFuturesOrder(
+      {
+        symbol: "AAPLUSDT",
+        side: "open_long",
+        size: 0.05,
+        referencePrice: 315.31,
+      },
+      {
+        ...baseConfig,
+        mode: "paper",
+        env: {
+          BITGET_API_KEY: "demo-key",
+          BITGET_SECRET_KEY: "demo-secret",
+          BITGET_PASSPHRASE: "demo-passphrase",
+        },
+      },
+      async (_command, args) => {
+        calls.push(args);
+        const tool = args[args.indexOf("futures") + 1];
+        if (tool === "futures_get_positions") {
+          return {
+            exitCode: 0,
+            stdout:
+              '{"code":"00000","data":[{"holdSide":"long","leverage":"1"}]}',
+            stderr: "",
+          };
+        }
+        return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
+      },
+    );
+
+    expect(result.leverageCheck).toEqual({
+      requestedLeverage: 1,
+      observedLeverage: "1",
+      corrected: false,
+    });
+    expect(calls.map((args) => args[args.indexOf("futures") + 1])).toEqual([
+      "futures_set_leverage",
+      "futures_place_order",
+      "futures_get_positions",
+    ]);
+  });
+
+  it("self-heals when the exchange opens the position at the wrong leverage", async () => {
+    const calls: string[][] = [];
+    let positionCheckCount = 0;
+    const result = await placeFuturesOrder(
+      {
+        symbol: "SKHYNIXUSDT",
+        side: "open_short",
+        size: 0.01,
+        referencePrice: 1469.13,
+      },
+      {
+        ...baseConfig,
+        mode: "live",
+        confirmLive: true,
+        env: {
+          BITGET_API_KEY: "live-key",
+          BITGET_SECRET_KEY: "live-secret",
+          BITGET_PASSPHRASE: "live-passphrase",
+        },
+      },
+      async (_command, args) => {
+        calls.push(args);
+        const tool = args[args.indexOf("futures") + 1];
+        if (tool === "futures_get_positions") {
+          positionCheckCount += 1;
+          const leverage = positionCheckCount === 1 ? "10" : "1";
+          return {
+            exitCode: 0,
+            stdout: `{"code":"00000","data":[{"holdSide":"short","leverage":"${leverage}"}]}`,
+            stderr: "",
+          };
+        }
+        return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
+      },
+    );
+
+    expect(result.leverageCheck).toEqual({
+      requestedLeverage: 1,
+      observedLeverage: "1",
+      corrected: true,
+    });
+    expect(calls.map((args) => args[args.indexOf("futures") + 1])).toEqual([
+      "futures_set_leverage",
+      "futures_place_order",
+      "futures_get_positions",
+      "futures_set_leverage",
+      "futures_get_positions",
+    ]);
+  });
+
+  it("throws if the leverage correction itself can't be verified", async () => {
+    await expect(
+      placeFuturesOrder(
+        {
+          symbol: "SKHYNIXUSDT",
+          side: "open_short",
+          size: 0.01,
+          referencePrice: 1469.13,
+        },
+        {
+          ...baseConfig,
+          mode: "live",
+          confirmLive: true,
+          env: {
+            BITGET_API_KEY: "live-key",
+            BITGET_SECRET_KEY: "live-secret",
+            BITGET_PASSPHRASE: "live-passphrase",
+          },
+        },
+        async (_command, args) => {
+          const tool = args[args.indexOf("futures") + 1];
+          if (tool === "futures_get_positions") {
+            return {
+              exitCode: 0,
+              stdout:
+                '{"code":"00000","data":[{"holdSide":"short","leverage":"10"}]}',
+              stderr: "",
+            };
+          }
+          return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
+        },
+      ),
+    ).rejects.toThrow("re-check still shows 10x");
   });
 
   it("maps short and close sides onto the held position side for set-leverage", () => {
@@ -361,6 +492,7 @@ describe("live stock broker", () => {
       "futures_place_order",
       "futures_get_orders",
       "futures_get_fills",
+      "futures_get_positions",
     ]);
     expect(calls[2]).toContain("--orderId");
     expect(calls[2]).toContain("1452633152483852289");

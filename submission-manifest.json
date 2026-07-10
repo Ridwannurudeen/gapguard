@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "createdAt": "2026-07-10T01:39:12.617Z",
-  "commit": "83f5c7e7528d8fd0c87eed1dabef1da8e2f971aa",
+  "createdAt": "2026-07-10T06:28:05.037Z",
+  "commit": "373d1651d30de84edaf1c481a712f54334fed4c1",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -50,17 +50,17 @@
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "e7e19c88b58b3fe2897d577acfe4c584734177245f7f92ad549efb7a05b8646f",
-      "bytes": 19324
+      "sha256": "d6d2ba42eec99d868f3bff207f4a487409ecba720a975a49363f95cc9ae78653",
+      "bytes": 19297
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "61b5c19c0ac229077a147df1155ec78676609071dd6b1b5448b85958f13c4618",
-      "bytes": 11579
+      "sha256": "45346b06d1e7299f4910fe32634c9f363616fb2d9320178743c289a43201b4bb",
+      "bytes": 11580
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "c5b8f280d70b76fd08e0d08d28452a9046798c530844f2990e4f445dfa89aa5f",
+      "sha256": "88104408354e4cfb2866258245cf7dd23098f1e3a6424b58cc90e53e5072ce92",
       "bytes": 422
     },
     {

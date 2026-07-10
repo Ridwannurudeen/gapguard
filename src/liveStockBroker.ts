@@ -85,12 +85,19 @@ export interface BrokerFillReceipt {
   transitions: BrokerStateTransition[];
 }
 
+export interface LeverageCheck {
+  requestedLeverage: number;
+  observedLeverage: string | null;
+  corrected: boolean;
+}
+
 export interface BrokerResult {
   status: "dry_run" | "submitted" | "filled" | "cancelled" | "timeout";
   plan: FuturesOrderPlan;
   receipt?: BrokerFillReceipt;
   stdout?: string;
   stderr?: string;
+  leverageCheck?: LeverageCheck;
 }
 
 export type CommandRunner = (
@@ -407,6 +414,51 @@ export function buildSetLeverageArgs(
   ];
 }
 
+function buildGetPositionsArgs(plan: FuturesOrderPlan): string[] {
+  return [
+    ...commandPrefix(plan),
+    "futures",
+    "futures_get_positions",
+    "--productType",
+    "USDT-FUTURES",
+    "--symbol",
+    plan.order.symbol,
+    "--marginCoin",
+    plan.order.marginCoin,
+  ];
+}
+
+/**
+ * futures_set_leverage can report success while the leverage it actually
+ * applies to the NEXT market order lags behind (observed live: set-leverage
+ * confirmed 1x, the order that followed immediately still opened at the
+ * account's stale 10x; re-issuing set-leverage against the now-open position
+ * fixed it instantly). So after opening a position, read the leverage the
+ * exchange actually recorded rather than trust the set-leverage response.
+ */
+function parsePositionLeverage(
+  stdout: string,
+  holdSide: string,
+): string | null {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(stdout);
+  } catch {
+    return null;
+  }
+  const rows = Array.isArray((parsed as { data?: unknown })?.data)
+    ? ((parsed as { data: unknown[] }).data as unknown[])
+    : [];
+  const match = rows.find(
+    (row): row is Record<string, unknown> =>
+      typeof row === "object" &&
+      row !== null &&
+      (row as Record<string, unknown>).holdSide === holdSide,
+  );
+  const leverage = match?.leverage;
+  return typeof leverage === "string" ? leverage : null;
+}
+
 function normalizeOrderStatus(
   raw: string | null,
 ): BrokerStateTransition["status"] {
@@ -600,11 +652,74 @@ export async function placeFuturesOrder(
     runner,
   );
 
+  const leverageCheck =
+    plan.order.tradeSide === "open"
+      ? await verifyAndHealLeverage(plan, cfg, childEnv, runner)
+      : undefined;
+
   return {
     status: receipt.status,
     plan,
     receipt,
     stdout: result.stdout,
     stderr: result.stderr,
+    leverageCheck,
   };
+}
+
+/**
+ * Reads back the leverage the exchange actually recorded on the just-opened
+ * position and, if it doesn't match the license, re-issues set-leverage
+ * (proven reliable against an existing position) and re-checks once. Throws
+ * if the correction itself can't be verified, so a leverage mismatch is
+ * never silently left in place.
+ */
+async function verifyAndHealLeverage(
+  plan: FuturesOrderPlan,
+  cfg: BrokerConfig,
+  childEnv: NodeJS.ProcessEnv,
+  runner: CommandRunner,
+): Promise<LeverageCheck> {
+  const holdSide = plan.order.side === "buy" ? "long" : "short";
+  const requestedLeverage = cfg.leverage;
+
+  const readLeverage = async (): Promise<string | null> => {
+    const positions = await runner(plan.command, buildGetPositionsArgs(plan), {
+      env: childEnv,
+      timeoutMs: cfg.timeoutMs,
+    });
+    return positions.exitCode === 0
+      ? parsePositionLeverage(positions.stdout, holdSide)
+      : null;
+  };
+
+  const observed = await readLeverage();
+  if (observed === null || observed === String(requestedLeverage)) {
+    return { requestedLeverage, observedLeverage: observed, corrected: false };
+  }
+
+  const heal = await runner(plan.command, buildSetLeverageArgs(plan, cfg), {
+    env: childEnv,
+    timeoutMs: cfg.timeoutMs,
+  });
+  if (heal.exitCode !== 0) {
+    throw new Error(
+      `leverage mismatch on ${plan.order.symbol}: exchange reports ${observed}x (expected ${requestedLeverage}x) and the correction call failed (${heal.exitCode}): ${heal.stderr.slice(0, 240)}`,
+    );
+  }
+  const healResponse = interpretBitgetResponse(heal.stdout);
+  if (healResponse && !healResponse.ok) {
+    throw new Error(
+      `leverage mismatch on ${plan.order.symbol}: exchange reports ${observed}x (expected ${requestedLeverage}x) and Bitget rejected the correction (code ${healResponse.code}): ${healResponse.msg}`,
+    );
+  }
+
+  const healed = await readLeverage();
+  if (healed !== String(requestedLeverage)) {
+    throw new Error(
+      `leverage mismatch on ${plan.order.symbol}: exchange reported ${observed}x, correction call succeeded, but re-check still shows ${healed ?? "unknown"}x (expected ${requestedLeverage}x) — check the position manually`,
+    );
+  }
+
+  return { requestedLeverage, observedLeverage: healed, corrected: true };
 }

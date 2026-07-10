@@ -91,7 +91,10 @@ function defaultReferencePrice(
   );
 }
 
-function optionalNonNegativeInt(value: string | undefined, field: string): number | undefined {
+function optionalNonNegativeInt(
+  value: string | undefined,
+  field: string,
+): number | undefined {
   if (value === undefined) return undefined;
   const parsed = Number(value);
   if (!Number.isInteger(parsed) || parsed < 0) {
@@ -216,7 +219,8 @@ export async function runBrokerCli(): Promise<void> {
     },
   );
   const orderId =
-    result.receipt?.orderId ?? (result.stdout ? extractOrderId(result.stdout) : null);
+    result.receipt?.orderId ??
+    (result.stdout ? extractOrderId(result.stdout) : null);
   const balanceAfter =
     args.mode === "dry_run" ? null : await readFuturesAvailable(args.mode);
   const balanceDelta =
@@ -244,8 +248,11 @@ export async function runBrokerCli(): Promise<void> {
       result,
     })}\n`,
   );
+  const leverageNote = result.leverageCheck
+    ? `; leverage ${result.leverageCheck.observedLeverage ?? "unknown"}x${result.leverageCheck.corrected ? " (corrected)" : ""}`
+    : "";
   console.log(
-    `${result.status} ${args.symbol} ${side} size ${args.size} (${args.mode}) order ${orderId ?? "n/a"}; balance ${balanceBefore ?? "n/a"} -> ${balanceAfter ?? "n/a"} (Δ ${balanceDelta ?? "n/a"}); quorum x${decision.positionMultiplier} recorded, not applied -> ${out}`,
+    `${result.status} ${args.symbol} ${side} size ${args.size} (${args.mode}) order ${orderId ?? "n/a"}; balance ${balanceBefore ?? "n/a"} -> ${balanceAfter ?? "n/a"} (Δ ${balanceDelta ?? "n/a"})${leverageNote}; quorum x${decision.positionMultiplier} recorded, not applied -> ${out}`,
   );
 }
 
