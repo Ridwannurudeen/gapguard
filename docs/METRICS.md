@@ -23,9 +23,11 @@ Stock paper journal: `artifacts/stock-paper-journal.jsonl` and `artifacts/stock-
 
 Crypto Demo smoke: `artifacts/paper-btc-smoke.jsonl` (3 rows, Bitget Demo integration smoke (crypto BTCUSDT), not Track 3 stock evidence).
 
+Live round-trip: `artifacts/live-trades.jsonl` — AAPLUSDT opened (order `1459271172842696705` @ 315.47) and closed (order `1459280427494780929` @ 315.16), size 0.05, balance -$0.034 (real live tokenized-stock fill, opened and closed on-exchange).
+
 ## Caveats
 
-- No live on-exchange RWA stock fill is claimed.
 - The AAPL gate-driven result is n=15 and driven mainly by one correctly avoided WWDC loss.
 - The 20-symbol always-fade basket is negative, which is why the product is an abstention/risk engine instead of a blind gap fader.
 - The walk-forward result is a positive pilot OOS over 16 trading days, not proven profitable alpha.
+- The single live round-trip fill proves the exchange path works end-to-end; it is one small trade, not a live-alpha claim.
