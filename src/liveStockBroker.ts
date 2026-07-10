@@ -304,7 +304,9 @@ function extractStringField(stdout: string, fields: string[]): string | null {
 }
 
 function readNumericField(stdout: string, field: string): number | null {
-  const match = stdout.match(new RegExp(`"${field}"\\s*:\\s*"?(-?\\d+(?:\\.\\d+)?)"?`));
+  const match = stdout.match(
+    new RegExp(`"${field}"\\s*:\\s*"?(-?\\d+(?:\\.\\d+)?)"?`),
+  );
   if (!match) return null;
   const parsed = Number(match[1]);
   return Number.isFinite(parsed) ? parsed : null;
@@ -342,7 +344,10 @@ function commandPrefix(plan: FuturesOrderPlan): string[] {
   return futuresIndex === -1 ? [] : plan.args.slice(0, futuresIndex);
 }
 
-function buildOrderDetailArgs(plan: FuturesOrderPlan, orderId: string): string[] {
+function buildOrderDetailArgs(
+  plan: FuturesOrderPlan,
+  orderId: string,
+): string[] {
   return [
     ...commandPrefix(plan),
     "futures",
@@ -356,7 +361,10 @@ function buildOrderDetailArgs(plan: FuturesOrderPlan, orderId: string): string[]
   ];
 }
 
-function buildOrderFillsArgs(plan: FuturesOrderPlan, orderId: string): string[] {
+function buildOrderFillsArgs(
+  plan: FuturesOrderPlan,
+  orderId: string,
+): string[] {
   return [
     ...commandPrefix(plan),
     "futures",
@@ -370,7 +378,38 @@ function buildOrderFillsArgs(plan: FuturesOrderPlan, orderId: string): string[] 
   ];
 }
 
-function normalizeOrderStatus(raw: string | null): BrokerStateTransition["status"] {
+/**
+ * Bitget applies the account's configured leverage to market orders — the
+ * order payload itself carries none. Without this call a live fill silently
+ * uses whatever leverage the account last had (observed: 10x against a 1x
+ * license), so the leverage must be set explicitly before every submission.
+ */
+export function buildSetLeverageArgs(
+  plan: FuturesOrderPlan,
+  cfg: BrokerConfig,
+): string[] {
+  // buildFuturesOrder maps *_long -> "buy" and *_short -> "sell" for both
+  // open and close, so order.side is the position side.
+  return [
+    ...commandPrefix(plan),
+    "futures",
+    "futures_set_leverage",
+    "--productType",
+    "USDT-FUTURES",
+    "--symbol",
+    plan.order.symbol,
+    "--marginCoin",
+    plan.order.marginCoin,
+    "--leverage",
+    String(cfg.leverage),
+    "--holdSide",
+    plan.order.side === "buy" ? "long" : "short",
+  ];
+}
+
+function normalizeOrderStatus(
+  raw: string | null,
+): BrokerStateTransition["status"] {
   const status = raw?.toLowerCase() ?? "";
   if (status.includes("full") || status.includes("filled")) return "filled";
   if (status.includes("cancel")) return "cancelled";
@@ -438,8 +477,10 @@ async function pollFuturesOrderReceipt(
     receipt = {
       ...receipt,
       status,
-      avgFillPrice: readNumericField(detail.stdout, "priceAvg") ?? receipt.avgFillPrice,
-      executedQty: readNumericField(detail.stdout, "baseVolume") ?? receipt.executedQty,
+      avgFillPrice:
+        readNumericField(detail.stdout, "priceAvg") ?? receipt.avgFillPrice,
+      executedQty:
+        readNumericField(detail.stdout, "baseVolume") ?? receipt.executedQty,
       transitions: [
         ...receipt.transitions,
         {
@@ -450,7 +491,8 @@ async function pollFuturesOrderReceipt(
           avgFillPrice:
             readNumericField(detail.stdout, "priceAvg") ?? receipt.avgFillPrice,
           executedQty:
-            readNumericField(detail.stdout, "baseVolume") ?? receipt.executedQty,
+            readNumericField(detail.stdout, "baseVolume") ??
+            receipt.executedQty,
         },
       ],
     };
@@ -461,7 +503,9 @@ async function pollFuturesOrderReceipt(
         buildOrderFillsArgs(plan, submitted.orderId),
         { env: cfg.env, timeoutMs: cfg.timeoutMs },
       );
-      return fills.exitCode === 0 ? mergeFillFields(receipt, fills.stdout) : receipt;
+      return fills.exitCode === 0
+        ? mergeFillFields(receipt, fills.stdout)
+        : receipt;
     }
   }
 
@@ -510,6 +554,25 @@ export async function placeFuturesOrder(
     );
   }
   const childEnv = brokerCommandEnv(cfg.env);
+
+  // Enforce the licensed leverage on the exchange before submitting; a market
+  // order otherwise fills at the account's last configured leverage.
+  const leverageResult = await runner(
+    plan.command,
+    buildSetLeverageArgs(plan, cfg),
+    { env: childEnv, timeoutMs: cfg.timeoutMs },
+  );
+  if (leverageResult.exitCode !== 0) {
+    throw new Error(
+      `set-leverage failed (${leverageResult.exitCode}): ${leverageResult.stderr.slice(0, 240)}`,
+    );
+  }
+  const leverageResponse = interpretBitgetResponse(leverageResult.stdout);
+  if (leverageResponse && !leverageResponse.ok) {
+    throw new Error(
+      `Bitget rejected set-leverage (code ${leverageResponse.code}): ${leverageResponse.msg}`,
+    );
+  }
 
   const result = await runner(plan.command, plan.args, {
     env: childEnv,
