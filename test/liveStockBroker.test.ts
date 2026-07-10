@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { issuePassport, type AgentCandidate } from "../src/agentArena";
 import {
   buildFuturesOrderPlan,
+  buildSetLeverageArgs,
   extractOrderId,
   placeFuturesOrder,
   runCommand,
@@ -152,12 +153,107 @@ describe("live stock broker", () => {
       clientOid: "client-123",
       status: "submitted",
     });
-    expect(calls[0].command).toBe(process.execPath);
+    expect(calls).toHaveLength(2);
+    expect(calls[0].args).toContain("futures_set_leverage");
     expect(calls[0].args).toContain("--paper-trading");
-    expect(calls[0].args.join(" ")).toContain("client-123");
-    expect(calls[0].envValue).toBe("propagated");
-    expect(calls[0].baseUrlOverride).toBeUndefined();
-    expect(calls[0].timeoutMs).toBe(12_000);
+    expect(calls[1].command).toBe(process.execPath);
+    expect(calls[1].args).toContain("--paper-trading");
+    expect(calls[1].args.join(" ")).toContain("client-123");
+    expect(calls[1].envValue).toBe("propagated");
+    expect(calls[1].baseUrlOverride).toBeUndefined();
+    expect(calls[1].timeoutMs).toBe(12_000);
+  });
+
+  it("sets the licensed leverage on the exchange before submitting the order", async () => {
+    const calls: string[][] = [];
+    await placeFuturesOrder(
+      {
+        symbol: "AAPLUSDT",
+        side: "open_long",
+        size: 0.05,
+        referencePrice: 315.31,
+      },
+      {
+        ...baseConfig,
+        mode: "paper",
+        env: {
+          BITGET_API_KEY: "demo-key",
+          BITGET_SECRET_KEY: "demo-secret",
+          BITGET_PASSPHRASE: "demo-passphrase",
+        },
+      },
+      async (_command, args) => {
+        calls.push(args);
+        return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
+      },
+    );
+
+    const leverageArgs = calls[0];
+    expect(leverageArgs[leverageArgs.indexOf("futures") + 1]).toBe(
+      "futures_set_leverage",
+    );
+    expect(leverageArgs).toContain("--leverage");
+    expect(leverageArgs[leverageArgs.indexOf("--leverage") + 1]).toBe("1");
+    expect(leverageArgs[leverageArgs.indexOf("--holdSide") + 1]).toBe("long");
+    expect(calls[1]).toContain("futures_place_order");
+  });
+
+  it("maps short and close sides onto the held position side for set-leverage", () => {
+    const shortPlan = buildFuturesOrderPlan(
+      {
+        symbol: "AAPLUSDT",
+        side: "open_short",
+        size: 0.05,
+        referencePrice: 315.31,
+      },
+      baseConfig,
+    );
+    const shortArgs = buildSetLeverageArgs(shortPlan, baseConfig);
+    expect(shortArgs[shortArgs.indexOf("--holdSide") + 1]).toBe("short");
+
+    const closeLongPlan = buildFuturesOrderPlan(
+      {
+        symbol: "AAPLUSDT",
+        side: "close_long",
+        size: 0.05,
+        referencePrice: 315.31,
+      },
+      baseConfig,
+    );
+    const closeArgs = buildSetLeverageArgs(closeLongPlan, baseConfig);
+    expect(closeArgs[closeArgs.indexOf("--holdSide") + 1]).toBe("long");
+  });
+
+  it("refuses to submit the order when set-leverage is rejected", async () => {
+    const calls: string[][] = [];
+    await expect(
+      placeFuturesOrder(
+        {
+          symbol: "AAPLUSDT",
+          side: "open_long",
+          size: 0.05,
+          referencePrice: 315.31,
+        },
+        {
+          ...baseConfig,
+          mode: "paper",
+          env: {
+            BITGET_API_KEY: "demo-key",
+            BITGET_SECRET_KEY: "demo-secret",
+            BITGET_PASSPHRASE: "demo-passphrase",
+          },
+        },
+        async (_command, args) => {
+          calls.push(args);
+          return {
+            exitCode: 0,
+            stdout: '{"code":"40019","msg":"leverage error"}',
+            stderr: "",
+          };
+        },
+      ),
+    ).rejects.toThrow("Bitget rejected set-leverage");
+    expect(calls).toHaveLength(1);
   });
 
   it("treats a non-00000 Bitget response code as a rejection, not a submission", async () => {
@@ -178,9 +274,11 @@ describe("live stock broker", () => {
             BITGET_PASSPHRASE: "demo-passphrase",
           },
         },
-        async () => ({
+        async (_command, args) => ({
           exitCode: 0,
-          stdout: '{"code":"40034","msg":"Unsupported operation"}',
+          stdout: args.includes("futures_set_leverage")
+            ? '{"code":"00000"}'
+            : '{"code":"40034","msg":"Unsupported operation"}',
           stderr: "",
         }),
       ),
@@ -259,12 +357,13 @@ describe("live stock broker", () => {
       "filled",
     ]);
     expect(calls.map((args) => args[args.indexOf("futures") + 1])).toEqual([
+      "futures_set_leverage",
       "futures_place_order",
       "futures_get_orders",
       "futures_get_fills",
     ]);
-    expect(calls[1]).toContain("--orderId");
-    expect(calls[1]).toContain("1452633152483852289");
+    expect(calls[2]).toContain("--orderId");
+    expect(calls[2]).toContain("1452633152483852289");
   });
 
   it("blocks live mode without an explicitly confirmed licensed passport", () => {
