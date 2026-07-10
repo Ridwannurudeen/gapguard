@@ -12,7 +12,7 @@ Bitget AI Base Camp Hackathon S1, Track 3: US Stock AI Trading.
   <img src="artifacts/app-assistant.png" width="80%" alt="GapGuard consumer assistant: a plain-English live gap call scored against your own risk rules, with a one-tap Bitget handoff">
 </p>
 
-The consumer assistant ([`app.html`](https://gapguard.gudman.xyz/app.html)): plain-English off-hours gap calls scored against your own risk rules, with a one-tap handoff to your Bitget account. GapGuard gives the call and shows the exact order — it never holds your keys or places the trade.
+The consumer assistant ([`app.html`](https://gapguard.gudman.xyz/app.html)): plain-English off-hours gap calls scored against your own risk rules, with a one-tap handoff to your Bitget account. The browser assistant never receives exchange keys or places orders; the separate server-side autonomous runner can place a live order only when an operator explicitly arms it.
 
 ## Track 3 Submission
 
@@ -69,7 +69,7 @@ All public numbers below are generated from committed artifacts by `npm run evid
 | Live AAPLUSDT round-trip (real funds) | open @ 315.47, close @ 315.16, size 0.05, balance -$0.034 | `artifacts/live-trades.jsonl` |
 <!-- EVIDENCE:END -->
 
-Boundary: cryptographic integrity proof, not regulatory certification. Approval-gated live path; current stock evidence is backtest/paper. The BTCUSDT Demo fill is a Bitget Demo integration smoke test, not Track 3 stock evidence.
+Boundary: cryptographic integrity proof, not regulatory certification. Autonomous live execution exists but defaults OFF and requires VPS-side arming. The evidence set contains one historical live AAPLUSDT round-trip; strategy-performance claims remain backtest/paper claims. The BTCUSDT Demo fill is a Bitget Demo integration smoke test, not Track 3 stock evidence.
 
 Read the two regret rows together. The gate is deliberately **not** tuned for average accuracy — it slightly trails always-fade there (39.0% vs 42.2%), and the mean-regret gap is not significant (p = 0.106). A fade-everything bot looks accurate only because most gaps revert, while it quietly eats the rare news-day blowups. The significance-tested win is on **worst-case (p95) tail regret**, cut from 7.47% to 5.81% (p = 0.001): the engine trades a little average accuracy to avoid the disasters. That is exactly what "knows when not to trade" should buy — risk reduction, not a directional-alpha claim.
 
@@ -81,7 +81,7 @@ GapGuard is the product. Quorum is the internal five-role deterministic adversar
 2. Catalyst gate: a two-tier Qwen model — `qwen3.6-flash` for quick passes, `qwen3.6-plus` for deep reasoning — classifies real, blinded Finnhub overnight news as fadeable noise or justified repricing. Invalid model output fails closed.
 3. Quorum: five-role deterministic adversarial desk weighs narrative, positioning, market intel, bear, and risk evidence.
 4. Mandate: natural-language risk rules compile into hard vetoes.
-5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading; the same live broker path has executed real, gated open/close round trips. Every open order carries an exchange-enforced stop-loss and take-profit by default (`futures_set_leverage`-adjacent preset TP/SL fields, sized off the desk's own "never lose >1.5% overnight" constitution) — the exchange closes the position on either trigger, no monitoring process required.
+5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading; the same broker now has a default-off autonomous RWA path driven by fresh `liveReady` rows and Quorum. It selects at most one non-vetoed signal per run, rejects missing or 25bps-and-wider books, sizes at the executable bid/ask, submits a fill-or-kill limit at that quote, uses isolated 1x margin, and applies the same exchange-enforced stop-loss/take-profit bracket math as the manual broker.
 6. Proof: Arena records are sealed into a sha256 hash chain and signed with Ed25519 over a Merkle root.
 7. Reflection: realized outcomes of past calls are appended to a hash-chained lesson log and fed back into the gate, so the engine learns from its own receipts without ever mutating them.
 
@@ -104,6 +104,7 @@ npm run paper:journal    # AAPLUSDT/NVDAUSDT stock paper journal, CSV + JSONL
 npm run arena:cockpit    # public cockpit data, chain, and attestation
 npm run rwa:check        # read-only public Bitget RWA market report
 npm run news:feed        # server-side Finnhub refresh -> public/news-feed.json
+npm run auto:trade:dryrun # autonomous scan + order plan; no private exchange call
 ```
 
 Optional live Qwen regeneration:
@@ -140,7 +141,9 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 - One real live on-exchange RWA stock fill has been executed and closed (AAPLUSDT, receipts in [`artifacts/live-trades.jsonl`](artifacts/live-trades.jsonl)) — this proves the exchange path end-to-end, it is not a live-alpha claim or sustained live trading.
 - The positive walk-forward result is a positive pilot OOS over 16 trading days, not proven profitable alpha.
 - The 20-symbol always-fade basket is negative; the point of GapGuard is abstention, risk control, and verifiable restraint.
-- Further live real-money trading remains blocked without explicit user approval, a licensed passport, isolated margin, a hard notional cap, and `--confirm-live`.
+- Autonomous live trading exists but is default OFF (`AUTO_TRADE_ENABLED=false`) and is not armed by installation. Live entry requires a LICENSED passport, a fresh non-vetoed Quorum signal, a complete sub-25bps bid/ask, no pending order or open position, isolated 1x margin, the touch-file kill switch absent, and successful read-only exchange reconciliation immediately before submission.
+- Default autonomous limits are 3 opens per UTC day, a 0.30 USDT daily realized-trade-PnL stop (reconciled fills plus USDT fees, not an account-wide/unrealized-loss cap), one order per run, a pre-submit 20 USDT notional ceiling, and a risk budget no larger than 20% of futures equity multiplied by Quorum's position multiplier. Sizing and the ceiling use the executable quote; a fill-or-kill limit refuses adverse-price execution beyond that quote. A favorable fill can report a different realized notional, so this is not an account-wide exposure guarantee. If the exchange minimum exceeds the budget, GapGuard abstains.
+- The daily PnL trip persists across UTC rollover. Removing `state/AUTO_TRADE_KILL` re-arms only the touch-file entry gate; it does not clear the persistent trip, a pending reservation, an exchange order, or a position. Never delete the daily state file to re-arm.
 - Microstructure fadeable probabilities are not yet calibrated: the spread/depth/funding/NAV guards run as a deterministic safety floor, and the calibration report honestly flags insufficient labeled history to fit a probabilistic model.
 - Stop-loss/take-profit brackets are exchange-enforced (Bitget preset TP/SL) but only attach to orders placed through the broker going forward — there is no mechanism to retroactively attach a bracket to a position opened before this feature shipped, and no monitoring loop; if a bracket order is ever rejected, the position stays open unprotected and the operator must close it manually.
 
@@ -148,6 +151,7 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 
 - [docs/TRUST_LAYER.md](docs/TRUST_LAYER.md) — the portable seal → Merkle → Ed25519 → browser-verify attestation format, specified so any trading agent can reuse it.
 - [docs/LIVE_RWA_RUNBOOK.md](docs/LIVE_RWA_RUNBOOK.md) — the gated path to a real reversible RWA stock-perp fill sealed into the signed chain; executed once (see Honest Limits above).
+- [deploy/DEPLOY.md](deploy/DEPLOY.md) — dry-run-first systemd rollout, operator kill/re-arm procedures, and the separate approval step for live arming.
 - [docs/SUBMISSION.md](docs/SUBMISSION.md) — full Track-3 write-up. [docs/METRICS.md](docs/METRICS.md) — every public number, traced to its artifact.
 - [/status.html](https://gapguard.gudman.xyz/status.html) — live freshness watchdog for the cron-owned feeds and the gate key.
 

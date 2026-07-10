@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { parseBrokerCliArgs } from "../src/broker-cli";
+import { parseBrokerCliArgs, resolveBrokerSide } from "../src/broker-cli";
+import { ARENA_DEFAULT_BRACKET_PCT } from "../src/arenaScenario";
 
 describe("broker cli", () => {
   it("defaults to a safe dry-run order", () => {
@@ -47,6 +48,15 @@ describe("broker cli", () => {
     ).toBe(true);
   });
 
+  it("requires an explicit side when Quorum stands flat", () => {
+    expect(() => resolveBrokerSide(undefined, "flat")).toThrow(
+      "flat quorum decision requires explicit --side",
+    );
+    expect(resolveBrokerSide("close_long", "flat")).toBe("close_long");
+    expect(resolveBrokerSide(undefined, "long")).toBe("open_long");
+    expect(resolveBrokerSide(undefined, "short")).toBe("open_short");
+  });
+
   it("rejects unknown arguments", () => {
     expect(() => parseBrokerCliArgs(["--unknown"])).toThrow("unknown argument");
   });
@@ -68,8 +78,8 @@ describe("broker cli", () => {
 
   it("defaults the stop-loss and take-profit to the constitution's overnight-loss cap", () => {
     const args = parseBrokerCliArgs([]);
-    expect(args.stopLossPct).toBeCloseTo(0.015);
-    expect(args.takeProfitPct).toBeCloseTo(0.015);
+    expect(args.stopLossPct).toBe(ARENA_DEFAULT_BRACKET_PCT);
+    expect(args.takeProfitPct).toBe(ARENA_DEFAULT_BRACKET_PCT);
   });
 
   it("lets an explicit bracket percentage override the default", () => {

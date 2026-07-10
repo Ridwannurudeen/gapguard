@@ -104,7 +104,8 @@ export function decideQuorum(
   );
   const winner = winningVote(opinions);
   const consensusScore = winner.total === 0 ? 0 : winner.score / winner.total;
-  const positionMultiplier = multiplier(consensusScore, vetoed);
+  const positionMultiplier =
+    winner.vote === "flat" ? 0 : multiplier(consensusScore, vetoed);
   const dissenters = opinions.filter(
     (opinion) => opinion.vote !== winner.vote && opinion.vote !== "veto",
   ).length;

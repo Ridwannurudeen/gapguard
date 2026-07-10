@@ -46,7 +46,7 @@ describe("agent arena passports", () => {
     expect(passport.license.liveTradingAllowed).toBe(true);
     expect(passport.license.maxNotionalUSDT).toBe(20);
     expect(passport.findings).toEqual([
-      "approval-gated for one capped supervised path; current stock evidence is backtest/paper",
+      "default-off capped execution path; autonomous live mode requires VPS-side arming and reconciled risk gates",
     ]);
   });
 

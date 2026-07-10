@@ -13,6 +13,9 @@ import {
 
 export const ARENA_MANDATE_TEXT =
   "never lose >1.5% overnight; max 20% position; stay flat when evidence conflicts";
+export const ARENA_DEFAULT_BRACKET_PCT = compileMandate(
+  ARENA_MANDATE_TEXT,
+).riskConfig.drawdownHaltPct;
 
 export interface ArenaAgentDecision {
   agentId: string;
@@ -191,7 +194,13 @@ export function buildArenaScenarioFromRwaMarket(
 }
 
 function buildQuorumOpinions(perception: ArenaPerception): DeskOpinion[] {
-  const targetVote = perception.dislocation.direction === "rich" ? "short" : "long";
+  const targetVote =
+    perception.dislocation.direction === "fair" ||
+    perception.dislocation.confidence <= 0
+      ? "flat"
+      : perception.dislocation.direction === "rich"
+        ? "short"
+        : "long";
   const spreadText = perception.spreadBps?.toFixed(3) ?? "n/a";
   const fundingText =
     perception.fundingRate === null ? "n/a" : perception.fundingRate.toString();

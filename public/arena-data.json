@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-07-10T13:16:00.293Z",
+  "generatedAt": "2026-07-10T21:25:55.113Z",
   "arena": {
-    "thesis": "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the approval gate.",
+    "thesis": "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the capital-license gate.",
     "liveInstrument": "NVDAUSDT",
-    "graduationStatus": "licensed_waiting_explicit_approval"
+    "graduationStatus": "abstained_no_actionable_signal"
   },
   "status": {
-    "licensedAgents": 1,
-    "paperOnlyAgents": 0,
+    "licensedAgents": 0,
+    "paperOnlyAgents": 1,
     "rejectedAgents": 1,
     "paperEvidence": "proven",
-    "liveStatus": "gated"
+    "liveStatus": "default_off"
   },
   "perception": {
     "source": "Bitget public RWA market report 2026-07-10T13:15:59.760Z",
@@ -58,9 +58,9 @@
     },
     "rwaFreshness": {
       "path": "public/rwa-market.json",
-      "status": "fresh",
+      "status": "stale",
       "generatedAt": "2026-07-10T13:15:59.760Z",
-      "ageMinutes": 0,
+      "ageMinutes": 489.9,
       "maxAgeMinutes": 30
     }
   },
@@ -69,11 +69,11 @@
       "agentId": "quorum-rwa-desk",
       "name": "Quorum",
       "thesis": "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
-      "grade": "LICENSED",
-      "score": 131,
+      "grade": "PAPER_ONLY",
+      "score": 121,
       "evidence": {
         "paperTrades": 3,
-        "liveReadOk": true,
+        "liveReadOk": false,
         "hashChainOk": true,
         "maxDrawdownPct": 0.021,
         "ruleViolations": 0,
@@ -101,13 +101,13 @@
         "maxLeverage": 1
       },
       "license": {
-        "liveTradingAllowed": true,
-        "maxNotionalUSDT": 20,
+        "liveTradingAllowed": false,
+        "maxNotionalUSDT": 0,
         "marginMode": "isolated",
-        "maxLeverage": 1
+        "maxLeverage": 0
       },
       "findings": [
-        "approval-gated for one capped supervised path; current stock evidence is backtest/paper"
+        "no live read-only Bitget evidence"
       ]
     },
     {
@@ -118,7 +118,7 @@
       "score": 8,
       "evidence": {
         "paperTrades": 1,
-        "liveReadOk": true,
+        "liveReadOk": false,
         "hashChainOk": true,
         "maxDrawdownPct": 0.14,
         "ruleViolations": 3,
@@ -146,6 +146,7 @@
         "maxLeverage": 0
       },
       "findings": [
+        "no live read-only Bitget evidence",
         "fewer than 3 paper trades",
         "insufficient debate rounds",
         "no gate-driven backtest evidence",
@@ -153,8 +154,8 @@
         "drawdown exceeds licensed threshold",
         "missing risk governor",
         "missing adversarial review",
-        "missing human live confirmation",
-        "missing flatten kill-switch",
+        "missing explicit live authorization",
+        "missing entry kill-switch",
         "margin mode is not isolated",
         "leverage exceeds licensed threshold"
       ]
@@ -162,15 +163,15 @@
   ],
   "quorum": {
     "symbol": "NVDAUSDT",
-    "winningVote": "long",
-    "consensusScore": 0.75,
+    "winningVote": "flat",
+    "consensusScore": 1,
     "vetoed": false,
-    "positionMultiplier": 0.5,
-    "rationale": "long won 75% evidence-weighted consensus with 2 dissenters; no hard veto; size at 50% of risk budget",
+    "positionMultiplier": 0,
+    "rationale": "flat won 100% evidence-weighted consensus with 0 dissenters; no hard veto; stand down",
     "opinions": [
       {
         "role": "narrative",
-        "vote": "long",
+        "vote": "flat",
         "confidence": 0.9,
         "rationale": "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
         "evidence": [
@@ -179,7 +180,7 @@
       },
       {
         "role": "positioning",
-        "vote": "long",
+        "vote": "flat",
         "confidence": 0.8,
         "rationale": "Positioning supports a trade only after funding and spread are checked against the mandate.",
         "evidence": [
@@ -188,7 +189,7 @@
       },
       {
         "role": "market_intel",
-        "vote": "long",
+        "vote": "flat",
         "confidence": 0.7,
         "rationale": "Public RWA contract data is normal and usable inside the supervised live cap.",
         "evidence": [
@@ -218,7 +219,7 @@
   "debate": [
     {
       "role": "narrative",
-      "vote": "long",
+      "vote": "flat",
       "confidence": 0.9,
       "rationale": "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
       "evidence": [
@@ -227,7 +228,7 @@
     },
     {
       "role": "positioning",
-      "vote": "long",
+      "vote": "flat",
       "confidence": 0.8,
       "rationale": "Positioning supports a trade only after funding and spread are checked against the mandate.",
       "evidence": [
@@ -236,7 +237,7 @@
     },
     {
       "role": "market_intel",
-      "vote": "long",
+      "vote": "flat",
       "confidence": 0.7,
       "rationale": "Public RWA contract data is normal and usable inside the supervised live cap.",
       "evidence": [
@@ -263,18 +264,8 @@
     }
   ],
   "broker": {
-    "dryRunOrder": {
-      "symbol": "NVDAUSDT",
-      "productType": "USDT-FUTURES",
-      "marginMode": "isolated",
-      "marginCoin": "USDT",
-      "size": "0.03",
-      "side": "buy",
-      "tradeSide": "open",
-      "clientOid": "gg-nvdausdt-54b56ef5-da35-4c7e-94f3-81aea8236729",
-      "orderType": "market"
-    },
-    "dryRunNotionalUSDT": 6.052826008663002,
+    "dryRunOrder": null,
+    "dryRunNotionalUSDT": null,
     "paperTrade": {
       "ts": "2026-06-22T21:52:35.091Z",
       "symbol": "BTCUSDT",
@@ -290,11 +281,14 @@
     },
     "liveGate": [
       "LICENSED passport",
-      "explicit --confirm-live",
-      "isolated margin",
-      "1x leverage",
-      "notional cap <= 20 USDT",
-      "manual approval before real funds"
+      "AUTO_TRADE_ENABLED=true",
+      "entry kill-switch file absent",
+      "default daily open cap: 3 per UTC day",
+      "default daily realized-trade-PnL stop: 0.30 USDT including USDT fees",
+      "no pending order or open position",
+      "isolated margin and 1x leverage",
+      "sub-25bps book and fill-or-kill limit at the executable quote",
+      "default 20 USDT pre-submit ceiling and 20% equity x Quorum risk budget"
     ]
   },
   "rwaMarket": {
@@ -618,8 +612,8 @@
   "arenaChain": {
     "path": "public/arena-chain.jsonl",
     "ok": true,
-    "count": 11,
-    "finalHash": "8684776dc8cb877c82ea54150996e715001687fad1c5a4b905aa11cbca3b1a07",
+    "count": 10,
+    "finalHash": "ce22e2cca7ee48d470efe96d6cd378f6b3830a0a11c463fc27365d1fd1fe299c",
     "errors": []
   },
   "gapguardProof": {

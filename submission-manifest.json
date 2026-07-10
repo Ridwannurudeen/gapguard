@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "createdAt": "2026-07-10T13:16:00.290Z",
-  "commit": "f14f6aa7d2b09db26abd94de8299001064e04bab",
+  "createdAt": "2026-07-10T21:25:55.100Z",
+  "commit": "1b65b1c1834cf29209344ef2df2ffd2fce1dc140",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -10,23 +10,23 @@
   "artifacts": [
     {
       "path": "README.md",
-      "sha256": "36130a156e66e1a10f614bd6c620bff31b744e03f9d4ae616e77c82de0dc3b90",
-      "bytes": 12284
+      "sha256": "2ba91c456bf6e377b914bc6532abe831b6f5ddc28d60dbec8e50f1d969aafdfb",
+      "bytes": 13875
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "c5668c1add66af60fdeb19ebe78a91f1bdf02ec409461e7220d716b516a0cfe3",
-      "bytes": 9258
+      "sha256": "6bb1c383a89bcd8b42dbdcbeaeaf345d2777f6611bd167133a0f629a9db26166",
+      "bytes": 10625
     },
     {
       "path": "docs/METRICS.md",
-      "sha256": "dd8ec86bd0722ca960d9ccbfc0673790943506654c9cdbfa05c1ffc4cfb26c4f",
-      "bytes": 3047
+      "sha256": "7686532def0ebfcd0a159037ec112faec0e82cfbfcc5dbb8c2d629260c8ad77c",
+      "bytes": 3181
     },
     {
       "path": "public/index.html",
-      "sha256": "714cfc5b7e8831d0c6b8d4bff736f199121368ace08c2bfaaf5fdc00a9ef97ed",
-      "bytes": 67396
+      "sha256": "eaf9412302f55143bfa1d36ae8789f09b70a413f812b325b35aaa17f18ebe270",
+      "bytes": 67855
     },
     {
       "path": "public/news.html",
@@ -40,8 +40,8 @@
     },
     {
       "path": "public/arena.html",
-      "sha256": "69b3c886492f6e0195153d0ce1407164ec7e5dad0d0afe1b4c41bac5958b9970",
-      "bytes": 72026
+      "sha256": "320397db8562a2ed975a6b8ed7163eedcf068654ae2d15c2ccfa8868e89adf55",
+      "bytes": 72655
     },
     {
       "path": "public/status.html",
@@ -50,17 +50,17 @@
     },
     {
       "path": "public/arena-data.json",
-      "sha256": "0174e5f2b4f9e4dc21f423e17fb4c00f25d9e1ad1bf789b14dee9636b93c6e5d",
-      "bytes": 19395
+      "sha256": "0a0dc72a72ace99ff4ea59a93d4c291eabcbc59ff5bacfcceb8490fd1ce9f2c8",
+      "bytes": 19352
     },
     {
       "path": "public/arena-chain.jsonl",
-      "sha256": "8c6cc0a08a0538f7179f2b67be17f3f3c93e3eb7313a3ca307f2e2824a6809ce",
-      "bytes": 11603
+      "sha256": "bde42ce5370728fcf8ac7cb8a0b60d2119743a4e0de34aac8694dc984892387d",
+      "bytes": 9854
     },
     {
       "path": "public/arena-attestation.json",
-      "sha256": "a2da9f3ebe606def91cf33aca94ab4b0784a7a6af1e00b74184e48b387291fd8",
+      "sha256": "1a079bb9567f270c45c8afc8f19cea51871ca672b63216d7806e27546b305fd4",
       "bytes": 422
     },
     {
@@ -75,8 +75,8 @@
     },
     {
       "path": "public/metrics.json",
-      "sha256": "c7e5075edf0600cab4e3722a51dad64f75c7958663c2ec0febc2f08041d8cdf4",
-      "bytes": 5160
+      "sha256": "102716691d221d847e55b1aeb31131d5168f6806d6ab63ff92aae4045fd29ea7",
+      "bytes": 5294
     },
     {
       "path": "public/dashboard-data.json",

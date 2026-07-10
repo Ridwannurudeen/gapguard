@@ -1,16 +1,16 @@
-# Live RWA Stock-Perp Round-Trip — Runbook
+# Manual RWA Stock-Perp Round-Trip — Runbook
 
-The highest-credibility gap in GapGuard's Track-3 evidence is that every
-tokenized-stock trade to date is simulated or paper: the only real on-exchange
-fill is a BTCUSDT Bitget Demo smoke test (crypto proxy). This runbook is the
-safe, tested path to close that gap with **one real, tiny, reversible fill** on
-an RWA stock perp, sealed into the signed audit chain as genuine Track-3
-execution evidence.
+This is the manual diagnostic path that produced GapGuard's historical live
+AAPLUSDT open/close receipt. It remains useful for an operator-approved, tiny,
+immediately closed RWA stock-perp round trip and seals the result into the signed
+audit chain. It is not the scheduled autonomous entrypoint.
 
-> **Boundary.** The engine builds, gates, and records the round-trip. The actual
-> live fill is **user-executed and approval-gated** — no live real-money order is
-> ever placed autonomously. Everything below defaults to `dry_run`; live requires
-> explicit flags and a funded key.
+> **Boundary.** This command remains user-executed: it defaults to `dry_run`,
+> takes an explicit side, and requires `--confirm-live`. GapGuard also has a
+> separate default-off autonomous runner that derives direction from Quorum and
+> can place live entries after VPS-side arming. That runner separately requires
+> a complete spread below 25bps and uses a fill-or-kill limit at the executable
+> quote; see `deploy/DEPLOY.md`.
 
 ## What "reversible round-trip" means
 
@@ -21,7 +21,7 @@ immediately closes it, so net exposure returns to zero within seconds. It:
 2. Opens (`open_long`/`open_short`) and polls for the fill.
 3. Refuses the close leg if the open did not fill (live mode).
 4. Closes the leg (`close_long`/`close_short`).
-5. Optionally seals an `LIVE_RWA_ROUND_TRIP` `broker_order` record into
+5. Optionally seals a `LIVE_RWA_ROUND_TRIP` `broker_order` record into
    `public/arena-chain.jsonl`, re-computes the Merkle root, and re-signs the
    Ed25519 attestation — then verifies it before writing.
 
@@ -34,21 +34,22 @@ Live mode fails closed unless **all** hold:
 
 | Gate | Where | Value |
 | --- | --- | --- |
-| Passport grade is `LICENSED` | `liveStockBroker.ts:184` | drawdown ≤ 8%, leverage ≤ 2 (`agentArena.ts:62-63`) |
-| `--confirm-live` present | `liveStockBroker.ts:187` | explicit opt-in |
-| Isolated margin | `liveStockBroker.ts:190` | `marginMode: "isolated"` |
-| Leverage ≤ license cap | `liveStockBroker.ts:193` | round-trip hardcodes leverage `1` |
-| Notional ≤ min(cap, license) | `liveStockBroker.ts:198-206` | default cap `$10` (`RWA_ROUND_TRIP_MAX_NOTIONAL_USDT`) |
-| Market row is `liveReady` | `rwaRoundTrip.ts:249` | no contract/pricing/sizing blockers |
-| Balance ≥ notional | `rwaRoundTrip.ts:367` | read via `broker:balance` before opening |
-| Open filled before close | `rwaRoundTrip.ts:381` | refuses close leg otherwise |
+| Passport grade is `LICENSED` | `liveStockBroker.ts` passport gate | drawdown ≤ 8%, leverage ≤ 2 |
+| `--confirm-live` present | `liveStockBroker.ts` live authorization gate | explicit opt-in |
+| Isolated margin | `liveStockBroker.ts` broker validation | `marginMode: "isolated"` |
+| Leverage ≤ license cap | `rwaRoundTrip.ts` broker config | round-trip hardcodes leverage `1` |
+| Notional ≤ min(cap, license) | `buildRwaRoundTripSpec` + broker validation | default cap `$10` (`RWA_ROUND_TRIP_MAX_NOTIONAL_USDT`) |
+| Market row is `liveReady` | `buildRwaRoundTripSpec` | no contract/pricing/sizing blockers |
+| Balance ≥ notional | `runRwaRoundTrip` | read via `broker:balance` before opening |
+| Open filled before close | `runRwaRoundTrip` | refuses close leg otherwise |
 
-## Open question, answered honestly: can you open while the US market is closed?
+## Off-hours acceptance: observed once, not guaranteed
 
-Bitget's docs conflict on whether an RWA stock perp accepts a **new** open while
-the underlying cash market is closed (mark can freeze toward an EMA during
-closures). The read-only probe below is what we can confirm without placing an
-order; the fill itself is the only definitive proof.
+Bitget's public data showed an active off-hours book, and the historical live
+round trip proves that the matching path accepted one real RWA stock-perp open
+and close. That single receipt is not a guarantee that every symbol or future
+session will accept a new open, so the current `liveReady` and broker gates still
+apply on every invocation.
 
 **Read-only probe, 2026-07-03 07:49 UTC (~03:49 ET, US cash market closed):**
 
@@ -62,14 +63,13 @@ npm run rwa:check   # read-only public Bitget API, writes public/rwa-market.json
   suggested size 0.03 → **$5.90 notional**.
 - **11 of 12** tracked RWA perps were `liveReady` with the cash market closed.
 
-**Interpretation.** At the contract level the perp quotes a live, tight,
+**Interpretation.** At the contract level the perp quoted a live, tight,
 non-frozen book off-hours, so `liveReady` is session-agnostic by design
 (`rowBlockers` checks RWA flag, contract status, price, bid/ask, and min-size —
-never the US session). That is necessary but **not sufficient**: only a real
-place-order proves the matching engine accepts an open during closure. The
-round-trip is built to test exactly that, safely, with a ~$6 reversible position.
-If Bitget rejects the open during closure, the tool surfaces the rejection code
-and places nothing (`liveStockBroker.ts:527`).
+never the US session). That remains necessary but **not sufficient** for a future
+order: the round-trip tests the current matching path with a tiny reversible
+position. If Bitget rejects the open, the tool surfaces the rejection and
+refuses the close leg because no position was filled.
 
 ## Procedure
 
@@ -98,10 +98,9 @@ npm run broker:rwa-roundtrip -- --mode live --confirm-live \
 npm run verify-log -- public/arena-chain.jsonl
 ```
 
-## Done when
+## Historical completion criterion
 
-A real RWA-stock fill receipt — timestamp, asset, direction, price, quantity,
-balance change — exists in `public/arena-chain.jsonl` and verifies in the
-browser cockpit. At that point the Track-3 evidence is no longer 100% simulated:
-the exchange path is proven on the actual asset class, under hard caps, with a
-tamper-evident receipt anyone can re-verify.
+The criterion was met when a real RWA-stock receipt — timestamp, asset,
+direction, price, quantity, and balance change — was recorded and verified. A
+future manual diagnostic run is complete only when its new receipt also exists
+in `public/arena-chain.jsonl` and verifies in the browser cockpit.

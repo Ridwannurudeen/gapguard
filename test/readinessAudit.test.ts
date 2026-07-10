@@ -171,10 +171,23 @@ describe("readiness evidence audit", () => {
     expect(trackedSharpes).toContain(rounded(publicSharpe));
   });
 
-  it("requires the public dry-run broker record to look simulated and non-executed", () => {
+  it("records either a truthful abstention or a simulated non-executed broker order", () => {
+    const arenaData = asRecord(readJson("public/arena-data.json"));
+    const quorum = getRecord(arenaData, "quorum");
     const brokerRecords = readJsonl("public/arena-chain.jsonl")
       .map(asRecord)
       .filter((record) => readString(record.kind) === "broker_order");
+    if (
+      getString(quorum, "winningVote") === "flat" ||
+      getNumber(quorum, "positionMultiplier") === 0
+    ) {
+      expect(brokerRecords).toEqual([]);
+      expect(getRecord(arenaData, "broker").dryRunOrder).toBeNull();
+      expect(getString(getRecord(arenaData, "arena"), "graduationStatus")).toBe(
+        "abstained_no_actionable_signal",
+      );
+      return;
+    }
     const brokerRecord = brokerRecords.at(-1);
     expect(brokerRecord, "broker_order record must be present").toBeDefined();
 

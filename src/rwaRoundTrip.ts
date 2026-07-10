@@ -3,24 +3,16 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
-  writeFileSync,
 } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaPassports } from "./arena-demo";
 import {
-  attestChain,
-  readArenaChain,
-  sealArenaRecords,
-  verifyAttestation,
-  writeArenaChain,
-  type ArenaRecord,
+  appendAttestedArenaRecord,
+  validateAttestedArenaPreflight,
+  type AttestedArenaConfig,
   type ArenaRecordInput,
 } from "./arena-chain";
-import {
-  DEFAULT_PUBLIC_KEY_FILE,
-  loadArenaSigningKey,
-  readArenaPublicKey,
-} from "./arenaSigning";
+import { DEFAULT_PUBLIC_KEY_FILE } from "./arenaSigning";
 import { readFuturesAvailable } from "./broker-balance";
 import {
   placeFuturesOrder,
@@ -85,6 +77,7 @@ export interface RwaRoundTripDeps {
   now?: () => Date;
   place?: RoundTripPlaceOrder;
   readBalance?: (mode: "live") => Promise<number | null>;
+  env?: NodeJS.ProcessEnv;
 }
 
 function valueAfter(argv: string[], index: number, flag: string): string {
@@ -276,18 +269,26 @@ export function buildRwaRoundTripSpec(
   };
 }
 
-function stripRecord(record: ArenaRecord): ArenaRecordInput {
+function roundTripAttestedArenaConfig(
+  args: RwaRoundTripArgs,
+  env: NodeJS.ProcessEnv,
+): AttestedArenaConfig {
   return {
-    ts: record.ts,
-    kind: record.kind,
-    agentId: record.agentId,
-    payload: record.payload,
+    chainPath: resolve(args.chainOut),
+    attestationPath: resolve(args.attestOut),
+    publicKeyPath: resolve(args.publicKeyPath),
+    lockPath: resolve(
+      env.AUTO_TRADE_ARENA_LOCK_PATH ?? "state/arena-chain.lock",
+    ),
+    env,
+    model: "GapGuard live RWA round-trip receipt",
   };
 }
 
 function appendRoundTripToChain(
   result: RwaRoundTripResult,
   args: RwaRoundTripArgs,
+  env: NodeJS.ProcessEnv,
 ): void {
   if (result.mode !== "live") {
     throw new Error("--append-chain is only allowed for live round-trip evidence");
@@ -295,14 +296,6 @@ function appendRoundTripToChain(
   if (result.open.status !== "filled" || result.close.status !== "filled") {
     throw new Error("chain append requires both open and close orders filled");
   }
-  const signingKey = loadArenaSigningKey();
-  if (!signingKey) {
-    throw new Error(
-      "Arena attestation requires ARENA_SIGNING_KEY or .arena-signing-key.pem",
-    );
-  }
-  const chainPath = resolve(args.chainOut);
-  const existing = readArenaChain(chainPath);
   const nextInput: ArenaRecordInput = {
     ts: result.ts,
     kind: "broker_order",
@@ -321,29 +314,26 @@ function appendRoundTripToChain(
       balanceAfter: result.balanceAfter,
     },
   };
-  const updated = sealArenaRecords([...existing.map(stripRecord), nextInput]);
-  writeArenaChain(chainPath, updated);
-  const attestation = attestChain(updated, {
-    signedAt: result.ts,
-    model: "GapGuard live RWA round-trip receipt",
-    privateKey: signingKey,
-  });
-  const publicKey = readArenaPublicKey(args.publicKeyPath);
-  const check = verifyAttestation(updated, attestation, { publicKey });
-  if (!check.ok) {
-    throw new Error("round-trip attestation failed verification");
-  }
-  mkdirSync(dirname(resolve(args.attestOut)), { recursive: true });
-  writeFileSync(resolve(args.attestOut), `${JSON.stringify(attestation, null, 2)}\n`);
+  appendAttestedArenaRecord(
+    nextInput,
+    roundTripAttestedArenaConfig(args, env),
+  );
 }
 
 export async function runRwaRoundTrip(
   args: RwaRoundTripArgs,
   deps: RwaRoundTripDeps = {},
 ): Promise<RwaRoundTripResult> {
+  const env = deps.env ?? process.env;
   const market = deps.market ?? readMarket(resolve(args.marketPath));
   const spec = buildRwaRoundTripSpec(args, market);
   ensureUnusedClientOid(resolve(args.out), spec.openClientOid.replace(/-open$/, ""));
+  if (args.appendChain) {
+    if (args.mode !== "live") {
+      throw new Error("--append-chain is only allowed for live round-trip evidence");
+    }
+    validateAttestedArenaPreflight(roundTripAttestedArenaConfig(args, env));
+  }
 
   const passport = buildArenaPassports()[0];
   const cfg: BrokerConfig = {
@@ -353,9 +343,10 @@ export async function runRwaRoundTrip(
     confirmLive: args.confirmLive,
     marginMode: "isolated",
     leverage: 1,
-    timeoutMs: Number(process.env.BITGET_BROKER_TIMEOUT_MS ?? 30_000),
-    pollAttempts: Number(process.env.BITGET_BROKER_POLL_ATTEMPTS ?? 10),
-    pollIntervalMs: Number(process.env.BITGET_BROKER_POLL_INTERVAL_MS ?? 1_000),
+    env,
+    timeoutMs: Number(env.BITGET_BROKER_TIMEOUT_MS ?? 30_000),
+    pollAttempts: Number(env.BITGET_BROKER_POLL_ATTEMPTS ?? 10),
+    pollIntervalMs: Number(env.BITGET_BROKER_POLL_INTERVAL_MS ?? 1_000),
   };
   const place = deps.place ?? placeFuturesOrder;
   const readBalance = deps.readBalance ?? readFuturesAvailable;
@@ -406,7 +397,7 @@ export async function runRwaRoundTrip(
     chainAppended: false,
   };
   if (args.appendChain) {
-    appendRoundTripToChain(result, args);
+    appendRoundTripToChain(result, args, env);
     result.chainAppended = true;
   }
   mkdirSync(dirname(resolve(args.out)), { recursive: true });

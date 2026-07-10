@@ -1,7 +1,19 @@
-import { mkdtempSync } from "node:fs";
+import { generateKeyPairSync } from "node:crypto";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import {
+  attestChain,
+  readArenaChain,
+  sealArenaRecords,
+  verifyAttestation,
+  writeArenaChain,
+} from "../src/arena-chain";
+import {
+  acquireAutoTraderLock,
+  releaseAutoTraderLock,
+} from "../src/autoTraderState";
 import type { BrokerConfig, BrokerResult, FuturesOrderIntent } from "../src/liveStockBroker";
 import type { RwaMarketReport } from "../src/rwa-market";
 import {
@@ -146,5 +158,99 @@ describe("RWA round-trip runbook", () => {
       "roundtrip-test-open",
       "roundtrip-test-close",
     ]);
+  });
+
+  it("appends a filled live round trip through the shared attested primitive", async () => {
+    const dir = mkdtempSync(join(tmpdir(), "gapguard-rwa-live-evidence-"));
+    const chainPath = join(dir, "arena-chain.jsonl");
+    const attestationPath = join(dir, "arena-attestation.json");
+    const publicKeyPath = join(dir, "arena-pubkey.pem");
+    const privateKeyPath = join(dir, "arena-private.pem");
+    const out = join(dir, "roundtrip.jsonl");
+    const sharedLockPath = join(dir, "arena-chain.lock");
+    const pair = generateKeyPairSync("ed25519");
+    const records = sealArenaRecords([
+      {
+        ts: "2026-06-24T00:00:00.000Z",
+        kind: "quorum_decision",
+        agentId: "quorum",
+        payload: { vote: "long", multiplier: 0.5 },
+      },
+    ]);
+    writeArenaChain(chainPath, records);
+    writeFileSync(
+      attestationPath,
+      `${JSON.stringify(
+        attestChain(records, {
+          signedAt: "2026-06-24T00:00:00.000Z",
+          privateKey: pair.privateKey,
+        }),
+        null,
+        2,
+      )}\n`,
+    );
+    writeFileSync(
+      publicKeyPath,
+      pair.publicKey.export({ format: "pem", type: "spki" }),
+    );
+    writeFileSync(
+      privateKeyPath,
+      pair.privateKey.export({ format: "pem", type: "pkcs8" }),
+    );
+    const args = parseRwaRoundTripArgs(
+      [
+        "--mode",
+        "live",
+        "--confirm-live",
+        "--client-oid-prefix",
+        "roundtrip-live-test",
+        "--append-chain",
+        "--out",
+        out,
+        "--chain",
+        chainPath,
+        "--attestation",
+        attestationPath,
+        "--public-key",
+        publicKeyPath,
+      ],
+      {},
+    );
+
+    const deps = {
+      market,
+      now: () => new Date("2026-06-25T00:00:00.000Z"),
+      place: async (intent: FuturesOrderIntent, cfg: BrokerConfig) =>
+        fakeResult(intent, cfg),
+      readBalance: async () => 20,
+      env: {
+        ARENA_SIGNING_KEY_FILE: privateKeyPath,
+        AUTO_TRADE_ARENA_LOCK_PATH: sharedLockPath,
+      },
+    };
+    const held = acquireAutoTraderLock(
+      sharedLockPath,
+      new Date(),
+      600_000,
+    );
+    if (!held.acquired) throw new Error("expected shared Arena lock");
+    await expect(runRwaRoundTrip(args, deps)).rejects.toThrow(
+      "auto-trader lock is active",
+    );
+    expect(releaseAutoTraderLock(held.lock)).toBe(true);
+
+    const result = await runRwaRoundTrip(args, deps);
+    const updated = readArenaChain(chainPath);
+    const attestation = JSON.parse(readFileSync(attestationPath, "utf8"));
+
+    expect(result.chainAppended).toBe(true);
+    expect(updated).toHaveLength(2);
+    expect(updated.at(-1)).toMatchObject({
+      kind: "broker_order",
+      payload: { label: "LIVE_RWA_ROUND_TRIP" },
+    });
+    expect(
+      verifyAttestation(updated, attestation, { publicKey: pair.publicKey }).ok,
+    ).toBe(true);
   });
 });

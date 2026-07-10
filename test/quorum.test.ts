@@ -76,6 +76,19 @@ describe("quorum", () => {
     expect(decision.positionMultiplier).toBe(0);
   });
 
+  it("never assigns a position multiplier to a winning flat vote", () => {
+    const decision = decideQuorum(
+      "NVDAUSDT",
+      bullishDesk.slice(0, 3).map((opinion) => ({
+        ...opinion,
+        vote: "flat",
+      })),
+    );
+    expect(decision.consensusScore).toBe(1);
+    expect(decision.winningVote).toBe("flat");
+    expect(decision.positionMultiplier).toBe(0);
+  });
+
   it("lets a well-evidenced dissent outweigh weakly-grounded votes", () => {
     // Two longs with NO cited evidence vs a Bear flat backed by 3 sources.
     // Unweighted, long (1.2) would beat flat (0.7); evidence-weighting flips it.

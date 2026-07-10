@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-06-23T06:31:13.507Z",
   "productSentence": "GapGuard is an AI abstention and risk engine for tokenized US stocks: it decides whether an off-hours gap is liquidity noise to trade or news-driven repricing to respect, then proves every decision with a signed audit trail.",
-  "boundary": "Cryptographic integrity proof, not regulatory certification. Approval-gated live path; current stock evidence is backtest/paper.",
+  "boundary": "Cryptographic integrity proof, not regulatory certification. Autonomous live execution exists but defaults off and requires VPS-side arming; the evidence set contains one historical live AAPLUSDT round-trip, while strategy results remain backtest/paper evidence.",
   "metrics": {
     "aaplAlwaysFade": {
       "source": "artifacts/aaplusdt-backtest.json",

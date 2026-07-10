@@ -682,8 +682,8 @@
             <div class="l">signed Merkle audit · verify in-browser</div>
           </div>
           <div class="metric reveal">
-            <div class="v cyan">182 / 0</div>
-            <div class="l">tests passing · typecheck clean</div>
+            <div class="v cyan">CI / strict</div>
+            <div class="l">tests + typecheck · reproducible locally</div>
           </div>
         </div>
       </div>
@@ -890,7 +890,7 @@
           <div class="panel reveal">
             <h3>What you can run yourself</h3>
             <ul class="checks">
-              <li><span class="mono">npm test</span> — 182 tests, typecheck clean</li>
+              <li><span class="mono">npm test</span> — full deterministic test suite</li>
               <li><span class="mono">npm run backtest</span> — real AAPLUSDT gap backtest, no key</li>
               <li><span class="mono">npm run backtest:multi</span> — 20-symbol RWA baseline</li>
               <li><span class="mono">npm run alpha:certify</span> — locked walk-forward RWA pilot artifact</li>
@@ -937,7 +937,7 @@
             </tr>
             <tr>
               <th>Execution rail under a risk governor</th>
-              <td class="yes us">RWA dry-run + crypto Demo fill; live gated/capped</td>
+              <td class="yes us">RWA dry-run + Demo fills + historical live round-trip; autonomous default OFF</td>
               <td class="no">Backtest / educational</td>
               <td class="no">No</td>
             </tr>
@@ -1145,7 +1145,7 @@
         <p class="lede reveal">
           This site is read-only: it observes the gap, the gate, and the signed trail. It holds
           no exchange key and places no order. Execution lives behind the broker on the server —
-          three modes, rising friction.
+          three modes, rising friction. The autonomous live mode is separate from this browser.
         </p>
         <div class="modes-grid reveal">
           <div class="mode-card read">
@@ -1159,9 +1159,9 @@
             <div class="mode-foot">status: submitted → filled</div>
           </div>
           <div class="mode-card live">
-            <div class="mode-head"><span class="mode-dot"></span><span class="mode-name">live</span><span class="mode-tag">gated · never fired</span></div>
-            <p>Real money, locked. Needs a LICENSED passport, explicit <span class="mono">--confirm-live</span>, isolated margin, ≤2× leverage, a notional cap, and manual approval.</p>
-            <div class="mode-foot">no live fill claimed</div>
+            <div class="mode-head"><span class="mode-dot"></span><span class="mode-name">live</span><span class="mode-tag">default off · capped</span></div>
+            <p>Server-side only. Autonomous entry needs VPS arming, a LICENSED passport, fresh non-vetoed Quorum consensus, a sub-25bps book, no pending/open exposure, isolated 1× margin, and reconciled daily caps. It submits a fill-or-kill limit at the executable quote.</p>
+            <div class="mode-foot">one historical AAPLUSDT round-trip recorded · autonomous entry defaults OFF</div>
           </div>
         </div>
         <div class="panel reveal modes-note">
@@ -1169,7 +1169,8 @@
           path runs server-side in <span class="mono">src/liveStockBroker.ts</span>, enforces every gate
           in code (not the UI), is idempotent per <span class="mono">clientOid</span>, and seals each action
           into the same Ed25519-signed chain this site re-verifies. The read plane proves; the write plane
-          executes only under an operator's explicit, capped confirmation.
+          executes only after explicit VPS-side arming. Defaults: one order per run, 3 opens per UTC day,
+          a 20% equity × Quorum risk budget, a pre-submit 20 USDT notional ceiling, and a persistent 0.30 USDT realized-fill-PnL stop.
         </div>
       </div>
     </section>
@@ -1178,8 +1179,8 @@
       <h2>Judge the gap. Earn trust. Then trade.</h2>
       <p>
         The public artifact runs today — read-only RWA market evidence, deterministic
-        Quorum scenario, dry-run broker rail, verifiable chain, and reproducible
-        backtests. Open the cockpit and re-verify the boundaries yourself.
+        Quorum, a default-off autonomous broker rail, one historical live RWA round-trip,
+        a verifiable chain, and reproducible backtests. Open the cockpit and re-verify the boundaries yourself.
       </p>
       <div class="cta-row">
         <a class="btn primary" href="arena.html">Open the Arena cockpit →</a>

@@ -1,14 +1,32 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import {
+  closeSync,
+  fsyncSync,
+  mkdirSync,
+  openSync,
+  readFileSync,
+  renameSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
+import { basename, dirname, join } from "node:path";
 import {
   createHash,
   createPublicKey,
   generateKeyPairSync,
+  randomUUID,
   sign as edSign,
   verify as edVerify,
   type KeyObject,
 } from "node:crypto";
-import { publicKeySpkiB64 } from "./arenaSigning";
+import {
+  loadArenaSigningKey,
+  publicKeySpkiB64,
+  readArenaPublicKey,
+} from "./arenaSigning";
+import {
+  acquireAutoTraderLock,
+  releaseAutoTraderLock,
+} from "./autoTraderState";
 import { GENESIS_HASH, hashDecision, type DecisionInput } from "./glassbox";
 import {
   parseJsonlRecords,
@@ -101,9 +119,55 @@ export function readArenaChain(path: string): ArenaRecord[] {
   return parseJsonlRecords(readFileSync(path, "utf8")) as ArenaRecord[];
 }
 
+function isErrno(error: unknown, code: string): boolean {
+  return (
+    error instanceof Error &&
+    "code" in error &&
+    (error as NodeJS.ErrnoException).code === code
+  );
+}
+
+function atomicWriteFile(path: string, contents: string): void {
+  const directory = dirname(path);
+  mkdirSync(directory, { recursive: true });
+  const temporaryPath = join(
+    directory,
+    `.${basename(path)}.${process.pid}.${randomUUID()}.tmp`,
+  );
+  let created = false;
+  let replaced = false;
+  try {
+    const fd = openSync(temporaryPath, "wx");
+    created = true;
+    try {
+      writeFileSync(fd, contents, "utf8");
+      fsyncSync(fd);
+    } finally {
+      closeSync(fd);
+    }
+    renameSync(temporaryPath, path);
+    replaced = true;
+    if (process.platform !== "win32") {
+      const directoryFd = openSync(directory, "r");
+      try {
+        fsyncSync(directoryFd);
+      } finally {
+        closeSync(directoryFd);
+      }
+    }
+  } finally {
+    if (created && !replaced) {
+      try {
+        unlinkSync(temporaryPath);
+      } catch (error) {
+        if (!isErrno(error, "ENOENT")) throw error;
+      }
+    }
+  }
+}
+
 export function writeArenaChain(path: string, records: ArenaRecord[]): void {
-  mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, formatArenaChain(records));
+  atomicWriteFile(path, formatArenaChain(records));
 }
 
 // --- Signed Merkle attestation: a root over the chain, signed (Ed25519) ---
@@ -130,6 +194,22 @@ export interface AttestationVerification {
   publicKeyOk: boolean;
   recordCountOk: boolean;
   chainOk: boolean;
+}
+
+export interface AttestedArenaConfig {
+  chainPath: string;
+  attestationPath: string;
+  publicKeyPath: string;
+  lockPath?: string;
+  lockMaxAgeMs?: number;
+  env?: NodeJS.ProcessEnv;
+  model?: string;
+}
+
+interface AttestedArenaState {
+  records: ArenaRecord[];
+  privateKey: KeyObject;
+  publicKey: KeyObject;
 }
 
 function sha256Hex(input: string): string {
@@ -238,4 +318,205 @@ export function verifyAttestation(
     recordCountOk,
     chainOk,
   };
+}
+
+function errorDetail(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
+function canonicalInstant(value: Date, field: string): string {
+  if (!Number.isFinite(value.getTime())) {
+    throw new Error(`${field} must be a valid Date`);
+  }
+  return value.toISOString();
+}
+
+function readAttestation(path: string): ArenaAttestation {
+  try {
+    const parsed: unknown = JSON.parse(readFileSync(path, "utf8"));
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new Error("attestation must be an object");
+    }
+    return parsed as ArenaAttestation;
+  } catch (error) {
+    throw new Error(`Arena attestation unavailable at ${path}: ${errorDetail(error)}`);
+  }
+}
+
+function readAttestedArenaState(
+  config: AttestedArenaConfig,
+  probeSignedAt: string,
+): AttestedArenaState {
+  let records: ArenaRecord[];
+  try {
+    records = readArenaChain(config.chainPath);
+  } catch (error) {
+    throw new Error(
+      `Arena chain unavailable at ${config.chainPath}: ${errorDetail(error)}`,
+    );
+  }
+  const chainCheck = verifyArenaRecords(records);
+  if (!chainCheck.ok) {
+    throw new Error(
+      `existing Arena chain verification failed: ${chainCheck.errors.join("; ")}`,
+    );
+  }
+
+  let publicKey: KeyObject;
+  try {
+    publicKey = readArenaPublicKey(config.publicKeyPath);
+  } catch (error) {
+    throw new Error(
+      `Arena public key unavailable at ${config.publicKeyPath}: ${errorDetail(error)}`,
+    );
+  }
+  const existingAttestation = readAttestation(config.attestationPath);
+  const existingCheck = verifyAttestation(records, existingAttestation, {
+    publicKey,
+  });
+  if (!existingCheck.ok) {
+    throw new Error("existing Arena attestation verification failed");
+  }
+
+  let privateKey: KeyObject | null;
+  try {
+    privateKey = loadArenaSigningKey(config.env);
+  } catch (error) {
+    throw new Error(`Arena signing key is invalid: ${errorDetail(error)}`);
+  }
+  if (!privateKey) {
+    throw new Error(
+      "Arena attestation requires ARENA_SIGNING_KEY or .arena-signing-key.pem",
+    );
+  }
+  const probe = attestChain(records, {
+    signedAt: probeSignedAt,
+    ...(config.model ? { model: config.model } : {}),
+    privateKey,
+  });
+  const probeCheck = verifyAttestation(records, probe, { publicKey });
+  if (!probeCheck.ok) {
+    throw new Error("Arena signing key does not match published public key");
+  }
+  return { records, privateKey, publicKey };
+}
+
+function withAttestedArenaLock<T>(
+  config: AttestedArenaConfig,
+  now: Date,
+  action: () => T,
+): T {
+  const lockResult = acquireAutoTraderLock(
+    config.lockPath ?? `${config.chainPath}.lock`,
+    now,
+    config.lockMaxAgeMs ?? 600_000,
+  );
+  if (!lockResult.acquired) {
+    throw new Error(`Arena attested append blocked: ${lockResult.reason}`);
+  }
+  let actionFailed = false;
+  try {
+    return action();
+  } catch (error) {
+    actionFailed = true;
+    throw error;
+  } finally {
+    try {
+      const released = releaseAutoTraderLock(lockResult.lock);
+      if (!released && !actionFailed) {
+        throw new Error("Arena attested append lock ownership changed before release");
+      }
+    } catch (error) {
+      if (!actionFailed) throw error;
+    }
+  }
+}
+
+export function validateAttestedArenaPreflight(
+  config: AttestedArenaConfig,
+  now: Date = new Date(),
+): { recordCount: number; merkleRoot: string } {
+  const signedAt = canonicalInstant(now, "attested Arena preflight time");
+  return withAttestedArenaLock(config, now, () => {
+    const state = readAttestedArenaState(config, signedAt);
+    return {
+      recordCount: state.records.length,
+      merkleRoot: computeMerkleRoot(state.records),
+    };
+  });
+}
+
+function mutateAttestedArenaRecords(
+  buildInputs: (existing: ArenaRecord[]) => ArenaRecordInput[],
+  config: AttestedArenaConfig,
+  lockTime: Date,
+  signedAt: string,
+): { records: ArenaRecord[]; attestation: ArenaAttestation } {
+  return withAttestedArenaLock(config, lockTime, () => {
+    const state = readAttestedArenaState(config, signedAt);
+    const records = sealArenaRecords(buildInputs([...state.records]));
+    const chainCheck = verifyArenaRecords(records);
+    if (!chainCheck.ok) {
+      throw new Error(
+        `updated Arena chain verification failed: ${chainCheck.errors.join("; ")}`,
+      );
+    }
+    const attestation = attestChain(records, {
+      signedAt,
+      ...(config.model ? { model: config.model } : {}),
+      privateKey: state.privateKey,
+    });
+    const check = verifyAttestation(records, attestation, {
+      publicKey: state.publicKey,
+    });
+    if (!check.ok) {
+      throw new Error("updated Arena attestation failed verification");
+    }
+
+    writeArenaChain(config.chainPath, records);
+    atomicWriteFile(
+      config.attestationPath,
+      `${JSON.stringify(attestation, null, 2)}\n`,
+    );
+    const persistedRecords = readArenaChain(config.chainPath);
+    const persistedAttestation = readAttestation(config.attestationPath);
+    if (
+      !verifyAttestation(persistedRecords, persistedAttestation, {
+        publicKey: state.publicKey,
+      }).ok
+    ) {
+      throw new Error("persisted Arena chain and attestation failed verification");
+    }
+    return { records: persistedRecords, attestation: persistedAttestation };
+  });
+}
+
+export function replaceAttestedArenaRecords(
+  buildInputs: (existing: ArenaRecord[]) => ArenaRecordInput[],
+  config: AttestedArenaConfig,
+  now: Date = new Date(),
+): { records: ArenaRecord[]; attestation: ArenaAttestation } {
+  const signedAt = canonicalInstant(now, "Arena replacement time");
+  return mutateAttestedArenaRecords(
+    buildInputs,
+    config,
+    now,
+    signedAt,
+  );
+}
+
+export function appendAttestedArenaRecord(
+  input: ArenaRecordInput,
+  config: AttestedArenaConfig,
+): { records: ArenaRecord[]; attestation: ArenaAttestation } {
+  const signedAt = canonicalInstant(new Date(input.ts), "Arena record ts");
+  if (signedAt !== input.ts) {
+    throw new Error("Arena record ts must be a canonical ISO timestamp");
+  }
+  return mutateAttestedArenaRecords(
+    (existing) => [...existing.map(stripArenaHashFields), input],
+    config,
+    new Date(),
+    signedAt,
+  );
 }

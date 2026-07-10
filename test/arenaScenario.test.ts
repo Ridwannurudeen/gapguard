@@ -28,10 +28,10 @@ describe("arena behavioral scenario", () => {
       "stay flat when evidence conflicts",
     );
     expect(artifact.arenaChain.verification.ok).toBe(true);
-    expect(artifact.arena.graduationStatus).toMatch(
-      /licensed_waiting_explicit_approval|positive_pilot_paper_only/,
+    expect(artifact.arena.graduationStatus).toBe(
+      "abstained_no_actionable_signal",
     );
-    expect(artifact.graduationDryRun.status).toBe("dry_run");
+    expect(artifact.graduationDryRun).toBeNull();
     expect(artifact.perception.source).toContain("Bitget public RWA");
     const quorumRecord = artifact.arenaChain.records.find(
       (record) => record.kind === "quorum_decision",
@@ -47,14 +47,19 @@ describe("arena behavioral scenario", () => {
     );
   });
 
-  it("makes Quorum decide the same path by sizing down instead of chasing", () => {
+  it("keeps Quorum flat when the dislocation is fair and confidence is zero", () => {
     const scenario = buildArenaScenario("NVDAUSDT", 209.62, 20);
 
-    expect(scenario.quorumDecision.positionMultiplier).toBe(0.5);
+    expect(scenario.perception.dislocation).toMatchObject({
+      direction: "fair",
+      confidence: 0,
+    });
+    expect(scenario.quorumDecision.winningVote).toBe("flat");
+    expect(scenario.quorumDecision.positionMultiplier).toBe(0);
     expect(scenario.quorumAgentDecision.mandateOk).toBe(true);
     expect(scenario.naiveAgentDecision.mandateOk).toBe(false);
     expect(scenario.naiveAgentDecision.positionPct).toBe(0.5);
-    expect(scenario.quorumAgentDecision.positionPct).toBe(0.1);
+    expect(scenario.quorumAgentDecision.positionPct).toBe(0);
     expect(scenario.evidence.backtest.alphaStatus).toBe("positive");
   });
 });
