@@ -82,6 +82,82 @@ describe("live stock broker", () => {
     });
   });
 
+  it("attaches preset stop-loss/take-profit prices to an open order", () => {
+    const plan = buildFuturesOrderPlan(
+      {
+        symbol: "AAPLUSDT",
+        side: "open_long",
+        size: 0.05,
+        referencePrice: 315.31,
+        stopLossPrice: 310.58,
+        takeProfitPrice: 320.04,
+      },
+      baseConfig,
+    );
+    expect(plan.order.presetStopLossPrice).toBe("310.58");
+    expect(plan.order.presetStopSurplusPrice).toBe("320.04");
+  });
+
+  it("omits bracket fields entirely when the caller doesn't request them", () => {
+    const plan = buildFuturesOrderPlan(
+      {
+        symbol: "AAPLUSDT",
+        side: "open_long",
+        size: 0.05,
+        referencePrice: 315.31,
+      },
+      baseConfig,
+    );
+    expect(plan.order.presetStopLossPrice).toBeUndefined();
+    expect(plan.order.presetStopSurplusPrice).toBeUndefined();
+  });
+
+  it("never attaches a bracket to a close order, even if prices are passed", () => {
+    const plan = buildFuturesOrderPlan(
+      {
+        symbol: "AAPLUSDT",
+        side: "close_long",
+        size: 0.05,
+        referencePrice: 315.31,
+        stopLossPrice: 310.58,
+        takeProfitPrice: 320.04,
+      },
+      baseConfig,
+    );
+    expect(plan.order.presetStopLossPrice).toBeUndefined();
+    expect(plan.order.presetStopSurplusPrice).toBeUndefined();
+  });
+
+  it("rejects a stop-loss on the wrong side of an open_long entry", () => {
+    expect(() =>
+      buildFuturesOrderPlan(
+        {
+          symbol: "AAPLUSDT",
+          side: "open_long",
+          size: 0.05,
+          referencePrice: 315.31,
+          stopLossPrice: 320.04,
+        },
+        baseConfig,
+      ),
+    ).toThrow("must be below referencePrice");
+  });
+
+  it("rejects a take-profit on the wrong side of an open_short entry", () => {
+    expect(() =>
+      buildFuturesOrderPlan(
+        {
+          symbol: "SKHYNIXUSDT",
+          side: "open_short",
+          size: 0.01,
+          referencePrice: 1469.13,
+          takeProfitPrice: 1500,
+        },
+        baseConfig,
+      ),
+    ).toThrow("must be below referencePrice");
+  });
+
   it("translates semantic short and close sides into Bitget side/tradeSide fields", () => {
     expect(
       buildFuturesOrderPlan(

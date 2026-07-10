@@ -65,4 +65,32 @@ describe("broker cli", () => {
       parseBrokerCliArgs(["--mode", "paper", "--symbol", "ETHUSDT"], {}).symbol,
     ).toBe("ETHUSDT");
   });
+
+  it("defaults the stop-loss and take-profit to the constitution's overnight-loss cap", () => {
+    const args = parseBrokerCliArgs([]);
+    expect(args.stopLossPct).toBeCloseTo(0.015);
+    expect(args.takeProfitPct).toBeCloseTo(0.015);
+  });
+
+  it("lets an explicit bracket percentage override the default", () => {
+    const args = parseBrokerCliArgs([
+      "--stop-loss-pct",
+      "0.02",
+      "--take-profit-pct",
+      "0.03",
+    ]);
+    expect(args.stopLossPct).toBeCloseTo(0.02);
+    expect(args.takeProfitPct).toBeCloseTo(0.03);
+  });
+
+  it("treats an explicit 0 as opting out of that bracket leg", () => {
+    const args = parseBrokerCliArgs([
+      "--stop-loss-pct",
+      "0",
+      "--take-profit-pct",
+      "0",
+    ]);
+    expect(args.stopLossPct).toBeNull();
+    expect(args.takeProfitPct).toBeNull();
+  });
 });

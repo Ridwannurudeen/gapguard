@@ -81,7 +81,7 @@ GapGuard is the product. Quorum is the internal five-role deterministic adversar
 2. Catalyst gate: a two-tier Qwen model — `qwen3.6-flash` for quick passes, `qwen3.6-plus` for deep reasoning — classifies real, blinded Finnhub overnight news as fadeable noise or justified repricing. Invalid model output fails closed.
 3. Quorum: five-role deterministic adversarial desk weighs narrative, positioning, market intel, bear, and risk evidence.
 4. Mandate: natural-language risk rules compile into hard vetoes.
-5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading; the same live broker path has executed one real, gated AAPLUSDT open/close round trip.
+5. Execution: sim broker for RWA stock paper evidence; Agent Hub path proven on BTCUSDT Demo paper trading; the same live broker path has executed real, gated open/close round trips. Every open order carries an exchange-enforced stop-loss and take-profit by default (`futures_set_leverage`-adjacent preset TP/SL fields, sized off the desk's own "never lose >1.5% overnight" constitution) — the exchange closes the position on either trigger, no monitoring process required.
 6. Proof: Arena records are sealed into a sha256 hash chain and signed with Ed25519 over a Merkle root.
 7. Reflection: realized outcomes of past calls are appended to a hash-chained lesson log and fed back into the gate, so the engine learns from its own receipts without ever mutating them.
 
@@ -142,6 +142,7 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 - The 20-symbol always-fade basket is negative; the point of GapGuard is abstention, risk control, and verifiable restraint.
 - Further live real-money trading remains blocked without explicit user approval, a licensed passport, isolated margin, a hard notional cap, and `--confirm-live`.
 - Microstructure fadeable probabilities are not yet calibrated: the spread/depth/funding/NAV guards run as a deterministic safety floor, and the calibration report honestly flags insufficient labeled history to fit a probabilistic model.
+- Stop-loss/take-profit brackets are exchange-enforced (Bitget preset TP/SL) but only attach to orders placed through the broker going forward — there is no mechanism to retroactively attach a bracket to a position opened before this feature shipped, and no monitoring loop; if a bracket order is ever rejected, the position stays open unprotected and the operator must close it manually.
 
 ## Deep dives
 
