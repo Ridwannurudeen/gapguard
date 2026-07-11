@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-07-10T21:25:55.100Z",
-  "commit": "1b65b1c1834cf29209344ef2df2ffd2fce1dc140",
+  "commit": "12aadc8a5ca12893269362837faded7c9c8bdc40",
   "dirty": true,
   "model": "Qwen catalyst gate + deterministic Quorum",
   "promptSource": "src/convergenceGate.ts",
@@ -25,13 +25,13 @@
     },
     {
       "path": "public/index.html",
-      "sha256": "eaf9412302f55143bfa1d36ae8789f09b70a413f812b325b35aaa17f18ebe270",
-      "bytes": 67855
+      "sha256": "b3be5715500ebe3aa0bcab566483c54d2effcb488bbaaff0f78b26a6457c57b2",
+      "bytes": 95869
     },
     {
       "path": "public/news.html",
-      "sha256": "7101edd032579f5f25aa94eae66a1659d8daa0401c7ea18b09399d4ba93c3145",
-      "bytes": 19422
+      "sha256": "c5ea52d529bf5a2ff5bfb2e0a29d4681f5cfabf663889aaf9d7a482c52297732",
+      "bytes": 22591
     },
     {
       "path": "public/news-feed.json",
@@ -40,13 +40,23 @@
     },
     {
       "path": "public/arena.html",
-      "sha256": "320397db8562a2ed975a6b8ed7163eedcf068654ae2d15c2ccfa8868e89adf55",
-      "bytes": 72655
+      "sha256": "920ea2f15736f24f916674c451ef5090df42bec1e4282983aeee5b5dac919942",
+      "bytes": 87236
     },
     {
       "path": "public/status.html",
-      "sha256": "fb636c89578f7eca18212ed93d2b8ba7cb12b3cfa1272d3d94d38109c06447c5",
-      "bytes": 16955
+      "sha256": "534a18abfea50a29ae89c4e027332270901d05d8813e10a1c38c11dc0074cbdb",
+      "bytes": 26237
+    },
+    {
+      "path": "public/autopilot-status.js",
+      "sha256": "cd6558aa1acfcd69fbbdd93d9efd8ea2864ec0c5a7da8b7a82b96bcb0c3d0284",
+      "bytes": 13579
+    },
+    {
+      "path": "public/arena-verifier.js",
+      "sha256": "b831c886b5f3b9ca9769de2a02c7a7827fcd647842d2725beb4094f3bdbf1c51",
+      "bytes": 10787
     },
     {
       "path": "public/arena-data.json",

@@ -9,6 +9,15 @@ import {
 } from "../src/submissionManifest";
 
 describe("submission manifest", () => {
+  it("pins both public browser verifier modules", () => {
+    const paths = buildSubmissionManifest().artifacts.map(
+      (artifact) => artifact.path,
+    );
+
+    expect(paths).toContain("public/arena-verifier.js");
+    expect(paths).toContain("public/autopilot-status.js");
+  });
+
   it("hashes declared artifacts and records the signing-key fingerprint", () => {
     const dir = mkdtempSync(join(tmpdir(), "gapguard-manifest-"));
     const artifact = join(dir, "artifact.txt");

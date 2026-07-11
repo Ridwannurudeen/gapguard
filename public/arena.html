@@ -19,6 +19,7 @@
         --ink: #f5f5f3;
         --muted: #9a9ca2;
         --dim: #66676d;
+        --dim-text: #8b8d94;
         --ground: #0a0a0c;
         --floor: #15151a;
         --panel: #1a1a21;
@@ -71,12 +72,204 @@
         text-decoration: none;
       }
 
-      button,
-      .button-link {
+      .gg-skip {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        border-radius: 7px;
+        background: var(--lime);
+        color: var(--ground);
+        font-weight: 600;
+        padding: 0 14px;
+        transform: translateY(-160%);
+        transition: transform 140ms ease;
+      }
+
+      .gg-skip:focus-visible {
+        transform: translateY(0);
+      }
+
+      :where(a, button, input, textarea, summary):focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px var(--ground),
+          0 0 0 4px var(--lime);
+      }
+
+      .gg-nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(8, 9, 7, 0.72);
+      }
+
+      .gg-nav-shell {
+        display: flex;
+        width: min(1360px, calc(100% - 32px));
+        min-height: 64px;
+        align-items: center;
+        gap: 14px;
+        margin: 0 auto;
+      }
+
+      .gg-brand {
+        display: flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas,
+          monospace;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .gg-mark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: rgba(215, 255, 106, 0.12);
+        color: var(--lime);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .gg-links,
+      .gg-context {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .gg-nav-link,
+      .gg-context-button,
+      .gg-mobile summary,
+      .gg-mobile-links a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        padding: 0 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .gg-nav-link {
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+      }
+
+      .gg-nav-link:hover,
+      .gg-mobile-links a:hover {
+        color: var(--ink);
+      }
+
+      .gg-nav-link[aria-current="page"] {
+        border-bottom-color: var(--lime);
+        color: var(--lime);
+      }
+
+      .gg-context-button {
+        border: 1px solid var(--line-strong);
+        background: rgba(215, 255, 106, 0.11);
+        color: var(--ink);
+        cursor: pointer;
+        font: 600 13px/1 "Inter", system-ui, -apple-system, sans-serif;
+        text-transform: none;
+      }
+
+      .gg-context-button:hover {
+        border-color: var(--lime);
+        background: rgba(215, 255, 106, 0.18);
+      }
+
+      .gg-mobile {
+        position: relative;
+        display: none;
+      }
+
+      .gg-mobile summary {
+        border: 1px solid var(--line);
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .gg-mobile summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .gg-mobile[open] summary {
+        border-color: var(--line-strong);
+        color: var(--ink);
+      }
+
+      .gg-mobile-panel {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: min(320px, calc(100vw - 32px));
+        max-height: calc(100vh - 88px);
+        overflow-y: auto;
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: var(--floor);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+        padding: 8px;
+      }
+
+      .gg-mobile-links {
+        display: grid;
+        gap: 2px;
+      }
+
+      .gg-mobile-links a {
+        justify-content: flex-start;
+      }
+
+      .gg-mobile-links a[aria-current="page"] {
+        border-left: 3px solid var(--lime);
+        background: rgba(215, 255, 106, 0.08);
+        color: var(--lime);
+      }
+
+      @media (max-width: 860px) {
+        .gg-nav-shell {
+          min-height: 60px;
+          flex-wrap: wrap;
+          padding: 8px 0;
+        }
+
+        .gg-links {
+          display: none;
+        }
+
+        .gg-mobile {
+          display: block;
+        }
+
+        .gg-context {
+          order: 3;
+          width: 100%;
+        }
+      }
+
+      button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 38px;
+        min-height: 44px;
         border: 1px solid var(--line-strong);
         border-radius: 7px;
         background: rgba(215, 255, 106, 0.11);
@@ -91,19 +284,16 @@
           border-color 140ms ease;
       }
 
-      button:hover,
-      .button-link:hover {
+      button:hover {
         transform: translateY(-1px);
         border-color: var(--lime);
         background: rgba(215, 255, 106, 0.18);
       }
 
-      button:focus-visible,
-      a:focus-visible {
-        outline: none;
-        box-shadow:
-          0 0 0 2px var(--ground),
-          0 0 0 4px var(--lime);
+      @media (prefers-reduced-motion: no-preference) {
+        button:active:not(:disabled) {
+          transform: scale(0.98);
+        }
       }
 
       main {
@@ -123,7 +313,7 @@
         max-width: 830px;
         color: var(--ink);
         font-size: 58px;
-        font-weight: 780;
+        font-weight: 700;
         line-height: 0.98;
         letter-spacing: 0;
       }
@@ -142,8 +332,7 @@
 
       h1,
       h2,
-      h3,
-      .brand-title {
+      h3 {
         font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
         letter-spacing: -0.01em;
       }
@@ -158,9 +347,9 @@
       }
 
       .eyebrow {
-        color: var(--dim);
+        color: var(--dim-text);
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         letter-spacing: 0;
         text-transform: uppercase;
       }
@@ -172,49 +361,6 @@
       .shell {
         display: grid;
         gap: 16px;
-      }
-
-      .topbar {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 16px;
-        align-items: center;
-        padding: 11px 0 2px;
-      }
-
-      .brand {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        min-width: 0;
-      }
-
-      .mark {
-        display: grid;
-        width: 38px;
-        height: 38px;
-        place-items: center;
-        border: 1px solid var(--line-strong);
-        border-radius: 8px;
-        background: #0f130d;
-        color: var(--lime);
-        font:
-          900 12px/1 "JetBrains Mono", ui-monospace,
-          "SFMono-Regular",
-          Consolas,
-          monospace;
-      }
-
-      .brand-title {
-        color: var(--ink);
-        font-weight: 760;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 8px;
       }
 
       .hero {
@@ -339,7 +485,7 @@
       }
       .ev-label {
         font: 500 11px Inter, system-ui, sans-serif;
-        color: var(--dim);
+        color: var(--dim-text);
         letter-spacing: 0;
         text-transform: none;
       }
@@ -442,12 +588,50 @@
       }
 
       .receipt-panel {
+        position: relative;
         display: grid;
         grid-template-rows: auto auto 1fr;
         gap: 12px;
+        overflow: hidden;
         padding: 16px;
         background: rgba(8, 9, 7, 0.5);
         border-radius: 12px;
+      }
+
+      .receipt-panel::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(52, 227, 164, 0.22),
+          transparent
+        );
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+
+      @keyframes arena-verify-sweep {
+        from {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+        45% {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .receipt-panel.verify-sweep::after {
+          animation: arena-verify-sweep 260ms ease-out;
+        }
       }
 
       .receipt-meter {
@@ -460,9 +644,10 @@
       }
 
       .receipt-value {
+        min-width: 6ch;
         color: var(--lime);
         font:
-          820 44px/0.92 "JetBrains Mono", ui-monospace,
+          700 44px/0.92 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -497,6 +682,7 @@
       }
 
       .ticker {
+        min-height: 44px;
         overflow: hidden;
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -516,6 +702,18 @@
         animation: tape 34s linear infinite;
       }
 
+      .ticker:hover .ticker-track,
+      .ticker:focus-within .ticker-track {
+        animation-play-state: paused;
+      }
+
+      .ticker:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px var(--ground),
+          0 0 0 4px var(--lime);
+      }
+
       .ticker span {
         padding: 11px 22px;
         white-space: nowrap;
@@ -526,6 +724,166 @@
         display: grid;
         grid-template-columns: 1.25fr repeat(3, minmax(0, 0.75fr));
         gap: 10px;
+      }
+
+      .autopilot-panel {
+        display: grid;
+        gap: 16px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(215, 255, 106, 0.07), transparent 44%),
+          rgba(8, 9, 7, 0.86);
+        padding: 18px;
+      }
+
+      .autopilot-head,
+      .autopilot-state-line,
+      .autopilot-cap-head,
+      .autopilot-run {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .autopilot-state-line {
+        justify-content: flex-start;
+        min-width: 0;
+        border-block: 1px solid var(--line);
+        padding: 14px 0;
+      }
+
+      .autopilot-state-line .tag {
+        margin-left: auto;
+      }
+
+      .autopilot-lamp {
+        width: 11px;
+        height: 11px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--dim);
+      }
+
+      .autopilot-lamp.armed {
+        background: var(--mint);
+        box-shadow: 0 0 0 0 rgba(52, 227, 164, 0.42);
+        animation: autopilot-pulse 2.4s ease-out infinite;
+      }
+
+      .autopilot-lamp.info {
+        background: var(--cyan);
+      }
+
+      .autopilot-lamp.warn,
+      .autopilot-lamp.stale {
+        background: var(--amber);
+      }
+
+      .autopilot-lamp.bad {
+        background: var(--red);
+      }
+
+      @keyframes autopilot-pulse {
+        70% {
+          box-shadow: 0 0 0 8px rgba(52, 227, 164, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(52, 227, 164, 0);
+        }
+      }
+
+      .autopilot-state-value {
+        margin-top: 4px;
+        color: var(--ink);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: clamp(18px, 2.2vw, 28px);
+        font-weight: 700;
+      }
+
+      .autopilot-meta,
+      .autopilot-cap-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .autopilot-cap-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .autopilot-meta article,
+      .autopilot-cap {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(26, 26, 33, 0.66);
+        padding: 12px;
+      }
+
+      .autopilot-meta strong,
+      .autopilot-cap strong {
+        display: block;
+        margin-top: 6px;
+        color: var(--ink);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+      }
+
+      .autopilot-meter {
+        height: 5px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .autopilot-meter span {
+        display: block;
+        width: 0;
+        height: 100%;
+        background: var(--lime);
+        transition: width 220ms ease;
+      }
+
+      .autopilot-meter.warn span {
+        background: var(--amber);
+      }
+
+      .autopilot-meter.bad span {
+        background: var(--red);
+      }
+
+      .autopilot-runs {
+        display: grid;
+        gap: 7px;
+      }
+
+      .autopilot-run {
+        border-top: 1px solid var(--line);
+        padding-top: 7px;
+        color: var(--muted);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 11px;
+      }
+
+      .autopilot-caption {
+        color: var(--dim-text);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      @media (max-width: 760px) {
+        .autopilot-meta,
+        .autopilot-cap-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .autopilot-head {
+          align-items: flex-start;
+        }
       }
 
       .stat {
@@ -544,7 +902,7 @@
       .display {
         color: var(--lime);
         font:
-          820 72px/0.95 "JetBrains Mono", ui-monospace,
+          700 72px/0.95 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -554,7 +912,7 @@
         margin-top: 12px;
         color: var(--ink);
         font:
-          760 23px/1 "JetBrains Mono", ui-monospace,
+          700 23px/1 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -613,7 +971,7 @@
         border-radius: 5px;
         padding: 0 7px;
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         letter-spacing: 0;
         text-transform: uppercase;
         white-space: nowrap;
@@ -680,9 +1038,9 @@
       }
 
       .qv-label {
-        color: var(--dim);
+        color: var(--dim-text);
         font-size: 10px;
-        font-weight: 800;
+        font-weight: 600;
         text-transform: uppercase;
       }
 
@@ -706,6 +1064,7 @@
 
       .debate details.card summary {
         display: grid;
+        min-height: 44px;
         grid-template-columns: 1fr auto;
         gap: 10px;
         align-items: center;
@@ -736,7 +1095,7 @@
         color: var(--lime);
         font-family: "JetBrains Mono", monospace;
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         padding: 3px 6px;
       }
 
@@ -943,7 +1302,6 @@
           padding-top: 12px;
         }
 
-        .topbar,
         .stage-head,
         .status-grid,
         .thesis-strip,
@@ -956,10 +1314,6 @@
         .proof-grid,
         .workflow-grid {
           grid-template-columns: 1fr;
-        }
-
-        .actions {
-          justify-content: flex-start;
         }
 
         h1 {
@@ -997,29 +1351,50 @@
           scroll-behavior: auto !important;
           transition-duration: 0.01ms !important;
         }
+
+        .autopilot-lamp {
+          animation: none !important;
+        }
       }
     </style>
   </head>
   <body>
-    <main class="shell">
-      <header class="topbar">
-        <a class="brand" href="index.html" aria-label="GapGuard home">
-          <div class="mark">GG</div>
-          <div>
-            <div class="brand-title">GapGuard Cockpit</div>
-            <div class="eyebrow">Bitget AI Base Camp S1</div>
-          </div>
+    <a class="gg-skip" href="#main">Skip to content</a>
+    <!-- gg-nav v1 -->
+    <header class="gg-nav">
+      <div class="gg-nav-shell">
+        <a class="gg-brand" href="index.html" aria-label="GapGuard home">
+          <span class="gg-mark">GG</span><span>GapGuard</span>
         </a>
-        <nav class="actions" aria-label="Demo links">
-          <a class="button-link" href="app.html">Assistant</a>
-          <a class="button-link" href="news.html">News</a>
-          <a class="button-link" href="status.html">Status</a>
-          <a class="button-link" href="dashboard.html">Legacy proof</a>
-          <button id="verifyButton" type="button">Verify chain</button>
-          <button id="tamperButton" type="button">Simulate tampering</button>
+        <nav class="gg-links" aria-label="Primary navigation">
+          <a class="gg-nav-link" href="index.html">Home</a>
+          <a class="gg-nav-link" href="arena.html" aria-current="page">Cockpit</a>
+          <a class="gg-nav-link" href="app.html">Assistant</a>
+          <a class="gg-nav-link" href="news.html">News</a>
+          <a class="gg-nav-link" href="status.html">Status</a>
+          <a class="gg-nav-link" href="dashboard.html">Replay</a>
         </nav>
-      </header>
+        <details class="gg-mobile">
+          <summary>Menu</summary>
+          <div class="gg-mobile-panel">
+            <nav class="gg-mobile-links" aria-label="Mobile navigation">
+              <a href="index.html">Home</a>
+              <a href="arena.html" aria-current="page">Cockpit</a>
+              <a href="app.html">Assistant</a>
+              <a href="news.html">News</a>
+              <a href="status.html">Status</a>
+              <a href="dashboard.html">Replay</a>
+            </nav>
+          </div>
+        </details>
+        <div class="gg-context" aria-label="Proof controls">
+          <button class="gg-context-button" id="verifyButton" type="button">Verify chain</button>
+          <button class="gg-context-button" id="tamperButton" type="button">Simulate tampering</button>
+        </div>
+      </div>
+    </header>
 
+    <main id="main" class="shell">
       <section class="hero" aria-label="GapGuard proof cockpit">
         <div class="hero-copy">
           <div class="hero-lead">
@@ -1065,7 +1440,7 @@
               <div class="eyebrow">Judge evidence surface</div>
               <h2>Agent competition board</h2>
             </div>
-            <span id="stageStatus" class="tag warn">loading</span>
+            <span id="stageStatus" class="tag warn" aria-live="polite">loading</span>
           </div>
           <div class="stage-body">
             <div class="competition-board">
@@ -1092,7 +1467,7 @@
               <div class="receipt-meter">
                 <div class="eyebrow">Browser verifier</div>
                 <div id="chainCount" class="receipt-value num">0</div>
-                <div id="hashStatus" class="stat-value">pending</div>
+                <div id="hashStatus" class="stat-value" aria-live="polite">pending</div>
                 <div id="finalHash" class="receipt-hash mono">hash pending</div>
               </div>
               <div class="receipt-meter">
@@ -1109,7 +1484,7 @@
         </div>
       </section>
 
-      <section class="ticker" aria-label="Arena tape">
+      <section class="ticker" tabindex="0" aria-label="Arena tape">
         <div id="tickerTrack" class="ticker-track"></div>
       </section>
 
@@ -1137,6 +1512,67 @@
           <div class="eyebrow">Generated</div>
           <div id="generatedAt" class="stat-value">loading</div>
         </div>
+      </section>
+
+      <section class="autopilot-panel" aria-labelledby="autopilotTitle">
+        <div class="autopilot-head">
+          <div>
+            <div class="eyebrow">Autonomous execution</div>
+            <h2 id="autopilotTitle">Autopilot Mission Control</h2>
+          </div>
+          <span id="autopilotFreshness" class="tag">unavailable</span>
+        </div>
+        <div class="autopilot-state-line">
+          <span id="autopilotLamp" class="autopilot-lamp" aria-hidden="true"></span>
+          <div>
+            <div class="eyebrow">Operator gate snapshot</div>
+            <div id="autopilotState" class="autopilot-state-value" aria-live="polite">
+              Autopilot status unavailable; no operational state is claimed.
+            </div>
+          </div>
+          <span id="autopilotMode" class="tag">unknown</span>
+        </div>
+        <div class="autopilot-meta">
+          <article>
+            <div class="eyebrow">Cadence</div>
+            <strong id="autopilotCadence">unknown</strong>
+          </article>
+          <article>
+            <div class="eyebrow">Observed</div>
+            <strong id="autopilotObserved">unavailable</strong>
+          </article>
+          <article>
+            <div class="eyebrow">Last run</div>
+            <strong id="autopilotLastRun">none observed</strong>
+          </article>
+        </div>
+        <div class="autopilot-cap-grid">
+          <article class="autopilot-cap">
+            <div class="autopilot-cap-head">
+              <span class="eyebrow">Trades opened</span>
+              <strong id="autopilotTradeCap">unknown</strong>
+            </div>
+            <div id="autopilotTradeMeter" class="autopilot-meter" role="progressbar" aria-label="Daily autonomous trade cap" aria-valuemin="0" aria-valuemax="100">
+              <span id="autopilotTradeFill"></span>
+            </div>
+          </article>
+          <article class="autopilot-cap">
+            <div class="autopilot-cap-head">
+              <span class="eyebrow">Daily loss used</span>
+              <strong id="autopilotLossCap">unknown</strong>
+            </div>
+            <div id="autopilotLossMeter" class="autopilot-meter" role="progressbar" aria-label="Daily autonomous loss stop" aria-valuemin="0" aria-valuemax="100">
+              <span id="autopilotLossFill"></span>
+            </div>
+          </article>
+        </div>
+        <div>
+          <div class="eyebrow">Recent cycles</div>
+          <div id="autopilotRuns" class="autopilot-runs"></div>
+        </div>
+        <p class="autopilot-caption">
+          Last-observed VPS operator/state gate only &middot; not exchange or order readiness &middot; defaults OFF until the VPS operator arms it &middot; every gate is re-checked before any order.
+        </p>
       </section>
 
       <section class="panel">
@@ -1264,17 +1700,25 @@
       }
     </script>
 
-    <script>
+    <script type="module">
+      import {
+        GENESIS_HASH,
+        parseArenaJsonl,
+        verifyArenaAttestation,
+        verifyArenaChain,
+        verifyPublishedArenaBinding,
+      } from "./arena-verifier.js";
+
       const fallback = JSON.parse(
         document.getElementById("fallback-data").textContent,
       );
-      const genesis = "0".repeat(64);
+      let publishedArenaData = fallback;
       let chainRecords = [];
       let tamperEnabled = false;
       let chainResult = {
         ok: false,
         count: 0,
-        finalHash: genesis,
+        finalHash: GENESIS_HASH,
         errors: ["arena-chain.jsonl not loaded"],
         brokenRows: [],
       };
@@ -1643,6 +2087,16 @@
 
       function replayDebate() {
         const cards = [...document.querySelectorAll("[data-replay-index]")];
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          cards.forEach((card) => {
+            card.open = true;
+            card.classList.remove("replay-idle", "replay-thinking");
+            card.classList.add("replay-done");
+            const state = card.querySelector("[data-replay-state]");
+            if (state) state.textContent = "DONE";
+          });
+          return;
+        }
         cards.forEach((card) => {
           card.classList.remove("replay-thinking", "replay-done");
           card.classList.add("replay-idle");
@@ -1829,224 +2283,10 @@
           .join("");
       }
 
-      async function sha256(value) {
-        const bytes = new TextEncoder().encode(value);
-        const digest = await crypto.subtle.digest("SHA-256", bytes);
-        return [...new Uint8Array(digest)]
-          .map((byte) => byte.toString(16).padStart(2, "0"))
-          .join("");
-      }
-
-      function base64ToBytes(value) {
-        return Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
-      }
-
-      function hexToBytes(value) {
-        const bytes = new Uint8Array(value.length / 2);
-        for (let i = 0; i < bytes.length; i += 1) {
-          bytes[i] = Number.parseInt(value.slice(i * 2, i * 2 + 2), 16);
-        }
-        return bytes;
-      }
-
-      function publicKeyBody(pem) {
-        return String(pem)
-          .replace("-----BEGIN PUBLIC KEY-----", "")
-          .replace("-----END PUBLIC KEY-----", "")
-          .replace(/\s+/g, "");
-      }
-
-      function canonicalJson(value) {
-        if (value === null) return "null";
-        if (typeof value === "string") return JSON.stringify(value);
-        if (typeof value === "boolean") return value ? "true" : "false";
-        if (typeof value === "number") {
-          if (!Number.isFinite(value)) {
-            throw new Error("canonical JSON cannot encode non-finite numbers");
-          }
-          return JSON.stringify(value);
-        }
-        if (Array.isArray(value)) {
-          return `[${value.map((item) => canonicalJson(item)).join(",")}]`;
-        }
-        if (typeof value === "object") {
-          return `{${Object.keys(value)
-            .sort()
-            .filter((key) => value[key] !== undefined)
-            .map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`)
-            .join(",")}}`;
-        }
-        throw new Error(`canonical JSON cannot encode ${typeof value}`);
-      }
-
-      async function computeMerkleRoot(records) {
-        if (records.length === 0) return genesis;
-        let layer = await Promise.all(
-          records.map((record) => {
-            const payload = { ...record };
-            delete payload.hash;
-            return sha256(canonicalJson(payload));
-          }),
-        );
-        while (layer.length > 1) {
-          const next = [];
-          for (let i = 0; i < layer.length; i += 2) {
-            const left = layer[i];
-            const right = layer[i + 1] ?? left;
-            next.push(await sha256(left + right));
-          }
-          layer = next;
-        }
-        return layer[0];
-      }
-
-      async function verifyChainAttestation(records, att, publicKeyPem) {
-        if (!att || !publicKeyPem) {
-          return {
-            ok: false,
-            merkleRootOk: false,
-            signatureOk: false,
-            publicKeyOk: false,
-            recordCountOk: false,
-            error: "attestation or public key missing",
-          };
-        }
-
-        const merkleRoot = await computeMerkleRoot(records);
-        const merkleRootOk = merkleRoot === att.merkleRoot;
-        const recordCountOk = att.recordCount === records.length;
-        const publishedPublicKey = publicKeyBody(publicKeyPem);
-        const publicKeyOk = publishedPublicKey === att.publicKeySpkiB64;
-        let signatureOk = false;
-        let error = "";
-
-        try {
-          const signedEnvelope = {
-            alg: att.alg,
-            merkleRoot: att.merkleRoot,
-            recordCount: att.recordCount,
-            signedAt: att.signedAt,
-            ...(att.model ? { model: att.model } : {}),
-            publicKeySpkiB64: att.publicKeySpkiB64,
-          };
-          const key = await crypto.subtle.importKey(
-            "spki",
-            base64ToBytes(publishedPublicKey),
-            { name: "Ed25519" },
-            false,
-            ["verify"],
-          );
-          signatureOk = await crypto.subtle.verify(
-            { name: "Ed25519" },
-            key,
-            base64ToBytes(att.signatureB64),
-            new TextEncoder().encode(canonicalJson(signedEnvelope)),
-          );
-        } catch (err) {
-          error = err instanceof Error ? err.message : "signature verify failed";
-        }
-
-        return {
-          ok: merkleRootOk && signatureOk && publicKeyOk && recordCountOk,
-          merkleRootOk,
-          signatureOk,
-          publicKeyOk,
-          recordCountOk,
-          error,
-        };
-      }
-
-      function isArenaKind(value) {
-        return [
-          "mandate_rule",
-          "quorum_decision",
-          "agent_decision",
-          "mandate_breach",
-          "passport_issued",
-          "broker_order",
-          "reflection",
-        ].includes(value);
-      }
-
-      async function verifyArenaChain(records) {
-        const errors = [];
-        const brokenRows = new Set();
-        let expectedPrev = genesis;
-        let finalHash = genesis;
-
-        if (records.length === 0) {
-          return {
-            ok: false,
-            count: 0,
-            finalHash,
-            errors: ["arena-chain.jsonl is empty"],
-            brokenRows: [],
-          };
-        }
-
-        for (const [index, record] of records.entries()) {
-          const row = index + 1;
-          if (
-            typeof record.prevHash !== "string" ||
-            !/^[a-f0-9]{64}$/.test(record.prevHash)
-          ) {
-            errors.push(`line ${row}: prevHash malformed`);
-            brokenRows.add(row);
-          }
-          if (
-            typeof record.hash !== "string" ||
-            !/^[a-f0-9]{64}$/.test(record.hash)
-          ) {
-            errors.push(`line ${row}: hash malformed`);
-            brokenRows.add(row);
-          }
-          if (typeof record.ts !== "string" || !record.ts) {
-            errors.push(`line ${row}: ts missing`);
-            brokenRows.add(row);
-          }
-          if (!isArenaKind(record.kind)) {
-            errors.push(`line ${row}: kind malformed`);
-            brokenRows.add(row);
-          }
-          if (typeof record.agentId !== "string" || !record.agentId) {
-            errors.push(`line ${row}: agentId missing`);
-            brokenRows.add(row);
-          }
-          if (!Object.prototype.hasOwnProperty.call(record, "payload")) {
-            errors.push(`line ${row}: payload missing`);
-            brokenRows.add(row);
-          }
-
-          if (record.prevHash !== expectedPrev) {
-            errors.push(`line ${row}: prevHash mismatch`);
-            brokenRows.add(row);
-          }
-
-          const payload = { ...record };
-          delete payload.hash;
-          const expectedHash = await sha256(canonicalJson(payload));
-          if (record.hash !== expectedHash) {
-            errors.push(`line ${row}: hash mismatch`);
-            brokenRows.add(row);
-          }
-
-          expectedPrev = record.hash;
-          finalHash = record.hash;
-        }
-
-        return {
-          ok: errors.length === 0,
-          count: records.length,
-          finalHash,
-          errors,
-          brokenRows: [...brokenRows],
-          attestation: null,
-        };
-      }
-
       function tamperedRecords(records) {
         if (!tamperEnabled) return records;
         const copy = JSON.parse(JSON.stringify(records));
+        if (copy.length === 0) return copy;
         const index = Math.max(
           0,
           copy.findIndex((record) => record.kind === "agent_decision"),
@@ -2108,17 +2348,27 @@
 
         const panel = document.getElementById("receiptPanel");
 
-        if (result.ok && result.attestation?.ok) {
+        if (result.ok && result.attestation?.ok && result.binding?.ok) {
           status.textContent = `CHAIN VERIFIED · ${result.count} records · SIGNATURE VERIFIED`;
           status.className = "stat-value ok-text";
           if (panel) panel.dataset.state = "verified";
           return;
         }
 
-        if (result.ok) {
-          status.textContent = `CHAIN VERIFIED · ${result.count} records · SIGNATURE MISSING`;
-          status.className = "stat-value";
-          if (panel) panel.dataset.state = "verified";
+        if (result.ok && result.attestation?.ok && !result.binding?.ok) {
+          status.textContent = "DISPLAY DOES NOT MATCH SIGNED DECISION";
+          status.className = "stat-value bad-text";
+          if (panel) delete panel.dataset.state;
+          return;
+        }
+
+        if (result.ok && result.binding?.ok) {
+          const missing = !attestation || !arenaPublicKeyPem;
+          status.textContent = missing
+            ? `CHAIN VERIFIED · ${result.count} records · SIGNATURE MISSING`
+            : `CHAIN VERIFIED · ${result.count} records · SIGNATURE FAILED`;
+          status.className = missing ? "stat-value" : "stat-value bad-text";
+          if (panel) delete panel.dataset.state;
           return;
         }
 
@@ -2137,14 +2387,16 @@
       async function refreshChain() {
         const visibleRecords = tamperedRecords(chainRecords);
         chainResult = await verifyArenaChain(visibleRecords);
-        chainResult.attestation = await verifyChainAttestation(
+        chainResult.attestation = await verifyArenaAttestation(
           visibleRecords,
           attestation,
           arenaPublicKeyPem,
         );
-        if ((attestation || arenaPublicKeyPem) && !chainResult.attestation.ok) {
-          chainResult.ok = false;
-        }
+        chainResult.binding = verifyPublishedArenaBinding(
+          publishedArenaData,
+          visibleRecords,
+          chainResult,
+        );
         renderChainStatus(chainResult);
         renderMiniChain(visibleRecords, chainResult);
         renderChainRows(visibleRecords, chainResult);
@@ -2188,11 +2440,7 @@
           const res = await fetch(path, { cache: "no-store" });
           if (!res.ok) return [];
           const raw = await res.text();
-          return raw
-            .split(/\r?\n/)
-            .map((line) => line.trim())
-            .filter(Boolean)
-            .map((line) => JSON.parse(line));
+          return parseArenaJsonl(raw);
         } catch {
           return [];
         }
@@ -2213,6 +2461,19 @@
 
       // The chain auto-verifies on load, so a re-verify often yields an identical
       // result. Give an explicit on-click signal so the button never feels dead.
+      function showVerifySweep() {
+        const panel = document.getElementById("receiptPanel");
+        if (
+          !panel ||
+          panel.dataset.state !== "verified" ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          return;
+        }
+        panel.classList.remove("verify-sweep");
+        requestAnimationFrame(() => panel.classList.add("verify-sweep"));
+      }
+
       async function runVerify(btn) {
         const original = btn ? btn.textContent : null;
         if (btn) {
@@ -2224,8 +2485,8 @@
           el.textContent = "VERIFYING…";
           el.className = "stat-value";
         }
-        await new Promise((resolve) => setTimeout(resolve, 220));
         await refreshChain();
+        showVerifySweep();
         if (btn && original !== null) {
           btn.textContent = original;
           btn.disabled = false;
@@ -2274,10 +2535,10 @@
               "&lt;",
             );
             const label = p.artifact?.label
-              ? `<span style="font-family:var(--mono);font-size:10px;color:var(--dim)"> · ${p.artifact.label}</span>`
+              ? `<span style="font-family:var(--mono);font-size:10px;color:var(--dim-text)"> · ${p.artifact.label}</span>`
               : "";
             return `<div style="border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:9px;background:rgba(26,26,33,.5)">
-              <div style="display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--dim)">
+              <div style="display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--dim-text)">
                 <span>AAPL · ${date}</span><span>return ${ret} · alpha <b style="color:${alphaColor}">${alpha}</b></span>
               </div>
               <p style="margin:8px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink)">${lesson}${label}</p>
@@ -2288,6 +2549,7 @@
 
       async function boot() {
         const data = (await loadJson("arena-data.json")) ?? fallback;
+        publishedArenaData = data;
         attestation = (await loadJson("arena-attestation.json")) ?? null;
         arenaPublicKeyPem = await loadText("arena-pubkey.pem");
         chainRecords = await loadJsonl("arena-chain.jsonl");
@@ -2305,7 +2567,219 @@
         await refreshChain();
       }
 
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const menu = document.querySelector(".gg-mobile[open]");
+        if (!menu) return;
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      });
+
       boot();
+    </script>
+    <script type="module">
+      import {
+        autopilotCapRatio,
+        autopilotEntryLabel,
+        autopilotOutcomeLabel,
+        autopilotStatusFreshness,
+        formatAutopilotRelativeTime,
+        parseAutopilotStatus,
+      } from "./autopilot-status.js";
+
+      const autopilotElements = {
+        cadence: document.getElementById("autopilotCadence"),
+        freshness: document.getElementById("autopilotFreshness"),
+        lamp: document.getElementById("autopilotLamp"),
+        lastRun: document.getElementById("autopilotLastRun"),
+        lossCap: document.getElementById("autopilotLossCap"),
+        lossFill: document.getElementById("autopilotLossFill"),
+        lossMeter: document.getElementById("autopilotLossMeter"),
+        mode: document.getElementById("autopilotMode"),
+        observed: document.getElementById("autopilotObserved"),
+        runs: document.getElementById("autopilotRuns"),
+        state: document.getElementById("autopilotState"),
+        tradeCap: document.getElementById("autopilotTradeCap"),
+        tradeFill: document.getElementById("autopilotTradeFill"),
+        tradeMeter: document.getElementById("autopilotTradeMeter"),
+      };
+
+      function textElement(tag, className, value) {
+        const element = document.createElement(tag);
+        if (className) element.className = className;
+        element.textContent = value;
+        return element;
+      }
+
+      function resetAutopilot() {
+        autopilotElements.freshness.textContent = "unavailable";
+        autopilotElements.freshness.className = "tag";
+        autopilotElements.lamp.className = "autopilot-lamp";
+        autopilotElements.state.textContent =
+          "Autopilot status unavailable; no operational state is claimed.";
+        autopilotElements.mode.textContent = "unknown";
+        autopilotElements.mode.className = "tag";
+        autopilotElements.cadence.textContent = "unknown";
+        autopilotElements.observed.textContent = "unavailable";
+        autopilotElements.lastRun.textContent = "none observed";
+        autopilotElements.tradeCap.textContent = "unknown";
+        autopilotElements.lossCap.textContent = "unknown";
+        setAutopilotMeter(
+          autopilotElements.tradeMeter,
+          autopilotElements.tradeFill,
+          null,
+          false,
+        );
+        setAutopilotMeter(
+          autopilotElements.lossMeter,
+          autopilotElements.lossFill,
+          null,
+          false,
+        );
+        autopilotElements.runs.replaceChildren(
+          textElement("p", "muted", "No run history is available."),
+        );
+      }
+
+      function setAutopilotMeter(meter, fill, ratio, reached) {
+        meter.className = `autopilot-meter${
+          reached ? " bad" : ratio !== null && ratio >= 0.67 ? " warn" : ""
+        }`;
+        fill.style.width = ratio === null ? "0" : `${ratio * 100}%`;
+        if (ratio === null) {
+          meter.removeAttribute("aria-valuenow");
+          meter.removeAttribute("aria-valuetext");
+          return;
+        }
+        meter.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
+        meter.setAttribute(
+          "aria-valuetext",
+          reached ? "cap reached" : `${Math.round(ratio * 100)} percent used`,
+        );
+      }
+
+      function autopilotLampTone(entryState, fresh) {
+        if (!fresh) return "stale";
+        if (entryState === "armed") return "armed";
+        if (entryState === "dry_run") return "info";
+        if (["kill_switched", "cap_reached", "reconciling"].includes(entryState)) {
+          return "warn";
+        }
+        return "";
+      }
+
+      function outcomeTone(outcome) {
+        if (["submitted", "filled", "rearmed"].includes(outcome)) return "ok";
+        if (outcome === "dry_run") return "info";
+        if (["blocked", "cancelled", "timeout"].includes(outcome)) return "warn";
+        if (outcome === "error") return "blocked";
+        return "";
+      }
+
+      function renderAutopilotRuns(runs) {
+        if (runs.length === 0) {
+          autopilotElements.runs.replaceChildren(
+            textElement("p", "muted", "No run history has been observed."),
+          );
+          return;
+        }
+        const rows = runs
+          .slice(-5)
+          .reverse()
+          .map((run) => {
+            const row = document.createElement("article");
+            row.className = "autopilot-run";
+            row.append(
+              textElement(
+                "span",
+                "mono",
+                formatAutopilotRelativeTime(run.completedAt),
+              ),
+              textElement(
+                "span",
+                `tag ${outcomeTone(run.outcome)}`.trim(),
+                autopilotOutcomeLabel(run.outcome),
+              ),
+            );
+            return row;
+          });
+        autopilotElements.runs.replaceChildren(...rows);
+      }
+
+      function renderAutopilot(feed) {
+        const freshness = autopilotStatusFreshness(feed);
+        const entryLabel = autopilotEntryLabel(feed.entryState);
+        autopilotElements.freshness.textContent = freshness.fresh
+          ? "fresh"
+          : "last observed";
+        autopilotElements.freshness.className = `tag ${
+          freshness.fresh ? "ok" : "warn"
+        }`;
+        autopilotElements.lamp.className = `autopilot-lamp ${autopilotLampTone(
+          feed.entryState,
+          freshness.fresh,
+        )}`.trim();
+        autopilotElements.state.textContent = freshness.fresh
+          ? entryLabel
+          : `Last observed: ${entryLabel}`;
+        autopilotElements.mode.textContent = feed.mode;
+        autopilotElements.mode.className = `tag ${
+          feed.mode === "dry_run" ? "info" : ""
+        }`.trim();
+        autopilotElements.cadence.textContent =
+          feed.cadenceMinutes === null
+            ? "unknown"
+            : `every ${feed.cadenceMinutes} min`;
+        autopilotElements.observed.textContent =
+          formatAutopilotRelativeTime(feed.generatedAt);
+        autopilotElements.lastRun.textContent = feed.lastRun
+          ? `${autopilotOutcomeLabel(feed.lastRun.outcome)} · ${formatAutopilotRelativeTime(feed.lastRun.completedAt)}`
+          : "none observed";
+
+        const tradeRatio = autopilotCapRatio(
+          feed.caps.tradesOpened,
+          feed.caps.maxTradesPerDay,
+        );
+        const lossRatio = autopilotCapRatio(
+          feed.caps.dailyLossUsedUSDT,
+          feed.caps.maxDailyLossUSDT,
+        );
+        autopilotElements.tradeCap.textContent =
+          feed.caps.tradesOpened === null || feed.caps.maxTradesPerDay === null
+            ? "unknown"
+            : `${feed.caps.tradesOpened} / ${feed.caps.maxTradesPerDay}`;
+        autopilotElements.lossCap.textContent =
+          feed.caps.dailyLossUsedUSDT === null ||
+          feed.caps.maxDailyLossUSDT === null
+            ? "unknown"
+            : `${feed.caps.dailyLossUsedUSDT.toFixed(2)} / ${feed.caps.maxDailyLossUSDT.toFixed(2)} USDT`;
+        setAutopilotMeter(
+          autopilotElements.tradeMeter,
+          autopilotElements.tradeFill,
+          tradeRatio,
+          feed.caps.tradeCapReached === true,
+        );
+        setAutopilotMeter(
+          autopilotElements.lossMeter,
+          autopilotElements.lossFill,
+          lossRatio,
+          feed.caps.dailyLossCapReached === true,
+        );
+        renderAutopilotRuns(feed.recentRuns);
+      }
+
+      async function loadAutopilot() {
+        resetAutopilot();
+        try {
+          const response = await fetch("autopilot-status.json", { cache: "no-store" });
+          if (!response.ok) return;
+          renderAutopilot(parseAutopilotStatus(await response.json()));
+        } catch {
+          resetAutopilot();
+        }
+      }
+
+      void loadAutopilot();
     </script>
   </body>
 </html>

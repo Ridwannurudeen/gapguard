@@ -19,6 +19,7 @@
         --ink: #f5f5f3;
         --muted: #9a9ca2;
         --dim: #66676d;
+        --dim-text: #8b8d94;
         --ground: #0a0a0c;
         --floor: #15151a;
         --line: rgba(255, 255, 255, 0.14);
@@ -70,10 +71,202 @@
         text-decoration: none;
       }
 
-      button,
-      .button-link {
+      .gg-skip {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
         display: inline-flex;
-        min-height: 38px;
+        min-height: 44px;
+        align-items: center;
+        border-radius: 7px;
+        background: var(--lime);
+        color: var(--ground);
+        font-weight: 600;
+        padding: 0 14px;
+        transform: translateY(-160%);
+        transition: transform 140ms ease;
+      }
+
+      .gg-skip:focus-visible {
+        transform: translateY(0);
+      }
+
+      :where(a, button, input, textarea, summary):focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px var(--ground),
+          0 0 0 4px var(--lime);
+      }
+
+      .gg-nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(8, 9, 7, 0.72);
+      }
+
+      .gg-nav-shell {
+        display: flex;
+        width: min(1360px, calc(100% - 32px));
+        min-height: 64px;
+        align-items: center;
+        gap: 14px;
+        margin: 0 auto;
+      }
+
+      .gg-brand {
+        display: flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas,
+          monospace;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .gg-mark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: rgba(215, 255, 106, 0.12);
+        color: var(--lime);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .gg-links,
+      .gg-context {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .gg-nav-link,
+      .gg-context-button,
+      .gg-mobile summary,
+      .gg-mobile-links a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        padding: 0 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .gg-nav-link {
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+      }
+
+      .gg-nav-link:hover,
+      .gg-mobile-links a:hover {
+        color: var(--ink);
+      }
+
+      .gg-nav-link[aria-current="page"] {
+        border-bottom-color: var(--lime);
+        color: var(--lime);
+      }
+
+      .gg-context-button {
+        border: 1px solid var(--line-strong);
+        background: rgba(215, 255, 106, 0.11);
+        color: var(--ink);
+        cursor: pointer;
+        font: 600 13px/1 "Inter", system-ui, -apple-system, sans-serif;
+        text-transform: none;
+      }
+
+      .gg-context-button:hover {
+        border-color: var(--lime);
+        background: rgba(215, 255, 106, 0.18);
+      }
+
+      .gg-mobile {
+        position: relative;
+        display: none;
+      }
+
+      .gg-mobile summary {
+        border: 1px solid var(--line);
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .gg-mobile summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .gg-mobile[open] summary {
+        border-color: var(--line-strong);
+        color: var(--ink);
+      }
+
+      .gg-mobile-panel {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: min(320px, calc(100vw - 32px));
+        max-height: calc(100vh - 88px);
+        overflow-y: auto;
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: var(--floor);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+        padding: 8px;
+      }
+
+      .gg-mobile-links {
+        display: grid;
+        gap: 2px;
+      }
+
+      .gg-mobile-links a {
+        justify-content: flex-start;
+      }
+
+      .gg-mobile-links a[aria-current="page"] {
+        border-left: 3px solid var(--lime);
+        background: rgba(215, 255, 106, 0.08);
+        color: var(--lime);
+      }
+
+      @media (max-width: 860px) {
+        .gg-nav-shell {
+          min-height: 60px;
+          flex-wrap: wrap;
+          padding: 8px 0;
+        }
+
+        .gg-links {
+          display: none;
+        }
+
+        .gg-mobile {
+          display: block;
+        }
+
+        .gg-context {
+          order: 3;
+          width: 100%;
+        }
+      }
+
+      button {
+        display: inline-flex;
+        min-height: 44px;
         align-items: center;
         justify-content: center;
         border: 1px solid var(--line-strong);
@@ -82,7 +275,7 @@
         color: var(--ink);
         cursor: pointer;
         font:
-          800 11px/1 "JetBrains Mono", ui-monospace,
+          700 11px/1 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -95,19 +288,10 @@
           border-color 140ms ease;
       }
 
-      button:hover,
-      .button-link:hover {
+      button:hover {
         transform: translateY(-1px);
         border-color: var(--lime);
         background: rgba(215, 255, 106, 0.18);
-      }
-
-      button:focus-visible,
-      a:focus-visible {
-        outline: none;
-        box-shadow:
-          0 0 0 2px var(--ground),
-          0 0 0 4px var(--lime);
       }
 
       main {
@@ -134,7 +318,7 @@
         max-width: 760px;
         color: var(--ink);
         font-size: 48px;
-        font-weight: 780;
+        font-weight: 700;
         line-height: 1;
         letter-spacing: 0;
       }
@@ -160,9 +344,9 @@
       }
 
       .eyebrow {
-        color: var(--dim);
+        color: var(--dim-text);
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         letter-spacing: 0;
         text-transform: uppercase;
       }
@@ -174,49 +358,6 @@
       .shell {
         display: grid;
         gap: 16px;
-      }
-
-      .topbar {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 16px;
-        align-items: center;
-        padding: 11px 0 2px;
-      }
-
-      .brand {
-        display: flex;
-        min-width: 0;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .mark {
-        display: grid;
-        width: 38px;
-        height: 38px;
-        place-items: center;
-        border: 1px solid var(--line-strong);
-        border-radius: 8px;
-        background: #0f130d;
-        color: var(--lime);
-        font:
-          900 12px/1 "JetBrains Mono", ui-monospace,
-          "SFMono-Regular",
-          Consolas,
-          monospace;
-      }
-
-      .brand-title {
-        color: var(--ink);
-        font-weight: 760;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 8px;
       }
 
       .hero,
@@ -272,7 +413,7 @@
         margin-top: 10px;
         color: var(--lime);
         font:
-          820 58px/0.92 "JetBrains Mono", ui-monospace,
+          700 58px/0.92 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -282,7 +423,7 @@
         margin-top: 10px;
         color: var(--ink);
         font:
-          760 22px/1 "JetBrains Mono", ui-monospace,
+          700 22px/1 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -319,7 +460,7 @@
       }
 
       .axis-label {
-        fill: var(--dim);
+        fill: var(--dim-text);
         font:
           10px "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
@@ -353,6 +494,7 @@
       }
 
       .ticker {
+        min-height: 44px;
         overflow: hidden;
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -370,6 +512,18 @@
         display: flex;
         width: max-content;
         animation: tape 34s linear infinite;
+      }
+
+      .ticker:hover .ticker-track,
+      .ticker:focus-within .ticker-track {
+        animation-play-state: paused;
+      }
+
+      .ticker:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px var(--ground),
+          0 0 0 4px var(--lime);
       }
 
       .ticker span {
@@ -422,7 +576,7 @@
         padding: 0 7px;
         color: var(--muted);
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         text-transform: uppercase;
         white-space: nowrap;
       }
@@ -464,7 +618,9 @@
       }
 
       .table-wrap {
+        max-width: 100%;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .table {
@@ -482,9 +638,9 @@
       }
 
       .table th {
-        color: var(--dim);
+        color: var(--dim-text);
         font:
-          900 10px/1.2 "JetBrains Mono", ui-monospace,
+          700 10px/1.2 "JetBrains Mono", ui-monospace,
           "SFMono-Regular",
           Consolas,
           monospace;
@@ -572,20 +728,9 @@
           padding-top: 12px;
         }
 
-        .topbar,
         .hero-metrics,
         .decision {
           grid-template-columns: 1fr;
-        }
-
-        .actions {
-          justify-content: flex-start;
-        }
-
-        button,
-        .button-link {
-          min-height: 36px;
-          padding: 0 11px;
         }
 
         .chart-head,
@@ -626,25 +771,42 @@
     </style>
   </head>
   <body>
-    <main class="shell">
-      <header class="topbar">
-        <a class="brand" href="index.html" aria-label="GapGuard home">
-          <div class="mark">GG</div>
-          <div>
-            <div class="brand-title">GapGuard Replay Cockpit</div>
-            <div class="eyebrow">Legacy proof surface</div>
-          </div>
+    <a class="gg-skip" href="#main">Skip to content</a>
+    <!-- gg-nav v1 -->
+    <header class="gg-nav">
+      <div class="gg-nav-shell">
+        <a class="gg-brand" href="index.html" aria-label="GapGuard home">
+          <span class="gg-mark">GG</span><span>GapGuard</span>
         </a>
-        <nav class="actions" aria-label="Site navigation">
-          <a class="button-link" href="app.html">Assistant</a>
-          <a class="button-link" href="news.html">News</a>
-          <a class="button-link" href="arena.html">Agent Arena</a>
-          <a class="button-link" href="status.html">Status</a>
-          <button id="verifyButton" type="button">Verify replay</button>
-          <button id="tamperButton" type="button">Simulate tamper</button>
+        <nav class="gg-links" aria-label="Primary navigation">
+          <a class="gg-nav-link" href="index.html">Home</a>
+          <a class="gg-nav-link" href="arena.html">Cockpit</a>
+          <a class="gg-nav-link" href="app.html">Assistant</a>
+          <a class="gg-nav-link" href="news.html">News</a>
+          <a class="gg-nav-link" href="status.html">Status</a>
+          <a class="gg-nav-link" href="dashboard.html" aria-current="page">Replay</a>
         </nav>
-      </header>
+        <details class="gg-mobile">
+          <summary>Menu</summary>
+          <div class="gg-mobile-panel">
+            <nav class="gg-mobile-links" aria-label="Mobile navigation">
+              <a href="index.html">Home</a>
+              <a href="arena.html">Cockpit</a>
+              <a href="app.html">Assistant</a>
+              <a href="news.html">News</a>
+              <a href="status.html">Status</a>
+              <a href="dashboard.html" aria-current="page">Replay</a>
+            </nav>
+          </div>
+        </details>
+        <div class="gg-context" aria-label="Proof controls">
+          <button class="gg-context-button" id="verifyButton" type="button">Verify replay</button>
+          <button class="gg-context-button" id="tamperButton" type="button">Simulate tamper</button>
+        </div>
+      </div>
+    </header>
 
+    <main id="main" class="shell">
       <section class="hero" aria-label="Replay proof cockpit">
         <div class="hero-copy">
           <div class="hero-lead">
@@ -712,14 +874,14 @@
         </div>
       </section>
 
-      <section class="ticker" aria-label="Replay tape">
+      <section class="ticker" tabindex="0" aria-label="Replay tape">
         <div id="tickerTrack" class="ticker-track"></div>
       </section>
 
       <section class="proof-grid" aria-label="Replay proof status">
         <article class="proof-cell">
           <div class="eyebrow">Hash state</div>
-          <div id="hashState" class="stat-value">hash chain pending</div>
+          <div id="hashState" class="stat-value" aria-live="polite">hash chain pending</div>
         </article>
         <article class="proof-cell">
           <div class="eyebrow">Final hash</div>
@@ -1079,6 +1241,14 @@
             void refreshVerification();
           });
       }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const menu = document.querySelector(".gg-mobile[open]");
+        if (!menu) return;
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      });
 
       boot();
     </script>

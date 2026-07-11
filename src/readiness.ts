@@ -26,6 +26,7 @@ export interface ReadinessReport {
 
 const REQUIRED_LOCAL_EVIDENCE = [
   "public/arena.html",
+  "public/arena-verifier.js",
   "public/arena-data.json",
   "public/arena-chain.jsonl",
   "public/arena-attestation.json",

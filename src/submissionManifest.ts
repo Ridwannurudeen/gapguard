@@ -14,6 +14,8 @@ const DEFAULT_ARTIFACTS = [
   "public/news-feed.json",
   "public/arena.html",
   "public/status.html",
+  "public/autopilot-status.js",
+  "public/arena-verifier.js",
   "public/arena-data.json",
   "public/arena-chain.jsonl",
   "public/arena-attestation.json",
