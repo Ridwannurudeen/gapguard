@@ -50,14 +50,15 @@ stop remains active, and then clears only the persistent trip.
 
 ## 1. Prepare the checkout and service account
 
-The examples use `/opt/gapguard`, a dedicated `gapguard` service account, and
-`/usr/bin/npm`. Verify all three on the VPS and adjust the unit if the installed
-paths differ.
+The installed checkout is `/opt/gapguard-app`, the static web root is
+`/opt/gapguard/web`, the service account is `gapguard`, and npm is
+`/usr/bin/npm`. Verify all four before changing a unit.
 
 ```bash
 command -v npm
-sudo test -d /opt/gapguard
-sudo install -d -o gapguard -g gapguard -m 700 /opt/gapguard/state
+sudo test -d /opt/gapguard-app
+sudo test -d /opt/gapguard/web
+sudo install -d -o gapguard -g gapguard -m 700 /opt/gapguard-app/state
 ```
 
 The service account needs read access to the checkout and signing key, plus write
@@ -67,7 +68,7 @@ attestation outputs. Do not use world-writable permissions.
 Install dependencies from the reviewed checkout before enabling the timer:
 
 ```bash
-cd /opt/gapguard
+cd /opt/gapguard-app
 sudo -u gapguard npm ci
 npm run typecheck
 npm test
@@ -101,19 +102,55 @@ AUTO_TRADE_MAX_DAILY_LOSS_USDT=0.30
 AUTO_TRADE_MAX_POSITION_PCT=0.20
 LIVE_MAX_NOTIONAL_USDT=20
 
-AUTO_TRADE_STATE_PATH=/opt/gapguard/state/auto-trader-daily.json
-AUTO_TRADE_LOCK_PATH=/opt/gapguard/state/auto-trader.lock
-AUTO_TRADE_KILL_SWITCH_PATH=/opt/gapguard/state/AUTO_TRADE_KILL
-AUTO_TRADE_DRY_RUN_STATE_PATH=/opt/gapguard/state/auto-trader-dry-run.json
-AUTO_TRADE_DRY_RUN_LOCK_PATH=/opt/gapguard/state/auto-trader-dry-run.lock
-AUTO_TRADE_ARENA_LOCK_PATH=/opt/gapguard/state/arena-chain.lock
+AUTO_TRADE_STATE_PATH=/opt/gapguard-app/state/auto-trader-daily.json
+AUTO_TRADE_LOCK_PATH=/opt/gapguard-app/state/auto-trader.lock
+AUTO_TRADE_KILL_SWITCH_PATH=/opt/gapguard-app/state/AUTO_TRADE_KILL
+AUTO_TRADE_DRY_RUN_STATE_PATH=/opt/gapguard-app/state/auto-trader-dry-run.json
+AUTO_TRADE_DRY_RUN_LOCK_PATH=/opt/gapguard-app/state/auto-trader-dry-run.lock
+AUTO_TRADE_ARENA_LOCK_PATH=/opt/gapguard-app/state/arena-chain.lock
+AUTO_TRADE_STATUS_PATH=/opt/gapguard/runtime-public/autopilot-status.json
+AUTO_TRADE_CADENCE_MINUTES=30
 ```
 
 Do not track this file, copy it into the checkout, or print its contents into the
 journal. The repository ignores `state/`; credential files remain outside the
-repository entirely.
+repository entirely. `AUTO_TRADE_CADENCE_MINUTES` is display metadata and must
+match the timer interval whenever that interval changes.
 
-## 3. Install the dry-run service and timer
+## 3. Prepare the sanitized public-status boundary
+
+Do not make `/opt/gapguard/web` writable by the trading service and do not relax
+the service's `UMask=0077`. Create a dedicated setgid directory instead. It lets
+the `gapguard` process atomically publish one schema-validated status file while
+letting nginx read only the final mode-0640 artifact:
+
+```bash
+sudo install -d -o gapguard -g www-data -m 2750 /opt/gapguard/runtime-public
+sudo stat -c '%A %U:%G %n' /opt/gapguard/runtime-public /opt/gapguard/web
+```
+
+Keep the existing nginx root unchanged and add only this exact-file location to
+the GapGuard server block:
+
+```nginx
+location = /autopilot-status.json {
+    alias /opt/gapguard/runtime-public/autopilot-status.json;
+    default_type application/json;
+    add_header Cache-Control "no-store" always;
+}
+```
+
+Validate and reload nginx through the existing VPS procedure:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+The runtime file lives outside both the checkout and `/opt/gapguard/web`, so an
+HTML deploy cannot overwrite or delete it.
+
+## 4. Install the dry-run service and timer
 
 Create `/etc/systemd/system/gapguard-autotrader.service`:
 
@@ -127,7 +164,7 @@ After=network-online.target
 Type=oneshot
 User=gapguard
 Group=gapguard
-WorkingDirectory=/opt/gapguard
+WorkingDirectory=/opt/gapguard-app
 EnvironmentFile=/etc/gapguard-autotrader.env
 ExecStart=/usr/bin/npm run auto:trade:dryrun
 TimeoutStartSec=10min
@@ -164,18 +201,38 @@ After=network-online.target
 Type=oneshot
 User=gapguard
 Group=gapguard
-WorkingDirectory=/opt/gapguard
+WorkingDirectory=/opt/gapguard-app
 EnvironmentFile=/etc/gapguard-autotrader.env
 ExecStart=/usr/bin/npm run auto:trade:rearm
 TimeoutStartSec=10min
 UMask=0077
 ```
 
+Create `/etc/systemd/system/gapguard-autotrader-status.service` for an immediate,
+read-only public snapshot after an operator changes an entry gate. Never schedule
+this unit; the trading wrapper already refreshes the feed after every timer run:
+
+```ini
+[Unit]
+Description=Publish sanitized GapGuard autonomous-trader status
+
+[Service]
+Type=oneshot
+User=gapguard
+Group=gapguard
+WorkingDirectory=/opt/gapguard-app
+EnvironmentFile=/etc/gapguard-autotrader.env
+ExecStart=/usr/bin/npm run auto:status:dryrun
+TimeoutStartSec=1min
+UMask=0077
+```
+
 Install with both independent entry gates still closed:
 
 ```bash
-sudo touch /opt/gapguard/state/AUTO_TRADE_KILL
+sudo touch /opt/gapguard-app/state/AUTO_TRADE_KILL
 sudo systemctl daemon-reload
+sudo systemctl start gapguard-autotrader-status.service
 sudo systemctl enable --now gapguard-autotrader.timer
 sudo systemctl list-timers gapguard-autotrader.timer
 ```
@@ -184,7 +241,7 @@ The resulting service must report a clean blocked run; it must not fetch market
 data or issue a private exchange call while `AUTO_TRADE_ENABLED=false` or the
 kill-switch file is present.
 
-## 4. Observe a complete dry-run timer cycle
+## 5. Observe a complete dry-run timer cycle
 
 Confirm the installed unit still says `auto:trade:dryrun`, then change only
 `AUTO_TRADE_ENABLED` to `true` in the protected environment file. Because the
@@ -194,7 +251,8 @@ arming exchange writes.
 ```bash
 sudo systemctl cat gapguard-autotrader.service
 sudoedit /etc/gapguard-autotrader.env
-sudo rm -- /opt/gapguard/state/AUTO_TRADE_KILL
+sudo rm -- /opt/gapguard-app/state/AUTO_TRADE_KILL
+sudo systemctl start gapguard-autotrader-status.service
 sudo systemctl restart gapguard-autotrader.timer
 sudo systemctl list-timers gapguard-autotrader.timer
 ```
@@ -208,7 +266,7 @@ sudo journalctl -u gapguard-autotrader.service --since "1 hour ago"
 sudo journalctl -u gapguard-autotrader.service -f
 ```
 
-## 5. Validate live reconciliation shapes without placing an order
+## 6. Validate live reconciliation shapes without placing an order
 
 Before changing the unit to live mode, make one direct, read-only snapshot using
 the installed credentials. The helper invokes Bitget account, pending-order,
@@ -218,7 +276,7 @@ identifiers, balances, or credentials:
 
 ```bash
 sudo -i
-cd /opt/gapguard
+cd /opt/gapguard-app
 set -a
 . /etc/gapguard-autotrader.env
 set +a
@@ -255,22 +313,31 @@ shape or pagination error. Save the sanitized output with the deployment review.
 If returned order or position lists are empty, record that limitation explicitly;
 do not claim those populated row shapes were observed.
 
-## 6. Promote to live only after separate operator approval
+## 7. Promote to live only after separate operator approval
 
 First close the entry gate and stop all scheduled runs:
 
 ```bash
-sudo touch /opt/gapguard/state/AUTO_TRADE_KILL
+sudo touch /opt/gapguard-app/state/AUTO_TRADE_KILL
+sudo systemctl start gapguard-autotrader-status.service
 sudo systemctl stop gapguard-autotrader.timer
 sudo systemctl stop gapguard-autotrader.service
 ```
 
 Review the full timer-cycle logs, the sanitized reconciliation observation, the
 current persistent state, and the exchange for pending orders or open positions.
-Only after explicit live-arming approval, replace the service's `ExecStart` with:
+Only after explicit live-arming approval, replace both service commands. The
+trading service becomes:
 
 ```ini
 ExecStart=/usr/bin/npm run auto:trade
+```
+
+The status service must switch in the same reviewed edit so its state-file and
+mode label match the live runner:
+
+```ini
+ExecStart=/usr/bin/npm run auto:status
 ```
 
 Then reload while the kill-switch file is still present:
@@ -286,7 +353,8 @@ The manual start must block on the touch-file gate. The final live-arming action
 is an explicit operator step:
 
 ```bash
-sudo rm -- /opt/gapguard/state/AUTO_TRADE_KILL
+sudo rm -- /opt/gapguard-app/state/AUTO_TRADE_KILL
+sudo systemctl start gapguard-autotrader-status.service
 sudo systemctl enable --now gapguard-autotrader.timer
 ```
 
@@ -302,10 +370,11 @@ and restore the touch file before doing anything else:
 ```bash
 sudo systemctl stop gapguard-autotrader.timer gapguard-autotrader.service
 sudoedit /etc/gapguard-autotrader.env
-sudo rm -- /opt/gapguard/state/AUTO_TRADE_KILL
+sudo rm -- /opt/gapguard-app/state/AUTO_TRADE_KILL
 sudo systemctl start gapguard-autotrader-rearm.service
 sudo journalctl -u gapguard-autotrader-rearm.service -n 100 --no-pager
-sudo touch /opt/gapguard/state/AUTO_TRADE_KILL
+sudo touch /opt/gapguard-app/state/AUTO_TRADE_KILL
+sudo systemctl start gapguard-autotrader-status.service
 ```
 
 The one-shot must report `rearmed`. Any blocked or failed result leaves the
@@ -317,7 +386,8 @@ promotion procedure above.
 Block the next new entry without changing the timer:
 
 ```bash
-sudo touch /opt/gapguard/state/AUTO_TRADE_KILL
+sudo touch /opt/gapguard-app/state/AUTO_TRADE_KILL
+sudo systemctl start gapguard-autotrader-status.service
 ```
 
 Stop scheduling and terminate a currently running service:
@@ -340,12 +410,36 @@ and confirm that PID is no longer running before removing the exact lock file:
 
 ```bash
 sudo systemctl stop gapguard-autotrader.timer gapguard-autotrader.service
-sudo cat /opt/gapguard/state/auto-trader.lock
+sudo cat /opt/gapguard-app/state/auto-trader.lock
 ps -p <pid-from-lock> -o pid,lstart,cmd
-sudo rm -- /opt/gapguard/state/auto-trader.lock
+sudo rm -- /opt/gapguard-app/state/auto-trader.lock
 ```
 
 For dry-run overlap, inspect and remove
-`/opt/gapguard/state/auto-trader-dry-run.lock` instead. Never remove either lock
+`/opt/gapguard-app/state/auto-trader-dry-run.lock` instead. Never remove either lock
 while its recorded process is alive, and never delete the daily state file as a
 recovery shortcut.
+
+## Public status rollout and interpretation
+
+Publish and verify the sanitized feed before deploying HTML that consumes it:
+
+```bash
+sudo systemctl start gapguard-autotrader-status.service
+sudo systemctl status gapguard-autotrader-status.service --no-pager
+sudo stat -c '%A %U:%G %n' /opt/gapguard/runtime-public/autopilot-status.json
+curl -fsS https://gapguard.gudman.xyz/autopilot-status.json
+```
+
+Only after the response reports `schemaVersion: 1` and contains no private
+fields should the new public HTML be copied into `/opt/gapguard/web`. The feed is
+a last-observed operator/state-gate snapshot. `armed` means live mode is enabled
+and the persisted local gates were clear at `generatedAt`; it is not a claim that
+the exchange is connected, that no external position exists, or that an order is
+ready. Every private exchange and market gate is rechecked inside the trader.
+
+The wrapper records only allowlisted run outcomes and never publishes raw error
+messages, symbols, order or client identifiers, receipts, balances, equity,
+credentials, or signed profit. A missing, malformed, future-dated, or unreadable
+daily state publishes `unknown`; a stale public file must render as a neutral
+last-observed snapshot and must never retain a green `armed` presentation.

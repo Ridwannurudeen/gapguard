@@ -19,6 +19,7 @@
         --ink: #f5f5f3;
         --muted: #9a9ca2;
         --dim: #66676d;
+        --dim-text: #8b8d94;
         --ground: #0a0a0c;
         --floor: #15151a;
         --panel: #1a1a21;
@@ -61,41 +62,176 @@
         text-decoration: none;
       }
 
-      button,
-      .button-link {
+      .gg-skip {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
         display: inline-flex;
-        min-height: 38px;
+        min-height: 44px;
         align-items: center;
-        justify-content: center;
-        border: 1px solid var(--line-strong);
         border-radius: 7px;
-        background: rgba(215, 255, 106, 0.11);
-        color: var(--ink);
-        cursor: pointer;
-        font:
-          800 11px/1 "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas,
-          monospace;
-        padding: 0 13px;
-        text-transform: uppercase;
-        transition:
-          transform 140ms ease,
-          background 140ms ease,
-          border-color 140ms ease;
+        background: var(--lime);
+        color: var(--ground);
+        font-weight: 600;
+        padding: 0 14px;
+        transform: translateY(-160%);
+        transition: transform 140ms ease;
       }
 
-      button:hover,
-      .button-link:hover {
-        transform: translateY(-1px);
-        border-color: var(--lime);
-        background: rgba(215, 255, 106, 0.18);
+      .gg-skip:focus-visible {
+        transform: translateY(0);
       }
 
-      button:focus-visible,
-      a:focus-visible {
+      :where(a, button, input, textarea, summary):focus-visible {
         outline: none;
         box-shadow:
           0 0 0 2px var(--ground),
           0 0 0 4px var(--lime);
+      }
+
+      .gg-nav {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(8, 9, 7, 0.72);
+      }
+
+      .gg-nav-shell {
+        display: flex;
+        width: min(1360px, calc(100% - 32px));
+        min-height: 64px;
+        align-items: center;
+        gap: 14px;
+        margin: 0 auto;
+      }
+
+      .gg-brand {
+        display: flex;
+        min-height: 44px;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas,
+          monospace;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .gg-mark {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: rgba(215, 255, 106, 0.12);
+        color: var(--lime);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .gg-links {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .gg-nav-link,
+      .gg-mobile summary,
+      .gg-mobile-links a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        padding: 0 10px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .gg-nav-link {
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+      }
+
+      .gg-nav-link:hover,
+      .gg-mobile-links a:hover {
+        color: var(--ink);
+      }
+
+      .gg-nav-link[aria-current="page"] {
+        border-bottom-color: var(--lime);
+        color: var(--lime);
+      }
+
+      .gg-mobile {
+        position: relative;
+        display: none;
+      }
+
+      .gg-mobile summary {
+        border: 1px solid var(--line);
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .gg-mobile summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .gg-mobile[open] summary {
+        border-color: var(--line-strong);
+        color: var(--ink);
+      }
+
+      .gg-mobile-panel {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: min(320px, calc(100vw - 32px));
+        max-height: calc(100vh - 88px);
+        overflow-y: auto;
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        background: var(--floor);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+        padding: 8px;
+      }
+
+      .gg-mobile-links {
+        display: grid;
+        gap: 2px;
+      }
+
+      .gg-mobile-links a {
+        justify-content: flex-start;
+      }
+
+      .gg-mobile-links a[aria-current="page"] {
+        border-left: 3px solid var(--lime);
+        background: rgba(215, 255, 106, 0.08);
+        color: var(--lime);
+      }
+
+      @media (max-width: 860px) {
+        .gg-nav-shell {
+          min-height: 60px;
+          flex-wrap: wrap;
+          padding: 8px 0;
+        }
+
+        .gg-links {
+          display: none;
+        }
+
+        .gg-mobile {
+          display: block;
+        }
       }
 
       main {
@@ -113,8 +249,7 @@
 
       h1,
       h2,
-      h3,
-      .brand-title {
+      h3 {
         font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
         letter-spacing: -0.01em;
       }
@@ -123,7 +258,7 @@
         max-width: 820px;
         color: var(--ink);
         font-size: 58px;
-        font-weight: 780;
+        font-weight: 700;
         line-height: 0.98;
       }
 
@@ -149,9 +284,9 @@
       }
 
       .eyebrow {
-        color: var(--dim);
+        color: var(--dim-text);
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         text-transform: uppercase;
       }
 
@@ -162,52 +297,6 @@
       .shell {
         display: grid;
         gap: 16px;
-      }
-
-      .topbar {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 16px;
-        align-items: center;
-        padding: 11px 0 2px;
-      }
-
-      .brand {
-        display: flex;
-        min-width: 0;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .mark {
-        display: grid;
-        width: 38px;
-        height: 38px;
-        place-items: center;
-        border: 1px solid var(--line-strong);
-        border-radius: 8px;
-        background: #0f130d;
-        color: var(--lime);
-        font:
-          900 12px/1 "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas,
-          monospace;
-      }
-
-      .brand-title {
-        color: var(--ink);
-        font-weight: 760;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 8px;
-      }
-
-      .actions .active {
-        border-color: var(--cyan);
-        background: rgba(102, 217, 239, 0.12);
       }
 
       .hero,
@@ -253,7 +342,7 @@
       .display {
         color: var(--lime);
         font:
-          820 44px/0.96 "JetBrains Mono", ui-monospace, "SFMono-Regular",
+          700 44px/0.96 "JetBrains Mono", ui-monospace, "SFMono-Regular",
           Consolas, monospace;
         text-transform: uppercase;
       }
@@ -268,7 +357,7 @@
         padding: 0 7px;
         color: var(--muted);
         font-size: 10px;
-        font-weight: 900;
+        font-weight: 700;
         text-transform: uppercase;
         white-space: nowrap;
       }
@@ -294,6 +383,42 @@
         gap: 12px;
       }
 
+      .autopilot-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .autopilot-entry-row {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .autopilot-lamp {
+        width: 9px;
+        height: 9px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--dim);
+      }
+
+      .autopilot-lamp.ok {
+        background: var(--mint);
+      }
+
+      .autopilot-lamp.warn {
+        background: var(--amber);
+      }
+
+      .autopilot-lamp.bad {
+        background: var(--red);
+      }
+
+      .autopilot-caption {
+        color: var(--dim-text);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
       .card {
         display: grid;
         gap: 10px;
@@ -317,6 +442,7 @@
 
       .kv {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         gap: 10px;
         color: var(--muted);
@@ -324,7 +450,10 @@
       }
 
       .kv .mono {
+        min-width: 0;
         color: var(--ink);
+        overflow-wrap: anywhere;
+        text-align: right;
       }
 
       .panel {
@@ -342,14 +471,6 @@
       @media (max-width: 760px) {
         main {
           width: min(100% - 20px, 720px);
-        }
-
-        .topbar {
-          grid-template-columns: 1fr;
-        }
-
-        .actions {
-          justify-content: flex-start;
         }
 
         h1 {
@@ -371,28 +492,42 @@
     </style>
   </head>
   <body>
-    <main class="shell">
-      <header class="topbar">
-        <a class="brand" href="index.html" aria-label="GapGuard home">
-          <div class="mark">GG</div>
-          <div>
-            <div class="brand-title">GapGuard Status</div>
-            <div class="eyebrow">Live surface health</div>
-          </div>
+    <a class="gg-skip" href="#main">Skip to content</a>
+    <!-- gg-nav v1 -->
+    <header class="gg-nav">
+      <div class="gg-nav-shell">
+        <a class="gg-brand" href="index.html" aria-label="GapGuard home">
+          <span class="gg-mark">GG</span><span>GapGuard</span>
         </a>
-        <nav class="actions" aria-label="Site navigation">
-          <a class="button-link" href="app.html">Assistant</a>
-          <a class="button-link" href="index.html">Home</a>
-          <a class="button-link" href="news.html">News</a>
-          <a class="button-link" href="arena.html">Agent Arena</a>
-          <a class="button-link active" href="status.html">Status</a>
+        <nav class="gg-links" aria-label="Primary navigation">
+          <a class="gg-nav-link" href="index.html">Home</a>
+          <a class="gg-nav-link" href="arena.html">Cockpit</a>
+          <a class="gg-nav-link" href="app.html">Assistant</a>
+          <a class="gg-nav-link" href="news.html">News</a>
+          <a class="gg-nav-link" href="status.html" aria-current="page">Status</a>
+          <a class="gg-nav-link" href="dashboard.html">Replay</a>
         </nav>
-      </header>
+        <details class="gg-mobile">
+          <summary>Menu</summary>
+          <div class="gg-mobile-panel">
+            <nav class="gg-mobile-links" aria-label="Mobile navigation">
+              <a href="index.html">Home</a>
+              <a href="arena.html">Cockpit</a>
+              <a href="app.html">Assistant</a>
+              <a href="news.html">News</a>
+              <a href="status.html" aria-current="page">Status</a>
+              <a href="dashboard.html">Replay</a>
+            </nav>
+          </div>
+        </details>
+      </div>
+    </header>
 
+    <main id="main" class="shell">
       <section class="hero" aria-label="Overall health">
         <div class="hero-copy">
           <div class="eyebrow">Freshness watchdog</div>
-          <h1 id="overallText">Checking&hellip;</h1>
+          <h1 id="overallText" aria-live="polite">Checking&hellip;</h1>
           <p>
             This page reads each cron-owned feed directly in your browser and
             reports its real age. If a refresh stalls or the gate key lapses, it
@@ -409,6 +544,37 @@
       </section>
 
       <section class="card-grid" id="feeds"></section>
+
+      <section class="card-grid autopilot-grid" aria-label="Autopilot status">
+        <article class="card" id="autopilotStatusCard" aria-live="polite">
+          <div class="card-head">
+            <div>
+              <div class="eyebrow">Autopilot</div>
+              <h2>Autonomous entry gate</h2>
+            </div>
+            <span class="tag bad" id="autopilotStatusBadge">unavailable</span>
+          </div>
+          <div class="autopilot-entry-row">
+            <span class="autopilot-lamp bad" id="autopilotStatusLamp" aria-hidden="true"></span>
+            <div class="value" id="autopilotEntryState">unknown</div>
+          </div>
+          <div class="kv">
+            <span>Observed</span><span class="mono" id="autopilotObserved">unavailable</span>
+          </div>
+          <div class="kv">
+            <span>Mode</span><span class="mono" id="autopilotMode">unknown</span>
+          </div>
+          <div class="kv">
+            <span>Daily caps</span><span class="mono" id="autopilotCaps">unknown</span>
+          </div>
+          <div class="kv">
+            <span>Last run</span><span class="mono" id="autopilotLastRun">unknown</span>
+          </div>
+          <p class="autopilot-caption">
+            Sanitized last-observed VPS operator/state gate; not exchange or order readiness.
+          </p>
+        </article>
+      </section>
 
       <section class="card" style="grid-template-columns: 1fr">
         <div class="card-head">
@@ -583,7 +749,130 @@
         renderOverall(results, gate);
       }
 
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const menu = document.querySelector(".gg-mobile[open]");
+        if (!menu) return;
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      });
+
       boot();
+    </script>
+    <script type="module">
+      import {
+        autopilotCapRatio,
+        autopilotEntryLabel,
+        autopilotOutcomeLabel,
+        autopilotStatusFreshness,
+        formatAutopilotRelativeTime,
+        parseAutopilotStatus,
+      } from "./autopilot-status.js";
+
+      const autopilotStatusBadge = document.getElementById(
+        "autopilotStatusBadge",
+      );
+      const autopilotStatusLamp = document.getElementById(
+        "autopilotStatusLamp",
+      );
+      const autopilotEntryState = document.getElementById(
+        "autopilotEntryState",
+      );
+      const autopilotObserved = document.getElementById("autopilotObserved");
+      const autopilotMode = document.getElementById("autopilotMode");
+      const autopilotCaps = document.getElementById("autopilotCaps");
+      const autopilotLastRun = document.getElementById("autopilotLastRun");
+
+      function resetAutopilotCard() {
+        autopilotStatusBadge.textContent = "unavailable";
+        autopilotStatusBadge.className = "tag bad";
+        autopilotStatusLamp.className = "autopilot-lamp bad";
+        autopilotEntryState.textContent = "unknown";
+        autopilotObserved.textContent = "unavailable";
+        autopilotMode.textContent = "unknown";
+        autopilotCaps.textContent = "unknown";
+        autopilotLastRun.textContent = "unknown";
+      }
+
+      function formatAutopilotCaps(caps) {
+        const tradeRatio = autopilotCapRatio(
+          caps.tradesOpened,
+          caps.maxTradesPerDay,
+        );
+        const lossRatio = autopilotCapRatio(
+          caps.dailyLossUsedUSDT,
+          caps.maxDailyLossUSDT,
+        );
+        const tradesKnown =
+          typeof caps.tradesOpened === "number" &&
+          typeof caps.maxTradesPerDay === "number";
+        const lossKnown =
+          typeof caps.dailyLossUsedUSDT === "number" &&
+          typeof caps.maxDailyLossUSDT === "number";
+        const tradeReached =
+          caps.tradeCapReached === true ||
+          caps.maxTradesPerDay === 0 ||
+          tradeRatio === 1;
+        const lossReached =
+          caps.dailyLossCapReached === true ||
+          caps.maxDailyLossUSDT === 0 ||
+          lossRatio === 1;
+        const trades = tradesKnown
+          ? `trades ${caps.tradesOpened}/${caps.maxTradesPerDay}${tradeReached ? " · cap reached" : ""}`
+          : "trades unknown";
+        const loss = lossKnown
+          ? `loss ${caps.dailyLossUsedUSDT.toFixed(2)}/${caps.maxDailyLossUSDT.toFixed(2)} USDT${lossReached ? " · cap reached" : ""}`
+          : "loss unknown";
+        return `${trades} · ${loss}`;
+      }
+
+      function autopilotLampTone(entryState, fresh) {
+        if (!fresh) return "warn";
+        if (entryState === "armed") return "ok";
+        if (["dry_run", "disabled", "unknown"].includes(entryState)) return "";
+        return "warn";
+      }
+
+      async function loadAutopilotCard() {
+        resetAutopilotCard();
+        try {
+          const response = await fetch("autopilot-status.json", {
+            cache: "no-store",
+          });
+          if (!response.ok) return;
+          const feed = parseAutopilotStatus(await response.json());
+          const freshness = autopilotStatusFreshness(feed);
+          const relativeGenerated = formatAutopilotRelativeTime(
+            feed.generatedAt,
+          );
+
+          autopilotStatusBadge.textContent = freshness.fresh
+            ? "fresh"
+            : "last observed";
+          autopilotStatusBadge.className = `tag ${
+            freshness.fresh ? "ok" : "warn"
+          }`;
+          const tone = autopilotLampTone(feed.entryState, freshness.fresh);
+          autopilotStatusLamp.className = `autopilot-lamp${
+            tone ? ` ${tone}` : ""
+          }`;
+          autopilotEntryState.textContent = autopilotEntryLabel(
+            feed.entryState,
+          );
+          autopilotObserved.textContent = `${relativeGenerated} · ${
+            freshness.fresh ? "fresh" : "last observed"
+          }`;
+          autopilotMode.textContent = feed.mode;
+          autopilotCaps.textContent = formatAutopilotCaps(feed.caps);
+          autopilotLastRun.textContent = feed.lastRun
+            ? `${autopilotOutcomeLabel(feed.lastRun.outcome)} · ${formatAutopilotRelativeTime(feed.lastRun.completedAt)}`
+            : "none observed";
+        } catch {
+          resetAutopilotCard();
+        }
+      }
+
+      void loadAutopilotCard();
     </script>
   </body>
 </html>
