@@ -81,6 +81,23 @@ function requireArray(value: unknown, path: string): unknown[] {
   return value;
 }
 
+function requirePageRows(
+  record: UnknownRecord,
+  field: string,
+  path: string,
+): unknown[] {
+  const value = record[field];
+  if (value === null) {
+    if (record.endId !== null) {
+      throw new Error(
+        `${path}.${field} may be null only when ${path}.endId is null`,
+      );
+    }
+    return [];
+  }
+  return requireArray(value, `${path}.${field}`);
+}
+
 function requireString(
   record: UnknownRecord,
   field: string,
@@ -187,8 +204,13 @@ function assertCompletePage(
   rows: unknown[],
   path: string,
 ): void {
-  if (typeof data.endId !== "string") {
-    throw new Error(`${path}.endId must be a string`);
+  if (
+    typeof data.endId !== "string" &&
+    !(data.endId === null && rows.length === 0)
+  ) {
+    throw new Error(
+      `${path}.endId must be a string, or null for an empty page`,
+    );
   }
   if (rows.length >= PAGE_LIMIT) {
     throw new Error(
@@ -221,7 +243,7 @@ function parseOrder(row: unknown, path: string): AutoTraderExchangeOrder {
 
 function parseOrders(data: unknown, path: "pending.data" | "history.data") {
   const record = requireRecord(data, path);
-  const rows = requireArray(record.entrustedList, `${path}.entrustedList`);
+  const rows = requirePageRows(record, "entrustedList", path);
   assertCompletePage(record, rows, path);
   return rows.map((row, index) =>
     parseOrder(row, `${path}.entrustedList[${index}]`),
@@ -262,7 +284,7 @@ export function isOpeningTradeSide(tradeSide: string): boolean {
 
 function parseFills(data: unknown): ParsedFill[] {
   const record = requireRecord(data, "fills.data");
-  const rows = requireArray(record.fillList, "fills.data.fillList");
+  const rows = requirePageRows(record, "fillList", "fills.data");
   assertCompletePage(record, rows, "fills.data");
 
   const parsed: ParsedFill[] = [];

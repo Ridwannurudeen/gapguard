@@ -425,7 +425,7 @@ describe("arena attestation (Merkle + Ed25519)", () => {
 
   it("blocks overlapping attested appends without stealing the lock", () => {
     const fixture = attestedFixture();
-    const now = new Date("2026-07-11T00:00:00.000Z");
+    const now = new Date();
     const held = acquireAutoTraderLock(
       fixture.config.lockPath,
       now,

@@ -377,6 +377,88 @@ describe("auto trader exchange reconciliation", () => {
     expect(second.realizedPnlUSDT).toBe(first.realizedPnlUSDT);
   });
 
+  it("treats Bitget's null empty fill page as zero fills", async () => {
+    const { runner } = injectedRunner({
+      fills: {
+        exitCode: 0,
+        stdout: normalized(ENDPOINTS.fills, {
+          fillList: null,
+          endId: null,
+        }),
+        stderr: "",
+      },
+    });
+
+    const snapshot = await readAutoTraderExchangeSnapshot(deps(runner));
+
+    expect(snapshot.realizedPnlUSDT).toBe(0);
+    expect(snapshot.openActivityDuringCapture).toBe(false);
+  });
+
+  it.each(["pending", "history"] as const)(
+    "treats Bitget's null empty %s order page as no orders",
+    async (kind) => {
+      const { runner } = injectedRunner({
+        [kind]: {
+          exitCode: 0,
+          stdout: normalized(ENDPOINTS[kind], {
+            entrustedList: null,
+            endId: null,
+          }),
+          stderr: "",
+        },
+      });
+
+      const snapshot = await readAutoTraderExchangeSnapshot(deps(runner));
+
+      expect(
+        kind === "pending" ? snapshot.pendingOrders : snapshot.recentOrders,
+      ).toEqual([]);
+    },
+  );
+
+  it.each<{
+    kind: Extract<QueryKind, "fills" | "pending" | "history">;
+    data: unknown;
+    expected: string;
+  }>([
+    {
+      kind: "fills",
+      data: { fillList: null, endId: "unexpected-cursor" },
+      expected: "may be null only",
+    },
+    {
+      kind: "pending",
+      data: { entrustedList: null, endId: "unexpected-cursor" },
+      expected: "may be null only",
+    },
+    {
+      kind: "fills",
+      data: { fillList: [fill(1)], endId: null },
+      expected: "endId",
+    },
+    {
+      kind: "history",
+      data: { entrustedList: [order(1)], endId: null },
+      expected: "endId",
+    },
+  ])(
+    "rejects an inconsistent null page for $kind",
+    async ({ kind, data, expected }) => {
+      const { runner } = injectedRunner({
+        [kind]: {
+          exitCode: 0,
+          stdout: normalized(ENDPOINTS[kind], data),
+          stderr: "",
+        },
+      });
+
+      await expect(
+        readAutoTraderExchangeSnapshot(deps(runner)),
+      ).rejects.toThrow(expected);
+    },
+  );
+
   it("keeps daily PnL at UTC midnight while extending order history across midnight", async () => {
     const { runner, calls } = injectedRunner();
     const orderHistorySince = Date.parse("2026-07-09T23:45:00.000Z");
