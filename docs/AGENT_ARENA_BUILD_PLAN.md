@@ -1,5 +1,10 @@
 # Agent Arena Build Plan
 
+> Historical design record. This plan predates the default-off autonomous
+> runner and the recorded live AAPLUSDT round trip; its approval-gated and
+> “no live fill” statements describe the earlier build stage, not current
+> behavior. See `README.md` and `deploy/DEPLOY.md` for the current safety model.
+
 ## Product Thesis
 
 GapGuard is the Track 3 product. Agent Arena is its trust and execution-control layer: agents do not get trusted by default, and a passport only unlocks an approval-gated path beyond simulation.

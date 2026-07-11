@@ -10,7 +10,7 @@ GapGuard is an AI abstention and risk engine for tokenized US stocks: it decides
 
 Tokenized US stocks on Bitget, such as `AAPLUSDT` and `NVDAUSDT`, trade 24/7 while the underlying US market has a regular weekday session. Off-hours gaps can be liquidity noise, but they can also be real repricing from news or macro catalysts. GapGuard's edge is not blindly fading every gap. The product is the decision boundary: trade only when the evidence says noise, stand aside when evidence says news, size under a mandate, and leave a receipt.
 
-For an ordinary trader, that boundary ships as a **non-custodial advisory assistant** (`public/app.html`): plain-English live gap calls, AI fadeable/stand-aside verdicts, an editable personal risk mandate, and a one-tap handoff to the trader's own Bitget account. GapGuard never holds keys or places orders — it gives the call, shows the exact order, and the trader acts on their own exchange. This is the "solve a real problem around the US stock trading experience" half of Track 3: most tools tell you when to buy; GapGuard tells a normal person when *not* to trade, with the reasoning and their own guardrails.
+For an ordinary trader, that boundary ships as a **non-custodial advisory assistant** (`public/app.html`): plain-English live gap calls, AI fadeable/stand-aside verdicts, an editable personal risk mandate, and a one-tap handoff to the trader's own Bitget account. The browser assistant never receives keys or places orders — it gives the call, shows the exact order, and the trader acts on their own exchange. A separate server-side autonomous runner exists for an operator-managed account and is default OFF. This is the "solve a real problem around the US stock trading experience" half of Track 3: most tools tell you when to buy; GapGuard tells a normal person when *not* to trade, with the reasoning and their own guardrails.
 
 ## System
 
@@ -18,9 +18,9 @@ For an ordinary trader, that boundary ships as a **non-custodial advisory assist
 - Catalyst gate: Qwen catalyst gate over real, blinded Finnhub news. Invalid or malformed model output fails closed to stand aside.
 - Decision: Quorum, a five-role deterministic adversarial desk, converts role evidence into a position multiplier and veto state.
 - Risk: a natural-language mandate compiles to hard vetoes for drawdown, position size, and conflicting evidence.
-- Execution: deterministic RWA sim broker for stock paper evidence; Bitget Agent Hub path proven separately with BTCUSDT Demo paper trading.
+- Execution: deterministic RWA sim broker for stock paper evidence; Bitget Agent Hub path proven separately with BTCUSDT Demo paper trading; and a default-off server runner that selects one fresh, `liveReady`, non-vetoed Quorum candidate, requires a complete spread below 25bps, and sends a fill-or-kill limit at the executable quote through the same protected live broker.
 - Trust: signed tamper-evident audit trail inspired by regulated-market recordkeeping. This is a cryptographic integrity proof, not regulatory certification.
-- Assistant: a non-custodial consumer front-end (`public/app.html`) — live off-hours gap cards from real Bitget index-vs-last data, AI fadeable/stand-aside verdicts, an editable plain-English risk mandate stored in the browser, and a one-tap handoff to the trader's own Bitget pair. No keys in the browser; GapGuard never places the order.
+- Assistant: a non-custodial consumer front-end (`public/app.html`) — live off-hours gap cards from real Bitget index-vs-last data, AI fadeable/stand-aside verdicts, an editable plain-English risk mandate stored in the browser, and a one-tap handoff to the trader's own Bitget pair. No keys enter the browser, and this front-end never places an order.
 
 ## Evidence
 
@@ -78,10 +78,10 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit
 | --- | --- | --- |
 | 0:00-0:25 | `public/app.html` — a live gap call | "GapGuard reads the overnight gap on a tokenized US stock and tells an ordinary trader, in plain English, whether to fade it or stand aside." |
 | 0:25-0:50 | app.html — a Stand-aside call + the recorded WWDC row | "Its edge is knowing when *not* to trade — like the day it stood aside before the WWDC repricing, avoiding a 1.97% loss." |
-| 0:50-1:15 | app.html — My Rules + the one-tap Bitget handoff | "You set your own risk rules; GapGuard shows the exact order — fade equals sell or buy — and hands off to your own Bitget. It never holds your keys or places the trade." |
+| 0:50-1:15 | app.html — My Rules + the one-tap Bitget handoff | "You set your own risk rules; the browser assistant shows the exact order — fade equals sell or buy — and hands off to your own Bitget. It never receives your keys or places the trade." |
 | 1:15-1:45 | `public/arena.html` — Quorum desk + Verify chain | "Under the hood, a five-role deterministic desk turns evidence and dissent into a size or veto, and every decision is signed — your browser recomputes every hash." |
 | 1:45-2:15 | arena.html — Simulate tampering | "Change one row and the chain turns red. Tamper-evident, browser-verifiable." |
-| 2:15-3:00 | Operator console (brief) + evidence boundary | "The same engine also executes autonomously under hard risk gates, keys server-side. Stock evidence is backtest/paper; the BTCUSDT Demo fill proves the exchange path; live RWA capital stays approval-gated." |
+| 2:15-3:00 | Operator console (brief) + evidence boundary | "The same engine can execute autonomously under fail-closed risk gates with keys server-side, but it defaults off and needs explicit VPS-side arming. The evidence includes one historical live AAPLUSDT round-trip; strategy results remain backtest and paper evidence." |
 
 ## Honest Limitations
 
@@ -89,6 +89,8 @@ BITGET_QWEN_API_KEY=<your-key> npm run gate:audit
 2. No directional alpha is claimed: on raw accuracy the gate does not beat fading everything (39.0% vs 42.2%). The proven, significance-tested edge is risk reduction — a worst-case (p95) regret cut of 7.47% to 5.81% (p = 0.001), not profit. The small positive pilot (+1.4% OOS, 13 trades) is illustrative, not a generalized profit claim.
 3. The broader always-fade basket is negative. This strengthens the product thesis: GapGuard blocks weak strategies instead of pretending every gap should be traded.
 4. Qwen verdicts are cached for reproducibility after the live audit pass.
+5. Autonomous execution is present but default OFF. Its default limits are 3 opens per UTC day, one order per run, a pre-submit 20 USDT notional ceiling, at most 20% of reconciled futures equity multiplied by Quorum's position multiplier, and a persistent 0.30 USDT daily realized-trade-PnL stop computed from fills plus USDT fees. It sizes at the executable bid/ask, abstains at a missing or 25bps-and-wider spread, and uses a fill-or-kill limit so adverse price movement cancels instead of slipping beyond that quote. Favorable execution can still change reported fill notional; the PnL stop is not an account-wide or unrealized-loss cap.
+6. Removing the touch-file kill switch only re-arms new entry; it does not clear the persistent PnL trip, a pending reservation, an exchange order, or a position. Live promotion is an operator-only step after a full systemd dry-run cycle and sanitized read-only reconciliation validation.
 
 ## Pre-Submission Checklist
 

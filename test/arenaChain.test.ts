@@ -1,11 +1,30 @@
 import { generateKeyPairSync, webcrypto } from "node:crypto";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import {
+  acquireAutoTraderLock,
+  releaseAutoTraderLock,
+} from "../src/autoTraderState";
 import { GENESIS_HASH } from "../src/glassbox";
 import {
+  appendAttestedArenaRecord,
   attestChain,
+  readArenaChain,
+  replaceAttestedArenaRecords,
   sealArenaRecords,
+  validateAttestedArenaPreflight,
   verifyArenaRecords,
   verifyAttestation,
+  writeArenaChain,
   type ArenaRecord,
 } from "../src/arena-chain";
 
@@ -43,6 +62,57 @@ async function browserStyleHash(record: ArenaRecord): Promise<string> {
   return [...new Uint8Array(digest)]
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("");
+}
+
+function attestedFixture() {
+  const dir = mkdtempSync(join(tmpdir(), "gapguard-arena-attested-"));
+  const chainPath = join(dir, "arena-chain.jsonl");
+  const attestationPath = join(dir, "arena-attestation.json");
+  const publicKeyPath = join(dir, "arena-pubkey.pem");
+  const privateKeyPath = join(dir, "arena-private.pem");
+  const lockPath = join(dir, "arena-chain.lock");
+  const pair = generateKeyPairSync("ed25519");
+  const records = sealArenaRecords([
+    {
+      ts: "2026-07-10T00:00:00.000Z",
+      kind: "quorum_decision",
+      agentId: "quorum",
+      payload: { vote: "flat", multiplier: 0 },
+    },
+  ]);
+  writeArenaChain(chainPath, records);
+  writeFileSync(
+    attestationPath,
+    `${JSON.stringify(
+      attestChain(records, {
+        signedAt: "2026-07-10T00:00:00.000Z",
+        privateKey: pair.privateKey,
+      }),
+      null,
+      2,
+    )}\n`,
+  );
+  writeFileSync(
+    publicKeyPath,
+    pair.publicKey.export({ format: "pem", type: "spki" }),
+  );
+  writeFileSync(
+    privateKeyPath,
+    pair.privateKey.export({ format: "pem", type: "pkcs8" }),
+  );
+  return {
+    dir,
+    pair,
+    records,
+    config: {
+      chainPath,
+      attestationPath,
+      publicKeyPath,
+      lockPath,
+      env: { ARENA_SIGNING_KEY_FILE: privateKeyPath },
+      model: "GapGuard test append",
+    },
+  };
 }
 
 describe("arena chain", () => {
@@ -139,6 +209,29 @@ describe("arena chain", () => {
       count: 2,
       errors: [],
     });
+  });
+
+  it("atomically replaces the chain and cleans a failed temporary write", () => {
+    const dir = mkdtempSync(join(tmpdir(), "gapguard-arena-atomic-"));
+    const records = sealArenaRecords([
+      {
+        ts: "2026-07-10T00:00:00.000Z",
+        kind: "broker_order",
+        agentId: "quorum",
+        payload: { status: "dry_run" },
+      },
+    ]);
+    const path = join(dir, "arena-chain.jsonl");
+    writeArenaChain(path, records);
+    expect(readArenaChain(path)).toEqual(records);
+    expect(readdirSync(dir).filter((name) => name.endsWith(".tmp"))).toEqual([]);
+
+    const blockedPath = join(dir, "blocked-chain.jsonl");
+    mkdirSync(blockedPath);
+    expect(() => writeArenaChain(blockedPath, records)).toThrow();
+    expect(
+      readdirSync(dir).filter((name) => name.startsWith(".blocked-chain.jsonl")),
+    ).toEqual([]);
   });
 });
 
@@ -237,5 +330,122 @@ describe("arena attestation (Merkle + Ed25519)", () => {
     const result = verifyAttestation(records, forged);
     expect(result.signatureOk).toBe(false);
     expect(result.ok).toBe(false);
+  });
+
+  it("validates and appends one record under an attested exclusive lock", () => {
+    const fixture = attestedFixture();
+    expect(
+      validateAttestedArenaPreflight(
+        fixture.config,
+        new Date("2026-07-11T00:00:00.000Z"),
+      ),
+    ).toMatchObject({ recordCount: 1 });
+
+    const appended = appendAttestedArenaRecord(
+      {
+        ts: "2026-07-11T00:00:00.000Z",
+        kind: "broker_order",
+        agentId: "quorum",
+        payload: { trigger: "auto", status: "filled" },
+      },
+      fixture.config,
+    );
+    const persisted = readArenaChain(fixture.config.chainPath);
+    const persistedAttestation = JSON.parse(
+      readFileSync(fixture.config.attestationPath, "utf8"),
+    );
+
+    expect(appended.records).toEqual(persisted);
+    expect(persisted).toHaveLength(2);
+    expect(
+      verifyAttestation(persisted, persistedAttestation, {
+        publicKey: fixture.pair.publicKey,
+      }).ok,
+    ).toBe(true);
+    expect(existsSync(fixture.config.lockPath)).toBe(false);
+    expect(readdirSync(fixture.dir).filter((name) => name.endsWith(".tmp"))).toEqual(
+      [],
+    );
+  });
+
+  it("replaces an attested chain under the same validated exclusive lock", () => {
+    const fixture = attestedFixture();
+    const replaced = replaceAttestedArenaRecords(
+      (existing) => [
+        ...existing.map(({ ts, kind, agentId, payload }) => ({
+          ts,
+          kind,
+          agentId,
+          payload,
+        })),
+        {
+          ts: "2026-07-11T00:00:00.000Z",
+          kind: "broker_order",
+          agentId: "quorum",
+          payload: { mode: "live", status: "filled" },
+        },
+      ],
+      fixture.config,
+      new Date("2026-07-11T00:00:00.000Z"),
+    );
+
+    expect(replaced.records).toHaveLength(2);
+    expect(
+      verifyAttestation(replaced.records, replaced.attestation, {
+        publicKey: fixture.pair.publicKey,
+      }).ok,
+    ).toBe(true);
+    expect(existsSync(fixture.config.lockPath)).toBe(false);
+  });
+
+  it("rejects invalid existing attestations and signing-key mismatches", () => {
+    const invalidPublishedKey = attestedFixture();
+    const other = generateKeyPairSync("ed25519");
+    writeFileSync(
+      invalidPublishedKey.config.publicKeyPath,
+      other.publicKey.export({ format: "pem", type: "spki" }),
+    );
+    expect(() =>
+      validateAttestedArenaPreflight(invalidPublishedKey.config),
+    ).toThrow("existing Arena attestation verification failed");
+
+    const invalidSigningKey = attestedFixture();
+    const otherPrivateKeyPath = join(invalidSigningKey.dir, "other-private.pem");
+    writeFileSync(
+      otherPrivateKeyPath,
+      other.privateKey.export({ format: "pem", type: "pkcs8" }),
+    );
+    expect(() =>
+      validateAttestedArenaPreflight({
+        ...invalidSigningKey.config,
+        env: { ARENA_SIGNING_KEY_FILE: otherPrivateKeyPath },
+      }),
+    ).toThrow("signing key does not match published public key");
+  });
+
+  it("blocks overlapping attested appends without stealing the lock", () => {
+    const fixture = attestedFixture();
+    const now = new Date();
+    const held = acquireAutoTraderLock(
+      fixture.config.lockPath,
+      now,
+      600_000,
+      { ownerToken: "existing-owner", pid: 101 },
+    );
+    if (!held.acquired) throw new Error("expected lock acquisition");
+
+    expect(() =>
+      appendAttestedArenaRecord(
+        {
+          ts: now.toISOString(),
+          kind: "broker_order",
+          agentId: "quorum",
+          payload: { trigger: "auto", status: "submitted" },
+        },
+        fixture.config,
+      ),
+    ).toThrow("auto-trader lock is active");
+    expect(existsSync(fixture.config.lockPath)).toBe(true);
+    expect(releaseAutoTraderLock(held.lock)).toBe(true);
   });
 });

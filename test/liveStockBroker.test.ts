@@ -3,10 +3,12 @@ import { issuePassport, type AgentCandidate } from "../src/agentArena";
 import {
   buildFuturesOrderPlan,
   buildSetLeverageArgs,
+  computeBracketPrices,
   extractOrderId,
   placeFuturesOrder,
   runCommand,
   type BrokerConfig,
+  type CommandResult,
 } from "../src/liveStockBroker";
 
 const candidate: AgentCandidate = {
@@ -53,7 +55,30 @@ const baseConfig: BrokerConfig = {
   leverage: 1,
 };
 
+const confirmedLongLeverage: CommandResult = {
+  exitCode: 0,
+  stdout: '{"code":"00000","data":[{"holdSide":"long","leverage":"1"}]}',
+  stderr: "",
+};
+
 describe("live stock broker", () => {
+  it("computes unrounded brackets for open sides and none for close sides", () => {
+    expect(computeBracketPrices("open_long", 315.31, 0.015, 0.015)).toEqual({
+      stopLossPrice: 315.31 * (1 - 0.015),
+      takeProfitPrice: 315.31 * (1 + 0.015),
+    });
+    expect(computeBracketPrices("open_short", 315.31, 0.015, 0.015)).toEqual({
+      stopLossPrice: 315.31 * (1 + 0.015),
+      takeProfitPrice: 315.31 * (1 - 0.015),
+    });
+    expect(computeBracketPrices("close_long", 315.31, 0.015, 0.015)).toEqual(
+      {},
+    );
+    expect(computeBracketPrices("close_short", 315.31, 0.015, 0.015)).toEqual(
+      {},
+    );
+  });
+
   it("builds a Bitget Agent Hub futures order without executing in dry-run mode", async () => {
     const result = await placeFuturesOrder(
       {
@@ -80,6 +105,45 @@ describe("live stock broker", () => {
       orderType: "market",
       size: "0.01",
     });
+  });
+
+  it("builds a bounded fill-or-kill futures limit order", () => {
+    const plan = buildFuturesOrderPlan(
+      {
+        symbol: "NVDAUSDT",
+        side: "open_long",
+        size: 0.1,
+        referencePrice: 100.1,
+        orderType: "limit",
+        limitPrice: 100.1,
+        force: "fok",
+      },
+      baseConfig,
+    );
+
+    expect(plan.order).toMatchObject({
+      orderType: "limit",
+      price: "100.1",
+      force: "fok",
+    });
+    expect(plan.notionalUSDT).toBeCloseTo(10.01);
+  });
+
+  it("enforces the notional cap against the limit price", () => {
+    expect(() =>
+      buildFuturesOrderPlan(
+        {
+          symbol: "NVDAUSDT",
+          side: "open_long",
+          size: 0.2,
+          referencePrice: 100,
+          orderType: "limit",
+          limitPrice: 100.1,
+          force: "fok",
+        },
+        baseConfig,
+      ),
+    ).toThrow("exceeds cap");
   });
 
   it("attaches preset stop-loss/take-profit prices to an open order", () => {
@@ -219,6 +283,9 @@ describe("live stock broker", () => {
           baseUrlOverride: options?.env?.BITGET_API_BASE_URL,
           timeoutMs: options?.timeoutMs,
         });
+        if (args.includes("futures_get_positions")) {
+          return confirmedLongLeverage;
+        }
         return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
       },
     );
@@ -261,6 +328,9 @@ describe("live stock broker", () => {
       },
       async (_command, args) => {
         calls.push(args);
+        if (args.includes("futures_get_positions")) {
+          return confirmedLongLeverage;
+        }
         return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
       },
     );
@@ -319,6 +389,77 @@ describe("live stock broker", () => {
       "futures_get_positions",
     ]);
   });
+
+  it.each([
+    {
+      label: "positions read fails",
+      positions: {
+        exitCode: 1,
+        stdout: "",
+        stderr: "position endpoint unavailable",
+      },
+    },
+    {
+      label: "positions response is unparseable",
+      positions: { exitCode: 0, stdout: "not-json", stderr: "" },
+    },
+  ])(
+    "fails closed when post-submission leverage verification $label and retains the receipt",
+    async ({ positions }) => {
+      let failure: unknown;
+      try {
+        await placeFuturesOrder(
+          {
+            symbol: "AAPLUSDT",
+            side: "open_long",
+            size: 0.05,
+            referencePrice: 315.31,
+            clientOid: "client-leverage-unknown",
+          },
+          {
+            ...baseConfig,
+            mode: "live",
+            confirmLive: true,
+            env: {
+              BITGET_API_KEY: "live-key",
+              BITGET_SECRET_KEY: "live-secret",
+              BITGET_PASSPHRASE: "live-passphrase",
+            },
+          },
+          async (_command, args) => {
+            const tool = args[args.indexOf("futures") + 1];
+            if (tool === "futures_place_order") {
+              return {
+                exitCode: 0,
+                stdout:
+                  '{"code":"00000","data":{"clientOid":"client-leverage-unknown","orderId":"1452633152483852290"}}',
+                stderr: "",
+              };
+            }
+            if (tool === "futures_get_positions") return positions;
+            return { exitCode: 0, stdout: '{"code":"00000"}', stderr: "" };
+          },
+        );
+      } catch (error) {
+        failure = error;
+      }
+
+      expect(failure).toMatchObject({
+        name: "BrokerPostSubmissionError",
+        brokerResult: {
+          status: "submitted",
+          receipt: {
+            clientOid: "client-leverage-unknown",
+            orderId: "1452633152483852290",
+            status: "submitted",
+          },
+        },
+      });
+      expect((failure as Error).message).toContain(
+        "post-submission leverage verification failed",
+      );
+    },
+  );
 
   it("self-heals when the exchange opens the position at the wrong leverage", async () => {
     const calls: string[][] = [];
@@ -540,6 +681,9 @@ describe("live stock broker", () => {
               '{"code":"00000","data":{"orderId":"1452633152483852289","status":"filled","priceAvg":"64200.5","baseVolume":"0.0001"}}',
             stderr: "",
           };
+        }
+        if (tool === "futures_get_positions") {
+          return confirmedLongLeverage;
         }
         return {
           exitCode: 0,

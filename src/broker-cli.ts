@@ -1,21 +1,16 @@
 import { appendFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaPassports, buildDefaultQuorumDecision } from "./arena-demo";
-import { ARENA_MANDATE_TEXT } from "./arenaScenario";
-import { compileMandate } from "./mandate";
+import { ARENA_DEFAULT_BRACKET_PCT } from "./arenaScenario";
 import {
+  computeBracketPrices,
   extractOrderId,
   placeFuturesOrder,
   type BrokerMode,
   type FuturesSide,
 } from "./liveStockBroker";
 import { readFuturesAvailable } from "./broker-balance";
-
-// Reuse the constitution's own overnight-loss cap as the default bracket
-// distance, rather than invent a separate risk number: the desk already
-// claims to enforce this limit, so the stop-loss should actually be it.
-const CONSTITUTION_OVERNIGHT_LOSS_PCT =
-  compileMandate(ARENA_MANDATE_TEXT).riskConfig.drawdownHaltPct;
+import type { QuorumDecision } from "./quorum";
 
 export interface BrokerCliArgs {
   mode: BrokerMode;
@@ -28,6 +23,16 @@ export interface BrokerCliArgs {
   out: string;
   stopLossPct: number | null;
   takeProfitPct: number | null;
+}
+
+export function resolveBrokerSide(
+  requestedSide: FuturesSide | undefined,
+  winningVote: QuorumDecision["winningVote"],
+): FuturesSide {
+  if (requestedSide !== undefined) return requestedSide;
+  if (winningVote === "short") return "open_short";
+  if (winningVote === "long") return "open_long";
+  throw new Error("flat quorum decision requires explicit --side");
 }
 
 function valueAfter(argv: string[], index: number, flag: string): string {
@@ -191,9 +196,9 @@ export function parseBrokerCliArgs(
   // own constitution (never lose >1.5% overnight) rather than a fresh
   // number, so a position can never be opened unprotected by accident.
   // --stop-loss-pct 0 / --take-profit-pct 0 explicitly opts out.
-  const resolvedStopLossPct = stopLossPct ?? CONSTITUTION_OVERNIGHT_LOSS_PCT;
+  const resolvedStopLossPct = stopLossPct ?? ARENA_DEFAULT_BRACKET_PCT;
   const resolvedTakeProfitPct =
-    takeProfitPct ?? CONSTITUTION_OVERNIGHT_LOSS_PCT;
+    takeProfitPct ?? ARENA_DEFAULT_BRACKET_PCT;
 
   return {
     mode,
@@ -214,9 +219,7 @@ export async function runBrokerCli(): Promise<void> {
   const passports = buildArenaPassports();
   const passport = passports[0];
   const decision = buildDefaultQuorumDecision(args.symbol);
-  const side =
-    args.side ??
-    (decision.winningVote === "short" ? "open_short" : "open_long");
+  const side = resolveBrokerSide(args.side, decision.winningVote);
   // Submit exactly the requested --size. The Quorum decision sets the default
   // side and is recorded in the artifact for audit, but it must NOT silently
   // scale the size the operator typed: a low-consensus multiplier would shrink
@@ -226,18 +229,12 @@ export async function runBrokerCli(): Promise<void> {
   // account-balance change (read-only; skipped for dry-run, which makes no call).
   const balanceBefore =
     args.mode === "dry_run" ? null : await readFuturesAvailable(args.mode);
-  const isOpen = side === "open_long" || side === "open_short";
-  const isLong = side === "open_long";
-  const stopLossPrice =
-    isOpen && args.stopLossPct !== null
-      ? args.referencePrice *
-        (isLong ? 1 - args.stopLossPct : 1 + args.stopLossPct)
-      : undefined;
-  const takeProfitPrice =
-    isOpen && args.takeProfitPct !== null
-      ? args.referencePrice *
-        (isLong ? 1 + args.takeProfitPct : 1 - args.takeProfitPct)
-      : undefined;
+  const { stopLossPrice, takeProfitPrice } = computeBracketPrices(
+    side,
+    args.referencePrice,
+    args.stopLossPct,
+    args.takeProfitPct,
+  );
   const result = await placeFuturesOrder(
     {
       symbol: args.symbol,

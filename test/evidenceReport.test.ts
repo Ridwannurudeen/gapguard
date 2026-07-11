@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import {
   PRODUCT_SENTENCE,
   buildEvidenceReport,
+  buildLiveStockRoundTripFromRows,
   checkEvidenceArtifacts,
   metricsMarkdown,
 } from "../src/evidenceReport";
@@ -58,6 +59,53 @@ describe("evidenceReport", () => {
     const markdown = metricsMarkdown(report);
     expect(markdown).toContain("Live round-trip");
     expect(markdown).toContain(report.liveStockRoundTrip!.openOrderId);
+  });
+
+  it("does not manufacture a round trip from unfilled or mismatched autonomous rows", () => {
+    const rows = [
+      {
+        ts: "2026-07-10T00:00:00.000Z",
+        mode: "live",
+        symbol: "AAPLUSDT",
+        side: "open_long",
+        size: 0.05,
+        referencePrice: 100,
+        orderId: "open-filled",
+        receipt: { status: "filled", avgFillPrice: 100 },
+      },
+      {
+        ts: "2026-07-10T00:01:00.000Z",
+        mode: "live",
+        symbol: "AAPLUSDT",
+        side: "close_short",
+        size: 0.05,
+        referencePrice: 101,
+        orderId: "wrong-direction",
+        receipt: { status: "filled", avgFillPrice: 101 },
+      },
+      {
+        ts: "2026-07-10T00:02:00.000Z",
+        mode: "live",
+        symbol: "AAPLUSDT",
+        side: "close_long",
+        size: 0.04,
+        referencePrice: 101,
+        orderId: "wrong-size",
+        receipt: { status: "filled", avgFillPrice: 101 },
+      },
+      {
+        ts: "2026-07-10T00:03:00.000Z",
+        mode: "live",
+        symbol: "AAPLUSDT",
+        side: "close_long",
+        size: 0.05,
+        referencePrice: 101,
+        orderId: "not-filled",
+        receipt: { status: "submitted", avgFillPrice: null },
+      },
+    ];
+
+    expect(buildLiveStockRoundTripFromRows(rows)).toBeNull();
   });
 
   it("accepts committed evidence blocks regardless of CRLF checkout style", () => {

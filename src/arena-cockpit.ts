@@ -1,12 +1,14 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { buildArenaDemo, type ArenaDemoArtifact } from "./arena-demo";
-import { attestChain, verifyAttestation, writeArenaChain } from "./arena-chain";
 import {
-  DEFAULT_PUBLIC_KEY_FILE,
-  loadArenaSigningKey,
-  readArenaPublicKey,
-} from "./arenaSigning";
+  replaceAttestedArenaRecords,
+  sealArenaRecords,
+  verifyArenaRecords,
+  type ArenaRecord,
+  type ArenaRecordInput,
+} from "./arena-chain";
+import { DEFAULT_PUBLIC_KEY_FILE } from "./arenaSigning";
 import type { AgentPassport } from "./agentArena";
 import { buildCatalystBundle } from "./catalystBundle";
 import { loadGateVerdicts } from "./gateVerdicts";
@@ -46,7 +48,7 @@ export interface ArenaCockpitData {
     paperOnlyAgents: number;
     rejectedAgents: number;
     paperEvidence: "proven" | "missing";
-    liveStatus: "disabled_alpha_unproven" | "gated";
+    liveStatus: "disabled_alpha_unproven" | "default_off";
   };
   perception: ArenaDemoArtifact["perception"];
   evidence: ArenaDemoArtifact["evidence"];
@@ -54,8 +56,8 @@ export interface ArenaCockpitData {
   quorum: QuorumDecision;
   debate: DeskOpinion[];
   broker: {
-    dryRunOrder: BgcFuturesOrder;
-    dryRunNotionalUSDT: number;
+    dryRunOrder: BgcFuturesOrder | null;
+    dryRunNotionalUSDT: number | null;
     paperTrade: PaperTradeEvidence | null;
     liveGate: string[];
   };
@@ -172,7 +174,12 @@ export function readGapGuardProof(path: string): GapGuardProofSummary | null {
   ) {
     return null;
   }
-  return { ok: actual.ok, count: actual.count, finalHash: actual.finalHash, proofScope };
+  return {
+    ok: actual.ok,
+    count: actual.count,
+    finalHash: actual.finalHash,
+    proofScope,
+  };
 }
 
 export function readRwaMarketReport(path: string): RwaMarketReport | null {
@@ -208,7 +215,7 @@ export function buildArenaCockpitData(
       paperEvidence: paperTrade ? "proven" : "missing",
       liveStatus:
         artifact.evidence.backtest.alphaStatus === "positive"
-          ? "gated"
+          ? "default_off"
           : "disabled_alpha_unproven",
     },
     perception: artifact.perception,
@@ -217,16 +224,19 @@ export function buildArenaCockpitData(
     quorum: artifact.quorumDecision,
     debate: artifact.quorumDecision.opinions,
     broker: {
-      dryRunOrder: artifact.graduationDryRun.plan.order,
-      dryRunNotionalUSDT: artifact.graduationDryRun.plan.notionalUSDT,
+      dryRunOrder: artifact.graduationDryRun?.plan.order ?? null,
+      dryRunNotionalUSDT: artifact.graduationDryRun?.plan.notionalUSDT ?? null,
       paperTrade,
       liveGate: [
         "LICENSED passport",
-        "explicit --confirm-live",
-        "isolated margin",
-        "1x leverage",
-        "notional cap <= 20 USDT",
-        "manual approval before real funds",
+        "AUTO_TRADE_ENABLED=true",
+        "entry kill-switch file absent",
+        "default daily open cap: 3 per UTC day",
+        "default daily realized-trade-PnL stop: 0.30 USDT including USDT fees",
+        "no pending order or open position",
+        "isolated margin and 1x leverage",
+        "sub-25bps book and fill-or-kill limit at the executable quote",
+        "default 20 USDT pre-submit ceiling and 20% equity x Quorum risk budget",
       ],
     },
     rwaMarket,
@@ -241,6 +251,48 @@ export function buildArenaCockpitData(
   };
 }
 
+function arenaRecordInput(record: ArenaRecord): ArenaRecordInput {
+  return {
+    ts: record.ts,
+    kind: record.kind,
+    agentId: record.agentId,
+    payload: record.payload,
+  };
+}
+
+function isLiveBrokerRecord(record: ArenaRecord): boolean {
+  if (record.kind !== "broker_order") return false;
+  const payload = asRecord(record.payload);
+  return payload.mode === "live" || payload.label === "LIVE_RWA_ROUND_TRIP";
+}
+
+export function mergeArenaDemoWithLiveBrokerRecords(
+  demoRecords: ArenaRecord[],
+  existingRecords: ArenaRecord[],
+): ArenaRecord[] {
+  const existingCheck = verifyArenaRecords(existingRecords);
+  if (existingRecords.length > 0 && !existingCheck.ok) {
+    throw new Error(
+      `existing Arena chain verification failed: ${existingCheck.errors.join("; ")}`,
+    );
+  }
+  const inputs = [
+    ...existingRecords.filter(isLiveBrokerRecord).map(arenaRecordInput),
+    ...demoRecords.map(arenaRecordInput),
+  ].map((input, index) => {
+    const timestamp = Date.parse(input.ts);
+    if (!Number.isFinite(timestamp)) {
+      throw new Error(`Arena record ${index + 1} has an invalid timestamp`);
+    }
+    return { input, index, timestamp };
+  });
+  inputs.sort(
+    (left, right) =>
+      left.timestamp - right.timestamp || left.index - right.index,
+  );
+  return sealArenaRecords(inputs.map(({ input }) => input));
+}
+
 export async function runArenaCockpitCli(): Promise<void> {
   const paperPath = resolve(
     process.argv[2] ?? "artifacts/paper-btc-smoke.jsonl",
@@ -253,35 +305,36 @@ export async function runArenaCockpitCli(): Promise<void> {
   );
   const attestOut = resolve(process.argv[6] ?? "public/arena-attestation.json");
   const publicKeyPath = resolve(process.argv[7] ?? DEFAULT_PUBLIC_KEY_FILE);
-  const signingKey = loadArenaSigningKey();
-  if (!signingKey) {
-    throw new Error(
-      "Arena attestation requires ARENA_SIGNING_KEY or .arena-signing-key.pem; run npm run arena:keygen first",
-    );
-  }
-  const publicKey = readArenaPublicKey(publicKeyPath);
-  const artifact = await buildArenaDemo();
-  writeArenaChain(chainOut, artifact.arenaChain.records);
-
-  const attestation = attestChain(artifact.arenaChain.records, {
-    signedAt: new Date().toISOString(),
-    model: "Qwen catalyst gate + deterministic Quorum",
-    privateKey: signingKey,
-  });
-  mkdirSync(dirname(attestOut), { recursive: true });
-  writeFileSync(attestOut, `${JSON.stringify(attestation, null, 2)}\n`);
-  const attestationCheck = verifyAttestation(
-    artifact.arenaChain.records,
-    attestation,
-    { publicKey },
+  const baseArtifact = await buildArenaDemo();
+  const published = replaceAttestedArenaRecords(
+    (existingRecords) =>
+      mergeArenaDemoWithLiveBrokerRecords(
+        baseArtifact.arenaChain.records,
+        existingRecords,
+      ).map(arenaRecordInput),
+    {
+      chainPath: chainOut,
+      attestationPath: attestOut,
+      publicKeyPath,
+      lockPath: resolve(
+        process.env.AUTO_TRADE_ARENA_LOCK_PATH ?? "state/arena-chain.lock",
+      ),
+      env: process.env,
+      model: "Qwen catalyst gate + deterministic Quorum",
+    },
   );
-  if (!attestationCheck.ok) {
-    throw new Error(
-      `Arena attestation failed verification against ${publicKeyPath}`,
-    );
-  }
+  const publishedRecords = published.records;
+  const artifact: ArenaDemoArtifact = {
+    ...baseArtifact,
+    arenaChain: {
+      ...baseArtifact.arenaChain,
+      verification: verifyArenaRecords(publishedRecords),
+      records: publishedRecords,
+    },
+  };
+  const attestation = published.attestation;
   console.log(
-    `Arena attestation (Ed25519 over Merkle root ${attestation.merkleRoot.slice(0, 12)}…): ${attestOut} — self-verify ${attestationCheck.ok ? "OK" : "FAILED"}`,
+    `Arena attestation (Ed25519 over Merkle root ${attestation.merkleRoot.slice(0, 12)}…): ${attestOut} — self-verify OK`,
   );
 
   const data = buildArenaCockpitData(

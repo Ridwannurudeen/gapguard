@@ -176,29 +176,53 @@ function readJsonlRows(path: string): UnknownRecord[] {
     .map((line) => asRecord(JSON.parse(line) as unknown));
 }
 
-/**
- * Builds the live round-trip evidence row from artifacts/live-trades.jsonl,
- * pairing the most recent open with the most recent matching close (by
- * symbol) so the README claim can never drift ahead of what actually
- * cleared on the exchange.
- */
-function buildLiveStockRoundTrip(): EvidenceReport["liveStockRoundTrip"] {
-  const rows = readJsonlRows("artifacts/live-trades.jsonl").filter(
-    (row) => row.mode === "live",
+function isFilledLiveOrder(row: UnknownRecord): boolean {
+  const receipt = asRecord(row.receipt);
+  const side = row.side;
+  const size = row.size;
+  const timestamp = typeof row.ts === "string" ? Date.parse(row.ts) : NaN;
+  return (
+    row.mode === "live" &&
+    receipt.status === "filled" &&
+    typeof row.orderId === "string" &&
+    row.orderId.length > 0 &&
+    typeof side === "string" &&
+    (side === "open_long" ||
+      side === "open_short" ||
+      side === "close_long" ||
+      side === "close_short") &&
+    typeof size === "number" &&
+    Number.isFinite(size) &&
+    size > 0 &&
+    Number.isFinite(timestamp)
   );
+}
+
+function isMatchingOpen(open: UnknownRecord, close: UnknownRecord): boolean {
+  const expectedOpenSide =
+    close.side === "close_long" ? "open_long" : "open_short";
+  return (
+    open.symbol === close.symbol &&
+    open.side === expectedOpenSide &&
+    open.size === close.size &&
+    Date.parse(String(open.ts)) < Date.parse(String(close.ts))
+  );
+}
+
+/**
+ * Pairs only proven filled rows with the same symbol, side, and size. This
+ * prevents an unrelated autonomous attempt from being reported as a closed
+ * round trip merely because it appears later in the shared journal.
+ */
+export function buildLiveStockRoundTripFromRows(
+  values: unknown[],
+): EvidenceReport["liveStockRoundTrip"] {
+  const rows = values.map(asRecord).filter(isFilledLiveOrder);
   const close = [...rows]
     .reverse()
-    .find((row) => String(row.side).startsWith("close"));
+    .find((row) => row.side === "close_long" || row.side === "close_short");
   if (!close) return null;
-  const open = [...rows]
-    .reverse()
-    .find(
-      (row) =>
-        row.symbol === close.symbol &&
-        String(row.side).startsWith("open") &&
-        Number(row.ts ? Date.parse(String(row.ts)) : 0) <
-          Number(Date.parse(String(close.ts))),
-    );
+  const open = [...rows].reverse().find((row) => isMatchingOpen(row, close));
   if (!open) return null;
   const openReceipt = asRecord(open.receipt);
   const closeReceipt = asRecord(close.receipt);
@@ -221,6 +245,12 @@ function buildLiveStockRoundTrip(): EvidenceReport["liveStockRoundTrip"] {
     netCostUSDT: openDelta + closeDelta,
     label: "real live tokenized-stock fill, opened and closed on-exchange",
   };
+}
+
+function buildLiveStockRoundTrip(): EvidenceReport["liveStockRoundTrip"] {
+  return buildLiveStockRoundTripFromRows(
+    readJsonlRows("artifacts/live-trades.jsonl"),
+  );
 }
 
 function formatWindow(window: UnknownRecord): string {
@@ -321,7 +351,7 @@ export function buildEvidenceReport(generatedAt?: string): EvidenceReport {
     generatedAt: reportGeneratedAt,
     productSentence: PRODUCT_SENTENCE,
     boundary:
-      "Cryptographic integrity proof, not regulatory certification. Approval-gated live path; current stock evidence is backtest/paper.",
+      "Cryptographic integrity proof, not regulatory certification. Autonomous live execution exists but defaults off and requires VPS-side arming; the evidence set contains one historical live AAPLUSDT round-trip, while strategy results remain backtest/paper evidence.",
     metrics: {
       aaplAlwaysFade: metricSummary({
         source: "artifacts/aaplusdt-backtest.json",

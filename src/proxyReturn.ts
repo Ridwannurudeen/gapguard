@@ -61,7 +61,7 @@ export interface OffHoursLiquiditySignal {
 }
 
 const clamp01 = (x: number): number => Math.min(1, Math.max(0, x));
-const WIDE_SPREAD_BPS = 25;
+export const WIDE_SPREAD_BPS = 25;
 const TIGHT_SPREAD_BPS = 10;
 const THIN_VOLUME_RATIO = 0.25;
 const DEEP_VOLUME_RATIO = 2;
@@ -80,7 +80,9 @@ function assertPointInTime(asOf: string, decisionTimestamp?: string): void {
     parseTimestamp(asOf, "asOf") >
     parseTimestamp(decisionTimestamp, "decisionTimestamp")
   ) {
-    throw new Error(`liquidity asOf ${asOf} is after decision ${decisionTimestamp}`);
+    throw new Error(
+      `liquidity asOf ${asOf} is after decision ${decisionTimestamp}`,
+    );
   }
 }
 

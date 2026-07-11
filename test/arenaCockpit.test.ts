@@ -1,13 +1,60 @@
 import { describe, expect, it } from "vitest";
 import {
   buildArenaCockpitData,
+  mergeArenaDemoWithLiveBrokerRecords,
   parsePaperTradeRow,
   type GapGuardProofSummary,
 } from "../src/arena-cockpit";
 import { buildArenaDemo } from "../src/arena-demo";
+import { sealArenaRecords, verifyArenaRecords } from "../src/arena-chain";
 import type { RwaMarketReport } from "../src/rwa-market";
 
 describe("arena cockpit data", () => {
+  it("preserves live broker receipts when rebuilding demo Arena records", () => {
+    const existing = sealArenaRecords([
+      {
+        ts: "2026-07-09T00:00:00.000Z",
+        kind: "broker_order",
+        agentId: "quorum",
+        payload: { mode: "dry_run", status: "dry_run" },
+      },
+      {
+        ts: "2026-07-10T00:00:00.000Z",
+        kind: "broker_order",
+        agentId: "quorum",
+        payload: { mode: "live", trigger: "auto", status: "filled" },
+      },
+      {
+        ts: "2026-07-10T01:00:00.000Z",
+        kind: "broker_order",
+        agentId: "quorum",
+        payload: { label: "LIVE_RWA_ROUND_TRIP", open: {}, close: {} },
+      },
+    ]);
+    const demo = sealArenaRecords([
+      {
+        ts: "2026-07-11T00:00:00.000Z",
+        kind: "quorum_decision",
+        agentId: "quorum",
+        payload: { winningVote: "flat" },
+      },
+    ]);
+
+    const merged = mergeArenaDemoWithLiveBrokerRecords(demo, existing);
+
+    expect(verifyArenaRecords(merged).ok).toBe(true);
+    expect(merged.map((record) => record.kind)).toEqual([
+      "broker_order",
+      "broker_order",
+      "quorum_decision",
+    ]);
+    expect(merged.map((record) => record.payload)).toEqual([
+      { mode: "live", trigger: "auto", status: "filled" },
+      { label: "LIVE_RWA_ROUND_TRIP", open: {}, close: {} },
+      { winningVote: "flat" },
+    ]);
+  });
+
   it("parses the fresh paper-order artifact shape", () => {
     const parsed = parsePaperTradeRow({
       ts: "2026-06-21T16:50:57.674Z",
@@ -96,11 +143,14 @@ describe("arena cockpit data", () => {
     expect(data.status).toMatchObject({
       rejectedAgents: 1,
       paperEvidence: "missing",
-      liveStatus: "gated",
+      liveStatus: "default_off",
     });
-    expect(data.broker.dryRunOrder.symbol).toBe("NVDAUSDT");
-    expect(data.broker.dryRunOrder.size).toBe("0.03");
-    expect(data.broker.liveGate).toContain("explicit --confirm-live");
+    expect(data.broker.dryRunOrder).toBeNull();
+    expect(data.broker.dryRunNotionalUSDT).toBeNull();
+    expect(data.broker.liveGate).toContain("AUTO_TRADE_ENABLED=true");
+    expect(data.broker.liveGate).toContain(
+      "default daily realized-trade-PnL stop: 0.30 USDT including USDT fees",
+    );
     expect(data.rwaMarket).toBe(rwaMarket);
     expect(data.gapguardProof).toBe(proof);
   });

@@ -121,8 +121,8 @@ function licensedBlockers(candidate: AgentCandidate): string[] {
   }
   if (!controls.riskGovernor) blockers.push("missing risk governor");
   if (!controls.adversarialReview) blockers.push("missing adversarial review");
-  if (!controls.confirmLive) blockers.push("missing human live confirmation");
-  if (!controls.killSwitch) blockers.push("missing flatten kill-switch");
+  if (!controls.confirmLive) blockers.push("missing explicit live authorization");
+  if (!controls.killSwitch) blockers.push("missing entry kill-switch");
   if (!controls.isolatedMargin) blockers.push("margin mode is not isolated");
   if (
     controls.liveNotionalCapUSDT <= 0 ||
@@ -152,7 +152,7 @@ function paperOnlyBlockers(candidate: AgentCandidate): string[] {
     blockers.push(`rule violations present${detail}`);
   }
   if (!controls.riskGovernor) blockers.push("missing risk governor");
-  if (!controls.confirmLive) blockers.push("missing human live confirmation");
+  if (!controls.confirmLive) blockers.push("missing explicit live authorization");
   if (
     controls.liveNotionalCapUSDT <= 0 ||
     controls.liveNotionalCapUSDT > LIVE_NOTIONAL_CEILING_USDT
@@ -203,7 +203,7 @@ export function issuePassport(candidate: AgentCandidate): AgentPassport {
     findings:
       grade === "LICENSED"
         ? [
-            "approval-gated for one capped supervised path; current stock evidence is backtest/paper",
+            "default-off capped execution path; autonomous live mode requires VPS-side arming and reconciled risk gates",
           ]
         : licensedFindings,
   };

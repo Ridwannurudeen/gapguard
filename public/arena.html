@@ -1048,7 +1048,7 @@
             <article class="thesis">
               <div class="eyebrow">3 / Prove</div>
               <h3>Every action hashes forward</h3>
-              <p>Mandates, decisions, breaches, passports, and dry-run orders verify.</p>
+              <p>Mandates, decisions, breaches, passports, and broker outcomes verify.</p>
             </article>
           </div>
 
@@ -1120,9 +1120,9 @@
             <div id="licensedDisplay" class="display num">0/0</div>
           </div>
           <p class="muted">
-            Quorum has positive pilot OOS evidence and three Demo paper fills,
-            but any real RWA stock order remains approval-gated. Current stock
-            evidence is backtest/paper.
+            Quorum has positive pilot OOS evidence, three Demo paper fills, and
+            one historical live AAPLUSDT round-trip. Autonomous entry exists but
+            defaults OFF and requires VPS-side arming plus reconciled risk gates.
           </p>
         </div>
         <div class="stat">
@@ -1143,7 +1143,7 @@
         <div class="panel-head">
           <div>
             <div class="eyebrow">Four-step product loop</div>
-            <h2>Simulate - Arena - Dry-run - Prove</h2>
+            <h2>Simulate - Arena - Gate - Prove</h2>
           </div>
           <span class="tag info">offline first</span>
         </div>
@@ -1224,16 +1224,16 @@
       {
         "generatedAt": "pending",
         "arena": {
-          "thesis": "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the approval gate.",
+          "thesis": "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the capital-license gate.",
           "liveInstrument": "NVDAUSDT",
-          "graduationStatus": "positive_pilot_waiting_paper_fill"
+          "graduationStatus": "autonomous_default_off"
         },
         "status": {
           "licensedAgents": 0,
           "paperOnlyAgents": 1,
           "rejectedAgents": 1,
           "paperEvidence": "missing",
-          "liveStatus": "gated"
+          "liveStatus": "default_off"
         },
         "leaderboard": [],
         "quorum": {
@@ -1247,19 +1247,10 @@
         },
         "debate": [],
         "broker": {
-          "dryRunOrder": {
-            "symbol": "NVDAUSDT",
-            "productType": "USDT-FUTURES",
-            "marginMode": "isolated",
-            "marginCoin": "USDT",
-            "size": "0.03",
-            "side": "buy",
-            "tradeSide": "open",
-            "orderType": "market"
-          },
-          "dryRunNotionalUSDT": 6.2886,
+          "dryRunOrder": null,
+          "dryRunNotionalUSDT": null,
           "paperTrade": null,
-          "liveGate": ["explicit approval before real funds", "no live stock fill in this artifact"]
+          "liveGate": ["AUTO_TRADE_ENABLED=true", "entry kill-switch file absent", "daily trade and realized-fill-PnL caps", "no pending order or open position", "isolated margin and 1x leverage", "per-order and 20% equity caps"]
         },
         "rwaMarket": null,
         "arenaChain": {
@@ -1326,19 +1317,19 @@
         return String(value)
           .replace(
             "Adversarial desk that trades RWA narrative-vs-positioning divergence only after earned consensus.",
-            "Adversarial desk that evaluates RWA narrative-vs-positioning divergence before a capped dry-run can graduate.",
+            "Adversarial desk that evaluates RWA narrative-vs-positioning divergence before a capped order can graduate.",
           )
           .replace(
             "licensed for one capped supervised " + "fill",
-            "licensed for one capped dry-run scenario; live RWA fill requires explicit approval",
+            "default-off capped execution path; autonomous live mode requires VPS-side arming and reconciled risk gates",
           )
           .replace(
             "RWA stock-perp attention is evaluated against the live ticker row before any trade is sized.",
-            "RWA stock-perp attention is evaluated against the read-only ticker row before any dry-run is sized.",
+            "RWA stock-perp attention is evaluated against the read-only ticker row before any order is sized.",
           )
           .replace(
             "Public RWA contract data is normal and usable inside the supervised live cap.",
-            "Public RWA contract data is normal for the read-only market check; live orders remain gated.",
+            "Public RWA contract data is normal for the read-only market check; live entry still requires every autonomous gate.",
           )
           .replace(
             "Bitget contracts/tickers: NVDAUSDT isRwa=YES, status=normal, liveReady=true",
@@ -1369,6 +1360,7 @@
       }
 
       function orderSummary(order) {
+        if (!order) return "no actionable signal; no order plan";
         return `${order.symbol} ${order.side}/${order.tradeSide} ${order.size} ${order.marginCoin} ${order.marginMode}`;
       }
 
@@ -1427,7 +1419,7 @@
         const paperOnly = firstAgentByGrade(data, "PAPER_ONLY");
         const rejected = firstAgentByGrade(data, "REJECTED");
         const items = [
-          `APPROVAL-GATED ${data.status.licensedAgents}`,
+          `AUTONOMOUS DEFAULT OFF · LICENSED ${data.status.licensedAgents}`,
           `PAPER ONLY ${data.status.paperOnlyAgents ?? 0}`,
           `REJECTED ${data.status.rejectedAgents}`,
           licensed
@@ -1439,7 +1431,7 @@
             ? `${rejected.name.toUpperCase()} BREACHES ${rejected.evidence.mandateBreaches.length}`
             : "NAIVE WAITING",
           `DETERMINISTIC QUORUM ${data.quorum.symbol} ${data.quorum.winningVote} ${pct(data.quorum.consensusScore)} x${data.quorum.positionMultiplier}`,
-          `RWA DRY-RUN ${orderSummary(data.broker.dryRunOrder)}`,
+          `RWA SIGNAL ${orderSummary(data.broker.dryRunOrder)}`,
           marketRow
             ? `READ-ONLY RWA ${marketRow.symbol} ${marketRow.symbolStatus.toUpperCase()} SPREAD ${bps(marketRow.spreadBps)} MIN ${unit(marketRow.suggestedMinSize)}`
             : "RWA CHECK NOT LOADED",
@@ -1538,14 +1530,18 @@
             label: "Arena",
             value: data.status.paperOnlyAgents
               ? `${data.status.paperOnlyAgents} paper-only`
-              : `${data.status.licensedAgents} approval-gated`,
+              : `${data.status.licensedAgents} licensed · autonomous default off`,
             body: `Deterministic Quorum scenario: ${boundaryCopy(data.quorum.rationale)}`,
           },
           {
             label: "Broker",
-            value: paper ? `crypto paper ${paper.status}` : "RWA dry-run ready",
+            value: paper
+              ? `crypto paper ${paper.status}`
+              : data.broker.dryRunOrder
+                ? "RWA dry-run ready"
+                : "Quorum abstained",
             body: paper
-              ? `${paper.symbol} Demo order ${paper.orderId}; no RWA stock fill`
+              ? `${paper.symbol} Demo order ${paper.orderId}; historical live RWA receipt is tracked separately`
               : `${orderSummary(data.broker.dryRunOrder)}; simulated/no exchange order`,
           },
           {
@@ -1674,7 +1670,7 @@
         const paper = data.broker.paperTrade;
         const marketRow = defaultMarketRow(data);
         const paperLine = paper
-          ? `${paper.symbol} Demo order ${paper.orderId} | balance ${money(paper.balanceBefore)} -> ${money(paper.balanceAfter)} | delta ${money(paper.balanceDelta)} | not an RWA stock fill`
+          ? `${paper.symbol} Demo order ${paper.orderId} | balance ${money(paper.balanceBefore)} -> ${money(paper.balanceAfter)} | delta ${money(paper.balanceDelta)} | Demo evidence`
           : "no crypto Demo paper artifact loaded";
         const marketLine = marketRow
           ? ` | read-only min floor ${money(marketRow.minTradeUSDT)} -> suggested dry-run size ${unit(marketRow.suggestedMinSize)}`
@@ -1682,7 +1678,7 @@
         const steps = [
           {
             label: "RWA dry-run",
-            tag: "ready",
+            tag: data.broker.dryRunOrder ? "ready" : "abstained",
             body: `${orderSummary(data.broker.dryRunOrder)} | simulated/no exchange order | notional ${money(data.broker.dryRunNotionalUSDT)}${marketLine}`,
           },
           {
@@ -1693,7 +1689,7 @@
           {
             label: "Live RWA gate",
             tag: data.status.liveStatus,
-            body: `${data.broker.liveGate.join(" | ")} | no live stock fill in current artifact`,
+            body: `${data.broker.liveGate.join(" | ")} | autonomous entry defaults OFF; one historical live AAPLUSDT round-trip is recorded separately`,
           },
         ];
         document.getElementById("brokerRail").innerHTML = steps
@@ -1777,6 +1773,7 @@
       }
 
       function renderProof(data) {
+        const gateReturn = data.evidence?.backtest?.returnPct;
         const proofItems = [
           {
             label: "Arena artifact",
@@ -1785,13 +1782,21 @@
           },
           {
             label: "Qwen gate",
-            value: "+1.409%",
+            value:
+              typeof gateReturn === "number"
+                ? `${gateReturn >= 0 ? "+" : ""}${gateReturn.toFixed(3)}%`
+                : "missing",
             detail: "12/15 blinded; WWDC stood aside",
           },
           {
             label: "Crypto Demo paper",
             value: data.broker.paperTrade?.orderId ?? "missing",
             detail: data.broker.paperTrade?.ts ?? "paper artifact unavailable",
+          },
+          {
+            label: "Historical live RWA",
+            value: "AAPLUSDT open + close",
+            detail: "artifacts/live-trades.jsonl",
           },
           {
             label: "Read-only RWA market",

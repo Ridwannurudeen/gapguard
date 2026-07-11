@@ -4,7 +4,6 @@ import { type AgentPassport, issuePassport, rankPassports } from "./agentArena";
 import {
   sealArenaRecords,
   verifyArenaRecords,
-  writeArenaChain,
   type ArenaRecord,
   type ArenaRecordInput,
 } from "./arena-chain";
@@ -38,7 +37,7 @@ export interface ArenaDemoArtifact {
   quorumDecision: QuorumDecision;
   naiveDecision: ArenaAgentDecision;
   passports: AgentPassport[];
-  graduationDryRun: BrokerResult;
+  graduationDryRun: BrokerResult | null;
   arenaChain: {
     path: string;
     verification: ReturnType<typeof verifyArenaRecords>;
@@ -49,13 +48,17 @@ export interface ArenaDemoArtifact {
 function graduationStatus(
   passports: AgentPassport[],
   evidence: ArenaScenario["evidence"],
+  decision: QuorumDecision,
 ): string {
+  if (decision.winningVote === "flat" || decision.positionMultiplier === 0) {
+    return "abstained_no_actionable_signal";
+  }
   const quorum =
     passports.find((passport) => passport.agentId === "quorum-rwa-desk") ??
     passports[0];
 
   if (quorum?.grade === "LICENSED") {
-    return "licensed_waiting_explicit_approval";
+    return "licensed_autonomous_default_off";
   }
 
   if (evidence.backtest.alphaStatus === "positive") {
@@ -72,7 +75,7 @@ function graduationStatus(
 function sideFromQuorum(decision: ReturnType<typeof decideQuorum>) {
   if (decision.winningVote === "short") return "open_short";
   if (decision.winningVote === "long") return "open_long";
-  throw new Error("flat quorum decision has no order side");
+  return null;
 }
 
 function readRwaMarketForArena(): RwaMarketReport | null {
@@ -123,7 +126,7 @@ function buildArenaChainInputs(
   ts: string,
   scenario: ArenaScenario,
   passports: AgentPassport[],
-  graduationDryRun: BrokerResult,
+  graduationDryRun: BrokerResult | null,
 ): ArenaRecordInput[] {
   return [
     ...scenario.mandate.rules.map((rule) => ({
@@ -163,12 +166,16 @@ function buildArenaChainInputs(
       agentId: passport.agentId,
       payload: passport,
     })),
-    {
-      ts,
-      kind: "broker_order",
-      agentId: scenario.quorumAgentDecision.agentId,
-      payload: graduationDryRun,
-    },
+    ...(graduationDryRun
+      ? [
+          {
+            ts,
+            kind: "broker_order" as const,
+            agentId: scenario.quorumAgentDecision.agentId,
+            payload: graduationDryRun,
+          },
+        ]
+      : []),
   ];
 }
 
@@ -179,31 +186,34 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
     issuePassport(scenario.quorumCandidate),
     issuePassport(scenario.naiveCandidate),
   ]);
-  const orderSize = Number(
-    (riskBudgetOrderSize * scenario.quorumDecision.positionMultiplier).toFixed(
-      8,
-    ),
-  );
-  const graduationDryRun = await placeSimulatedFuturesOrder(
-    {
-      symbol: scenario.quorumDecision.symbol,
-      side: sideFromQuorum(scenario.quorumDecision),
-      size: orderSize,
-      referencePrice: scenario.referencePrice,
-    },
-    {
-      mode: "dry_run",
-      passport: passports[0],
-      maxNotionalUSDT: liveCap,
-      confirmLive: false,
-      marginMode: "isolated",
-      leverage: 1,
-    },
-    {
-      pricePath: scenario.pricePath,
-      ts,
-    },
-  );
+  const side = sideFromQuorum(scenario.quorumDecision);
+  const graduationDryRun = side
+    ? await placeSimulatedFuturesOrder(
+        {
+          symbol: scenario.quorumDecision.symbol,
+          side,
+          size: Number(
+            (
+              riskBudgetOrderSize *
+              scenario.quorumDecision.positionMultiplier
+            ).toFixed(8),
+          ),
+          referencePrice: scenario.referencePrice,
+        },
+        {
+          mode: "dry_run",
+          passport: passports[0],
+          maxNotionalUSDT: liveCap,
+          confirmLive: false,
+          marginMode: "isolated",
+          leverage: 1,
+        },
+        {
+          pricePath: scenario.pricePath,
+          ts,
+        },
+      )
+    : null;
   const records = sealArenaRecords(
     buildArenaChainInputs(ts, scenario, passports, graduationDryRun),
   );
@@ -213,9 +223,13 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
     generatedAt: ts,
     arena: {
       thesis:
-        "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the approval gate.",
-      liveInstrument: graduationDryRun.plan.order.symbol,
-      graduationStatus: graduationStatus(passports, scenario.evidence),
+        "GapGuard is an AI abstention and risk engine for tokenized US stocks; Quorum is the internal five-role deterministic adversarial desk and Agent Passport is the capital-license gate.",
+      liveInstrument: scenario.symbol,
+      graduationStatus: graduationStatus(
+        passports,
+        scenario.evidence,
+        scenario.quorumDecision,
+      ),
     },
     mandate: scenario.mandate,
     perception: scenario.perception,
@@ -234,13 +248,13 @@ export async function buildArenaDemo(): Promise<ArenaDemoArtifact> {
 
 export async function runArenaDemoCli(): Promise<void> {
   const out = resolve(process.argv[2] ?? "artifacts/agent-arena-demo.json");
-  const chainOut = resolve(process.argv[3] ?? "public/arena-chain.jsonl");
   const artifact = await buildArenaDemo();
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, `${JSON.stringify(artifact, null, 2)}\n`);
-  writeArenaChain(chainOut, artifact.arenaChain.records);
   console.log(`Agent Arena demo artifact: ${out}`);
-  console.log(`Agent Arena chain: ${chainOut}`);
+  console.log(
+    "Arena chain publication is owned by npm run arena:cockpit so live receipts and attestation stay intact",
+  );
 }
 
 if (process.argv[1]?.endsWith("arena-demo.ts")) {

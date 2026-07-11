@@ -10,12 +10,17 @@ export type FuturesSide =
   | "open_short"
   | "close_long"
   | "close_short";
+export type FuturesOrderType = "market" | "limit";
+export type FuturesTimeInForce = "gtc" | "post_only" | "fok" | "ioc";
 
 export interface FuturesOrderIntent {
   symbol: string;
   side: FuturesSide;
   size: number;
   referencePrice: number;
+  orderType?: FuturesOrderType;
+  limitPrice?: number;
+  force?: FuturesTimeInForce;
   clientOid?: string;
   stopLossPrice?: number;
   takeProfitPrice?: number;
@@ -44,7 +49,9 @@ export interface BgcFuturesOrder {
   side: "buy" | "sell";
   tradeSide: "open" | "close";
   clientOid: string;
-  orderType: "market";
+  orderType: FuturesOrderType;
+  price?: string;
+  force?: FuturesTimeInForce;
   presetStopLossPrice?: string;
   presetStopSurplusPrice?: string;
 }
@@ -104,6 +111,20 @@ export interface BrokerResult {
   leverageCheck?: LeverageCheck;
 }
 
+export class BrokerPostSubmissionError extends Error {
+  readonly brokerResult: BrokerResult;
+
+  constructor(
+    message: string,
+    brokerResult: BrokerResult,
+    options?: ErrorOptions,
+  ) {
+    super(message, options);
+    this.name = "BrokerPostSubmissionError";
+    this.brokerResult = brokerResult;
+  }
+}
+
 export type CommandRunner = (
   command: string,
   args: string[],
@@ -120,6 +141,32 @@ function assertFinitePositive(value: number, field: string): void {
   if (!Number.isFinite(value) || value <= 0) {
     throw new Error(`${field} must be a positive finite number`);
   }
+}
+
+export function computeBracketPrices(
+  side: FuturesSide,
+  referencePrice: number,
+  stopLossPct: number | null,
+  takeProfitPct: number | null,
+): { stopLossPrice?: number; takeProfitPrice?: number } {
+  const isOpen = side === "open_long" || side === "open_short";
+  if (!isOpen) return {};
+
+  const isLong = side === "open_long";
+  return {
+    ...(stopLossPct !== null
+      ? {
+          stopLossPrice:
+            referencePrice * (isLong ? 1 - stopLossPct : 1 + stopLossPct),
+        }
+      : {}),
+    ...(takeProfitPct !== null
+      ? {
+          takeProfitPrice:
+            referencePrice * (isLong ? 1 + takeProfitPct : 1 - takeProfitPct),
+        }
+      : {}),
+  };
 }
 
 function clientOid(symbol: string): string {
@@ -208,6 +255,15 @@ export function buildFuturesOrder(intent: FuturesOrderIntent): BgcFuturesOrder {
   if (!intent.symbol) throw new Error("symbol is required");
   const direction = intent.side.endsWith("long") ? "buy" : "sell";
   const tradeSide = intent.side.startsWith("open") ? "open" : "close";
+  const orderType = intent.orderType ?? "market";
+  if (orderType === "limit") {
+    if (intent.limitPrice === undefined) {
+      throw new Error("limitPrice is required for a limit order");
+    }
+    assertFinitePositive(intent.limitPrice, "limitPrice");
+  } else if (intent.limitPrice !== undefined || intent.force !== undefined) {
+    throw new Error("limitPrice and force are only valid for limit orders");
+  }
 
   if (tradeSide === "open") {
     validateBracket(
@@ -227,7 +283,13 @@ export function buildFuturesOrder(intent: FuturesOrderIntent): BgcFuturesOrder {
     side: direction,
     tradeSide,
     clientOid: intent.clientOid ?? clientOid(intent.symbol),
-    orderType: "market",
+    orderType,
+    ...(orderType === "limit"
+      ? {
+          price: String(intent.limitPrice),
+          force: intent.force ?? "gtc",
+        }
+      : {}),
     ...(tradeSide === "open" && intent.stopLossPrice !== undefined
       ? { presetStopLossPrice: intent.stopLossPrice.toString() }
       : {}),
@@ -242,7 +304,11 @@ export function buildFuturesOrderPlan(
   cfg: BrokerConfig,
 ): FuturesOrderPlan {
   const order = buildFuturesOrder(intent);
-  const notionalUSDT = intent.size * intent.referencePrice;
+  const notionalPrice =
+    intent.orderType === "limit"
+      ? (intent.limitPrice as number)
+      : intent.referencePrice;
+  const notionalUSDT = intent.size * notionalPrice;
 
   assertFinitePositive(cfg.maxNotionalUSDT, "maxNotionalUSDT");
   if (cfg.mode === "live") {
@@ -444,7 +510,7 @@ function buildOrderFillsArgs(
 }
 
 /**
- * Bitget applies the account's configured leverage to market orders — the
+ * Bitget applies the account's configured leverage to futures orders — the
  * order payload itself carries none. Without this call a live fill silently
  * uses whatever leverage the account last had (observed: 10x against a 1x
  * license), so the leverage must be set explicitly before every submission.
@@ -488,7 +554,7 @@ function buildGetPositionsArgs(plan: FuturesOrderPlan): string[] {
 
 /**
  * futures_set_leverage can report success while the leverage it actually
- * applies to the NEXT market order lags behind (observed live: set-leverage
+ * applies to the NEXT opening order lags behind (observed live: set-leverage
  * confirmed 1x, the order that followed immediately still opened at the
  * account's stale 10x; re-issuing set-leverage against the now-open position
  * fixed it instantly). So after opening a position, read the leverage the
@@ -710,19 +776,33 @@ export async function placeFuturesOrder(
     runner,
   );
 
-  const leverageCheck =
-    plan.order.tradeSide === "open"
-      ? await verifyAndHealLeverage(plan, cfg, childEnv, runner)
-      : undefined;
-
-  return {
+  const brokerResult: BrokerResult = {
     status: receipt.status,
     plan,
     receipt,
     stdout: result.stdout,
     stderr: result.stderr,
-    leverageCheck,
   };
+  if (
+    plan.order.tradeSide !== "open" ||
+    (receipt.status === "cancelled" && (receipt.executedQty ?? 0) === 0)
+  ) {
+    return brokerResult;
+  }
+
+  try {
+    return {
+      ...brokerResult,
+      leverageCheck: await verifyAndHealLeverage(plan, cfg, childEnv, runner),
+    };
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    throw new BrokerPostSubmissionError(
+      `post-submission leverage verification failed for ${plan.order.symbol}: ${detail}`,
+      brokerResult,
+      { cause: error },
+    );
+  }
 }
 
 /**
@@ -741,18 +821,27 @@ async function verifyAndHealLeverage(
   const holdSide = plan.order.side === "buy" ? "long" : "short";
   const requestedLeverage = cfg.leverage;
 
-  const readLeverage = async (): Promise<string | null> => {
+  const readLeverage = async (): Promise<string> => {
     const positions = await runner(plan.command, buildGetPositionsArgs(plan), {
       env: childEnv,
       timeoutMs: cfg.timeoutMs,
     });
-    return positions.exitCode === 0
-      ? parsePositionLeverage(positions.stdout, holdSide)
-      : null;
+    if (positions.exitCode !== 0) {
+      throw new Error(
+        `positions read failed (${positions.exitCode}): ${positions.stderr.slice(0, 240)}`,
+      );
+    }
+    const leverage = parsePositionLeverage(positions.stdout, holdSide);
+    if (leverage === null) {
+      throw new Error(
+        `positions response did not contain readable ${holdSide} leverage`,
+      );
+    }
+    return leverage;
   };
 
   const observed = await readLeverage();
-  if (observed === null || observed === String(requestedLeverage)) {
+  if (observed === String(requestedLeverage)) {
     return { requestedLeverage, observedLeverage: observed, corrected: false };
   }
 
