@@ -14,6 +14,8 @@ Bitget AI Base Camp Hackathon S1, Track 3: US Stock AI Trading.
 
 The consumer assistant ([`app.html`](https://gapguard.gudman.xyz/app.html)): plain-English off-hours gap calls scored against your own risk rules, with a one-tap handoff to your Bitget account. The browser assistant never receives exchange keys or places orders; the separate server-side autonomous runner can place a live order only when an operator explicitly arms it.
 
+**Autopilot Mission Control**, live on the [Arena cockpit](https://gapguard.gudman.xyz/arena.html) and [status page](https://gapguard.gudman.xyz/status.html): a sanitized `autopilot-status.json` feed — armed/disarmed state, kill-switch presence, cadence, last-run outcome, and daily trade/loss cap usage — published after every autonomous-trader run, so anyone can watch the live agent's operational state without trusting a claim. No keys, order IDs, or account balances are in the feed. All six public pages share one navigation system with a mobile menu, skip link, and WCAG AA contrast.
+
 ## Track 3 Submission
 
 Every required and supplementary material for Track 3 (US Stock AI Trading), mapped to where it lives. All links are public and require no login.
@@ -105,6 +107,7 @@ npm run arena:cockpit    # public cockpit data, chain, and attestation
 npm run rwa:check        # read-only public Bitget RWA market report
 npm run news:feed        # server-side Finnhub refresh -> public/news-feed.json
 npm run auto:trade:dryrun # autonomous scan + order plan; no private exchange call
+npm run auto:status:dryrun # publish a sanitized autopilot-status.json snapshot
 ```
 
 Optional live Qwen regeneration:
@@ -127,7 +130,9 @@ If the key tier lacks Finnhub's economic-calendar endpoint, the fetcher falls ba
 
 ## Important Files
 
-- [public/arena.html](public/arena.html) - judge cockpit with in-browser chain verification and tamper simulation.
+- [public/arena.html](public/arena.html) - judge cockpit with in-browser chain verification, tamper simulation, and the Autopilot Mission Control panel.
+- [public/arena-verifier.js](public/arena-verifier.js) - shared canonical-JSON / sha256 / Ed25519 verification module used by both the landing hero mini-cockpit and the Arena cockpit.
+- [public/autopilot-status.js](public/autopilot-status.js) and [public/autopilot-status.json](https://gapguard.gudman.xyz/autopilot-status.json) - client renderer and sanitized live feed for the autonomous trader's armed/disarmed state and daily caps.
 - [public/news.html](public/news.html) and [public/news-feed.json](public/news-feed.json) - static operational news surface and its server-generated feed.
 - [public/arena-chain.jsonl](public/arena-chain.jsonl) - Arena-native tamper-evident records.
 - [public/arena-attestation.json](public/arena-attestation.json) - Ed25519 attestation over the Arena Merkle root.
